@@ -10,6 +10,7 @@ L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
 const nodeLayer = L.layerGroup().addTo(map);
 const cellLayer = L.layerGroup().addTo(map);
 const simLayer  = L.layerGroup().addTo(map);
+const personalLayer = L.layerGroup().addTo(map);
 
 // ---------- Animated counter (requestAnimationFrame) ----------
 function animateCounter(el, to, { decimals = 0, suffix = "" } = {}) {
@@ -20,7 +21,7 @@ function animateCounter(el, to, { decimals = 0, suffix = "" } = {}) {
     const t = Math.min(1, (now - start) / dur);
     const eased = 1 - Math.pow(1 - t, 3);             // easeOutCubic
     const val = from + (to - from) * eased;
-    el.firstChild
+    el.childNodes[0]
       ? (el.childNodes[0].nodeValue = val.toLocaleString(undefined,
           { maximumFractionDigits: decimals }) )
       : (el.textContent = val.toFixed(decimals));
@@ -81,8 +82,8 @@ async function loadMatrix() {
     `Loaded ${data.nodes.length} services, ${data.cells.length} cells.`;
 }
 
-// ---------- Click → simulate ----------
-map.on("click", async (e) => {
+// ---------- Municipal: click → simulate ----------
+async function simulateAt(e) {
   const amenityType = document.getElementById("amenitySelect").value;
   const payload = {
     district: DISTRICT,
@@ -125,6 +126,133 @@ map.on("click", async (e) => {
 
   document.getElementById("status").textContent =
     `Intervention would save ${sim.annualWastedHoursSaved.toLocaleString()} hours/year.`;
+}
+
+// ---------- Personal: two-pin relocation compare ----------
+const pins = { current: null, prospective: null };
+let armedPin = "current";   // which pin the next map click drops
+
+function pinIcon(color) {
+  return L.divIcon({
+    className: "",
+    html: `<div style="width:18px;height:18px;border-radius:50% 50% 50% 0;
+      background:${color};transform:rotate(-45deg);border:2px solid #0b1020;
+      box-shadow:0 1px 4px rgba(0,0,0,.5)"></div>`,
+    iconSize: [18, 18],
+    iconAnchor: [9, 16],
+  });
+}
+const PIN_COLORS = { current: "#f43f5e", prospective: "#34d399" };
+
+function armPin(which) {
+  armedPin = which;
+  document.getElementById("pinCurrentBtn")
+    .classList.toggle("border-rose-500", which === "current");
+  document.getElementById("pinProspectiveBtn")
+    .classList.toggle("border-emerald-400", which === "prospective");
+}
+
+function placePin(which, latlng) {
+  if (pins[which]) personalLayer.removeLayer(pins[which]);
+  pins[which] = L.marker(latlng, { icon: pinIcon(PIN_COLORS[which]) }).addTo(personalLayer);
+  const label = which === "current" ? "Current" : "Prospective";
+  pins[which].bindPopup(`${label} residence`);
+  document.getElementById(which === "current" ? "pinCurrentReadout" : "pinProspectiveReadout")
+    .textContent = `${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`;
+}
+
+async function dropPersonalPin(e) {
+  placePin(armedPin, e.latlng);
+  // After placing current, auto-arm prospective for a smooth flow.
+  if (armedPin === "current" && !pins.prospective) armPin("prospective");
+  if (pins.current && pins.prospective) await runCompare();
+}
+
+async function runCompare() {
+  if (!pins.current || !pins.prospective) return;
+  const c = pins.current.getLatLng();
+  const p = pins.prospective.getLatLng();
+  const payload = {
+    currentLat: c.lat, currentLon: c.lng,
+    prospectiveLat: p.lat, prospectiveLon: p.lng,
+    householdProfile: {
+      hasChildren: document.getElementById("hasChildren").checked,
+      needsSeniorCare: document.getElementById("needsSeniorCare").checked,
+    },
+  };
+
+  document.getElementById("personalStatus").textContent = "Calculating your time-tax…";
+  const res = await fetch(`${API_BASE_URL}/personal-compare`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(payload),
+  });
+  const data = await res.json();
+
+  document.getElementById("comparePanel").classList.remove("hidden");
+  setText("currentWeekly", data.currentWeeklyHours, { decimals: 1 });
+  setText("prospectiveWeekly", data.prospectiveWeeklyHours, { decimals: 1 });
+
+  const shift = data.efficiencyShiftHours;
+  const badge = document.getElementById("efficiencyShift");
+  badge.classList.remove("text-emerald-400", "text-rose-500");
+  if (data.gain) {
+    badge.classList.add("text-emerald-400");
+    badge.textContent = `Time Efficiency Gain: +${shift.toFixed(1)} Hours Returned/Week`;
+  } else {
+    badge.classList.add("text-rose-500");
+    badge.textContent = `Time Efficiency Loss: ${shift.toFixed(1)} Hours/Week`;
+  }
+  document.getElementById("personalStatus").textContent =
+    `Compared against ${DISTRICT} services for your selected needs.`;
+}
+
+// ---------- Map click router (gated by mode) ----------
+let mode = null;
+map.on("click", (e) => {
+  if (mode === "municipal") simulateAt(e);
+  else if (mode === "personal") dropPersonalPin(e);
 });
 
-loadMatrix();
+// ---------- Mode switching ----------
+let matrixLoaded = false;
+const $ = (id) => document.getElementById(id);
+
+function show(el, visible) { el.classList.toggle("hidden", !visible); }
+
+function enterMunicipal() {
+  mode = "municipal";
+  show($("landing"), false);
+  show($("municipalPanel"), true);
+  show($("personalPanel"), false);
+  show($("amenityControl"), true);
+  personalLayer.clearLayers();
+  map.invalidateSize();
+  if (!matrixLoaded) { loadMatrix(); matrixLoaded = true; }
+}
+
+function enterPersonal() {
+  mode = "personal";
+  show($("landing"), false);
+  show($("municipalPanel"), false);
+  show($("personalPanel"), true);
+  show($("amenityControl"), false);
+  nodeLayer.clearLayers();
+  cellLayer.clearLayers();
+  simLayer.clearLayers();
+  armPin("current");
+  map.invalidateSize();
+}
+
+function goHome() {
+  mode = null;
+  show($("landing"), true);
+}
+
+$("enterMunicipal").addEventListener("click", enterMunicipal);
+$("enterPersonal").addEventListener("click", enterPersonal);
+$("goHomeBtn").addEventListener("click", goHome);
+$("pinCurrentBtn").addEventListener("click", () => armPin("current"));
+$("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
+$("hasChildren").addEventListener("change", runCompare);
+$("needsSeniorCare").addEventListener("change", runCompare);

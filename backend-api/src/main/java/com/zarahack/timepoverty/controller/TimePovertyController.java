@@ -26,4 +26,10 @@ public class TimePovertyController {
     public SimulationResponse simulate(@RequestBody SimulationRequest request) {
         return service.simulate(request);
     }
+
+    /** Compare personal weekly commute time-tax between current and prospective homes. */
+    @PostMapping("/personal-compare")
+    public PersonalCompareResponse personalCompare(@RequestBody PersonalCompareRequest request) {
+        return service.personalCompare(request);
+    }
 }

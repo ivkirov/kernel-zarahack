@@ -146,4 +146,63 @@ public class TimePovertyService {
         out.annualWastedHoursSaved = totalSaved;
         return out;
     }
+
+    // ---------- POST /personal-compare ----------
+
+    /** Weekly round-trip hours for one need: oneWay × 2 × (visits/yr ÷ 52 weeks) ÷ 60. */
+    private double weeklyHours(double oneWayMinutes, String group) {
+        double weeklyVisits = visitsFor(group) / 52.0;
+        return (oneWayMinutes * 2.0 * weeklyVisits) / 60.0;
+    }
+
+    private double appendBreakdown(List<PersonalCompareResponse.NeedBreakdown> sink,
+                                   String group, double lat, double lon,
+                                   List<InfrastructureNode> serving) {
+        double oneWay = nearestMinutes(lat, lon, serving);
+        double hours = weeklyHours(oneWay, group);
+        PersonalCompareResponse.NeedBreakdown b = new PersonalCompareResponse.NeedBreakdown();
+        b.group = group;
+        b.nearestMinutes = oneWay;
+        b.weeklyHours = hours;
+        sink.add(b);
+        return hours;
+    }
+
+    public PersonalCompareResponse personalCompare(PersonalCompareRequest req) {
+        // Single shared local DB / single pilot district → evaluate against all known nodes.
+        List<InfrastructureNode> nodes = nodeRepo.findAll();
+
+        boolean hasChildren = req.householdProfile != null && req.householdProfile.hasChildren;
+        boolean needsSenior = req.householdProfile != null && req.householdProfile.needsSeniorCare;
+
+        List<String> groups = new ArrayList<>();
+        if (hasChildren) groups.add("children_0_6");
+        if (needsSenior) groups.add("seniors_65p");
+        if (groups.isEmpty()) {            // no profile selected → evaluate both needs
+            groups.add("children_0_6");
+            groups.add("seniors_65p");
+        }
+
+        PersonalCompareResponse out = new PersonalCompareResponse();
+        out.currentBreakdown = new ArrayList<>();
+        out.prospectiveBreakdown = new ArrayList<>();
+
+        double current = 0.0, prospective = 0.0;
+        for (String group : groups) {
+            List<String> services = GROUP_SERVICES.getOrDefault(group, List.of());
+            List<InfrastructureNode> serving = nodes.stream()
+                .filter(n -> services.contains(n.getServiceType())).toList();
+
+            current += appendBreakdown(out.currentBreakdown, group,
+                req.currentLat, req.currentLon, serving);
+            prospective += appendBreakdown(out.prospectiveBreakdown, group,
+                req.prospectiveLat, req.prospectiveLon, serving);
+        }
+
+        out.currentWeeklyHours = current;
+        out.prospectiveWeeklyHours = prospective;
+        out.efficiencyShiftHours = current - prospective;   // positive ⇒ hours returned
+        out.gain = out.efficiencyShiftHours > 0;
+        return out;
+    }
 }

@@ -14,6 +14,51 @@
 </head>
 <body class="bg-base text-slate-100 font-sans h-screen overflow-hidden">
 
+  <!-- LANDING PORTAL: choose a mode -->
+  <div id="landing"
+    class="fixed inset-0 z-[2000] bg-slate-950 flex flex-col items-center justify-center px-6">
+    <div class="text-center mb-12">
+      <h1 class="text-4xl font-bold tracking-tight">The Time Poverty Matrix</h1>
+      <p class="text-sm text-muted mt-2">The Geography of Lost Time · Pazardzhik pilot</p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 max-w-4xl w-full">
+      <!-- Card A — Municipal -->
+      <button id="enterMunicipal"
+        class="group text-left rounded-2xl border border-edge bg-panel p-8 transition
+               hover:border-accent hover:-translate-y-1 hover:shadow-xl hover:shadow-accent/10
+               focus:outline-none focus:border-accent">
+        <div class="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M3.75 21h16.5M4.5 21V7.5L12 3l7.5 4.5V21M9 21v-4.5h6V21M9 9.75h.008v.008H9V9.75zm3 0h.008v.008H12V9.75zm3 0h.008v.008H15V9.75zM9 13.5h.008v.008H9V13.5zm3 0h.008v.008H12V13.5zm3 0h.008v.008H15V13.5z" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2 group-hover:text-accent transition">Municipal Infrastructure Optimization</h2>
+        <p class="text-sm text-muted leading-relaxed">Simulate civic facility placements, evaluate regional
+          time-loss metrics, and optimize resource allocations for whole districts.</p>
+      </button>
+
+      <!-- Card B — Personal -->
+      <button id="enterPersonal"
+        class="group text-left rounded-2xl border border-edge bg-panel p-8 transition
+               hover:border-emerald-400 hover:-translate-y-1 hover:shadow-xl hover:shadow-emerald-400/10
+               focus:outline-none focus:border-emerald-400">
+        <div class="w-12 h-12 rounded-xl bg-emerald-400/10 text-emerald-400 flex items-center justify-center mb-5">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor" stroke-width="1.6">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M2.25 12l8.954-8.955a1.5 1.5 0 012.122 0L21 12M4.5 9.75V21h5.25v-6h4.5v6H19.5V9.75" />
+          </svg>
+        </div>
+        <h2 class="text-xl font-bold mb-2 group-hover:text-emerald-400 transition">Personal Relocation Planner</h2>
+        <p class="text-sm text-muted leading-relaxed">Evaluate your personal commute tax. Compare your current
+          residence with a prospective neighborhood to calculate your personal time efficiency shift.</p>
+      </button>
+    </div>
+  </div>
+
   <div class="grid grid-cols-12 h-full">
 
     <!-- MAP -->
@@ -21,7 +66,7 @@
       <div id="map" class="absolute inset-0"></div>
 
       <!-- Floating control: amenity to simulate -->
-      <div class="absolute top-4 left-4 z-[1000] metric-card !p-3 flex items-center gap-3">
+      <div id="amenityControl" class="absolute top-4 left-4 z-[1000] metric-card !p-3 flex items-center gap-3 hidden">
         <span class="text-xs text-muted">Simulate placing:</span>
         <select id="amenitySelect"
           class="bg-base border border-edge rounded-lg px-3 py-1.5 text-sm">
@@ -36,42 +81,116 @@
 
     <!-- DASHBOARD -->
     <aside class="col-span-4 bg-base border-l border-edge p-6 overflow-y-auto space-y-5">
-      <header>
-        <h1 class="text-2xl font-bold">The Time Poverty Matrix</h1>
-        <p class="text-sm text-muted">The Geography of Lost Time · District:
-          <span id="districtName" class="text-accent font-semibold">Pazardzhik</span>
-        </p>
+
+      <header class="flex items-start justify-between gap-3">
+        <div>
+          <h1 class="text-2xl font-bold">The Time Poverty Matrix</h1>
+          <p class="text-sm text-muted">The Geography of Lost Time · District:
+            <span id="districtName" class="text-accent font-semibold">Pazardzhik</span>
+          </p>
+        </div>
+        <button id="goHomeBtn" title="Back to mode selection"
+          class="shrink-0 rounded-lg border border-edge px-2.5 py-1.5 text-xs text-muted
+                 hover:border-accent hover:text-accent transition">← Modes</button>
       </header>
 
-      <!-- Baseline systemic loss -->
-      <div class="metric-card">
-        <div id="systemicHours" class="metric-value text-warn">0</div>
-        <div class="metric-label">Annual Wasted Hours (baseline)</div>
-      </div>
-
-      <!-- Simulation ROI -->
-      <div class="metric-card border-good/40">
-        <div id="hoursSaved" class="metric-value text-good">0</div>
-        <div class="metric-label">Annual Hours Saved (this intervention)</div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
+      <!-- ===== MUNICIPAL PANEL ===== -->
+      <div id="municipalPanel" class="space-y-5">
+        <!-- Baseline systemic loss -->
         <div class="metric-card">
-          <div id="peopleImpacted" class="metric-value text-accent">0</div>
-          <div class="metric-label">People Impacted</div>
+          <div id="systemicHours" class="metric-value text-warn">0</div>
+          <div class="metric-label">Annual Wasted Hours (baseline)</div>
         </div>
+
+        <!-- Simulation ROI -->
+        <div class="metric-card border-good/40">
+          <div id="hoursSaved" class="metric-value text-good">0</div>
+          <div class="metric-label">Annual Hours Saved (this intervention)</div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="metric-card">
+            <div id="peopleImpacted" class="metric-value text-accent">0</div>
+            <div class="metric-label">People Impacted</div>
+          </div>
+          <div class="metric-card">
+            <div id="cellsImproved" class="metric-value">0</div>
+            <div class="metric-label">Neighborhoods Improved</div>
+          </div>
+        </div>
+
         <div class="metric-card">
-          <div id="cellsImproved" class="metric-value">0</div>
-          <div class="metric-label">Neighborhoods Improved</div>
+          <div id="avgMinutes" class="metric-value">0<span class="text-base text-muted"> min</span></div>
+          <div class="metric-label">Avg One-Way Time Saved / Trip</div>
         </div>
+
+        <p id="status" class="text-xs text-muted"></p>
       </div>
 
-      <div class="metric-card">
-        <div id="avgMinutes" class="metric-value">0<span class="text-base text-muted"> min</span></div>
-        <div class="metric-label">Avg One-Way Time Saved / Trip</div>
-      </div>
+      <!-- ===== PERSONAL PANEL ===== -->
+      <div id="personalPanel" class="space-y-5 hidden">
+        <div>
+          <h2 class="text-lg font-bold">Personal Relocation Planner</h2>
+          <p class="text-sm text-muted">Drop two pins on the map to compare your weekly commute time-tax.</p>
+        </div>
 
-      <p id="status" class="text-xs text-muted"></p>
+        <!-- Journey wizard -->
+        <div class="space-y-3">
+          <button id="pinCurrentBtn"
+            class="w-full text-left rounded-xl border border-edge bg-panel p-4 transition
+                   hover:border-rose-500 focus:outline-none">
+            <div class="flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></span>
+              <span class="font-semibold text-sm">1 · Current Residence</span>
+            </div>
+            <div id="pinCurrentReadout" class="text-xs text-muted mt-1 pl-6">Click to set, then click the map…</div>
+          </button>
+
+          <button id="pinProspectiveBtn"
+            class="w-full text-left rounded-xl border border-edge bg-panel p-4 transition
+                   hover:border-emerald-400 focus:outline-none">
+            <div class="flex items-center gap-3">
+              <span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span>
+              <span class="font-semibold text-sm">2 · Prospective Residence</span>
+            </div>
+            <div id="pinProspectiveReadout" class="text-xs text-muted mt-1 pl-6">Click to set, then click the map…</div>
+          </button>
+        </div>
+
+        <!-- Household profile -->
+        <div class="metric-card !p-4 space-y-2">
+          <div class="metric-label mb-1">Household needs</div>
+          <label class="flex items-center gap-2 text-sm cursor-pointer">
+            <input id="hasChildren" type="checkbox" checked class="accent-accent" />
+            Young children (kindergarten / school)
+          </label>
+          <label class="flex items-center gap-2 text-sm cursor-pointer">
+            <input id="needsSeniorCare" type="checkbox" class="accent-accent" />
+            Senior care (clinic / hospital / pharmacy)
+          </label>
+        </div>
+
+        <!-- Comparison HUD -->
+        <div id="comparePanel" class="space-y-4 hidden">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="metric-card border-rose-500/40">
+              <div id="currentWeekly" class="metric-value text-rose-500">0<span class="text-base text-muted"> h</span></div>
+              <div class="metric-label">Current Weekly Time-Tax</div>
+            </div>
+            <div class="metric-card border-emerald-400/40">
+              <div id="prospectiveWeekly" class="metric-value text-emerald-400">0<span class="text-base text-muted"> h</span></div>
+              <div class="metric-label">Prospective Weekly Time-Tax</div>
+            </div>
+          </div>
+
+          <div class="metric-card text-center">
+            <div id="efficiencyShift" class="metric-value text-emerald-400">—</div>
+            <div class="metric-label">Efficiency Shift</div>
+          </div>
+        </div>
+
+        <p id="personalStatus" class="text-xs text-muted"></p>
+      </div>
     </aside>
   </div>
 
