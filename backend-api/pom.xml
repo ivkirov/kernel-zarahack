@@ -7,7 +7,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.3.2</version>
+        <version>4.1.0</version>
         <relativePath/>
     </parent>
 
@@ -18,7 +18,9 @@
     <description>The Time Poverty Matrix — local REST backend</description>
 
     <properties>
-        <java.version>21</java.version>
+        <!-- Toolchain and bytecode target both on JDK 25 (sdkman default + repo .sdkmanrc).
+             Spring Boot 4.1.0 bundles an ASM new enough to repackage class major version 69. -->
+        <java.version>25</java.version>
     </properties>
 
     <dependencies>
