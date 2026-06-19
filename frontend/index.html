@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Time Poverty Matrix</title>
+
+  <!-- Leaflet -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Tailwind compiled output -->
+  <link rel="stylesheet" href="./dist/output.css" />
+</head>
+<body class="bg-base text-slate-100 font-sans h-screen overflow-hidden">
+
+  <div class="grid grid-cols-12 h-full">
+
+    <!-- MAP -->
+    <section class="col-span-8 relative">
+      <div id="map" class="absolute inset-0"></div>
+
+      <!-- Floating control: amenity to simulate -->
+      <div class="absolute top-4 left-4 z-[1000] metric-card !p-3 flex items-center gap-3">
+        <span class="text-xs text-muted">Simulate placing:</span>
+        <select id="amenitySelect"
+          class="bg-base border border-edge rounded-lg px-3 py-1.5 text-sm">
+          <option value="kindergarten">Kindergarten (children 0–6)</option>
+          <option value="school">School (children 0–6)</option>
+          <option value="clinic">Clinic (seniors 65+)</option>
+          <option value="hospital">Hospital (seniors 65+)</option>
+        </select>
+        <span class="text-xs text-accent">click map to place →</span>
+      </div>
+    </section>
+
+    <!-- DASHBOARD -->
+    <aside class="col-span-4 bg-base border-l border-edge p-6 overflow-y-auto space-y-5">
+      <header>
+        <h1 class="text-2xl font-bold">The Time Poverty Matrix</h1>
+        <p class="text-sm text-muted">The Geography of Lost Time · District:
+          <span id="districtName" class="text-accent font-semibold">Pazardzhik</span>
+        </p>
+      </header>
+
+      <!-- Baseline systemic loss -->
+      <div class="metric-card">
+        <div id="systemicHours" class="metric-value text-warn">0</div>
+        <div class="metric-label">Annual Wasted Hours (baseline)</div>
+      </div>
+
+      <!-- Simulation ROI -->
+      <div class="metric-card border-good/40">
+        <div id="hoursSaved" class="metric-value text-good">0</div>
+        <div class="metric-label">Annual Hours Saved (this intervention)</div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="metric-card">
+          <div id="peopleImpacted" class="metric-value text-accent">0</div>
+          <div class="metric-label">People Impacted</div>
+        </div>
+        <div class="metric-card">
+          <div id="cellsImproved" class="metric-value">0</div>
+          <div class="metric-label">Neighborhoods Improved</div>
+        </div>
+      </div>
+
+      <div class="metric-card">
+        <div id="avgMinutes" class="metric-value">0<span class="text-base text-muted"> min</span></div>
+        <div class="metric-label">Avg One-Way Time Saved / Trip</div>
+      </div>
+
+      <p id="status" class="text-xs text-muted"></p>
+    </aside>
+  </div>
+
+  <script src="./src/config.js"></script>
+  <script src="./src/app.js"></script>
+</body>
+</html>

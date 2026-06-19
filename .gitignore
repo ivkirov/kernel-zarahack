@@ -1,3 +1,27 @@
+# --- OpenKBS playground (existing) ---
 node_modules/
 .*
 !.gitignore
+!.env.example
+!data-engine/.python-version
+
+# --- Time Poverty Matrix ---
+# Large / binary raw data — regenerate locally, never commit
+data-engine/raw/*.pbf
+data-engine/raw/*.xlsx
+data-engine/out/*.csv
+
+# Secrets
+.env
+
+# Java
+backend-api/target/
+
+# Python
+**/venv/
+**/__pycache__/
+*.pyc
+
+# Node / Tailwind
+frontend/node_modules/
+frontend/dist/output.css

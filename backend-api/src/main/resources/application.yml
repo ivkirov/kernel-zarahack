@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    url: jdbc:postgresql://${PGHOST}:${PGPORT:5432}/${PGDATABASE}?sslmode=${PGSSLMODE:disable}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      connection-timeout: 10000
+  jpa:
+    hibernate:
+      ddl-auto: validate          # schema is owned by the Python engine; never mutate it
+    properties:
+      hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
+      hibernate.format_sql: true
+    show-sql: false
+
+app:
+  geo:
+    assumed-speed-kmh: 4.5
+  visits-per-year:
+    children_0_6: 180
+    seniors_65p: 24

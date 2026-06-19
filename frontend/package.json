@@ -1,0 +1,13 @@
+{
+  "name": "tpm-frontend",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --minify",
+    "watch:css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
+    "serve": "live-server --port=5500 --no-browser"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.10",
+    "live-server": "^1.2.2"
+  }
+}
