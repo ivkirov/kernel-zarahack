@@ -35,7 +35,9 @@ def _resolve_district(district):
 app = FastAPI(title="Time Poverty Matrix — ML Service")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5500", "http://127.0.0.1:5500"],
+    allow_origins=["http://localhost:5500", "http://127.0.0.1:5500",
+                   "http://localhost:7001", "http://127.0.0.1:7001"],
+    allow_origin_regex=r"https://.*\.vs2\.openkbs\.com",
     allow_methods=["*"], allow_headers=["*"],
 )
 

@@ -33,23 +33,30 @@ public class ExplanationService {
     private final HttpClient http = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(5)).build();
 
+    /** Backwards-compatible entry point — defaults to Bulgarian. */
     public String explain(PersonalCompareResponse r) {
+        return explain(r, null);
+    }
+
+    /** {@code language} is the UI locale ("bg" | "en"); anything but "en" yields Bulgarian. */
+    public String explain(PersonalCompareResponse r, String language) {
+        boolean bg = !"en".equalsIgnoreCase(language == null ? "" : language.trim());
         if (geminiKey != null && !geminiKey.isBlank()) {
             try {
-                String text = geminiExplain(r);
+                String text = geminiExplain(r, bg);
                 if (text != null && !text.isBlank()) return text.trim();
             } catch (Exception e) {
                 // Network/HTTP/parse/timeout — fall through to the deterministic narrative.
             }
         }
-        return deterministicExplain(r);
+        return deterministicExplain(r, bg);
     }
 
     // ---- Gemini ----
 
-    private String geminiExplain(PersonalCompareResponse r) throws Exception {
-        String body = "{\"contents\":[{\"parts\":[{\"text\":\"" + jsonEscape(buildPrompt(r))
-                + "\"}]}],\"generationConfig\":{\"temperature\":0.4,\"maxOutputTokens\":300}}";
+    private String geminiExplain(PersonalCompareResponse r, boolean bg) throws Exception {
+        String body = "{\"contents\":[{\"parts\":[{\"text\":\"" + jsonEscape(buildPrompt(r, bg))
+                + "\"}]}],\"generationConfig\":{\"temperature\":0.4,\"maxOutputTokens\":600}}";
         String url = "https://generativelanguage.googleapis.com/v1beta/models/"
                 + geminiModel + ":generateContent?key=" + geminiKey;
         HttpRequest request = HttpRequest.newBuilder(URI.create(url))
@@ -67,11 +74,18 @@ public class ExplanationService {
     }
 
     /** Grounds the model on the computed numbers — it interprets, it doesn't invent. */
-    private String buildPrompt(PersonalCompareResponse r) {
+    private String buildPrompt(PersonalCompareResponse r, boolean bg) {
         StringBuilder f = new StringBuilder();
-        f.append("You help a household understand a potential move by explaining the travel-time tradeoff ")
-         .append("in plain, friendly English. Use ONLY the facts below; do not invent specifics. ")
-         .append("Write 2-3 short sentences, no markdown, no lists.\n\n");
+        if (bg) {
+            f.append("Помагаш на едно домакинство да разбере евентуално преместване, като обясняваш ")
+             .append("компромиса във времето за пътуване на ясен, приятелски български език. ")
+             .append("Използвай САМО фактите по-долу; не измисляй подробности. ")
+             .append("Напиши 2-3 кратки изречения, без markdown, без списъци. Отговори на български.\n\n");
+        } else {
+            f.append("You help a household understand a potential move by explaining the travel-time tradeoff ")
+             .append("in plain, friendly English. Use ONLY the facts below; do not invent specifics. ")
+             .append("Write 2-3 short sentences, no markdown, no lists.\n\n");
+        }
         f.append(String.format(Locale.US,
             "Current home weekly travel: %.1f hours. Prospective home weekly travel: %.1f hours.%n",
             r.currentWeeklyHours, r.prospectiveWeeklyHours));
@@ -155,7 +169,11 @@ public class ExplanationService {
 
     // ---- Deterministic fallback ----
 
-    private String deterministicExplain(PersonalCompareResponse r) {
+    private String deterministicExplain(PersonalCompareResponse r, boolean bg) {
+        return bg ? deterministicBg(r) : deterministicEn(r);
+    }
+
+    private String deterministicEn(PersonalCompareResponse r) {
         StringBuilder sb = new StringBuilder();
         double shift = Math.abs(r.efficiencyShiftHours);
         String shiftStr = String.format(Locale.US, "%.1f", shift);
@@ -192,6 +210,59 @@ public class ExplanationService {
             ? "On balance, the relocation improves your access to the services you selected."
             : "On balance, weigh this time cost against your other reasons for the move.");
         return sb.toString();
+    }
+
+    private String deterministicBg(PersonalCompareResponse r) {
+        StringBuilder sb = new StringBuilder();
+        double shift = Math.abs(r.efficiencyShiftHours);
+        String shiftStr = String.format(Locale.US, "%.1f", shift);
+        String perYear = String.format(Locale.US, "%.0f", shift * 52);
+
+        if (r.gain) {
+            sb.append("Преместването в новия дом би върнало около ")
+              .append(shiftStr).append(" часа всяка седмица на вашето домакинство — приблизително ")
+              .append(perYear).append(" часа годишно, които иначе бихте прекарали в пътуване. ");
+        } else if (shift < 0.05) {
+            sb.append("Двете местоположения са практически равностойни по седмично време за пътуване; ")
+              .append("нито един от вариантите не променя съществено времевия данък на домакинството ви. ");
+        } else {
+            sb.append("Новият дом всъщност би ви струвал около ")
+              .append(shiftStr).append(" допълнителни часа седмично (~")
+              .append(perYear).append(" часа годишно) в повече пътуване. ");
+        }
+
+        PersonalCompareResponse.NeedBreakdown worstNow = max(r.currentBreakdown);
+        if (worstNow != null) {
+            sb.append("Днес най-голямата ви загуба на време е ")
+              .append(bgLabel(worstNow))
+              .append(" — ").append(String.format(Locale.US, "%.0f", worstNow.nearestMinutes))
+              .append(" мин. в едната посока. ");
+        }
+        PersonalCompareResponse.NeedBreakdown worstThen = max(r.prospectiveBreakdown);
+        if (worstThen != null && worstNow != null && !worstThen.label.equals(worstNow.label)) {
+            sb.append("След преместването основното ограничение става ")
+              .append(bgLabel(worstThen)).append(". ");
+        }
+
+        sb.append(r.gain
+            ? "Като цяло преместването подобрява достъпа ви до избраните услуги."
+            : "Като цяло, преценете тази загуба на време спрямо другите причини за преместването.");
+        return sb.toString();
+    }
+
+    /** Bulgarian label for a breakdown row, keyed by its service group; falls back to the English label. */
+    private static String bgLabel(PersonalCompareResponse.NeedBreakdown b) {
+        if (b == null) return "";
+        switch (b.group == null ? "" : b.group) {
+            case "kindergarten":  return "детската градина";
+            case "school":        return "училището";
+            case "clinic":        return "поликлиниката";
+            case "hospital":      return "болницата";
+            case "pharmacy":      return "аптеката";
+            case "children_0_6":  return "децата (градина / училище)";
+            case "seniors_65p":   return "грижата за възрастни (поликлиника / болница / аптека)";
+            default:              return b.label == null ? "" : b.label.toLowerCase(Locale.ROOT);
+        }
     }
 
     private PersonalCompareResponse.NeedBreakdown max(List<PersonalCompareResponse.NeedBreakdown> bs) {

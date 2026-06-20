@@ -8,6 +8,8 @@ public class PersonalCompareRequest {
     public double prospectiveLat;
     public double prospectiveLon;
     public HouseholdProfile householdProfile;
+    // UI locale ("bg" | "en"); drives the language of the AI explanation. Defaults to bg.
+    public String language;
 
     public static class HouseholdProfile {
         // Legacy coarse toggles (kept for backward compatibility).

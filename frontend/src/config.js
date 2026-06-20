@@ -1,8 +1,21 @@
+// Resolve the API origin for a given backend port. Locally the page is on
+// localhost so we hit localhost:<port>. Behind the OpenKBS vs2 proxy the page
+// host looks like "7001-p-<id>.vs2.openkbs.com"; the same backend is reachable
+// at "<port>-p-<id>.vs2.openkbs.com" over https — swap the leading port prefix.
+const _apiOrigin = (port) => {
+  const h = window.location.hostname;
+  return /^\d+-/.test(h) && h.endsWith(".openkbs.com")
+    ? `${window.location.protocol}//${h.replace(/^\d+-/, port + "-")}`
+    : `http://localhost:${port}`;
+};
+const _API = _apiOrigin(8080);
+const _ML = _apiOrigin(8000);
+
 window.TPM = {
-  API_BASE_URL: "http://localhost:8080/api/v1/time-poverty",
-  AUTH_BASE_URL: "http://localhost:8080/api/v1/auth",   // register / login / me
-  ADMIN_BASE_URL: "http://localhost:8080/api/v1/admin",  // admin user management
-  ML_BASE_URL: "http://localhost:8000/api/ml",   // Python ML sidecar (placement + travel-time bots)
+  API_BASE_URL: `${_API}/api/v1/time-poverty`,
+  AUTH_BASE_URL: `${_API}/api/v1/auth`,   // register / login / me
+  ADMIN_BASE_URL: `${_API}/api/v1/admin`,  // admin user management
+  ML_BASE_URL: `${_ML}/api/ml`,   // Python ML sidecar (placement + travel-time bots)
 
   // Amenities a FREE_USER may filter/compare by. Everything else is shown-but-locked
   // behind the paywall. Mirrors the backend's Features.FREE_ALLOWED_AMENITIES.

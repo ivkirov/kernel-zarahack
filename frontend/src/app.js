@@ -678,6 +678,7 @@ async function runCompare() {
     currentLat: c.lat, currentLon: c.lng,
     prospectiveLat: p.lat, prospectiveLon: p.lng,
     householdProfile: { needs: selectedNeeds(), hasCar: ownsCar() },
+    language: (window.I18n && window.I18n.locale) || "bg",
   };
 
   // Admin demo-free has no server quota — enforce the allowance client-side.
