@@ -36,7 +36,7 @@ public class TimePovertyController {
      * only requires authentication — the municipal value-add is gated on /simulate.
      */
     @GetMapping("/matrix")
-    public MatrixResponse matrix(@RequestParam(defaultValue = "Pazardzhik") String district) {
+    public MatrixResponse matrix(@RequestParam(defaultValue = "Stara Zagora") String district) {
         CurrentUser.require();
         return service.buildMatrix(district);
     }

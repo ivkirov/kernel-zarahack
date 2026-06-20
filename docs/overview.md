@@ -33,8 +33,11 @@ For every settlement and cohort, the system computes:
 - **`annualWastedHours`** — round-trip time × visit frequency × population, in hours/year.
 
 Summed over a province (or the whole country) this gives a single, headline number:
-the **annual wasted hours** a population loses to infrastructure distance. For the pilot
-province Pazardzhik that figure is roughly **9.2 million hours/year**.
+the **annual wasted hours** a population loses to infrastructure distance. Across all 28
+provinces that figure is roughly **334 million hours/year**; the pilot single-province
+view (Stara Zagora) accounts for roughly **14.5 million hours/year** of it. The app boots into
+the nationwide `All Bulgaria` view (`district=all`); pick any single province from the picker
+to drill in.
 
 ## The three lenses plus an AI recommender
 

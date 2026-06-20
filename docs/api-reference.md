@@ -84,18 +84,21 @@ Baseline systemic time loss plus all nodes/cells for a district.
 
 | Param | Default | Notes |
 | :--- | :--- | :--- |
-| `district` | `Pazardzhik` | Latin province name, or `all` / `All Bulgaria` for nationwide |
+| `district` | `Stara Zagora` | Latin province name, or `all` / `All Bulgaria` for nationwide |
 
 ```bash
-curl "http://localhost:8080/api/v1/time-poverty/matrix?district=Pazardzhik"
+curl "http://localhost:8080/api/v1/time-poverty/matrix?district=Stara%20Zagora"
+# nationwide (all 28 provinces, ~334M totalAnnualWastedHours):
+curl "http://localhost:8080/api/v1/time-poverty/matrix?district=all"
 ```
 
-**Response** (`MatrixResponse`)
+**Response** (`MatrixResponse`) — the example below is the `Stara Zagora` slice; `district=all`
+returns the same shape with ~2,772 nodes, ~14,476 cells and `totalAnnualWastedHours` ≈ 334M.
 
 ```jsonc
 {
-  "district": "Pazardzhik",
-  "totalAnnualWastedHours": 9214233.0,
+  "district": "Stara Zagora",
+  "totalAnnualWastedHours": 14513636.0,
   "nodes": [
     { "serviceType": "kindergarten", "name": "...", "lat": 42.19, "lon": 24.33 }
   ],
@@ -121,8 +124,8 @@ Simulate placing a new facility; returns the annual wasted hours it would save.
 
 ```jsonc
 {
-  "district": "Pazardzhik",
-  "lat": 42.05, "lon": 24.10,
+  "district": "Stara Zagora",
+  "lat": 42.20, "lon": 25.33,
   "amenityType": "kindergarten"   // kindergarten|school|hospital|clinic|pharmacy
 }
 ```
@@ -130,7 +133,7 @@ Simulate placing a new facility; returns the annual wasted hours it would save.
 ```bash
 curl -X POST http://localhost:8080/api/v1/time-poverty/simulate \
   -H 'Content-Type: application/json' \
-  -d '{"district":"Pazardzhik","lat":42.05,"lon":24.10,"amenityType":"kindergarten"}'
+  -d '{"district":"Stara Zagora","lat":42.20,"lon":25.33,"amenityType":"kindergarten"}'
 ```
 
 **Response** (`SimulationResponse`)
@@ -306,16 +309,16 @@ Top-N highest-impact build sites from the placement model.
 | `min_separation_km` | 8.0 | NMS spacing so sites aren't clustered |
 
 ```bash
-curl "http://localhost:8000/api/ml/recommend?amenity=kindergarten&district=Pazardzhik&top=3"
+curl "http://localhost:8000/api/ml/recommend?amenity=kindergarten&district=Stara%20Zagora&top=3"
 ```
 
 **Response**
 
 ```jsonc
 {
-  "district": "Pazardzhik", "amenity": "kindergarten", "group": "children_0_6",
+  "district": "Stara Zagora", "amenity": "kindergarten", "group": "children_0_6",
   "recommendations": [
-    { "lat": 42.05, "lon": 24.11, "nearestTown": "Velichkovo", "predictedHoursSaved": 218400 }
+    { "lat": 42.20, "lon": 25.33, "nearestTown": "Chirpan", "predictedHoursSaved": 218400 }
   ]
 }
 ```
@@ -328,7 +331,7 @@ returns `{ "error": "unknown district '...'" }`.
 ## Quick verification
 
 ```bash
-curl "http://localhost:8080/api/v1/time-poverty/matrix?district=Pazardzhik" | head -c 200
+curl "http://localhost:8080/api/v1/time-poverty/matrix?district=Stara%20Zagora" | head -c 200
 curl "http://localhost:8000/api/ml/recommend?amenity=kindergarten&top=3"
 curl http://localhost:8000/health
 ```

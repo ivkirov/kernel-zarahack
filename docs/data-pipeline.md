@@ -64,7 +64,7 @@ TPM_NATIONWIDE=0 TPM_DISTRICT=Plovdiv ./venv/bin/python run_pipeline.py
 | Var | Default | Effect |
 | :--- | :--- | :--- |
 | `TPM_NATIONWIDE` | `1` | `1` = all 28 provinces; `0` = only `TPM_DISTRICT` |
-| `TPM_DISTRICT` | `Pazardzhik` | the single province to seed when not nationwide |
+| `TPM_DISTRICT` | `Stara Zagora` | the single province to seed when not nationwide |
 | `TPM_SPEED_KMH` | `4.5` | walking-speed proxy used in time math |
 
 ## Database schema

@@ -26,7 +26,7 @@ BOUNDARIES_GEOJSON = DATASETS_DIR / "geoBoundaries-BGR-ADM2_simplified.geojson" 
 # True  -> extract & seed all 28 provinces (the `district` column carries each name).
 # The frontend still boots into ACTIVE_DISTRICT; the others are query-switchable.
 SEED_NATIONWIDE = os.getenv("TPM_NATIONWIDE", "1") != "0"
-ACTIVE_DISTRICT = os.getenv("TPM_DISTRICT", "Pazardzhik")
+ACTIVE_DISTRICT = os.getenv("TPM_DISTRICT", "Stara Zagora")
 
 # --- Province crosswalk: NSI Cyrillic name -> (GeoNames admin1 code, app/Latin name) ---
 # Bulgaria's 28 oblasti. GeoNames tags every settlement with the admin1 code; NSI labels

@@ -7,8 +7,9 @@ data** (OpenStreetMap + NSI census + GeoNames) for all **28 provinces**: 2,772 s
 and 14,476 demand cells.
 
 For every settlement and cohort it computes the one-way travel time to the nearest serving
-facility, turns that into **annual wasted hours** (≈ 9.2M/year for the pilot province
-Pazardzhik), and lets you act on it through three role-gated lenses plus an AI recommender:
+facility, turns that into **annual wasted hours** — **≈ 334 million hours/year across the whole
+country** (the pilot province Stara Zagora accounts for ≈ 14.5M of that) — and lets you act
+on it through three role-gated lenses plus an AI recommender:
 
 - **🏛 Municipal Infrastructure Optimization** — see systemic time-loss across a province,
   **click the map** to simulate building a facility and watch the annual "wasted hours

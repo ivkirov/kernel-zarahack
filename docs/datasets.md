@@ -70,10 +70,11 @@ starts that layer hidden.)
 ## Current snapshot
 
 28 provinces · **2,772** supply nodes · **14,476** demand cells. Placed cohort totals match
-NSI to ~0.1% (rounding). Pilot district **Pazardzhik** (a common frontend default): 52
-nodes, 272 cells, ≈ **9.2M** wasted hours/year, worst access in remote Rhodope villages
-(Barduche, Orlino, Sarnitsa) at 400+ minutes on foot — the education/healthcare deserts the
-project targets.
+NSI to ~0.1% (rounding). Evaluated nationwide (`district=all`), the model reports ≈ **334M**
+wasted hours/year for the country as a whole. Pilot district **Stara Zagora** (the API's
+default single-province scope): 126 nodes, 456 cells, ≈ **14.5M** wasted hours/year, worst
+access in remote villages (Opalchenets, Mirovo, Granit) at 540+ minutes on foot — the
+education/healthcare deserts the project targets.
 
 > **Note on demand coverage.** The full backend pipeline distributes the rural residual
 > across ~6.9k villages to reach 14,476 demand cells covering the official NSI totals. The

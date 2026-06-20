@@ -95,7 +95,14 @@ annualWastedHours = (oneWayMinutes × 2 × visitsPerYear[group] × population) /
 ```
 
 `× 2` makes each visit a round trip; `/ 60` converts minutes to hours. Summed over all
-cells this is `totalAnnualWastedHours` for the district (≈ 9.2M hours/year for Pazardzhik).
+cells this is `totalAnnualWastedHours` for the requested scope — ≈ 14.5M hours/year for the
+pilot province Stara Zagora (its own 126 nodes), and ≈ 334M hours/year for the whole country
+(`district=all`, all 28 provinces against all 2,772 nodes).
+
+> The nationwide total is **not** the sum of the per-province numbers: a single-province
+> query only sees that province's own nodes, so border cells can't reach a nearer facility
+> just over the line. The `district=all` view evaluates every cell against every node, which
+> is the figure to quote for the country as a whole.
 
 ### Simulation — hours saved
 

@@ -59,7 +59,7 @@ Full pipeline details: [data-pipeline.md](data-pipeline.md).
 cd backend-api
 mvn spring-boot:run
 # verify:
-curl "http://localhost:8080/api/v1/time-poverty/matrix?district=Pazardzhik" | head -c 200
+curl "http://localhost:8080/api/v1/time-poverty/matrix?district=Stara%20Zagora" | head -c 200
 ```
 
 ## 4. AI sidecar (the bots) — `:8000`
