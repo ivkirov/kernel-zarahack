@@ -41,6 +41,20 @@
 
   html { scroll-behavior: smooth; }
 
+  /* Scale the whole rem-based UI up a notch so the default view is comfortable
+     without browser zoom. Leaflet sizes itself in px and is unaffected, so the
+     map and its click-to-coordinate math stay correct. */
+  html { font-size: 115%; }
+
+  /* Hero entrance — auto-disabled by the reduced-motion rule below. */
+  @keyframes tpm-rise {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .tpm-rise   { animation: tpm-rise .6s cubic-bezier(.2,.7,.2,1) both; }
+  .tpm-rise-2 { animation: tpm-rise .6s .09s cubic-bezier(.2,.7,.2,1) both; }
+  .tpm-rise-3 { animation: tpm-rise .6s .18s cubic-bezier(.2,.7,.2,1) both; }
+
   body {
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

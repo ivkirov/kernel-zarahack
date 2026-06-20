@@ -50,7 +50,7 @@
   }
 
   async function bootstrap() {
-    if (!token) { showAuth(); return; }
+    if (!token) { showWelcome(); return; }
     try {
       const res = await fetch(AUTH_BASE_URL + "/me", { headers: authHeader() });
       if (!res.ok) throw new Error("me failed");
@@ -58,12 +58,13 @@
       onAuthed();
     } catch {
       clearSession();
-      showAuth();
+      showWelcome();
     }
   }
 
   function onAuthed() {
     hideAuth();
+    hideWelcome();
     renderAccountBar();
     readyCbs.forEach((cb) => { try { cb(user); } catch (e) { console.error(e); } });
   }
@@ -79,7 +80,12 @@
   // ---- auth overlay (login / register) ----
   let authMode = "login";
 
-  function showAuth() { show($("authOverlay"), true); switchAuthMode("login"); }
+  // The public welcome/hero sits in front of the mode-picker until the visitor
+  // chooses to sign in or sign up; the auth form is one click behind a CTA.
+  function showWelcome() { show($("welcome"), true); hideAuth(); }
+  function hideWelcome() { show($("welcome"), false); }
+
+  function showAuth(mode) { hideWelcome(); show($("authOverlay"), true); switchAuthMode(mode || "login"); }
   function hideAuth() { show($("authOverlay"), false); }
 
   function switchAuthMode(m) {
@@ -132,7 +138,7 @@
   function hardLogout() {
     clearSession();
     renderAccountBar();
-    showAuth();
+    showWelcome();
   }
   function logout() { hardLogout(); }
 
@@ -274,6 +280,15 @@
   function init() {
     $("authForm").addEventListener("submit", submitAuth);
     $("authToggleBtn").addEventListener("click", () => switchAuthMode(authMode === "login" ? "register" : "login"));
+    // Welcome/hero → auth overlay, and back again.
+    const startBtn = $("welcomeStart");
+    if (startBtn) startBtn.addEventListener("click", () => showAuth("register"));
+    ["welcomeSignIn", "welcomeSignIn2"].forEach((id) => {
+      const el = $(id);
+      if (el) el.addEventListener("click", () => showAuth("login"));
+    });
+    const backBtn = $("authBack");
+    if (backBtn) backBtn.addEventListener("click", showWelcome);
     $("paywallClose").addEventListener("click", hidePaywall);
     $("paywallOk").addEventListener("click", hidePaywall);
     $("logoutBtn").addEventListener("click", logout);

@@ -367,6 +367,7 @@ function buildLayerToggles(forMode) {
     row.querySelector("input").addEventListener("change", (e) => {
       layerState[type] = e.target.checked;
       applyLayerVisibility();
+      if (forMode === "personal") syncNeedToLayer(type, e.target.checked);
     });
   });
 }
@@ -456,7 +457,12 @@ async function simulateAt(e) {
     }).addTo(simLayer);
   });
 
-  setStatus("status.simSaved", { hours: sim.annualWastedHoursSaved.toLocaleString() });
+  // Zero improvement means the spot is already covered — say so instead of bare 0s.
+  if (sim.affectedCells > 0) {
+    setStatus("status.simSaved", { hours: sim.annualWastedHoursSaved.toLocaleString() });
+  } else {
+    setStatus("status.simWellServed", { amenity: svcLabel(amenityType).toLowerCase() });
+  }
 }
 
 // ---------- Municipal: AI "recommend best sites" (placement bot, :8000) ----------
@@ -542,6 +548,10 @@ function pinIcon(color) {
 }
 const PIN_COLORS = { current: "#f43f5e", prospective: "#34d399" };
 
+// "I own a car" → far trips are driven, not walked. On by default, remembered.
+const CAR_KEY = "tpm_owns_car";
+const ownsCar = () => { const el = $("ownsCar"); return el ? el.checked : true; };
+
 function armPin(which) {
   armedPin = which;
   $("pinCurrentBtn").classList.toggle("border-rose-500", which === "current");
@@ -554,6 +564,7 @@ function placePin(which, latlng) {
   pins[which].bindPopup(t(which === "current" ? "pin.current" : "pin.prospective"));
   $(which === "current" ? "pinCurrentReadout" : "pinProspectiveReadout")
     .textContent = `${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`;
+  updateSuggestAvailability();
 }
 
 async function dropPersonalPin(e) {
@@ -565,26 +576,35 @@ async function dropPersonalPin(e) {
 // ---------- Personal needs UI ----------
 const NEED_DEFAULT = new Set(["kindergarten", "school", "clinic", "pharmacy"]);
 
-// Render one need row. `locked` rows are disabled and pop a paywall on click.
-function needRow(box, key, color, locked, paywallCode, checked) {
+// Render one need row. `locked` rows pop a paywall on click; `future` rows have
+// no dataset yet and just explain that (no paywall — they can't be unlocked).
+function needRow(box, key, color, locked, paywallCode, checked, future) {
   const row = document.createElement("label");
   row.dataset.need = key;   // lets a locale switch find + re-label this row
+  const dim = locked || future;
   row.className = "flex items-center justify-between gap-2 rounded-lg border border-edge bg-panel2 " +
-    "px-3 py-2 transition " + (locked ? "opacity-60 cursor-pointer" : "cursor-pointer hover:border-accent2/60");
+    "px-3 py-2 transition " + (dim ? "opacity-60 cursor-pointer" : "cursor-pointer hover:border-accent2/60");
+  const tag = future
+    ? `<span class="need-soon text-[10px] uppercase tracking-wide text-faint border border-edge rounded px-1.5 py-0.5">${t("need.soon")}</span>`
+    : `<span class="text-[11px] text-faint need-hint">${locked ? "🔒" : t("needHint." + key)}</span>`;
   row.innerHTML =
     `<span class="flex items-center gap-2.5 text-sm">
-      <input type="checkbox" data-need="${key}" ${checked ? "checked" : ""} ${locked ? "disabled" : ""} class="accent-accent2 w-4 h-4"/>
+      <input type="checkbox" data-need="${key}" ${checked ? "checked" : ""} ${dim ? "disabled" : ""} class="accent-accent2 w-4 h-4"/>
       <span class="w-2.5 h-2.5 rounded-full" style="background:${color}"></span>
       <span class="need-label">${t("need." + key)}</span></span>
-    <span class="text-[11px] text-faint need-hint">${locked ? "🔒" : t("needHint." + key)}</span>`;
+    ${tag}`;
   box.appendChild(row);
   const cb = row.querySelector("input");
+  if (future) {
+    row.addEventListener("click", (e) => { e.preventDefault(); setPersonalStatus("personal.soonHint"); });
+    return;
+  }
   if (locked) {
     row.addEventListener("click", (e) => { e.preventDefault(); Auth.showPaywall(paywallCode); });
     return;
   }
   cb.addEventListener("change", () => {
-    if (cb.checked) setLayerVisible(key, true);   // show what you're comparing
+    setLayerVisible(key, cb.checked);   // map layers follow the selected filters
     // Free users: don't spend a check on every toggle — recompute on the next pin drop.
     if (personalIsFree()) { setPersonalStatus("personal.toggleHint"); return; }
     runCompare();
@@ -599,11 +619,26 @@ function buildNeeds() {
     const locked = amenityLockedForUser(n.key);
     needRow(box, n.key, color, locked, "PAYWALL_FILTER", NEED_DEFAULT.has(n.key) && !locked);
   });
-  // Future personal-only filters (gyms, barbers…) — no data yet, always locked
-  // behind the "additional filters" add-on paywall (for everyone, incl. admin).
+  // Future personal-only filters (gyms, barbers…) — no open dataset yet, so they
+  // can't be mapped or compared for anyone (incl. admin); marked "soon", not locked.
   (FUTURE_NEEDS || []).forEach((n) => {
-    needRow(box, n.key, n.color, true, "PAYWALL_UPGRADE", false);
+    needRow(box, n.key, n.color, false, null, false, true);
   });
+}
+
+// Personal mode: keep the map's service layers in lockstep with the household's
+// selected needs, so the user only sees dots for the places they actually filter by.
+function syncLayersToNeeds() {
+  const checked = new Set(selectedNeeds());
+  Object.keys(serviceLayers).forEach((type) => setLayerVisible(type, checked.has(type)));
+}
+// Reverse: a layer toggled from the Layers panel ticks the matching need too.
+function syncNeedToLayer(type, on) {
+  const cb = document.querySelector(`#needsList input[data-need="${type}"]`);
+  if (!cb || cb.disabled || cb.checked === on) return;
+  cb.checked = on;
+  if (personalIsFree()) setPersonalStatus("personal.toggleHint");
+  else runCompare();
 }
 function selectedNeeds() {
   return [...document.querySelectorAll('#needsList input[data-need]:checked')].map((i) => i.dataset.need);
@@ -642,7 +677,7 @@ async function runCompare() {
   const payload = {
     currentLat: c.lat, currentLon: c.lng,
     prospectiveLat: p.lat, prospectiveLon: p.lng,
-    householdProfile: { needs: selectedNeeds() },
+    householdProfile: { needs: selectedNeeds(), hasCar: ownsCar() },
   };
 
   // Admin demo-free has no server quota — enforce the allowance client-side.
@@ -1003,13 +1038,26 @@ function enterPersonal() {
     simLayer.clearLayers();
     recoLayer.clearLayers();
     radarLayer.clearLayers();
+    // Fresh planner each entry: clear pins, readouts, search fields, comparison.
+    personalLayer.clearLayers();
+    pins.current = null; pins.prospective = null;
+    show($("comparePanel"), false);
+    ["pinCurrentReadout", "pinProspectiveReadout"].forEach((id) => {
+      const el = $(id); if (el) el.textContent = t("personal.tapHint");
+    });
+    ["searchCurrent", "searchProspective"].forEach((id) => {
+      const el = $(id); if (el) el.value = "";
+    });
     const recoList = $("recoResults");
     if (recoList) recoList.innerHTML = "";
     buildNeeds();
+    syncLayersToNeeds();           // map shows only the services in the needs filter
     applyPersonalGating();
+    updateSuggestAvailability();   // disabled until a prospective home is set
     armPin("current");
     map.invalidateSize();
     loadPersonalStructures();
+    ensureTownData().catch(() => {});   // warm the city-search index
     revealStagger("#personalPanel > *");
     pop("#layerControl", { delay: 0.15 });
     pop("#legend", { delay: 0.2 });
@@ -1084,6 +1132,19 @@ $("goHomeBtn").addEventListener("click", goHome);
 $("recommendBtn").addEventListener("click", recommendSites);
 $("pinCurrentBtn").addEventListener("click", () => armPin("current"));
 $("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
+
+// "I own a car" toggle: restore the saved choice (default on) and recompute on change.
+(function wireCarToggle() {
+  const el = $("ownsCar");
+  if (!el) return;
+  try { const v = localStorage.getItem(CAR_KEY); if (v !== null) el.checked = v === "1"; } catch { /* ignore */ }
+  el.addEventListener("change", () => {
+    try { localStorage.setItem(CAR_KEY, el.checked ? "1" : "0"); } catch { /* ignore */ }
+    if (mode !== "personal") return;
+    if (personalIsFree()) { if (pins.current && pins.prospective) setPersonalStatus("personal.toggleHint"); return; }
+    if (pins.current && pins.prospective) runCompare();
+  });
+})();
 $("radarFilter").addEventListener("change", (e) => loadRadar(e.target.value));
 $("suggestBtn").addEventListener("click", suggestAreas);
 $("quotaUpgradeBtn").addEventListener("click", () => Auth.showPaywall("PAYWALL_QUOTA"));
@@ -1133,6 +1194,15 @@ function applyPersonalGating() {
   show($("aiExplainCard"), false);
   show($("aiExplainLocked"), false);
   $("suggestResults").innerHTML = "";
+  updateSuggestAvailability();
+}
+
+// "Suggest best areas" only makes sense once a prospective home is set — keep the
+// button disabled until then (a fetch in flight sets data-busy to hold it down).
+function updateSuggestAvailability() {
+  const btn = $("suggestBtn");
+  if (!btn || btn.dataset.busy === "1") return;
+  btn.disabled = !pins.prospective;
 }
 
 function updateQuotaBadge(remaining) {
@@ -1161,9 +1231,11 @@ function renderAiExplanation(data) {
 // ---------- Personal: suggest best areas (tier 1 paid) ----------
 async function suggestAreas() {
   if (!personalIsPaid()) { Auth.showPaywall("PAYWALL_UPGRADE"); return; }
+  if (!pins.prospective) { setPersonalStatus("suggest.needProspective"); return; }
   if (!pins.current) { setPersonalStatus("suggest.needPin"); return; }
   const btn = $("suggestBtn");
   const list = $("suggestResults");
+  btn.dataset.busy = "1";
   btn.disabled = true;
   list.innerHTML = "";
   recoLayer.clearLayers();
@@ -1172,7 +1244,7 @@ async function suggestAreas() {
     const c = pins.current.getLatLng();
     const res = await Auth.apiFetch(`${API_BASE_URL}/personal-suggest?top=5`, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ currentLat: c.lat, currentLon: c.lng, householdProfile: { needs: selectedNeeds() } }),
+      body: JSON.stringify({ currentLat: c.lat, currentLon: c.lng, householdProfile: { needs: selectedNeeds(), hasCar: ownsCar() } }),
     });
     const data = await res.json();
     const pts = [];
@@ -1203,7 +1275,8 @@ async function suggestAreas() {
   } catch (err) {
     if (!err.paywall) setPersonalStatus("suggest.failed", { err: err.message });
   } finally {
-    btn.disabled = false;
+    btn.dataset.busy = "";
+    updateSuggestAvailability();
   }
 }
 
@@ -1250,21 +1323,48 @@ function setScope(s) {
   }
 }
 
-// Town list derived from the nationwide matrix (one entry per settlement, max-pop cell).
+// Bulgarian Cyrillic → Latin (Streamlined System, as used by GeoNames) so the
+// city search matches whether the user types "Пловдив" or "Plovdiv".
+const BG_TRANSLIT = {
+  а: "a", б: "b", в: "v", г: "g", д: "d", е: "e", ж: "zh", з: "z", и: "i",
+  й: "y", к: "k", л: "l", м: "m", н: "n", о: "o", п: "p", р: "r", с: "s",
+  т: "t", у: "u", ф: "f", х: "h", ц: "ts", ч: "ch", ш: "sh", щ: "sht",
+  ъ: "a", ь: "y", ю: "yu", я: "ya",
+};
+function translitBg(s) {
+  let out = "";
+  for (const ch of s.toLowerCase()) out += (BG_TRANSLIT[ch] || ch);
+  return out;
+}
+// A forgiving key for matching: transliterate, fold y→i and collapse doubled
+// letters so "София" → "sofia" lines up with the GeoNames spelling "Sofia".
+const searchKey = (s) => translitBg(s).replace(/y/g, "i").replace(/(.)\1+/g, "$1");
+
+// Town index derived from the nationwide matrix (one entry per settlement, the
+// max-population cell). Shared by the municipal town picker and the personal
+// residence search; built once and cached.
+let townData = null;     // [{ settlement, lat, lon, district, _key }]
+async function ensureTownData() {
+  if (townData) return townData;
+  const data = await fetchMatrix("all");
+  const byName = {};
+  data.cells.forEach((c) => {
+    if (!c.settlement) return;
+    const cur = byName[c.settlement];
+    if (!cur || c.population > cur.population) byName[c.settlement] = c;
+  });
+  townData = Object.values(byName)
+    .map((c) => ({ settlement: c.settlement, lat: c.lat, lon: c.lon, district: c.district, _key: searchKey(c.settlement) }))
+    .sort((a, b) => a.settlement.localeCompare(b.settlement));
+  return townData;
+}
+
 let townListBuilt = false;
 let townCount = 0;   // remembered so the placeholder can be re-localized live
 async function ensureTownList() {
   if (townListBuilt || !townSelect) return;
   try {
-    const data = await fetchMatrix("all");
-    const byName = {};
-    data.cells.forEach((c) => {
-      if (!c.settlement) return;
-      const cur = byName[c.settlement];
-      if (!cur || c.population > cur.population) byName[c.settlement] = c;
-    });
-    const towns = Object.values(byName)
-      .sort((a, b) => a.settlement.localeCompare(b.settlement));
+    const towns = await ensureTownData();
     townCount = towns.length;
     townSelect.innerHTML = `<option value="">${t("town.select", { n: townCount })}</option>` +
       towns.map((tw) => `<option value="${tw.lat},${tw.lon}">${tw.settlement}</option>`).join("");
@@ -1289,6 +1389,78 @@ if (townSelect) {
 
 $("scopeProvince").addEventListener("click", () => setScope("province"));
 $("scopeTown").addEventListener("click", () => setScope("town"));
+
+// ---------- Personal residence search (city autocomplete → pin + fly) ----------
+function selectCity(which, town) {
+  placePin(which, L.latLng(town.lat, town.lon));
+  $(which === "current" ? "pinCurrentReadout" : "pinProspectiveReadout").textContent =
+    (town.district && town.district !== town.settlement)
+      ? `${town.settlement}, ${town.district}` : town.settlement;
+  map.flyTo([town.lat, town.lon], 12, { duration: 0.8 });
+  if (which === "current" && !pins.prospective) armPin("prospective");
+  if (pins.current && pins.prospective) runCompare();
+}
+
+function wireCitySearch(which) {
+  const input = $(which === "current" ? "searchCurrent" : "searchProspective");
+  const list = $(which === "current" ? "suggestCurrent" : "suggestProspective");
+  if (!input || !list) return;
+  let matches = [];
+  let active = -1;
+  const close = () => { list.classList.add("hidden"); list.innerHTML = ""; active = -1; };
+  const paint = () => [...list.children].forEach((li, i) =>
+    li.firstElementChild.classList.toggle("bg-panel2", i === active));
+  const render = () => {
+    if (!matches.length) { close(); return; }
+    list.innerHTML = matches.map((tw, i) =>
+      `<li><button type="button" data-i="${i}"
+         class="w-full text-left px-3 py-1.5 text-sm text-slate-100 hover:bg-panel2 transition flex items-baseline gap-2">
+         <span>${tw.settlement}</span>${(tw.district && tw.district !== tw.settlement)
+           ? `<span class="text-[11px] text-faint">${tw.district}</span>` : ""}
+       </button></li>`).join("");
+    active = -1;
+    list.classList.remove("hidden");
+  };
+  const search = async () => {
+    const raw = input.value.trim();
+    if (raw.length < 2) { close(); return; }
+    let data;
+    try { data = await ensureTownData(); } catch { return; }
+    const q = searchKey(raw);   // Cyrillic or Latin → same comparison key
+    // Prefix hits first, then any substring — reads more naturally than a raw filter.
+    const pre = [], sub = [];
+    for (const tw of data) {
+      if (tw._key.startsWith(q)) pre.push(tw);
+      else if (tw._key.includes(q)) sub.push(tw);
+    }
+    matches = pre.concat(sub).slice(0, 8);
+    render();
+  };
+  const choose = (i) => {
+    const tw = matches[i];
+    if (!tw) return;
+    input.value = tw.settlement;
+    close();
+    selectCity(which, tw);
+  };
+  input.addEventListener("input", search);
+  input.addEventListener("focus", () => { if (input.value.trim().length >= 2) search(); });
+  input.addEventListener("keydown", (e) => {
+    if (list.classList.contains("hidden")) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); active = Math.min(active + 1, matches.length - 1); paint(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); active = Math.max(active - 1, 0); paint(); }
+    else if (e.key === "Enter") { e.preventDefault(); choose(active < 0 ? 0 : active); }
+    else if (e.key === "Escape") { close(); }
+  });
+  // mousedown (not click) so the pick registers before the input's blur closes the list.
+  list.addEventListener("mousedown", (e) => {
+    const btn = e.target.closest("button[data-i]");
+    if (btn) { e.preventDefault(); choose(+btn.dataset.i); }
+  });
+  input.addEventListener("blur", () => setTimeout(close, 120));
+}
+wireCitySearch("current");
+wireCitySearch("prospective");
 
 // ---------- Live locale switch ----------
 // I18n.setLocale() already re-translated every [data-i18n] node (including the
@@ -1317,8 +1489,10 @@ I18n.onChange(() => {
     const key = row.dataset.need;
     const lab = row.querySelector(".need-label");
     const hint = row.querySelector(".need-hint");
+    const soon = row.querySelector(".need-soon");
     if (lab) lab.textContent = t("need." + key);
     if (hint) hint.textContent = t("needHint." + key);
+    if (soon) soon.textContent = t("need.soon");
   });
 
   // Town picker placeholder (the town names themselves are locale-independent).

@@ -17,6 +17,10 @@ public class TimePovertyService {
     private final DemographicWeightRepository weightRepo;
 
     @Value("${app.geo.assumed-speed-kmh}") private double speedKmh;
+    // Personal planner: walk nearby, drive far (see GeoUtil.travelMinutes mode-aware).
+    @Value("${app.geo.personal.walk-speed-kmh:4.5}") private double pWalkKmh;
+    @Value("${app.geo.personal.drive-speed-kmh:28}") private double pDriveKmh;
+    @Value("${app.geo.personal.walk-threshold-km:1.2}") private double pWalkThresholdKm;
     @Value("${app.visits-per-year.children_0_6}") private int visitsChildren;
     @Value("${app.visits-per-year.seniors_65p}") private int visitsSeniors;
 
@@ -24,6 +28,17 @@ public class TimePovertyService {
     private static final Map<String, List<String>> GROUP_SERVICES = Map.of(
         "children_0_6", List.of("kindergarten", "school"),
         "seniors_65p",  List.of("hospital", "clinic", "pharmacy")
+    );
+
+    // For a municipal placement, which existing services genuinely compete with the
+    // new one. Pharmacies are excluded as substitutes for hospital/clinic care: they're
+    // far denser (~1,600), so lumping them in made every hospital/clinic placement read
+    // as "0 saved" (a pharmacy was always already closer than the new facility).
+    private static final Map<String, List<String>> SIM_COMPETING = Map.of(
+        "kindergarten", List.of("kindergarten", "school"),
+        "school",       List.of("kindergarten", "school"),
+        "clinic",       List.of("clinic", "hospital"),
+        "hospital",     List.of("clinic", "hospital")
     );
 
     // Per-amenity round trips per year — used by the fine-grained personal planner so
@@ -68,6 +83,23 @@ public class TimePovertyService {
         for (InfrastructureNode node : serviceNodes) {
             double km = GeoUtil.haversineKm(lat, lon, node.getLat(), node.getLon());
             double min = GeoUtil.travelMinutes(km, speedKmh);
+            if (min < best) best = min;
+        }
+        return best == Double.MAX_VALUE ? 0.0 : best;
+    }
+
+    /**
+     * Personal planner nearest travel time. With a car, walk up to the threshold
+     * then drive; without one, everything is on foot.
+     */
+    private double nearestMinutesPersonal(double lat, double lon,
+                                          List<InfrastructureNode> serviceNodes, boolean hasCar) {
+        double best = Double.MAX_VALUE;
+        for (InfrastructureNode node : serviceNodes) {
+            double km = GeoUtil.haversineKm(lat, lon, node.getLat(), node.getLon());
+            double min = hasCar
+                ? GeoUtil.travelMinutes(km, pWalkKmh, pDriveKmh, pWalkThresholdKm)
+                : GeoUtil.travelMinutes(km, pWalkKmh);
             if (min < best) best = min;
         }
         return best == Double.MAX_VALUE ? 0.0 : best;
@@ -135,7 +167,9 @@ public class TimePovertyService {
         List<DemographicWeight> weights = weightsFor(req.district).stream()
             .filter(w -> w.getGroupKey().equals(group)).toList();
 
-        List<String> services = GROUP_SERVICES.get(group);
+        // Compare the new facility against genuinely competing services (not pharmacies),
+        // so placing a hospital/clinic actually shows the access it adds.
+        List<String> services = SIM_COMPETING.getOrDefault(req.amenityType, GROUP_SERVICES.get(group));
         List<InfrastructureNode> serving = nodes.stream()
             .filter(n -> services.contains(n.getServiceType())).toList();
 
@@ -198,8 +232,8 @@ public class TimePovertyService {
     private double appendBreakdown(List<PersonalCompareResponse.NeedBreakdown> sink,
                                    String group, String label, double weeklyHours,
                                    double lat, double lon,
-                                   List<InfrastructureNode> serving) {
-        double oneWay = nearestMinutes(lat, lon, serving);
+                                   List<InfrastructureNode> serving, boolean hasCar) {
+        double oneWay = nearestMinutesPersonal(lat, lon, serving, hasCar);
         PersonalCompareResponse.NeedBreakdown b = new PersonalCompareResponse.NeedBreakdown();
         b.group = group;
         b.label = label;
@@ -225,6 +259,7 @@ public class TimePovertyService {
         List<String> needs = (req.householdProfile != null && req.householdProfile.needs != null)
             ? req.householdProfile.needs.stream().filter(SERVICE_VISITS::containsKey).distinct().toList()
             : List.of();
+        boolean hasCar = req.householdProfile == null || req.householdProfile.hasCar;
 
         double current = 0.0, prospective = 0.0;
 
@@ -234,12 +269,12 @@ public class TimePovertyService {
                 String label = SERVICE_LABEL.getOrDefault(svc, svc);
                 List<InfrastructureNode> serving = servingOf(nodes, List.of(svc));
 
-                double cMin = nearestMinutes(req.currentLat, req.currentLon, serving);
-                double pMin = nearestMinutes(req.prospectiveLat, req.prospectiveLon, serving);
+                double cMin = nearestMinutesPersonal(req.currentLat, req.currentLon, serving, hasCar);
+                double pMin = nearestMinutesPersonal(req.prospectiveLat, req.prospectiveLon, serving, hasCar);
                 current += appendBreakdown(out.currentBreakdown, svc, label,
-                    weeklyHoursService(cMin, svc), req.currentLat, req.currentLon, serving);
+                    weeklyHoursService(cMin, svc), req.currentLat, req.currentLon, serving, hasCar);
                 prospective += appendBreakdown(out.prospectiveBreakdown, svc, label,
-                    weeklyHoursService(pMin, svc), req.prospectiveLat, req.prospectiveLon, serving);
+                    weeklyHoursService(pMin, svc), req.prospectiveLat, req.prospectiveLon, serving, hasCar);
             }
         } else {
             // Legacy coarse-group path (children / seniors).
@@ -255,12 +290,12 @@ public class TimePovertyService {
                 List<InfrastructureNode> serving = servingOf(nodes, services);
                 String label = "children_0_6".equals(group) ? "Children (kindergarten / school)"
                                                              : "Senior care (clinic / hospital / pharmacy)";
-                double cMin = nearestMinutes(req.currentLat, req.currentLon, serving);
-                double pMin = nearestMinutes(req.prospectiveLat, req.prospectiveLon, serving);
+                double cMin = nearestMinutesPersonal(req.currentLat, req.currentLon, serving, hasCar);
+                double pMin = nearestMinutesPersonal(req.prospectiveLat, req.prospectiveLon, serving, hasCar);
                 current += appendBreakdown(out.currentBreakdown, group, label,
-                    weeklyHours(cMin, group), req.currentLat, req.currentLon, serving);
+                    weeklyHours(cMin, group), req.currentLat, req.currentLon, serving, hasCar);
                 prospective += appendBreakdown(out.prospectiveBreakdown, group, label,
-                    weeklyHours(pMin, group), req.prospectiveLat, req.prospectiveLon, serving);
+                    weeklyHours(pMin, group), req.prospectiveLat, req.prospectiveLon, serving, hasCar);
             }
         }
 
@@ -282,13 +317,14 @@ public class TimePovertyService {
         List<String> needs = (req.householdProfile != null && req.householdProfile.needs != null)
             ? req.householdProfile.needs.stream().filter(SERVICE_VISITS::containsKey).distinct().toList()
             : List.of("kindergarten", "school", "clinic", "pharmacy");
+        boolean hasCar = req.householdProfile == null || req.householdProfile.hasCar;
 
         // Pre-bucket serving nodes once per need (candidates × needs × nodes otherwise).
         Map<String, List<InfrastructureNode>> servingByNeed = new HashMap<>();
         for (String svc : needs) servingByNeed.put(svc, servingOf(nodes, List.of(svc)));
 
         PersonalSuggestResponse out = new PersonalSuggestResponse();
-        out.currentWeeklyHours = weeklyHoursAt(req.currentLat, req.currentLon, needs, servingByNeed);
+        out.currentWeeklyHours = weeklyHoursAt(req.currentLat, req.currentLon, needs, servingByNeed, hasCar);
 
         // One representative centroid per settlement (its largest-population cell).
         Map<String, DemographicWeight> bySettlement = new HashMap<>();
@@ -298,9 +334,19 @@ public class TimePovertyService {
             if (cur == null || w.getPopulation() > cur.getPopulation()) bySettlement.put(w.getSettlement(), w);
         }
 
+        // Anchor suggestions to the province the household is actually in, so we
+        // recommend nearby towns — not the single best settlement in the country.
+        Collection<DemographicWeight> candidates = bySettlement.values();
+        String anchorDistrict = nearestDistrict(req.currentLat, req.currentLon, candidates);
+        if (anchorDistrict != null) {
+            List<DemographicWeight> inProvince = candidates.stream()
+                .filter(w -> anchorDistrict.equals(w.getDistrict())).toList();
+            if (!inProvince.isEmpty()) candidates = inProvince;
+        }
+
         List<PersonalSuggestResponse.Suggestion> ranked = new ArrayList<>();
-        for (DemographicWeight w : bySettlement.values()) {
-            double weekly = weeklyHoursAt(w.getLat(), w.getLon(), needs, servingByNeed);
+        for (DemographicWeight w : candidates) {
+            double weekly = weeklyHoursAt(w.getLat(), w.getLon(), needs, servingByNeed, hasCar);
             PersonalSuggestResponse.Suggestion s = new PersonalSuggestResponse.Suggestion();
             s.settlement = w.getSettlement();
             s.district = w.getDistrict();
@@ -316,12 +362,23 @@ public class TimePovertyService {
 
     /** Total weekly round-trip hours at a point across the given needs. */
     private double weeklyHoursAt(double lat, double lon, List<String> needs,
-                                 Map<String, List<InfrastructureNode>> servingByNeed) {
+                                 Map<String, List<InfrastructureNode>> servingByNeed, boolean hasCar) {
         double total = 0.0;
         for (String svc : needs) {
-            double oneWay = nearestMinutes(lat, lon, servingByNeed.getOrDefault(svc, List.of()));
+            double oneWay = nearestMinutesPersonal(lat, lon, servingByNeed.getOrDefault(svc, List.of()), hasCar);
             total += weeklyHoursService(oneWay, svc);
         }
         return total;
+    }
+
+    /** District of the settlement centroid closest to a point (the household's province). */
+    private String nearestDistrict(double lat, double lon, Collection<DemographicWeight> centroids) {
+        double best = Double.MAX_VALUE;
+        String district = null;
+        for (DemographicWeight w : centroids) {
+            double km = GeoUtil.haversineKm(lat, lon, w.getLat(), w.getLon());
+            if (km < best) { best = km; district = w.getDistrict(); }
+        }
+        return district;
     }
 }
