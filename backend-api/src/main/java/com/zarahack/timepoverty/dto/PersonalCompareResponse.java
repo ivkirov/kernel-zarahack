@@ -11,7 +11,8 @@ public class PersonalCompareResponse {
     public List<NeedBreakdown> prospectiveBreakdown;
 
     public static class NeedBreakdown {
-        public String group;          // children_0_6 | seniors_65p
+        public String group;          // children_0_6 | seniors_65p, or a service type in per-need mode
+        public String label;          // human-friendly label for the UI (e.g. "Pharmacy")
         public double nearestMinutes; // one-way travel time to the nearest serving facility
         public double weeklyHours;    // round-trip hours/week attributable to this need
     }

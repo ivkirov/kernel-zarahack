@@ -1,15 +1,121 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root { color-scheme: dark; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1, h2, h3, .font-display { font-family: theme("fontFamily.display"); }
+
+  /* Ambient page texture: faint grid + radial vignette over the ink base */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background-image:
+      radial-gradient(1200px 600px at 80% -10%, rgba(56,189,248,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, rgba(52,211,153,.07), transparent 55%);
+  }
+
+  ::selection { background: rgba(56,189,248,.28); }
+
+  /* Thin, tinted scrollbars */
+  ::-webkit-scrollbar { width: 10px; height: 10px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb {
+    background: theme("colors.edge");
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  ::-webkit-scrollbar-thumb:hover { background: #2c3f63; }
+
+  /* Visible keyboard focus everywhere */
+  :focus-visible {
+    outline: 2px solid theme("colors.accent");
+    outline-offset: 2px;
+    border-radius: 8px;
+  }
+}
+
 @layer components {
   .metric-card {
-    @apply bg-panel border border-edge rounded-2xl p-5 shadow-lg shadow-black/30;
+    @apply relative bg-panel border border-edge rounded-2xl p-5 shadow-card;
   }
   .metric-value {
-    @apply text-3xl font-bold tabular-nums tracking-tight;
+    @apply text-3xl font-bold font-display tabular-nums tracking-tight;
   }
   .metric-label {
-    @apply text-xs uppercase tracking-widest text-muted mt-1;
+    @apply text-[11px] uppercase tracking-[0.14em] text-faint mt-1 font-medium;
+  }
+
+  /* Frosted overlay used by floating map controls + legend */
+  .glass {
+    @apply rounded-xl border border-edge/80;
+    background: rgba(14, 21, 40, .72);
+    backdrop-filter: blur(10px) saturate(140%);
+    box-shadow: 0 10px 30px -12px rgba(3, 8, 20, .9),
+                inset 0 1px 0 rgba(255, 255, 255, .04);
+  }
+
+  /* Legend swatches */
+  .legend-row { @apply flex items-center gap-2.5 text-xs text-slate-200; }
+  .legend-ramp {
+    height: 9px;
+    border-radius: 999px;
+    background: linear-gradient(90deg,
+      #22c55e 0%, #facc15 32%, #f97316 60%, #b91c1c 82%, #7f1d1d 100%);
+  }
+}
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+  .text-pretty  { text-wrap: pretty; }
+}
+
+/* ----- Leaflet dark theme (popups + controls were stock white) ----- */
+.leaflet-container { background: #0a0f1e; font-family: theme("fontFamily.sans"); }
+
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: #111a30;
+  color: #e2e8f0;
+  border: 1px solid #21304f;
+  box-shadow: 0 12px 30px -12px rgba(3, 8, 20, .9);
+}
+.leaflet-popup-content-wrapper { border-radius: 12px; }
+.leaflet-popup-content { font-size: 12.5px; line-height: 1.45; }
+.leaflet-popup-close-button { color: #8ea2c0 !important; }
+.leaflet-container a.leaflet-popup-close-button:hover { color: #38bdf8 !important; }
+
+.leaflet-bar a {
+  background: #111a30;
+  color: #cbd5e1;
+  border-bottom-color: #21304f;
+}
+.leaflet-bar a:hover { background: #19243f; color: #38bdf8; }
+.leaflet-control-attribution {
+  background: rgba(10, 15, 30, .7) !important;
+  color: #5b6c8a !important;
+  backdrop-filter: blur(4px);
+}
+.leaflet-control-attribution a { color: #8ea2c0 !important; }
+
+/* Honor reduced-motion: GSAP also gates, this covers CSS transitions */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    transition-duration: .001ms !important;
   }
 }

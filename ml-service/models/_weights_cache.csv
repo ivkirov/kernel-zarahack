@@ -1,0 +1,709 @@
+cell_id,settlement,district,lat,lon,group_key,population
+Blagoevgrad:Yakoruda,Yakoruda,Blagoevgrad,42.02528,23.68417,children_0_6,508
+Blagoevgrad:Yakoruda,Yakoruda,Blagoevgrad,42.02528,23.68417,seniors_65p,1928
+Blagoevgrad:Valkovo,Valkovo,Blagoevgrad,41.58333,23.21667,children_0_6,33
+Blagoevgrad:Valkovo,Valkovo,Blagoevgrad,41.58333,23.21667,seniors_65p,126
+Blagoevgrad:Tuhovishta,Tuhovishta,Blagoevgrad,41.49947,24.04394,children_0_6,55
+Blagoevgrad:Tuhovishta,Tuhovishta,Blagoevgrad,41.49947,24.04394,seniors_65p,211
+Blagoevgrad:Strumyani,Strumyani,Blagoevgrad,41.63333,23.2,children_0_6,89
+Blagoevgrad:Strumyani,Strumyani,Blagoevgrad,41.63333,23.2,seniors_65p,340
+Blagoevgrad:Struma,Struma,Blagoevgrad,41.55,23.23333,children_0_6,42
+Blagoevgrad:Struma,Struma,Blagoevgrad,41.55,23.23333,seniors_65p,158
+Blagoevgrad:Stara Kresna,Stara Kresna,Blagoevgrad,41.8,23.18333,children_0_6,303
+Blagoevgrad:Stara Kresna,Stara Kresna,Blagoevgrad,41.8,23.18333,seniors_65p,1151
+Blagoevgrad:Simitli,Simitli,Blagoevgrad,41.88333,23.11667,children_0_6,569
+Blagoevgrad:Simitli,Simitli,Blagoevgrad,41.88333,23.11667,seniors_65p,2159
+Blagoevgrad:Satovcha,Satovcha,Blagoevgrad,41.61667,23.98333,children_0_6,201
+Blagoevgrad:Satovcha,Satovcha,Blagoevgrad,41.61667,23.98333,seniors_65p,764
+Blagoevgrad:Sandanski,Sandanski,Blagoevgrad,41.56667,23.28333,children_0_6,2411
+Blagoevgrad:Sandanski,Sandanski,Blagoevgrad,41.56667,23.28333,seniors_65p,9149
+Blagoevgrad:Razlog,Razlog,Blagoevgrad,41.8863,23.46714,children_0_6,1056
+Blagoevgrad:Razlog,Razlog,Blagoevgrad,41.8863,23.46714,seniors_65p,4007
+Blagoevgrad:Polenitsa,Polenitsa,Blagoevgrad,41.56667,23.3,children_0_6,109
+Blagoevgrad:Polenitsa,Polenitsa,Blagoevgrad,41.56667,23.3,seniors_65p,415
+Blagoevgrad:Petrich,Petrich,Blagoevgrad,41.39846,23.20702,children_0_6,2598
+Blagoevgrad:Petrich,Petrich,Blagoevgrad,41.39846,23.20702,seniors_65p,9859
+Blagoevgrad:Rupite,Rupite,Blagoevgrad,41.44245,23.24168,children_0_6,88
+Blagoevgrad:Rupite,Rupite,Blagoevgrad,41.44245,23.24168,seniors_65p,333
+Blagoevgrad:Melnik,Melnik,Blagoevgrad,41.52302,23.39326,children_0_6,21
+Blagoevgrad:Melnik,Melnik,Blagoevgrad,41.52302,23.39326,seniors_65p,80
+Blagoevgrad:Kresna,Kresna,Blagoevgrad,41.73333,23.15,children_0_6,348
+Blagoevgrad:Kresna,Kresna,Blagoevgrad,41.73333,23.15,seniors_65p,1321
+Blagoevgrad:Kolarovo,Kolarovo,Blagoevgrad,41.36385,23.10669,children_0_6,144
+Blagoevgrad:Kolarovo,Kolarovo,Blagoevgrad,41.36385,23.10669,seniors_65p,545
+Blagoevgrad:Hadzhidimovo,Hadzhidimovo,Blagoevgrad,41.52222,23.86861,children_0_6,268
+Blagoevgrad:Hadzhidimovo,Hadzhidimovo,Blagoevgrad,41.52222,23.86861,seniors_65p,1016
+Blagoevgrad:Garmen,Garmen,Blagoevgrad,41.6,23.81667,children_0_6,155
+Blagoevgrad:Garmen,Garmen,Blagoevgrad,41.6,23.81667,seniors_65p,590
+Blagoevgrad:Gotse Delchev,Gotse Delchev,Blagoevgrad,41.56667,23.73333,children_0_6,1736
+Blagoevgrad:Gotse Delchev,Gotse Delchev,Blagoevgrad,41.56667,23.73333,seniors_65p,6586
+Blagoevgrad:Gega,Gega,Blagoevgrad,41.4503,23.00424,children_0_6,21
+Blagoevgrad:Gega,Gega,Blagoevgrad,41.4503,23.00424,seniors_65p,80
+Blagoevgrad:Gabrovo,Gabrovo,Blagoevgrad,41.89753,22.94498,children_0_6,3
+Blagoevgrad:Gabrovo,Gabrovo,Blagoevgrad,41.89753,22.94498,seniors_65p,13
+Blagoevgrad:Dzhigurovo,Dzhigurovo,Blagoevgrad,41.55,23.31667,children_0_6,47
+Blagoevgrad:Dzhigurovo,Dzhigurovo,Blagoevgrad,41.55,23.31667,seniors_65p,177
+Blagoevgrad:Blagoevgrad,Blagoevgrad,Blagoevgrad,42.01457,23.09804,children_0_6,5735
+Blagoevgrad:Blagoevgrad,Blagoevgrad,Blagoevgrad,42.01457,23.09804,seniors_65p,21762
+Blagoevgrad:Belitsa,Belitsa,Blagoevgrad,41.95077,23.55831,children_0_6,268
+Blagoevgrad:Belitsa,Belitsa,Blagoevgrad,41.95077,23.55831,seniors_65p,1016
+Blagoevgrad:Bansko,Bansko,Blagoevgrad,41.8361,23.48745,children_0_6,781
+Blagoevgrad:Bansko,Bansko,Blagoevgrad,41.8361,23.48745,seniors_65p,2963
+Burgas:Sveti Vlas,Sveti Vlas,Burgas,42.7136,27.75867,children_0_6,273
+Burgas:Sveti Vlas,Sveti Vlas,Burgas,42.7136,27.75867,seniors_65p,1053
+Burgas:Sungurlare,Sungurlare,Burgas,42.76667,26.78333,children_0_6,270
+Burgas:Sungurlare,Sungurlare,Burgas,42.76667,26.78333,seniors_65p,1042
+Burgas:Sozopol,Sozopol,Burgas,42.41801,27.6956,children_0_6,317
+Burgas:Sozopol,Sozopol,Burgas,42.41801,27.6956,seniors_65p,1223
+Burgas:Sinemorets,Sinemorets,Burgas,42.06051,27.97497,children_0_6,15
+Burgas:Sinemorets,Sinemorets,Burgas,42.06051,27.97497,seniors_65p,59
+Burgas:Sarafovo,Sarafovo,Burgas,42.56079,27.52195,children_0_6,232
+Burgas:Sarafovo,Sarafovo,Burgas,42.56079,27.52195,seniors_65p,894
+Burgas:Ruen,Ruen,Burgas,42.8,27.28333,children_0_6,165
+Burgas:Ruen,Ruen,Burgas,42.8,27.28333,seniors_65p,636
+Burgas:Ravda,Ravda,Burgas,42.64185,27.67713,children_0_6,180
+Burgas:Ravda,Ravda,Burgas,42.64185,27.67713,seniors_65p,695
+Burgas:Primorsko,Primorsko,Burgas,42.26791,27.75611,children_0_6,249
+Burgas:Primorsko,Primorsko,Burgas,42.26791,27.75611,seniors_65p,960
+Burgas:Pomorie,Pomorie,Burgas,42.56326,27.62986,children_0_6,966
+Burgas:Pomorie,Pomorie,Burgas,42.56326,27.62986,seniors_65p,3728
+Burgas:Obzor,Obzor,Burgas,42.81998,27.88007,children_0_6,141
+Burgas:Obzor,Obzor,Burgas,42.81998,27.88007,seniors_65p,544
+Burgas:Nesebar,Nesebar,Burgas,42.65921,27.73602,children_0_6,940
+Burgas:Nesebar,Nesebar,Burgas,42.65921,27.73602,seniors_65p,3628
+Burgas:Tsarevo,Tsarevo,Burgas,42.16955,27.84541,children_0_6,428
+Burgas:Tsarevo,Tsarevo,Burgas,42.16955,27.84541,seniors_65p,1654
+Burgas:Malko Tarnovo,Malko Tarnovo,Burgas,41.97958,27.52477,children_0_6,235
+Burgas:Malko Tarnovo,Malko Tarnovo,Burgas,41.97958,27.52477,seniors_65p,907
+Burgas:Lozenets,Lozenets,Burgas,42.20878,27.80627,children_0_6,44
+Burgas:Lozenets,Lozenets,Burgas,42.20878,27.80627,seniors_65p,171
+Burgas:Kiten,Kiten,Burgas,42.23424,27.7749,children_0_6,79
+Burgas:Kiten,Kiten,Burgas,42.23424,27.7749,seniors_65p,303
+Burgas:Karnobat,Karnobat,Burgas,42.65,26.98333,children_0_6,1388
+Burgas:Karnobat,Karnobat,Burgas,42.65,26.98333,seniors_65p,5357
+Burgas:Kameno,Kameno,Burgas,42.57084,27.29875,children_0_6,349
+Burgas:Kameno,Kameno,Burgas,42.57084,27.29875,seniors_65p,1346
+Burgas:Sredets,Sredets,Burgas,42.34747,27.17898,children_0_6,674
+Burgas:Sredets,Sredets,Burgas,42.34747,27.17898,seniors_65p,2602
+Burgas:Chernomorets,Chernomorets,Burgas,42.44408,27.63902,children_0_6,154
+Burgas:Chernomorets,Chernomorets,Burgas,42.44408,27.63902,seniors_65p,596
+Burgas:Burgas,Burgas,Burgas,42.50651,27.46886,children_0_6,14833
+Burgas:Burgas,Burgas,Burgas,42.50651,27.46886,seniors_65p,57255
+Burgas:Bata,Bata,Burgas,42.73816,27.49722,children_0_6,87
+Burgas:Bata,Bata,Burgas,42.73816,27.49722,seniors_65p,336
+Burgas:Aytos,Aytos,Burgas,42.70322,27.25464,children_0_6,1478
+Burgas:Aytos,Aytos,Burgas,42.70322,27.25464,seniors_65p,5704
+Burgas:Ahtopol,Ahtopol,Burgas,42.10013,27.94361,children_0_6,78
+Burgas:Ahtopol,Ahtopol,Burgas,42.10013,27.94361,seniors_65p,301
+Burgas:Aheloy,Aheloy,Burgas,42.64987,27.64838,children_0_6,149
+Burgas:Aheloy,Aheloy,Burgas,42.64987,27.64838,seniors_65p,574
+Dobrich:Dobrich,Dobrich,Dobrich,43.56491,27.83138,children_0_6,4732
+Dobrich:Dobrich,Dobrich,Dobrich,43.56491,27.83138,seniors_65p,23941
+Dobrich:Tervel,Tervel,Dobrich,43.74789,27.40911,children_0_6,464
+Dobrich:Tervel,Tervel,Dobrich,43.74789,27.40911,seniors_65p,2347
+Dobrich:Shabla,Shabla,Dobrich,43.53983,28.53429,children_0_6,266
+Dobrich:Shabla,Shabla,Dobrich,43.53983,28.53429,seniors_65p,1345
+Dobrich:Krushari,Krushari,Dobrich,43.81675,27.75552,children_0_6,117
+Dobrich:Krushari,Krushari,Dobrich,43.81675,27.75552,seniors_65p,594
+Dobrich:Kranevo,Kranevo,Dobrich,43.34157,28.05759,children_0_6,63
+Dobrich:Kranevo,Kranevo,Dobrich,43.34157,28.05759,seniors_65p,318
+Dobrich:Kavarna,Kavarna,Dobrich,43.43601,28.33953,children_0_6,764
+Dobrich:Kavarna,Kavarna,Dobrich,43.43601,28.33953,seniors_65p,3863
+Dobrich:Kalina,Kalina,Dobrich,43.62989,28.20545,children_0_6,3
+Dobrich:Kalina,Kalina,Dobrich,43.62989,28.20545,seniors_65p,15
+Dobrich:General Toshevo,General Toshevo,Dobrich,43.70123,28.03787,children_0_6,529
+Dobrich:General Toshevo,General Toshevo,Dobrich,43.70123,28.03787,seniors_65p,2675
+Dobrich:Durankulak,Durankulak,Dobrich,43.69141,28.52921,children_0_6,21
+Dobrich:Durankulak,Durankulak,Dobrich,43.69141,28.52921,seniors_65p,109
+Dobrich:Balchik,Balchik,Dobrich,43.42166,28.15848,children_0_6,886
+Dobrich:Balchik,Balchik,Dobrich,43.42166,28.15848,seniors_65p,4482
+Dobrich:Albena,Albena,Dobrich,43.38333,28.08333,children_0_6,2
+Dobrich:Albena,Albena,Dobrich,43.38333,28.08333,seniors_65p,8
+Gabrovo:Tryavna,Tryavna,Gabrovo,42.86667,25.5,children_0_6,669
+Gabrovo:Tryavna,Tryavna,Gabrovo,42.86667,25.5,seniors_65p,4159
+Gabrovo:Sevlievo,Sevlievo,Gabrovo,43.02295,25.10364,children_0_6,1190
+Gabrovo:Sevlievo,Sevlievo,Gabrovo,43.02295,25.10364,seniors_65p,7398
+Gabrovo:Gabrovo,Gabrovo,Gabrovo,42.87419,25.31823,children_0_6,2330
+Gabrovo:Gabrovo,Gabrovo,Gabrovo,42.87419,25.31823,seniors_65p,14486
+Gabrovo:Dryanovo,Dryanovo,Gabrovo,42.97897,25.4785,children_0_6,404
+Gabrovo:Dryanovo,Dryanovo,Gabrovo,42.97897,25.4785,seniors_65p,2512
+Sofia (Capital):Voynegovtsi,Voynegovtsi,Sofia (Capital),42.80088,23.42225,children_0_6,59
+Sofia (Capital):Voynegovtsi,Voynegovtsi,Sofia (Capital),42.80088,23.42225,seniors_65p,169
+Sofia (Capital):Svetovrachane,Svetovrachane,Sofia (Capital),42.78261,23.38766,children_0_6,161
+Sofia (Capital):Svetovrachane,Svetovrachane,Sofia (Capital),42.78261,23.38766,seniors_65p,462
+Sofia (Capital):Sofia,Sofia,Sofia (Capital),42.69751,23.32415,children_0_6,85258
+Sofia (Capital):Sofia,Sofia,Sofia (Capital),42.69751,23.32415,seniors_65p,245145
+Sofia (Capital):Seslavtsi,Seslavtsi,Sofia (Capital),42.78333,23.51667,children_0_6,79
+Sofia (Capital):Seslavtsi,Seslavtsi,Sofia (Capital),42.78333,23.51667,seniors_65p,227
+Sofia (Capital):Podgumer,Podgumer,Sofia (Capital),42.80258,23.40311,children_0_6,70
+Sofia (Capital):Podgumer,Podgumer,Sofia (Capital),42.80258,23.40311,seniors_65p,200
+Sofia (Capital):Negovan,Negovan,Sofia (Capital),42.7697,23.4044,children_0_6,128
+Sofia (Capital):Negovan,Negovan,Sofia (Capital),42.7697,23.4044,seniors_65p,369
+Sofia (Capital):Lozen,Lozen,Sofia (Capital),42.6027,23.47589,children_0_6,467
+Sofia (Capital):Lozen,Lozen,Sofia (Capital),42.6027,23.47589,seniors_65p,1343
+Sofia (Capital):Lokorsko,Lokorsko,Sofia (Capital),42.79408,23.44766,children_0_6,56
+Sofia (Capital):Lokorsko,Lokorsko,Sofia (Capital),42.79408,23.44766,seniors_65p,160
+Sofia (Capital):Kubratovo,Kubratovo,Sofia (Capital),42.77291,23.35899,children_0_6,51
+Sofia (Capital):Kubratovo,Kubratovo,Sofia (Capital),42.77291,23.35899,seniors_65p,145
+Sofia (Capital):Kremikovtsi,Kremikovtsi,Sofia (Capital),42.78333,23.5,children_0_6,237
+Sofia (Capital):Kremikovtsi,Kremikovtsi,Sofia (Capital),42.78333,23.5,seniors_65p,682
+Sofia (Capital):Chepintsi,Chepintsi,Sofia (Capital),42.75798,23.42603,children_0_6,187
+Sofia (Capital):Chepintsi,Chepintsi,Sofia (Capital),42.75798,23.42603,seniors_65p,539
+Sofia (Capital):Chelopechene,Chelopechene,Sofia (Capital),42.73244,23.47387,children_0_6,229
+Sofia (Capital):Chelopechene,Chelopechene,Sofia (Capital),42.73244,23.47387,seniors_65p,659
+Sofia (Capital):Buhovo,Buhovo,Sofia (Capital),42.76667,23.56667,children_0_6,243
+Sofia (Capital):Buhovo,Buhovo,Sofia (Capital),42.76667,23.56667,seniors_65p,698
+Haskovo:Topolovgrad,Topolovgrad,Haskovo,42.08333,26.33333,children_0_6,473
+Haskovo:Topolovgrad,Topolovgrad,Haskovo,42.08333,26.33333,seniors_65p,2098
+Haskovo:Svilengrad,Svilengrad,Haskovo,41.76836,26.19775,children_0_6,1240
+Haskovo:Svilengrad,Svilengrad,Haskovo,41.76836,26.19775,seniors_65p,5505
+Haskovo:Stambolovo,Stambolovo,Haskovo,41.76667,25.65,children_0_6,45
+Haskovo:Stambolovo,Stambolovo,Haskovo,41.76667,25.65,seniors_65p,198
+Haskovo:Simeonovgrad,Simeonovgrad,Haskovo,42.03333,25.83333,children_0_6,540
+Haskovo:Simeonovgrad,Simeonovgrad,Haskovo,42.03333,25.83333,seniors_65p,2398
+Haskovo:Mineralni Bani,Mineralni Bani,Haskovo,41.91667,25.35,children_0_6,100
+Haskovo:Mineralni Bani,Mineralni Bani,Haskovo,41.91667,25.35,seniors_65p,444
+Haskovo:Madzharovo,Madzharovo,Haskovo,41.63461,25.86439,children_0_6,96
+Haskovo:Madzharovo,Madzharovo,Haskovo,41.63461,25.86439,seniors_65p,428
+Haskovo:Lyubimets,Lyubimets,Haskovo,41.84432,26.08115,children_0_6,590
+Haskovo:Lyubimets,Lyubimets,Haskovo,41.84432,26.08115,seniors_65p,2618
+Haskovo:Haskovo,Haskovo,Haskovo,41.93415,25.55557,children_0_6,4723
+Haskovo:Haskovo,Haskovo,Haskovo,41.93415,25.55557,seniors_65p,20958
+Haskovo:Harmanli,Harmanli,Haskovo,41.93233,25.90172,children_0_6,1385
+Haskovo:Harmanli,Harmanli,Haskovo,41.93233,25.90172,seniors_65p,6145
+Haskovo:Ivaylovgrad,Ivaylovgrad,Haskovo,41.52672,26.1249,children_0_6,290
+Haskovo:Ivaylovgrad,Ivaylovgrad,Haskovo,41.52672,26.1249,seniors_65p,1288
+Haskovo:Kapitan Petko voyvoda,Kapitan Petko voyvoda,Haskovo,42.07322,26.42371,children_0_6,10
+Haskovo:Kapitan Petko voyvoda,Kapitan Petko voyvoda,Haskovo,42.07322,26.42371,seniors_65p,44
+Haskovo:Dimitrovgrad,Dimitrovgrad,Haskovo,42.05,25.6,children_0_6,2781
+Haskovo:Dimitrovgrad,Dimitrovgrad,Haskovo,42.05,25.6,seniors_65p,12340
+Kardzhali:Polkovnik Zhelyazovo,Polkovnik Zhelyazovo,Kardzhali,41.46227,25.67538,children_0_6,78
+Kardzhali:Polkovnik Zhelyazovo,Polkovnik Zhelyazovo,Kardzhali,41.46227,25.67538,seniors_65p,398
+Kardzhali:Kardzhali,Kardzhali,Kardzhali,41.64502,25.36578,children_0_6,6170
+Kardzhali:Kardzhali,Kardzhali,Kardzhali,41.64502,25.36578,seniors_65p,31387
+Kardzhali:Krumovgrad,Krumovgrad,Kardzhali,41.47127,25.65485,children_0_6,738
+Kardzhali:Krumovgrad,Krumovgrad,Kardzhali,41.47127,25.65485,seniors_65p,3754
+Kardzhali:Komuniga,Komuniga,Kardzhali,41.8,25.23333,children_0_6,162
+Kardzhali:Komuniga,Komuniga,Kardzhali,41.8,25.23333,seniors_65p,822
+Kardzhali:Kirkovo,Kirkovo,Kardzhali,41.32715,25.36379,children_0_6,98
+Kardzhali:Kirkovo,Kirkovo,Kardzhali,41.32715,25.36379,seniors_65p,499
+Kardzhali:Kamenka,Kamenka,Kardzhali,41.47485,25.68055,children_0_6,10
+Kardzhali:Kamenka,Kamenka,Kardzhali,41.47485,25.68055,seniors_65p,48
+Kardzhali:Dzhebel,Dzhebel,Kardzhali,41.49566,25.30363,children_0_6,466
+Kardzhali:Dzhebel,Dzhebel,Kardzhali,41.49566,25.30363,seniors_65p,2371
+Kardzhali:Chernoochene,Chernoochene,Kardzhali,41.76667,25.35,children_0_6,51
+Kardzhali:Chernoochene,Chernoochene,Kardzhali,41.76667,25.35,seniors_65p,261
+Kardzhali:Chernigovo,Chernigovo,Kardzhali,41.68333,25.16667,children_0_6,10
+Kardzhali:Chernigovo,Chernigovo,Kardzhali,41.68333,25.16667,seniors_65p,49
+Kardzhali:Ardino,Ardino,Kardzhali,41.58322,25.13371,children_0_6,494
+Kardzhali:Ardino,Ardino,Kardzhali,41.58322,25.13371,seniors_65p,2515
+Kyustendil:Treklyano,Treklyano,Kyustendil,42.55114,22.59693,children_0_6,26
+Kyustendil:Treklyano,Treklyano,Kyustendil,42.55114,22.59693,seniors_65p,146
+Kyustendil:Dupnitsa,Dupnitsa,Kyustendil,42.26478,23.11723,children_0_6,1852
+Kyustendil:Dupnitsa,Dupnitsa,Kyustendil,42.26478,23.11723,seniors_65p,10346
+Kyustendil:Sapareva Banya,Sapareva Banya,Kyustendil,42.28923,23.26313,children_0_6,246
+Kyustendil:Sapareva Banya,Sapareva Banya,Kyustendil,42.28923,23.26313,seniors_65p,1372
+Kyustendil:Rila,Rila,Kyustendil,42.12625,23.13283,children_0_6,160
+Kyustendil:Rila,Rila,Kyustendil,42.12625,23.13283,seniors_65p,893
+Kyustendil:Porominovo,Porominovo,Kyustendil,42.07641,23.08592,children_0_6,27
+Kyustendil:Porominovo,Porominovo,Kyustendil,42.07641,23.08592,seniors_65p,153
+Kyustendil:Nevestino,Nevestino,Kyustendil,42.25465,22.84899,children_0_6,42
+Kyustendil:Nevestino,Nevestino,Kyustendil,42.25465,22.84899,seniors_65p,232
+Kyustendil:Kyustendil,Kyustendil,Kyustendil,42.28314,22.69224,children_0_6,2497
+Kyustendil:Kyustendil,Kyustendil,Kyustendil,42.28314,22.69224,seniors_65p,13945
+Kyustendil:Kocherinovo,Kocherinovo,Kyustendil,42.08439,23.0571,children_0_6,153
+Kyustendil:Kocherinovo,Kocherinovo,Kyustendil,42.08439,23.0571,seniors_65p,855
+Kyustendil:Borovets,Borovets,Kyustendil,42.10566,23.02003,children_0_6,43
+Kyustendil:Borovets,Borovets,Kyustendil,42.10566,23.02003,seniors_65p,238
+Kyustendil:Bobov Dol,Bobov Dol,Kyustendil,42.36378,22.99827,children_0_6,330
+Kyustendil:Bobov Dol,Bobov Dol,Kyustendil,42.36378,22.99827,seniors_65p,1840
+Kyustendil:Boboshevo,Boboshevo,Kyustendil,42.15323,23.00037,children_0_6,95
+Kyustendil:Boboshevo,Boboshevo,Kyustendil,42.15323,23.00037,seniors_65p,531
+Lovech:Yablanitsa,Yablanitsa,Lovech,43.02813,24.10244,children_0_6,258
+Lovech:Yablanitsa,Yablanitsa,Lovech,43.02813,24.10244,seniors_65p,1219
+Lovech:Ugarchin,Ugarchin,Lovech,43.1,24.41667,children_0_6,236
+Lovech:Ugarchin,Ugarchin,Lovech,43.1,24.41667,seniors_65p,1117
+Lovech:Troyan,Troyan,Lovech,42.89427,24.71589,children_0_6,1685
+Lovech:Troyan,Troyan,Lovech,42.89427,24.71589,seniors_65p,7972
+Lovech:Teteven,Teteven,Lovech,42.91667,24.26667,children_0_6,859
+Lovech:Teteven,Teteven,Lovech,42.91667,24.26667,seniors_65p,4065
+Lovech:Lukovit,Lukovit,Lovech,43.2,24.16667,children_0_6,780
+Lovech:Lukovit,Lukovit,Lovech,43.2,24.16667,seniors_65p,3689
+Lovech:Lovech,Lovech,Lovech,43.13227,24.71763,children_0_6,2222
+Lovech:Lovech,Lovech,Lovech,43.13227,24.71763,seniors_65p,10514
+Lovech:Letnitsa,Letnitsa,Lovech,43.31167,25.07333,children_0_6,281
+Lovech:Letnitsa,Letnitsa,Lovech,43.31167,25.07333,seniors_65p,1329
+Lovech:Apriltsi,Apriltsi,Lovech,42.84142,24.91759,children_0_6,307
+Lovech:Apriltsi,Apriltsi,Lovech,42.84142,24.91759,seniors_65p,1451
+Montana:Yakimovo,Yakimovo,Montana,43.63472,23.3535,children_0_6,157
+Montana:Yakimovo,Yakimovo,Montana,43.63472,23.3535,seniors_65p,806
+Montana:Varshets,Varshets,Montana,43.19356,23.2868,children_0_6,442
+Montana:Varshets,Varshets,Montana,43.19356,23.2868,seniors_65p,2271
+Montana:Valchedram,Valchedram,Montana,43.69281,23.44518,children_0_6,306
+Montana:Valchedram,Valchedram,Montana,43.69281,23.44518,seniors_65p,1574
+Montana:Montana,Montana,Montana,43.41285,23.22174,children_0_6,2791
+Montana:Montana,Montana,Montana,43.41285,23.22174,seniors_65p,14344
+Montana:Medkovets,Medkovets,Montana,43.62403,23.16876,children_0_6,158
+Montana:Medkovets,Medkovets,Montana,43.62403,23.16876,seniors_65p,813
+Montana:Lom,Lom,Montana,43.8317,23.23793,children_0_6,1094
+Montana:Lom,Lom,Montana,43.8317,23.23793,seniors_65p,5621
+Montana:Georgi Damyanovo,Georgi Damyanovo,Montana,43.38611,23.03056,children_0_6,44
+Montana:Georgi Damyanovo,Georgi Damyanovo,Montana,43.38611,23.03056,seniors_65p,226
+Montana:Chiprovtsi,Chiprovtsi,Montana,43.38417,22.88083,children_0_6,114
+Montana:Chiprovtsi,Chiprovtsi,Montana,43.38417,22.88083,seniors_65p,587
+Montana:Brusartsi,Brusartsi,Montana,43.66325,23.06692,children_0_6,102
+Montana:Brusartsi,Brusartsi,Montana,43.66325,23.06692,seniors_65p,524
+Montana:Boychinovtsi,Boychinovtsi,Montana,43.47058,23.33499,children_0_6,128
+Montana:Boychinovtsi,Boychinovtsi,Montana,43.47058,23.33499,seniors_65p,659
+Montana:Berkovitsa,Berkovitsa,Montana,43.23741,23.12509,children_0_6,884
+Montana:Berkovitsa,Berkovitsa,Montana,43.23741,23.12509,seniors_65p,4543
+Pazardzhik:Velingrad,Velingrad,Pazardzhik,42.02754,23.99155,children_0_6,1888
+Pazardzhik:Velingrad,Velingrad,Pazardzhik,42.02754,23.99155,seniors_65p,7467
+Pazardzhik:Sarnitsa,Sarnitsa,Pazardzhik,41.73835,24.02435,children_0_6,327
+Pazardzhik:Sarnitsa,Sarnitsa,Pazardzhik,41.73835,24.02435,seniors_65p,1292
+Pazardzhik:Strelcha,Strelcha,Pazardzhik,42.5,24.31667,children_0_6,423
+Pazardzhik:Strelcha,Strelcha,Pazardzhik,42.5,24.31667,seniors_65p,1673
+Pazardzhik:Septemvri,Septemvri,Pazardzhik,42.22016,24.11854,children_0_6,751
+Pazardzhik:Septemvri,Septemvri,Pazardzhik,42.22016,24.11854,seniors_65p,2971
+Pazardzhik:Rakitovo,Rakitovo,Pazardzhik,41.99012,24.0873,children_0_6,780
+Pazardzhik:Rakitovo,Rakitovo,Pazardzhik,41.99012,24.0873,seniors_65p,3083
+Pazardzhik:Peshtera,Peshtera,Pazardzhik,42.03372,24.29995,children_0_6,1738
+Pazardzhik:Peshtera,Peshtera,Pazardzhik,42.03372,24.29995,seniors_65p,6875
+Pazardzhik:Pazardzhik,Pazardzhik,Pazardzhik,42.19934,24.33318,children_0_6,5140
+Pazardzhik:Pazardzhik,Pazardzhik,Pazardzhik,42.19934,24.33318,seniors_65p,20327
+Pazardzhik:Panagyurishte,Panagyurishte,Pazardzhik,42.49518,24.19021,children_0_6,1805
+Pazardzhik:Panagyurishte,Panagyurishte,Pazardzhik,42.49518,24.19021,seniors_65p,7137
+Pazardzhik:Lesichovo,Lesichovo,Pazardzhik,42.35626,24.1119,children_0_6,112
+Pazardzhik:Lesichovo,Lesichovo,Pazardzhik,42.35626,24.1119,seniors_65p,444
+Pazardzhik:Bratsigovo,Bratsigovo,Pazardzhik,42.02391,24.37557,children_0_6,426
+Pazardzhik:Bratsigovo,Bratsigovo,Pazardzhik,42.02391,24.37557,seniors_65p,1685
+Pazardzhik:Belovo,Belovo,Pazardzhik,42.21395,24.01733,children_0_6,387
+Pazardzhik:Belovo,Belovo,Pazardzhik,42.21395,24.01733,seniors_65p,1529
+Pazardzhik:Batak,Batak,Pazardzhik,41.94307,24.21833,children_0_6,365
+Pazardzhik:Batak,Batak,Pazardzhik,41.94307,24.21833,seniors_65p,1442
+Pazardzhik:Ablanitsa,Ablanitsa,Pazardzhik,42.01079,23.85931,children_0_6,33
+Pazardzhik:Ablanitsa,Ablanitsa,Pazardzhik,42.01079,23.85931,seniors_65p,130
+Pernik:Zemen,Zemen,Pernik,42.47889,22.74917,children_0_6,111
+Pernik:Zemen,Zemen,Pernik,42.47889,22.74917,seniors_65p,564
+Pernik:Tran,Tran,Pernik,42.83528,22.65167,children_0_6,164
+Pernik:Tran,Tran,Pernik,42.83528,22.65167,seniors_65p,831
+Pernik:Batanovtsi,Batanovtsi,Pernik,42.59692,22.95634,children_0_6,133
+Pernik:Batanovtsi,Batanovtsi,Pernik,42.59692,22.95634,seniors_65p,674
+Pernik:Radomir,Radomir,Pernik,42.54565,22.96553,children_0_6,767
+Pernik:Radomir,Radomir,Pernik,42.54565,22.96553,seniors_65p,3881
+Pernik:Pernik,Pernik,Pernik,42.59671,23.03318,children_0_6,4364
+Pernik:Pernik,Pernik,Pernik,42.59671,23.03318,seniors_65p,22080
+Pernik:Kovachevtsi,Kovachevtsi,Pernik,42.55711,22.81736,children_0_6,25
+Pernik:Kovachevtsi,Kovachevtsi,Pernik,42.55711,22.81736,seniors_65p,126
+Pernik:Debeli Lag,Debeli Lag,Pernik,42.45852,22.86925,children_0_6,10
+Pernik:Debeli Lag,Debeli Lag,Pernik,42.45852,22.86925,seniors_65p,49
+Pernik:Breznik,Breznik,Pernik,42.74085,22.90723,children_0_6,213
+Pernik:Breznik,Breznik,Pernik,42.74085,22.90723,seniors_65p,1076
+Pleven:Slavyanovo,Slavyanovo,Pleven,43.46667,24.86667,children_0_6,376
+Pleven:Slavyanovo,Slavyanovo,Pleven,43.46667,24.86667,seniors_65p,1838
+Pleven:Pordim,Pordim,Pleven,43.38333,24.85,children_0_6,175
+Pleven:Pordim,Pordim,Pleven,43.38333,24.85,seniors_65p,855
+Pleven:Pleven,Pleven,Pleven,43.41791,24.61666,children_0_6,7083
+Pleven:Pleven,Pleven,Pleven,43.41791,24.61666,seniors_65p,34584
+Pleven:Iskar,Iskar,Pleven,43.45963,24.25739,children_0_6,340
+Pleven:Iskar,Iskar,Pleven,43.45963,24.25739,seniors_65p,1660
+Pleven:Nikopol,Nikopol,Pleven,43.70528,24.89521,children_0_6,285
+Pleven:Nikopol,Nikopol,Pleven,43.70528,24.89521,seniors_65p,1391
+Pleven:Levski,Levski,Pleven,43.36667,25.13333,children_0_6,900
+Pleven:Levski,Levski,Pleven,43.36667,25.13333,seniors_65p,4396
+Pleven:Krushovene,Krushovene,Pleven,43.64349,24.40147,children_0_6,59
+Pleven:Krushovene,Krushovene,Pleven,43.64349,24.40147,seniors_65p,290
+Pleven:Koynare,Koynare,Pleven,43.35,24.13333,children_0_6,230
+Pleven:Koynare,Koynare,Pleven,43.35,24.13333,seniors_65p,1122
+Pleven:Knezha,Knezha,Pleven,43.5,24.08333,children_0_6,541
+Pleven:Knezha,Knezha,Pleven,43.5,24.08333,seniors_65p,2641
+Pleven:Gulyantsi,Gulyantsi,Pleven,43.64109,24.69368,children_0_6,282
+Pleven:Gulyantsi,Gulyantsi,Pleven,43.64109,24.69368,seniors_65p,1376
+Pleven:Dolni Dabnik,Dolni Dabnik,Pleven,43.4,24.43333,children_0_6,413
+Pleven:Dolni Dabnik,Dolni Dabnik,Pleven,43.4,24.43333,seniors_65p,2016
+Pleven:Dolna Mitropolia,Dolna Mitropolia,Pleven,43.46667,24.53333,children_0_6,273
+Pleven:Dolna Mitropolia,Dolna Mitropolia,Pleven,43.46667,24.53333,seniors_65p,1334
+Pleven:Cherven Bryag,Cherven Bryag,Pleven,43.27884,24.08251,children_0_6,1021
+Pleven:Cherven Bryag,Cherven Bryag,Pleven,43.27884,24.08251,seniors_65p,4984
+Pleven:Belene,Belene,Pleven,43.65062,25.1343,children_0_6,588
+Pleven:Belene,Belene,Pleven,43.65062,25.1343,seniors_65p,2870
+Plovdiv:Topolovo,Topolovo,Plovdiv,41.9,25.0,children_0_6,220
+Plovdiv:Topolovo,Topolovo,Plovdiv,41.9,25.0,seniors_65p,749
+Plovdiv:Saedinenie,Saedinenie,Plovdiv,42.26667,24.55,children_0_6,544
+Plovdiv:Saedinenie,Saedinenie,Plovdiv,42.26667,24.55,seniors_65p,1852
+Plovdiv:Stamboliyski,Stamboliyski,Plovdiv,42.13333,24.53333,children_0_6,1022
+Plovdiv:Stamboliyski,Stamboliyski,Plovdiv,42.13333,24.53333,seniors_65p,3477
+Plovdiv:Sadovo,Sadovo,Plovdiv,42.13178,24.93999,children_0_6,225
+Plovdiv:Sadovo,Sadovo,Plovdiv,42.13178,24.93999,seniors_65p,765
+Plovdiv:Rakovski,Rakovski,Plovdiv,42.28819,24.96779,children_0_6,1336
+Plovdiv:Rakovski,Rakovski,Plovdiv,42.28819,24.96779,seniors_65p,4547
+Plovdiv:Parvomay,Parvomay,Plovdiv,42.1,25.21667,children_0_6,1440
+Plovdiv:Parvomay,Parvomay,Plovdiv,42.1,25.21667,seniors_65p,4898
+Plovdiv:Plovdiv,Plovdiv,Plovdiv,42.15387,24.75001,children_0_6,27901
+Plovdiv:Plovdiv,Plovdiv,Plovdiv,42.15387,24.75001,seniors_65p,94925
+Plovdiv:Perushtitsa,Perushtitsa,Plovdiv,42.05,24.55,children_0_6,453
+Plovdiv:Perushtitsa,Perushtitsa,Plovdiv,42.05,24.55,seniors_65p,1541
+Plovdiv:Laki,Laki,Plovdiv,41.85,24.81667,children_0_6,276
+Plovdiv:Laki,Laki,Plovdiv,41.85,24.81667,seniors_65p,939
+Plovdiv:Krichim,Krichim,Plovdiv,42.05,24.46667,children_0_6,727
+Plovdiv:Krichim,Krichim,Plovdiv,42.05,24.46667,seniors_65p,2472
+Plovdiv:Klisura,Klisura,Plovdiv,42.69334,24.45019,children_0_6,126
+Plovdiv:Klisura,Klisura,Plovdiv,42.69334,24.45019,seniors_65p,428
+Plovdiv:Hisarya,Hisarya,Plovdiv,42.5,24.7,children_0_6,669
+Plovdiv:Hisarya,Hisarya,Plovdiv,42.5,24.7,seniors_65p,2277
+Plovdiv:Karlovo,Karlovo,Plovdiv,42.63333,24.8,children_0_6,2569
+Plovdiv:Karlovo,Karlovo,Plovdiv,42.63333,24.8,seniors_65p,8741
+Plovdiv:Kaloyanovo,Kaloyanovo,Plovdiv,42.35,24.73333,children_0_6,236
+Plovdiv:Kaloyanovo,Kaloyanovo,Plovdiv,42.35,24.73333,seniors_65p,801
+Plovdiv:Kalofer,Kalofer,Plovdiv,42.61667,24.98333,children_0_6,275
+Plovdiv:Kalofer,Kalofer,Plovdiv,42.61667,24.98333,seniors_65p,936
+Plovdiv:Brezovo,Brezovo,Plovdiv,42.34666,25.07618,children_0_6,165
+Plovdiv:Brezovo,Brezovo,Plovdiv,42.34666,25.07618,seniors_65p,561
+Plovdiv:Bachkovo,Bachkovo,Plovdiv,41.9508,24.85978,children_0_6,32
+Plovdiv:Bachkovo,Bachkovo,Plovdiv,41.9508,24.85978,seniors_65p,108
+Plovdiv:Asenovgrad,Asenovgrad,Plovdiv,42.01667,24.86667,children_0_6,4639
+Plovdiv:Asenovgrad,Asenovgrad,Plovdiv,42.01667,24.86667,seniors_65p,15781
+Razgrad:Zavet,Zavet,Razgrad,43.76036,26.68063,children_0_6,321
+Razgrad:Zavet,Zavet,Razgrad,43.76036,26.68063,seniors_65p,1503
+Razgrad:Samuil,Samuil,Razgrad,43.51667,26.75,children_0_6,204
+Razgrad:Samuil,Samuil,Razgrad,43.51667,26.75,seniors_65p,956
+Razgrad:Razgrad,Razgrad,Razgrad,43.53331,26.51849,children_0_6,2589
+Razgrad:Razgrad,Razgrad,Razgrad,43.53331,26.51849,seniors_65p,12114
+Razgrad:Poroishte,Poroishte,Razgrad,43.48333,26.56667,children_0_6,40
+Razgrad:Poroishte,Poroishte,Razgrad,43.48333,26.56667,seniors_65p,186
+Razgrad:Loznitsa,Loznitsa,Razgrad,43.36667,26.6,children_0_6,266
+Razgrad:Loznitsa,Loznitsa,Razgrad,43.36667,26.6,seniors_65p,1244
+Razgrad:Kubrat,Kubrat,Razgrad,43.79658,26.50063,children_0_6,804
+Razgrad:Kubrat,Kubrat,Razgrad,43.79658,26.50063,seniors_65p,3760
+Razgrad:Tsar Kaloyan,Tsar Kaloyan,Razgrad,43.61667,26.25,children_0_6,357
+Razgrad:Tsar Kaloyan,Tsar Kaloyan,Razgrad,43.61667,26.25,seniors_65p,1672
+Razgrad:Isperih,Isperih,Razgrad,43.71667,26.83333,children_0_6,871
+Razgrad:Isperih,Isperih,Razgrad,43.71667,26.83333,seniors_65p,4076
+Ruse:Vetovo,Vetovo,Ruse,43.7,26.26667,children_0_6,359
+Ruse:Vetovo,Vetovo,Ruse,43.7,26.26667,seniors_65p,1851
+Ruse:Tsenovo,Tsenovo,Ruse,43.53588,25.65764,children_0_6,155
+Ruse:Tsenovo,Tsenovo,Ruse,43.53588,25.65764,seniors_65p,797
+Ruse:Slivo Pole,Slivo Pole,Ruse,43.94248,26.20464,children_0_6,226
+Ruse:Slivo Pole,Slivo Pole,Ruse,43.94248,26.20464,seniors_65p,1163
+Ruse:Senovo,Senovo,Ruse,43.65,26.36667,children_0_6,101
+Ruse:Senovo,Senovo,Ruse,43.65,26.36667,seniors_65p,522
+Ruse:Ruse,Ruse,Ruse,43.84872,25.9534,children_0_6,8413
+Ruse:Ruse,Ruse,Ruse,43.84872,25.9534,seniors_65p,43349
+Ruse:Ivanovo,Ivanovo,Ruse,43.68568,25.95565,children_0_6,72
+Ruse:Ivanovo,Ivanovo,Ruse,43.68568,25.95565,seniors_65p,369
+Ruse:Dve Mogili,Dve Mogili,Ruse,43.59258,25.87486,children_0_6,314
+Ruse:Dve Mogili,Dve Mogili,Ruse,43.59258,25.87486,seniors_65p,1619
+Ruse:Borovo,Borovo,Ruse,43.49802,25.8082,children_0_6,155
+Ruse:Borovo,Borovo,Ruse,43.49802,25.8082,seniors_65p,799
+Shumen:Varbitsa,Varbitsa,Shumen,43.0,26.63333,children_0_6,279
+Shumen:Varbitsa,Varbitsa,Shumen,43.0,26.63333,seniors_65p,1291
+Shumen:Venets,Venets,Shumen,43.55,26.93333,children_0_6,106
+Shumen:Venets,Venets,Shumen,43.55,26.93333,seniors_65p,492
+Shumen:Smyadovo,Smyadovo,Shumen,43.06667,27.01667,children_0_6,310
+Shumen:Smyadovo,Smyadovo,Shumen,43.06667,27.01667,seniors_65p,1436
+Shumen:Shumen,Shumen,Shumen,43.27064,26.92286,children_0_6,5306
+Shumen:Shumen,Shumen,Shumen,43.27064,26.92286,seniors_65p,24550
+Shumen:Veliki Preslav,Veliki Preslav,Shumen,43.16667,26.81667,children_0_6,691
+Shumen:Veliki Preslav,Veliki Preslav,Shumen,43.16667,26.81667,seniors_65p,3198
+Shumen:Pliska,Pliska,Shumen,43.36667,27.11667,children_0_6,93
+Shumen:Pliska,Pliska,Shumen,43.36667,27.11667,seniors_65p,429
+Shumen:Novi Pazar,Novi Pazar,Shumen,43.35,27.2,children_0_6,974
+Shumen:Novi Pazar,Novi Pazar,Shumen,43.35,27.2,seniors_65p,4505
+Shumen:Nikola-Kozlevo,Nikola-Kozlevo,Shumen,43.56667,27.23333,children_0_6,72
+Shumen:Nikola-Kozlevo,Nikola-Kozlevo,Shumen,43.56667,27.23333,seniors_65p,335
+Shumen:Madara,Madara,Shumen,43.28333,27.1,children_0_6,65
+Shumen:Madara,Madara,Shumen,43.28333,27.1,seniors_65p,302
+Shumen:Kaspichan,Kaspichan,Shumen,43.31667,27.16667,children_0_6,267
+Shumen:Kaspichan,Kaspichan,Shumen,43.31667,27.16667,seniors_65p,1234
+Shumen:Kaolinovo,Kaolinovo,Shumen,43.61667,27.11667,children_0_6,113
+Shumen:Kaolinovo,Kaolinovo,Shumen,43.61667,27.11667,seniors_65p,522
+Shumen:Gara Hitrino,Gara Hitrino,Shumen,43.43333,26.91667,children_0_6,96
+Shumen:Gara Hitrino,Gara Hitrino,Shumen,43.43333,26.91667,seniors_65p,442
+Shumen:Konyovets,Konyovets,Shumen,43.36504,26.99452,children_0_6,14
+Shumen:Konyovets,Konyovets,Shumen,43.36504,26.99452,seniors_65p,63
+Silistra:Tutrakan,Tutrakan,Silistra,44.04906,26.61206,children_0_6,922
+Silistra:Tutrakan,Tutrakan,Silistra,44.04906,26.61206,seniors_65p,4662
+Silistra:Sitovo,Sitovo,Silistra,44.0273,27.01982,children_0_6,114
+Silistra:Sitovo,Sitovo,Silistra,44.0273,27.01982,seniors_65p,577
+Silistra:Silistra,Silistra,Silistra,44.1171,27.26056,children_0_6,2951
+Silistra:Silistra,Silistra,Silistra,44.1171,27.26056,seniors_65p,14926
+Silistra:Kolarovo,Kolarovo,Silistra,44.01993,26.88312,children_0_6,31
+Silistra:Kolarovo,Kolarovo,Silistra,44.01993,26.88312,seniors_65p,157
+Silistra:Kaynardzha,Kaynardzha,Silistra,43.99278,27.50713,children_0_6,111
+Silistra:Kaynardzha,Kaynardzha,Silistra,43.99278,27.50713,seniors_65p,560
+Silistra:Glavinitsa,Glavinitsa,Silistra,43.91667,26.83333,children_0_6,222
+Silistra:Glavinitsa,Glavinitsa,Silistra,43.91667,26.83333,seniors_65p,1123
+Silistra:Dulovo,Dulovo,Silistra,43.81667,27.15,children_0_6,679
+Silistra:Dulovo,Dulovo,Silistra,43.81667,27.15,seniors_65p,3435
+Silistra:Alfatar,Alfatar,Silistra,43.94691,27.28587,children_0_6,192
+Silistra:Alfatar,Alfatar,Silistra,43.94691,27.28587,seniors_65p,969
+Sliven:Tvarditsa,Tvarditsa,Sliven,42.7,25.9,children_0_6,774
+Sliven:Tvarditsa,Tvarditsa,Sliven,42.7,25.9,seniors_65p,2043
+Sliven:Sliven,Sliven,Sliven,42.68607,26.32558,children_0_6,9942
+Sliven:Sliven,Sliven,Sliven,42.68607,26.32558,seniors_65p,26245
+Sliven:Nova Zagora,Nova Zagora,Sliven,42.48333,26.01667,children_0_6,2805
+Sliven:Nova Zagora,Nova Zagora,Sliven,42.48333,26.01667,seniors_65p,7404
+Sliven:Kotel,Kotel,Sliven,42.88333,26.45,children_0_6,762
+Sliven:Kotel,Kotel,Sliven,42.88333,26.45,seniors_65p,2012
+Sliven:Kermen,Kermen,Sliven,42.5,26.25,children_0_6,264
+Sliven:Kermen,Kermen,Sliven,42.5,26.25,seniors_65p,696
+Smolyan:Zlatograd,Zlatograd,Smolyan,41.3795,25.09605,children_0_6,367
+Smolyan:Zlatograd,Zlatograd,Smolyan,41.3795,25.09605,seniors_65p,2757
+Smolyan:Smolyan,Smolyan,Smolyan,41.57439,24.71204,children_0_6,1538
+Smolyan:Smolyan,Smolyan,Smolyan,41.57439,24.71204,seniors_65p,11542
+Smolyan:Rudozem,Rudozem,Smolyan,41.48751,24.84945,children_0_6,190
+Smolyan:Rudozem,Rudozem,Smolyan,41.48751,24.84945,seniors_65p,1423
+Smolyan:Nedelino,Nedelino,Smolyan,41.45602,25.08008,children_0_6,251
+Smolyan:Nedelino,Nedelino,Smolyan,41.45602,25.08008,seniors_65p,1887
+Smolyan:Madan,Madan,Smolyan,41.49869,24.93973,children_0_6,284
+Smolyan:Madan,Madan,Smolyan,41.49869,24.93973,seniors_65p,2129
+Smolyan:Gyovren,Gyovren,Smolyan,41.66326,24.37557,children_0_6,52
+Smolyan:Gyovren,Gyovren,Smolyan,41.66326,24.37557,seniors_65p,391
+Smolyan:Dospat,Dospat,Smolyan,41.64462,24.15857,children_0_6,140
+Smolyan:Dospat,Dospat,Smolyan,41.64462,24.15857,seniors_65p,1054
+Smolyan:Devin,Devin,Smolyan,41.74327,24.40003,children_0_6,370
+Smolyan:Devin,Devin,Smolyan,41.74327,24.40003,seniors_65p,2781
+Smolyan:Chepelare,Chepelare,Smolyan,41.73333,24.68333,children_0_6,275
+Smolyan:Chepelare,Chepelare,Smolyan,41.73333,24.68333,seniors_65p,2060
+Smolyan:Borino,Borino,Smolyan,41.68534,24.29023,children_0_6,155
+Smolyan:Borino,Borino,Smolyan,41.68534,24.29023,seniors_65p,1160
+Smolyan:Banite,Banite,Smolyan,41.61667,25.01667,children_0_6,64
+Smolyan:Banite,Banite,Smolyan,41.61667,25.01667,seniors_65p,481
+Sofia Province:Zlatitsa,Zlatitsa,Sofia Province,42.71667,24.13333,children_0_6,527
+Sofia Province:Zlatitsa,Zlatitsa,Sofia Province,42.71667,24.13333,seniors_65p,2015
+Sofia Province:Svoge,Svoge,Sofia Province,42.96667,23.35,children_0_6,816
+Sofia Province:Svoge,Svoge,Sofia Province,42.96667,23.35,seniors_65p,3122
+Sofia Province:Smolsko,Smolsko,Sofia Province,42.63923,23.94428,children_0_6,25
+Sofia Province:Smolsko,Smolsko,Sofia Province,42.63923,23.94428,seniors_65p,94
+Sofia Province:Slivnitsa,Slivnitsa,Sofia Province,42.85182,23.03792,children_0_6,687
+Sofia Province:Slivnitsa,Slivnitsa,Sofia Province,42.85182,23.03792,seniors_65p,2627
+Sofia Province:Samokov,Samokov,Sofia Province,42.33855,23.55805,children_0_6,2438
+Sofia Province:Samokov,Samokov,Sofia Province,42.33855,23.55805,seniors_65p,9320
+Sofia Province:Pravets,Pravets,Sofia Province,42.89163,23.91525,children_0_6,401
+Sofia Province:Pravets,Pravets,Sofia Province,42.89163,23.91525,seniors_65p,1532
+Sofia Province:Pirdop,Pirdop,Sofia Province,42.7,24.18333,children_0_6,741
+Sofia Province:Pirdop,Pirdop,Sofia Province,42.7,24.18333,seniors_65p,2833
+Sofia Province:Mirkovo,Mirkovo,Sofia Province,42.7,23.98333,children_0_6,171
+Sofia Province:Mirkovo,Mirkovo,Sofia Province,42.7,23.98333,seniors_65p,655
+Sofia Province:Kostinbrod,Kostinbrod,Sofia Province,42.81667,23.21667,children_0_6,1109
+Sofia Province:Kostinbrod,Kostinbrod,Sofia Province,42.81667,23.21667,seniors_65p,4240
+Sofia Province:Koprivshtitsa,Koprivshtitsa,Sofia Province,42.63333,24.35,children_0_6,263
+Sofia Province:Koprivshtitsa,Koprivshtitsa,Sofia Province,42.63333,24.35,seniors_65p,1005
+Sofia Province:Ihtiman,Ihtiman,Sofia Province,42.43821,23.81608,children_0_6,1289
+Sofia Province:Ihtiman,Ihtiman,Sofia Province,42.43821,23.81608,seniors_65p,4929
+Sofia Province:Gorna Malina,Gorna Malina,Sofia Province,42.68333,23.7,children_0_6,137
+Sofia Province:Gorna Malina,Gorna Malina,Sofia Province,42.68333,23.7,seniors_65p,523
+Sofia Province:Godech,Godech,Sofia Province,43.01682,23.04852,children_0_6,469
+Sofia Province:Godech,Godech,Sofia Province,43.01682,23.04852,seniors_65p,1795
+Sofia Province:Etropole,Etropole,Sofia Province,42.8328,23.99636,children_0_6,1005
+Sofia Province:Etropole,Etropole,Sofia Province,42.8328,23.99636,seniors_65p,3841
+Sofia Province:Elin Pelin,Elin Pelin,Sofia Province,42.66667,23.6,children_0_6,671
+Sofia Province:Elin Pelin,Elin Pelin,Sofia Province,42.66667,23.6,seniors_65p,2567
+Sofia Province:Dragoman,Dragoman,Sofia Province,42.92191,22.93109,children_0_6,347
+Sofia Province:Dragoman,Dragoman,Sofia Province,42.92191,22.93109,seniors_65p,1328
+Sofia Province:Dolna Banya,Dolna Banya,Sofia Province,42.31093,23.76459,children_0_6,454
+Sofia Province:Dolna Banya,Dolna Banya,Sofia Province,42.31093,23.76459,seniors_65p,1738
+Sofia Province:Chelopech,Chelopech,Sofia Province,42.7,24.08333,children_0_6,160
+Sofia Province:Chelopech,Chelopech,Sofia Province,42.7,24.08333,seniors_65p,613
+Sofia Province:Chavdar,Chavdar,Sofia Province,42.65,24.05,children_0_6,127
+Sofia Province:Chavdar,Chavdar,Sofia Province,42.65,24.05,seniors_65p,487
+Sofia Province:Bunovo,Bunovo,Sofia Province,42.71667,23.93333,children_0_6,27
+Sofia Province:Bunovo,Bunovo,Sofia Province,42.71667,23.93333,seniors_65p,105
+Sofia Province:Bozhurishte,Bozhurishte,Sofia Province,42.76305,23.19733,children_0_6,397
+Sofia Province:Bozhurishte,Bozhurishte,Sofia Province,42.76305,23.19733,seniors_65p,1518
+Sofia Province:Botevgrad,Botevgrad,Sofia Province,42.90799,23.79274,children_0_6,1904
+Sofia Province:Botevgrad,Botevgrad,Sofia Province,42.90799,23.79274,seniors_65p,7281
+Sofia Province:Anton,Anton,Sofia Province,42.73501,24.25958,children_0_6,155
+Sofia Province:Anton,Anton,Sofia Province,42.73501,24.25958,seniors_65p,591
+Stara Zagora:Yasenovo,Yasenovo,Stara Zagora,42.68333,25.25,children_0_6,48
+Stara Zagora:Yasenovo,Yasenovo,Stara Zagora,42.68333,25.25,seniors_65p,188
+Stara Zagora:Starozagorski Bani,Starozagorski Bani,Stara Zagora,42.45,25.5,children_0_6,28
+Stara Zagora:Starozagorski Bani,Starozagorski Bani,Stara Zagora,42.45,25.5,seniors_65p,110
+Stara Zagora:Stara Zagora,Stara Zagora,Stara Zagora,42.43205,25.64262,children_0_6,9482
+Stara Zagora:Stara Zagora,Stara Zagora,Stara Zagora,42.43205,25.64262,seniors_65p,36825
+Stara Zagora:Skobelevo,Skobelevo,Stara Zagora,42.67971,25.19751,children_0_6,48
+Stara Zagora:Skobelevo,Skobelevo,Stara Zagora,42.67971,25.19751,seniors_65p,186
+Stara Zagora:Shipka,Shipka,Stara Zagora,42.71172,25.3353,children_0_6,125
+Stara Zagora:Shipka,Shipka,Stara Zagora,42.71172,25.3353,seniors_65p,486
+Stara Zagora:Sheynovo,Sheynovo,Stara Zagora,42.68333,25.31667,children_0_6,114
+Stara Zagora:Sheynovo,Sheynovo,Stara Zagora,42.68333,25.31667,seniors_65p,443
+Stara Zagora:Radnevo,Radnevo,Stara Zagora,42.3,25.93333,children_0_6,1144
+Stara Zagora:Radnevo,Radnevo,Stara Zagora,42.3,25.93333,seniors_65p,4442
+Stara Zagora:Pavel Banya,Pavel Banya,Stara Zagora,42.6,25.2,children_0_6,250
+Stara Zagora:Pavel Banya,Pavel Banya,Stara Zagora,42.6,25.2,seniors_65p,973
+Stara Zagora:Opan,Opan,Stara Zagora,42.21667,25.7,children_0_6,41
+Stara Zagora:Opan,Opan,Stara Zagora,42.21667,25.7,seniors_65p,159
+Stara Zagora:Nikolaevo,Nikolaevo,Stara Zagora,42.63333,25.8,children_0_6,246
+Stara Zagora:Nikolaevo,Nikolaevo,Stara Zagora,42.63333,25.8,seniors_65p,957
+Stara Zagora:Maglizh,Maglizh,Stara Zagora,42.6,25.55,children_0_6,284
+Stara Zagora:Maglizh,Maglizh,Stara Zagora,42.6,25.55,seniors_65p,1103
+Stara Zagora:Kanchevo,Kanchevo,Stara Zagora,42.54302,25.45287,children_0_6,67
+Stara Zagora:Kanchevo,Kanchevo,Stara Zagora,42.54302,25.45287,seniors_65p,261
+Stara Zagora:Kran,Kran,Stara Zagora,42.66667,25.38333,children_0_6,220
+Stara Zagora:Kran,Kran,Stara Zagora,42.66667,25.38333,seniors_65p,856
+Stara Zagora:Koprinka,Koprinka,Stara Zagora,42.63333,25.33333,children_0_6,177
+Stara Zagora:Koprinka,Koprinka,Stara Zagora,42.63333,25.33333,seniors_65p,686
+Stara Zagora:Kolarovo,Kolarovo,Stara Zagora,42.33521,25.71563,children_0_6,38
+Stara Zagora:Kolarovo,Kolarovo,Stara Zagora,42.33521,25.71563,seniors_65p,146
+Stara Zagora:Hadzhidimitrovo,Hadzhidimitrovo,Stara Zagora,42.67354,25.35072,children_0_6,115
+Stara Zagora:Hadzhidimitrovo,Hadzhidimitrovo,Stara Zagora,42.67354,25.35072,seniors_65p,446
+Stara Zagora:Kazanlak,Kazanlak,Stara Zagora,42.61667,25.4,children_0_6,3737
+Stara Zagora:Kazanlak,Kazanlak,Stara Zagora,42.61667,25.4,seniors_65p,14513
+Stara Zagora:Gurkovo,Gurkovo,Stara Zagora,42.66667,25.8,children_0_6,225
+Stara Zagora:Gurkovo,Gurkovo,Stara Zagora,42.66667,25.8,seniors_65p,875
+Stara Zagora:Gŭlŭbovo,Gŭlŭbovo,Stara Zagora,42.13333,25.85,children_0_6,655
+Stara Zagora:Gŭlŭbovo,Gŭlŭbovo,Stara Zagora,42.13333,25.85,seniors_65p,2544
+Stara Zagora:Enina,Enina,Stara Zagora,42.66667,25.4,children_0_6,178
+Stara Zagora:Enina,Enina,Stara Zagora,42.66667,25.4,seniors_65p,691
+Stara Zagora:Dunavtsi,Dunavtsi,Stara Zagora,42.65,25.3,children_0_6,42
+Stara Zagora:Dunavtsi,Dunavtsi,Stara Zagora,42.65,25.3,seniors_65p,162
+Stara Zagora:Chirpan,Chirpan,Stara Zagora,42.2,25.33333,children_0_6,1178
+Stara Zagora:Chirpan,Chirpan,Stara Zagora,42.2,25.33333,seniors_65p,4576
+Stara Zagora:Bratya Daskalovi,Bratya Daskalovi,Stara Zagora,42.30155,25.21205,children_0_6,78
+Stara Zagora:Bratya Daskalovi,Bratya Daskalovi,Stara Zagora,42.30155,25.21205,seniors_65p,302
+Targovishte:Targovishte,Targovishte,Targovishte,43.2512,26.57215,children_0_6,2880
+Targovishte:Targovishte,Targovishte,Targovishte,43.2512,26.57215,seniors_65p,13011
+Targovishte:Popovo,Popovo,Targovishte,43.35,26.23333,children_0_6,1372
+Targovishte:Popovo,Popovo,Targovishte,43.35,26.23333,seniors_65p,6197
+Targovishte:Opaka,Opaka,Targovishte,43.45,26.16667,children_0_6,249
+Targovishte:Opaka,Opaka,Targovishte,43.45,26.16667,seniors_65p,1123
+Targovishte:Omurtag,Omurtag,Targovishte,43.1,26.41667,children_0_6,751
+Targovishte:Omurtag,Omurtag,Targovishte,43.1,26.41667,seniors_65p,3392
+Targovishte:Buhovtsi,Buhovtsi,Targovishte,43.3,26.71667,children_0_6,54
+Targovishte:Buhovtsi,Buhovtsi,Targovishte,43.3,26.71667,seniors_65p,244
+Targovishte:Antonovo,Antonovo,Targovishte,43.15022,26.16032,children_0_6,128
+Targovishte:Antonovo,Antonovo,Targovishte,43.15022,26.16032,seniors_65p,577
+Varna:Beloslav,Beloslav,Varna,43.18717,27.70352,children_0_6,537
+Varna:Beloslav,Beloslav,Varna,43.18717,27.70352,seniors_65p,1817
+Varna:Valchidol,Valchidol,Varna,43.4,27.55,children_0_6,249
+Varna:Valchidol,Valchidol,Varna,43.4,27.55,seniors_65p,841
+Varna:Vetrino,Vetrino,Varna,43.31667,27.43333,children_0_6,92
+Varna:Vetrino,Vetrino,Varna,43.31667,27.43333,seniors_65p,311
+Varna:Varna,Varna,Varna,43.21912,27.91024,children_0_6,21442
+Varna:Varna,Varna,Varna,43.21912,27.91024,seniors_65p,72478
+Varna:Suvorovo,Suvorovo,Varna,43.33058,27.59908,children_0_6,307
+Varna:Suvorovo,Suvorovo,Varna,43.33058,27.59908,seniors_65p,1038
+Varna:Provadia,Provadia,Varna,43.18333,27.43333,children_0_6,925
+Varna:Provadia,Provadia,Varna,43.18333,27.43333,seniors_65p,3128
+Varna:Kiten,Kiten,Varna,43.08333,27.31667,children_0_6,75
+Varna:Kiten,Kiten,Varna,43.08333,27.31667,seniors_65p,254
+Varna:Dolni Chiflik,Dolni Chiflik,Varna,42.99296,27.71596,children_0_6,482
+Varna:Dolni Chiflik,Dolni Chiflik,Varna,42.99296,27.71596,seniors_65p,1630
+Varna:Dalgopol,Dalgopol,Varna,43.05,27.35,children_0_6,355
+Varna:Dalgopol,Dalgopol,Varna,43.05,27.35,seniors_65p,1199
+Varna:Devnya,Devnya,Varna,43.22222,27.56944,children_0_6,550
+Varna:Devnya,Devnya,Varna,43.22222,27.56944,seniors_65p,1858
+Varna:Byala,Byala,Varna,42.87426,27.88865,children_0_6,157
+Varna:Byala,Byala,Varna,42.87426,27.88865,seniors_65p,529
+Varna:Bliznatsi,Bliznatsi,Varna,43.06192,27.86797,children_0_6,63
+Varna:Bliznatsi,Bliznatsi,Varna,43.06192,27.86797,seniors_65p,214
+Varna:Avren,Avren,Varna,43.11667,27.66667,children_0_6,59
+Varna:Avren,Avren,Varna,43.11667,27.66667,seniors_65p,201
+Varna:Asparuhovo,Asparuhovo,Varna,43.18067,27.88823,children_0_6,1816
+Varna:Asparuhovo,Asparuhovo,Varna,43.18067,27.88823,seniors_65p,6140
+Varna:Aksakovo,Aksakovo,Varna,43.25907,27.81755,children_0_6,480
+Varna:Aksakovo,Aksakovo,Varna,43.25907,27.81755,seniors_65p,1622
+Varna:Zlatni Pyasatsi,Zlatni Pyasatsi,Varna,43.285,28.0418,children_0_6,657
+Varna:Zlatni Pyasatsi,Zlatni Pyasatsi,Varna,43.285,28.0418,seniors_65p,2219
+Varna:Balgarevo,Balgarevo,Varna,43.40296,28.41189,children_0_6,93
+Varna:Balgarevo,Balgarevo,Varna,43.40296,28.41189,seniors_65p,313
+Veliko Tarnovo:Zlataritsa,Zlataritsa,Veliko Tarnovo,43.05,25.9,children_0_6,150
+Veliko Tarnovo:Zlataritsa,Zlataritsa,Veliko Tarnovo,43.05,25.9,seniors_65p,767
+Veliko Tarnovo:Vinograd,Vinograd,Veliko Tarnovo,43.33333,25.83333,children_0_6,45
+Veliko Tarnovo:Vinograd,Vinograd,Veliko Tarnovo,43.33333,25.83333,seniors_65p,227
+Veliko Tarnovo:Veliko Tŭrnovo,Veliko Tŭrnovo,Veliko Tarnovo,43.08124,25.62904,children_0_6,3606
+Veliko Tarnovo:Veliko Tŭrnovo,Veliko Tŭrnovo,Veliko Tarnovo,43.08124,25.62904,seniors_65p,18377
+Veliko Tarnovo:Svishtov,Svishtov,Veliko Tarnovo,43.61875,25.35033,children_0_6,1838
+Veliko Tarnovo:Svishtov,Svishtov,Veliko Tarnovo,43.61875,25.35033,seniors_65p,9367
+Veliko Tarnovo:Suhindol,Suhindol,Veliko Tarnovo,43.19167,25.18111,children_0_6,144
+Veliko Tarnovo:Suhindol,Suhindol,Veliko Tarnovo,43.19167,25.18111,seniors_65p,734
+Veliko Tarnovo:Strazhitsa,Strazhitsa,Veliko Tarnovo,43.23333,25.96667,children_0_6,349
+Veliko Tarnovo:Strazhitsa,Strazhitsa,Veliko Tarnovo,43.23333,25.96667,seniors_65p,1779
+Veliko Tarnovo:Parvomaytsi,Parvomaytsi,Veliko Tarnovo,43.15,25.65,children_0_6,175
+Veliko Tarnovo:Parvomaytsi,Parvomaytsi,Veliko Tarnovo,43.15,25.65,seniors_65p,891
+Veliko Tarnovo:Polski Trambesh,Polski Trambesh,Veliko Tarnovo,43.37233,25.63525,children_0_6,345
+Veliko Tarnovo:Polski Trambesh,Polski Trambesh,Veliko Tarnovo,43.37233,25.63525,seniors_65p,1759
+Veliko Tarnovo:Pavlikeni,Pavlikeni,Veliko Tarnovo,43.24278,25.32194,children_0_6,680
+Veliko Tarnovo:Pavlikeni,Pavlikeni,Veliko Tarnovo,43.24278,25.32194,seniors_65p,3464
+Veliko Tarnovo:Lyaskovets,Lyaskovets,Veliko Tarnovo,43.11111,25.72833,children_0_6,517
+Veliko Tarnovo:Lyaskovets,Lyaskovets,Veliko Tarnovo,43.11111,25.72833,seniors_65p,2636
+Veliko Tarnovo:Klimentovo,Klimentovo,Veliko Tarnovo,43.36667,25.6,children_0_6,55
+Veliko Tarnovo:Klimentovo,Klimentovo,Veliko Tarnovo,43.36667,25.6,seniors_65p,278
+Veliko Tarnovo:Kilifarevo,Kilifarevo,Veliko Tarnovo,42.98333,25.63333,children_0_6,152
+Veliko Tarnovo:Kilifarevo,Kilifarevo,Veliko Tarnovo,42.98333,25.63333,seniors_65p,776
+Veliko Tarnovo:Stefan Stambolovo,Stefan Stambolovo,Veliko Tarnovo,43.27511,25.56357,children_0_6,16
+Veliko Tarnovo:Stefan Stambolovo,Stefan Stambolovo,Veliko Tarnovo,43.27511,25.56357,seniors_65p,81
+Veliko Tarnovo:Gorna Oryahovitsa,Gorna Oryahovitsa,Veliko Tarnovo,43.12778,25.70167,children_0_6,1998
+Veliko Tarnovo:Gorna Oryahovitsa,Gorna Oryahovitsa,Veliko Tarnovo,43.12778,25.70167,seniors_65p,10185
+Veliko Tarnovo:Elena,Elena,Veliko Tarnovo,42.93333,25.88333,children_0_6,368
+Veliko Tarnovo:Elena,Elena,Veliko Tarnovo,42.93333,25.88333,seniors_65p,1877
+Veliko Tarnovo:Debelets,Debelets,Veliko Tarnovo,43.03333,25.61667,children_0_6,269
+Veliko Tarnovo:Debelets,Debelets,Veliko Tarnovo,43.03333,25.61667,seniors_65p,1372
+Veliko Tarnovo:Byala Cherkva,Byala Cherkva,Veliko Tarnovo,43.2,25.3,children_0_6,183
+Veliko Tarnovo:Byala Cherkva,Byala Cherkva,Veliko Tarnovo,43.2,25.3,seniors_65p,935
+Vidin:Vidin,Vidin,Vidin,43.99159,22.88236,children_0_6,2069
+Vidin:Vidin,Vidin,Vidin,43.99159,22.88236,seniors_65p,12949
+Vidin:Ruzhintsi,Ruzhintsi,Vidin,43.62179,22.83286,children_0_6,75
+Vidin:Ruzhintsi,Ruzhintsi,Vidin,43.62179,22.83286,seniors_65p,472
+Vidin:Novo Selo,Novo Selo,Vidin,44.16214,22.78376,children_0_6,94
+Vidin:Novo Selo,Novo Selo,Vidin,44.16214,22.78376,seniors_65p,586
+Vidin:Makresh,Makresh,Vidin,43.76794,22.66406,children_0_6,39
+Vidin:Makresh,Makresh,Vidin,43.76794,22.66406,seniors_65p,246
+Vidin:Kula,Kula,Vidin,43.8879,22.52241,children_0_6,222
+Vidin:Kula,Kula,Vidin,43.8879,22.52241,seniors_65p,1391
+Vidin:Gramada,Gramada,Vidin,43.83738,22.65279,children_0_6,111
+Vidin:Gramada,Gramada,Vidin,43.83738,22.65279,seniors_65p,697
+Vidin:Dunavtsi,Dunavtsi,Vidin,43.92111,22.82111,children_0_6,200
+Vidin:Dunavtsi,Dunavtsi,Vidin,43.92111,22.82111,seniors_65p,1254
+Vidin:Dimovo,Dimovo,Vidin,43.74167,22.72694,children_0_6,87
+Vidin:Dimovo,Dimovo,Vidin,43.74167,22.72694,seniors_65p,544
+Vidin:Chuprene,Chuprene,Vidin,43.51806,22.66611,children_0_6,50
+Vidin:Chuprene,Chuprene,Vidin,43.51806,22.66611,seniors_65p,313
+Vidin:Bregovo,Bregovo,Vidin,44.15191,22.63877,children_0_6,172
+Vidin:Bregovo,Bregovo,Vidin,44.15191,22.63877,seniors_65p,1076
+Vidin:Boynitsa,Boynitsa,Vidin,43.9573,22.53238,children_0_6,53
+Vidin:Boynitsa,Boynitsa,Vidin,43.9573,22.53238,seniors_65p,329
+Vidin:Belogradchik,Belogradchik,Vidin,43.62722,22.68361,children_0_6,338
+Vidin:Belogradchik,Belogradchik,Vidin,43.62722,22.68361,seniors_65p,2117
+Vratsa:Vratsa,Vratsa,Vratsa,43.21052,23.56312,children_0_6,4139
+Vratsa:Vratsa,Vratsa,Vratsa,43.21052,23.56312,seniors_65p,17334
+Vratsa:Tsarevets,Tsarevets,Vratsa,43.16667,23.8,children_0_6,21
+Vratsa:Tsarevets,Tsarevets,Vratsa,43.16667,23.8,seniors_65p,89
+Vratsa:Tsakonitsa,Tsakonitsa,Vratsa,43.23061,23.82003,children_0_6,4
+Vratsa:Tsakonitsa,Tsakonitsa,Vratsa,43.23061,23.82003,seniors_65p,17
+Vratsa:Tipchenitsa,Tipchenitsa,Vratsa,43.06554,23.70591,children_0_6,22
+Vratsa:Tipchenitsa,Tipchenitsa,Vratsa,43.06554,23.70591,seniors_65p,90
+Vratsa:Roman,Roman,Vratsa,43.15,23.91667,children_0_6,298
+Vratsa:Roman,Roman,Vratsa,43.15,23.91667,seniors_65p,1249
+Vratsa:Oryahovo,Oryahovo,Vratsa,43.73805,23.95874,children_0_6,418
+Vratsa:Oryahovo,Oryahovo,Vratsa,43.73805,23.95874,seniors_65p,1751
+Vratsa:Moravitsa,Moravitsa,Vratsa,43.15,23.65,children_0_6,45
+Vratsa:Moravitsa,Moravitsa,Vratsa,43.15,23.65,seniors_65p,187
+Vratsa:Mizia,Mizia,Vratsa,43.68623,23.85371,children_0_6,310
+Vratsa:Mizia,Mizia,Vratsa,43.68623,23.85371,seniors_65p,1298
+Vratsa:Mezdra,Mezdra,Vratsa,43.1448,23.71415,children_0_6,1000
+Vratsa:Mezdra,Mezdra,Vratsa,43.1448,23.71415,seniors_65p,4188
+Vratsa:Lik,Lik,Vratsa,43.09216,23.7641,children_0_6,20
+Vratsa:Lik,Lik,Vratsa,43.09216,23.7641,seniors_65p,83
+Vratsa:Krivodol,Krivodol,Vratsa,43.37444,23.48444,children_0_6,305
+Vratsa:Krivodol,Krivodol,Vratsa,43.37444,23.48444,seniors_65p,1277
+Vratsa:Kozloduy,Kozloduy,Vratsa,43.77691,23.73001,children_0_6,946
+Vratsa:Kozloduy,Kozloduy,Vratsa,43.77691,23.73001,seniors_65p,3962
+Vratsa:Hayredin,Hayredin,Vratsa,43.60193,23.66135,children_0_6,186
+Vratsa:Hayredin,Hayredin,Vratsa,43.60193,23.66135,seniors_65p,779
+Vratsa:Kalen,Kalen,Vratsa,43.21045,23.77621,children_0_6,6
+Vratsa:Kalen,Kalen,Vratsa,43.21045,23.77621,seniors_65p,26
+Vratsa:Dolna Kremena,Dolna Kremena,Vratsa,43.16667,23.73333,children_0_6,43
+Vratsa:Dolna Kremena,Dolna Kremena,Vratsa,43.16667,23.73333,seniors_65p,178
+Vratsa:Byala Slatina,Byala Slatina,Vratsa,43.46667,23.93333,children_0_6,859
+Vratsa:Byala Slatina,Byala Slatina,Vratsa,43.46667,23.93333,seniors_65p,3596
+Vratsa:Borovan,Borovan,Vratsa,43.42959,23.75331,children_0_6,246
+Vratsa:Borovan,Borovan,Vratsa,43.42959,23.75331,seniors_65p,1028
+Yambol:Yambol,Yambol,Yambol,42.48243,26.50006,children_0_6,5624
+Yambol:Yambol,Yambol,Yambol,42.48243,26.50006,seniors_65p,22452
+Yambol:Straldzha,Straldzha,Yambol,42.6,26.68333,children_0_6,514
+Yambol:Straldzha,Straldzha,Yambol,42.6,26.68333,seniors_65p,2052
+Yambol:Elhovo,Elhovo,Yambol,42.16667,26.56667,children_0_6,921
+Yambol:Elhovo,Elhovo,Yambol,42.16667,26.56667,seniors_65p,3677
+Yambol:Bolyarovo,Bolyarovo,Yambol,42.14868,26.81022,children_0_6,121
+Yambol:Bolyarovo,Bolyarovo,Yambol,42.14868,26.81022,seniors_65p,483

@@ -5,6 +5,7 @@ import com.zarahack.timepoverty.entity.DemographicWeight;
 import com.zarahack.timepoverty.entity.InfrastructureNode;
 import com.zarahack.timepoverty.repository.*;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,6 +24,23 @@ public class TimePovertyService {
     private static final Map<String, List<String>> GROUP_SERVICES = Map.of(
         "children_0_6", List.of("kindergarten", "school"),
         "seniors_65p",  List.of("hospital", "clinic", "pharmacy")
+    );
+
+    // Per-amenity round trips per year — used by the fine-grained personal planner so
+    // each need is weighted by how often a household actually travels to it.
+    private static final Map<String, Integer> SERVICE_VISITS = Map.of(
+        "kindergarten", 380,   // ~daily drop-off + pickup over the school year
+        "school",       380,
+        "clinic",        18,
+        "hospital",       6,
+        "pharmacy",      30
+    );
+    private static final Map<String, String> SERVICE_LABEL = Map.of(
+        "kindergarten", "Kindergarten",
+        "school",       "School",
+        "clinic",       "Clinic",
+        "hospital",     "Hospital",
+        "pharmacy",     "Pharmacy"
     );
 
     public TimePovertyService(InfrastructureNodeRepository n, DemographicWeightRepository w) {
@@ -61,6 +79,9 @@ public class TimePovertyService {
     }
 
     // ---------- GET /matrix ----------
+    // Heavy for the nationwide view (~14k cells × ~2.8k nodes); cache by district so
+    // repeat loads / province switches are instant.
+    @Cacheable("matrix")
     public MatrixResponse buildMatrix(String district) {
         List<InfrastructureNode> nodes = nodesFor(district);
         List<DemographicWeight> weights = weightsFor(district);
@@ -168,48 +189,79 @@ public class TimePovertyService {
         return (oneWayMinutes * 2.0 * weeklyVisits) / 60.0;
     }
 
+    /** Weekly round-trip hours for one amenity type at the household's own visit cadence. */
+    private double weeklyHoursService(double oneWayMinutes, String serviceType) {
+        double weeklyVisits = SERVICE_VISITS.getOrDefault(serviceType, 24) / 52.0;
+        return (oneWayMinutes * 2.0 * weeklyVisits) / 60.0;
+    }
+
     private double appendBreakdown(List<PersonalCompareResponse.NeedBreakdown> sink,
-                                   String group, double lat, double lon,
+                                   String group, String label, double weeklyHours,
+                                   double lat, double lon,
                                    List<InfrastructureNode> serving) {
         double oneWay = nearestMinutes(lat, lon, serving);
-        double hours = weeklyHours(oneWay, group);
         PersonalCompareResponse.NeedBreakdown b = new PersonalCompareResponse.NeedBreakdown();
         b.group = group;
+        b.label = label;
         b.nearestMinutes = oneWay;
-        b.weeklyHours = hours;
+        b.weeklyHours = weeklyHours;
         sink.add(b);
-        return hours;
+        return weeklyHours;
+    }
+
+    private List<InfrastructureNode> servingOf(List<InfrastructureNode> nodes, List<String> services) {
+        return nodes.stream().filter(n -> services.contains(n.getServiceType())).toList();
     }
 
     public PersonalCompareResponse personalCompare(PersonalCompareRequest req) {
         // Single shared local DB / single pilot district → evaluate against all known nodes.
         List<InfrastructureNode> nodes = nodeRepo.findAll();
 
-        boolean hasChildren = req.householdProfile != null && req.householdProfile.hasChildren;
-        boolean needsSenior = req.householdProfile != null && req.householdProfile.needsSeniorCare;
-
-        List<String> groups = new ArrayList<>();
-        if (hasChildren) groups.add("children_0_6");
-        if (needsSenior) groups.add("seniors_65p");
-        if (groups.isEmpty()) {            // no profile selected → evaluate both needs
-            groups.add("children_0_6");
-            groups.add("seniors_65p");
-        }
-
         PersonalCompareResponse out = new PersonalCompareResponse();
         out.currentBreakdown = new ArrayList<>();
         out.prospectiveBreakdown = new ArrayList<>();
 
-        double current = 0.0, prospective = 0.0;
-        for (String group : groups) {
-            List<String> services = GROUP_SERVICES.getOrDefault(group, List.of());
-            List<InfrastructureNode> serving = nodes.stream()
-                .filter(n -> services.contains(n.getServiceType())).toList();
+        // Fine-grained per-amenity needs take precedence when supplied.
+        List<String> needs = (req.householdProfile != null && req.householdProfile.needs != null)
+            ? req.householdProfile.needs.stream().filter(SERVICE_VISITS::containsKey).distinct().toList()
+            : List.of();
 
-            current += appendBreakdown(out.currentBreakdown, group,
-                req.currentLat, req.currentLon, serving);
-            prospective += appendBreakdown(out.prospectiveBreakdown, group,
-                req.prospectiveLat, req.prospectiveLon, serving);
+        double current = 0.0, prospective = 0.0;
+
+        if (!needs.isEmpty()) {
+            for (String svc : needs) {
+                // In per-need mode `group` carries the service type so the UI can colour it.
+                String label = SERVICE_LABEL.getOrDefault(svc, svc);
+                List<InfrastructureNode> serving = servingOf(nodes, List.of(svc));
+
+                double cMin = nearestMinutes(req.currentLat, req.currentLon, serving);
+                double pMin = nearestMinutes(req.prospectiveLat, req.prospectiveLon, serving);
+                current += appendBreakdown(out.currentBreakdown, svc, label,
+                    weeklyHoursService(cMin, svc), req.currentLat, req.currentLon, serving);
+                prospective += appendBreakdown(out.prospectiveBreakdown, svc, label,
+                    weeklyHoursService(pMin, svc), req.prospectiveLat, req.prospectiveLon, serving);
+            }
+        } else {
+            // Legacy coarse-group path (children / seniors).
+            boolean hasChildren = req.householdProfile != null && req.householdProfile.hasChildren;
+            boolean needsSenior = req.householdProfile != null && req.householdProfile.needsSeniorCare;
+            List<String> groups = new ArrayList<>();
+            if (hasChildren) groups.add("children_0_6");
+            if (needsSenior) groups.add("seniors_65p");
+            if (groups.isEmpty()) { groups.add("children_0_6"); groups.add("seniors_65p"); }
+
+            for (String group : groups) {
+                List<String> services = GROUP_SERVICES.getOrDefault(group, List.of());
+                List<InfrastructureNode> serving = servingOf(nodes, services);
+                String label = "children_0_6".equals(group) ? "Children (kindergarten / school)"
+                                                             : "Senior care (clinic / hospital / pharmacy)";
+                double cMin = nearestMinutes(req.currentLat, req.currentLon, serving);
+                double pMin = nearestMinutes(req.prospectiveLat, req.prospectiveLon, serving);
+                current += appendBreakdown(out.currentBreakdown, group, label,
+                    weeklyHours(cMin, group), req.currentLat, req.currentLon, serving);
+                prospective += appendBreakdown(out.prospectiveBreakdown, group, label,
+                    weeklyHours(pMin, group), req.prospectiveLat, req.prospectiveLon, serving);
+            }
         }
 
         out.currentWeeklyHours = current;
