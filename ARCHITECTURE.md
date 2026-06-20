@@ -1,4 +1,4 @@
-# The Time Poverty Matrix — How It Works
+# Reclaim — How It Works
 
 A complete technical reference for the project: what we built, the data behind it,
 the machine-learning models, how they are trained, and how every service fits

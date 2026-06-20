@@ -1,8 +1,8 @@
-# Plan — Scaffold "The Time Poverty Matrix" monorepo (local-only)
+# Plan — Scaffold "Reclaim" monorepo (local-only)
 
 ## Context
 
-We're building a hackathon project, **The Time Poverty Matrix**, from the blueprint in
+We're building a hackathon project, **Reclaim**, from the blueprint in
 `.uploads/16bfca6e_JUMPSTART.md`. It quantifies the invisible "time tax" that infrastructure
 gaps impose on vulnerable populations (children 0–6, seniors 65+) around Pazardzhik, Bulgaria,
 and renders it on an interactive map with a click-to-simulate "what-if" ROI engine.

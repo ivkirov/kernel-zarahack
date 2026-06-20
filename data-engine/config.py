@@ -1,4 +1,4 @@
-"""Central config for the Time Poverty Matrix data engine.
+"""Central config for the Reclaim data engine.
 
 Real data sources (read straight from the gitignored ../datasets/ folder):
   - OSM .pbf  -> supply nodes (kindergartens, schools, hospitals, clinics, pharmacies)

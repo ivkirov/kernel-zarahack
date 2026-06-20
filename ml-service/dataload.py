@@ -1,4 +1,4 @@
-"""File-based data layer for The Time Poverty Matrix ML models.
+"""File-based data layer for the Reclaim ML models.
 
 Reads directly from ../datasets (no Postgres needed for training):
   - NSI Excel        -> demographic weights per district (children_0_6, seniors_65p)

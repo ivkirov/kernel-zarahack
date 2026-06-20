@@ -2,7 +2,7 @@
 
 ## Context
 
-The Time Poverty Matrix currently boots straight into a single municipal dashboard
+Reclaim currently boots straight into a single municipal dashboard
 (full Leaflet map + systemic time-loss HUD). The request is to add a **landing portal**
 that lets a user pick between two modes:
 

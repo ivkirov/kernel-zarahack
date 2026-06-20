@@ -15,7 +15,7 @@
     <artifactId>timepoverty</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>timepoverty</name>
-    <description>The Time Poverty Matrix — local REST backend</description>
+    <description>Reclaim — local REST backend</description>
 
     <properties>
         <!-- Toolchain and bytecode target both on JDK 25 (sdkman default + repo .sdkmanrc).

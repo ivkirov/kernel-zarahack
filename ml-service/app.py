@@ -1,4 +1,4 @@
-"""Time Poverty Matrix — ML service (FastAPI, localhost:8000).
+"""Reclaim — ML service (FastAPI, localhost:8000).
 
 Serves the two trained models to the frontend:
   POST /api/ml/traveltime        -> learned travel-time prediction (Option 2)
@@ -32,7 +32,7 @@ def _resolve_district(district):
     return district
 
 
-app = FastAPI(title="Time Poverty Matrix — ML Service")
+app = FastAPI(title="Reclaim — ML Service")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5500", "http://127.0.0.1:5500"],

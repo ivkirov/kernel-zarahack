@@ -1,5 +1,5 @@
 // ============================================================================
-//  auth.js — accounts, roles, paid tiers and usage limits for the TPM frontend
+//  auth.js — accounts, roles, paid tiers and usage limits for the Reclaim frontend
 // ----------------------------------------------------------------------------
 //  Loads after i18n.js + config.js, before app.js. Owns:
 //    • JWT storage + bootstrap (GET /me)

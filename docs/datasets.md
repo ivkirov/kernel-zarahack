@@ -1,6 +1,6 @@
 # Datasets & Data Fusion
 
-The Time Poverty Matrix fuses three open datasets into a geocoded, per-settlement
+Reclaim fuses three open datasets into a geocoded, per-settlement
 **demand grid** (who needs services, and where) and a **supply layer** (where the services
 actually are), then scores the travel-time gap between them. All processing is offline and
 local; raw files live in `datasets/` (gitignored). The stack runs on **real data for all

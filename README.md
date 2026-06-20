@@ -1,4 +1,4 @@
-# The Time Poverty Matrix — *The Geography of Lost Time*
+# Reclaim — *The Geography of Lost Time*
 
 Quantifies the invisible **"time tax"** that infrastructure gaps impose on vulnerable
 populations in Bulgaria — children 0–6 (kindergartens/schools) and seniors 65+

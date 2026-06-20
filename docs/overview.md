@@ -1,4 +1,4 @@
-# Overview — What the Time Poverty Matrix Is
+# Overview — What Reclaim Is
 
 ## The problem: an invisible "time tax"
 
@@ -9,7 +9,7 @@ kindergarten; a senior without a clinic nearby pays the same tax for every check
 This cost is real but invisible: it never shows up on a budget line, so infrastructure
 planning rarely accounts for it.
 
-The **Time Poverty Matrix** makes that cost visible. It quantifies the hours that
+**Reclaim** makes that cost visible. It quantifies the hours that
 infrastructure gaps steal from vulnerable populations across Bulgaria, and renders the
 result on an interactive map so the worst "deserts" — and the highest-impact fixes —
 are obvious at a glance.

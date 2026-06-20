@@ -1,7 +1,7 @@
 # ml-service — Personal Models (Options 2 & 3b)
 
 Two models **trained on our own datasets** (`../datasets`), the "personal models"
-for The Time Poverty Matrix. CPU-only, no GPU, train in seconds–minutes.
+for Reclaim. CPU-only, no GPU, train in seconds–minutes.
 
 > **Wired into this app.** Runs as a Python sidecar on **`:8000`**, beside the Java
 > backend (`:8080`) and frontend (`:5500`). The municipal dashboard's **"AI:

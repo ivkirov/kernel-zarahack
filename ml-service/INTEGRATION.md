@@ -1,4 +1,4 @@
-# INTEGRATION.md — Wiring the Personal Models into The Time Poverty Matrix
+# INTEGRATION.md — Wiring the Personal Models into Reclaim
 
 How the two trained models (`traveltime.pkl`, `placement.pkl`) plug into the
 running app, and how to **move the trained models between machines so nobody has

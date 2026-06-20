@@ -1,5 +1,5 @@
 // ============================================================================
-//  i18n — lightweight, dependency-free internationalization for the TPM frontend
+//  i18n — lightweight, dependency-free internationalization for the Reclaim frontend
 // ----------------------------------------------------------------------------
 //  • Two locales: Bulgarian (default) and English.
 //  • Locale is cached in the browser (localStorage) so it survives reloads.
@@ -21,7 +21,7 @@
   const DICT = {
     en: {
       // Brand
-      "brand": "The Time Poverty Matrix",
+      "brand": "Reclaim",
 
       // Language switcher
       "lang.aria": "Change language",
@@ -40,7 +40,7 @@
       "landing.footer": "Built on OpenStreetMap · NSI census · GeoNames — 349 settlements, 2,772 services.",
 
       // Map overlays
-      "map.loading.matrix": "Loading the time-poverty matrix…",
+      "map.loading.matrix": "Loading Reclaim…",
       "map.loading.services": "Loading nearby services…",
       "layers.title": "Layers",
       "layers.collapse": "Collapse layers",
@@ -312,7 +312,7 @@
 
     bg: {
       // Brand
-      "brand": "Матрицата на изгубеното време",
+      "brand": "Reclaim",
 
       // Language switcher
       "lang.aria": "Смяна на езика",
@@ -331,7 +331,7 @@
       "landing.footer": "Изградено върху OpenStreetMap · НСИ преброяване · GeoNames — 349 населени места, 2772 услуги.",
 
       // Map overlays
-      "map.loading.matrix": "Зареждане на матрицата на изгубеното време…",
+      "map.loading.matrix": "Зареждане на Reclaim…",
       "map.loading.services": "Зареждане на близките услуги…",
       "layers.title": "Слоеве",
       "layers.collapse": "Свий слоевете",
