@@ -57,11 +57,17 @@ function inBulgaria(lat, lng) {
   return false;
 }
 
+// Localized label for a service type (plural form, used in popups + toggles).
+const svcLabel = (type) => t(`svc.${type}`);
+// Translate `key`, but fall back to a provided string when the key is unknown
+// (t() returns the key itself on a miss).
+const tOr = (key, fallback) => { const v = t(key); return v === key ? fallback : v; };
+
 // Reusable "out of bounds" popup.
 function outOfBoundsPopup(latlng) {
   L.popup({ closeButton: true, className: "" })
     .setLatLng(latlng)
-    .setContent(`<b>Out of coverage</b><br>${OUT_OF_BOUNDS_MSG}`)
+    .setContent(`<b>${t("oob.title")}</b><br>${t("oob.msg")}`)
     .openOn(map);
 }
 
@@ -84,6 +90,22 @@ window.addEventListener("resize", () => map.invalidateSize());
 
 const $ = (id) => document.getElementById(id);
 function show(el, visible) { el && el.classList.toggle("hidden", !visible); }
+
+// ---------- Localized status lines ----------
+// We remember the last status as a (key, params) pair so a live locale switch
+// can re-render the message in the new language without re-running the action.
+let lastStatus = null;          // { key, params } | null
+let lastPersonalStatus = null;
+function setStatus(key, params) {
+  lastStatus = key ? { key, params } : null;
+  const el = $("status");
+  if (el) el.textContent = key ? t(key, params) : "";
+}
+function setPersonalStatus(key, params) {
+  lastPersonalStatus = key ? { key, params } : null;
+  const el = $("personalStatus");
+  if (el) el.textContent = key ? t(key, params) : "";
+}
 
 // ---------- GSAP entrance helpers (gated on reduced-motion) ----------
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -191,8 +213,8 @@ async function fetchMatrix(d) {
 
 // ---------- Drawing ----------
 function nodePopup(n) {
-  const meta = SERVICE_META[n.serviceType] || {};
-  return `<b>${n.name || meta.label || n.serviceType}</b><br>${n.serviceType}`;
+  const label = svcLabel(n.serviceType);
+  return `<b>${n.name || label}</b><br>${label}`;
 }
 function drawNodes(nodes) {
   Object.values(serviceLayers).forEach((l) => l.clearLayers());
@@ -257,7 +279,7 @@ function buildLayerToggles(forMode) {
     row.className = "flex items-center gap-2.5 text-xs text-slate-200 cursor-pointer";
     row.innerHTML =
       `<input type="checkbox" id="lyr_${type}" ${layerState[type] ? "checked" : ""} class="accent-accent w-3.5 h-3.5"/>` +
-      `<span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${m.color}"></span>${m.label}`;
+      `<span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${m.color}"></span>${svcLabel(type)}`;
     box.appendChild(row);
     row.querySelector("input").addEventListener("change", (e) => {
       layerState[type] = e.target.checked;
@@ -284,21 +306,20 @@ wireCollapse("layerToggle", "layerBody");
 
 // ---------- Load baseline matrix (municipal) ----------
 async function loadMatrix() {
-  const statusEl = $("status");
-  showLoading("Loading the time-poverty matrix…");
-  statusEl.textContent = "Loading matrix…";
+  showLoading(t("map.loading.matrix"));
+  setStatus("status.loadingMatrix");
   try {
     const data = await fetchMatrix(district);
     drawNodes(data.nodes);
     drawCells(data.cells);
     setText("systemicHours", data.totalAnnualWastedHours, { decimals: 0 });
-    statusEl.textContent = `Loaded ${data.nodes.length} services, ${data.cells.length} cells.`;
+    setStatus("status.loaded", { nodes: data.nodes.length, cells: data.cells.length });
     const pts = [];
     data.nodes.forEach((n) => pts.push([n.lat, n.lon]));
     data.cells.forEach((c) => pts.push([c.lat, c.lon]));
     if (pts.length) map.fitBounds(L.latLngBounds(pts), { padding: [25, 25] });
   } catch (err) {
-    statusEl.textContent = `Failed to load matrix: ${err.message}`;
+    setStatus("status.matrixFailed", { err: err.message });
     console.error("loadMatrix failed:", err);
   } finally {
     hideLoading();
@@ -308,13 +329,13 @@ async function loadMatrix() {
 // Personal mode still wants structures on the map — reuse the cached nationwide nodes,
 // but no choropleth (cells are a municipal concept).
 async function loadPersonalStructures() {
-  showLoading("Loading nearby services…");
+  showLoading(t("map.loading.services"));
   try {
     const data = await fetchMatrix("all");
     drawNodes(data.nodes);
     cellLayer.clearLayers();
   } catch (err) {
-    $("personalStatus").textContent = `Failed to load services: ${err.message}`;
+    setPersonalStatus("status.servicesFailed", { err: err.message });
     console.error("loadPersonalStructures failed:", err);
   } finally {
     hideLoading();
@@ -328,9 +349,9 @@ async function simulateAt(e) {
 
   simLayer.clearLayers();
   L.marker([payload.lat, payload.lon]).addTo(simLayer)
-    .bindPopup(`Simulated ${amenityType}`).openPopup();
+    .bindPopup(t("sim.popup", { amenity: svcLabel(amenityType) })).openPopup();
 
-  $("status").textContent = "Simulating intervention…";
+  setStatus("status.simulating");
 
   const res = await fetch(`${API_BASE_URL}/simulate`, {
     method: "POST",
@@ -352,8 +373,7 @@ async function simulateAt(e) {
     }).addTo(simLayer);
   });
 
-  $("status").textContent =
-    `Intervention would save ${sim.annualWastedHoursSaved.toLocaleString()} hours/year.`;
+  setStatus("status.simSaved", { hours: sim.annualWastedHoursSaved.toLocaleString() });
 }
 
 // ---------- Municipal: AI "recommend best sites" (placement bot, :8000) ----------
@@ -372,10 +392,9 @@ async function recommendSites() {
   const amenity = $("amenitySelect").value;
   const btn = $("recommendBtn");
   const list = $("recoResults");
-  const statusEl = $("status");
 
   btn.disabled = true;
-  statusEl.textContent = "Asking the AI model for the best build sites…";
+  setStatus("reco.asking");
   list.innerHTML = "";
   recoLayer.clearLayers();
 
@@ -391,31 +410,33 @@ async function recommendSites() {
     data.recommendations.forEach((r, i) => {
       const rank = i + 1;
       pts.push([r.lat, r.lon]);
+      const amenityLabel = svcLabel(amenity);
       L.marker([r.lat, r.lon], { icon: recoIcon(rank), zIndexOffset: 1000 })
         .addTo(recoLayer)
-        .bindPopup(`<b>★ Recommended site #${rank}</b><br>` +
-                   `Build: ${data.amenity}<br>Near: ${r.nearestTown}<br>` +
-                   `Predicted: <b>${r.predictedHoursSaved.toLocaleString()}</b> h/yr saved`);
+        .bindPopup(`<b>${t("reco.popupTitle", { rank })}</b><br>` +
+                   `${t("reco.popupBuild", { amenity: amenityLabel })}<br>` +
+                   `${t("reco.popupNear", { town: r.nearestTown })}<br>` +
+                   `${t("reco.popupPred", { hours: `<b>${r.predictedHoursSaved.toLocaleString()}</b>` })}`);
 
       const li = document.createElement("li");
       li.className = "flex items-start gap-2";
       li.innerHTML =
         `<span class="mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full
           bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>` +
-        `<span><b>${r.nearestTown}</b> — ${r.predictedHoursSaved.toLocaleString()} h/yr` +
-        `<span class="text-muted"> saved</span></span>`;
+        `<span><b>${r.nearestTown}</b> — ${r.predictedHoursSaved.toLocaleString()} ${t("unit.h").trim()}` +
+        `<span class="text-muted"> ${t("reco.saved")}</span></span>`;
       list.appendChild(li);
     });
     revealStagger("#recoResults li", { y: 8, duration: 0.4, stagger: 0.08 });
 
     if (pts.length) {
       map.fitBounds(L.latLngBounds(pts), { padding: [60, 60], maxZoom: 11 });
-      statusEl.textContent = `AI recommends ${pts.length} site(s) for a new ${data.amenity}.`;
+      setStatus("reco.result", { n: pts.length, amenity: svcLabel(amenity) });
     } else {
-      statusEl.textContent = "No high-impact sites found for this selection.";
+      setStatus("reco.none");
     }
   } catch (err) {
-    statusEl.textContent = `Recommendation failed: ${err.message}`;
+    setStatus("reco.failed", { err: err.message });
     console.error("recommendSites failed:", err);
   } finally {
     btn.disabled = false;
@@ -447,8 +468,7 @@ function armPin(which) {
 function placePin(which, latlng) {
   if (pins[which]) personalLayer.removeLayer(pins[which]);
   pins[which] = L.marker(latlng, { icon: pinIcon(PIN_COLORS[which]) }).addTo(personalLayer);
-  const label = which === "current" ? "Current" : "Prospective";
-  pins[which].bindPopup(`${label} residence`);
+  pins[which].bindPopup(t(which === "current" ? "pin.current" : "pin.prospective"));
   $(which === "current" ? "pinCurrentReadout" : "pinProspectiveReadout")
     .textContent = `${latlng.lat.toFixed(4)}, ${latlng.lng.toFixed(4)}`;
 }
@@ -467,13 +487,15 @@ function buildNeeds() {
   PERSONAL_NEEDS.forEach((n) => {
     const color = (SERVICE_META[n.key] || {}).color || "#8ea2c0";
     const row = document.createElement("label");
+    row.dataset.need = n.key;   // lets a locale switch find + re-label this row
     row.className = "flex items-center justify-between gap-2 rounded-lg border border-edge bg-panel2 " +
       "px-3 py-2 cursor-pointer hover:border-accent2/60 transition";
     row.innerHTML =
       `<span class="flex items-center gap-2.5 text-sm">
         <input type="checkbox" data-need="${n.key}" ${NEED_DEFAULT.has(n.key) ? "checked" : ""} class="accent-accent2 w-4 h-4"/>
-        <span class="w-2.5 h-2.5 rounded-full" style="background:${color}"></span>${n.label}</span>
-      <span class="text-[11px] text-faint">${n.hint}</span>`;
+        <span class="w-2.5 h-2.5 rounded-full" style="background:${color}"></span>
+        <span class="need-label">${t("need." + n.key)}</span></span>
+      <span class="text-[11px] text-faint need-hint">${t("needHint." + n.key)}</span>`;
     box.appendChild(row);
     const cb = row.querySelector("input");
     cb.addEventListener("change", () => {
@@ -499,11 +521,13 @@ function renderBreakdown(cur, pro) {
     const cls = delta > 0.05 ? "text-emerald-400" : delta < -0.05 ? "text-rose-400" : "text-faint";
     const sign = delta > 0.05 ? "−" : delta < -0.05 ? "+" : "±";
     const color = (SERVICE_META[b.group] || {}).color || "#8ea2c0";
+    // Localize the need label when we recognize the group; else show as-is.
+    const display = tOr(`need.${b.group}`, key);
     const li = document.createElement("li");
     li.className = "flex items-center justify-between gap-2";
     li.innerHTML =
       `<span class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>${key}</span>
+        <span class="w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>${display}</span>
       <span class="tabular-nums text-xs text-muted">${b.weeklyHours.toFixed(1)}→${p.weeklyHours.toFixed(1)}h
         <span class="${cls} font-semibold ml-1">${sign}${Math.abs(delta).toFixed(1)}</span></span>`;
     ul.appendChild(li);
@@ -520,7 +544,7 @@ async function runCompare() {
     householdProfile: { needs: selectedNeeds() },
   };
 
-  $("personalStatus").textContent = "Calculating your time-tax…";
+  setPersonalStatus("personal.calculating");
   const res = await fetch(`${API_BASE_URL}/personal-compare`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -533,19 +557,27 @@ async function runCompare() {
   setText("prospectiveWeekly", data.prospectiveWeeklyHours, { decimals: 1 });
   renderBreakdown(data.currentBreakdown, data.prospectiveBreakdown);
 
-  const shift = data.efficiencyShiftHours;
+  lastShift = { shift: data.efficiencyShiftHours, gain: data.gain };
+  renderEfficiencyBadge();
+
+  const needCount = selectedNeeds().length;
+  setPersonalStatus("personal.compared", { label: needCount || t("common.all") });
+}
+
+// Efficiency badge depends on locale (units + phrasing) — render from stored state.
+let lastShift = null;   // { shift, gain } | null
+function renderEfficiencyBadge() {
   const badge = $("efficiencyShift");
+  if (!badge || !lastShift) return;
+  const { shift, gain } = lastShift;
   badge.classList.remove("text-emerald-400", "text-rose-500");
-  if (data.gain) {
+  if (gain) {
     badge.classList.add("text-emerald-400");
-    badge.textContent = `+${shift.toFixed(1)} h returned / week`;
+    badge.textContent = t("badge.returned", { h: shift.toFixed(1) });
   } else {
     badge.classList.add("text-rose-500");
-    badge.textContent = `${shift.toFixed(1)} h / week`;
+    badge.textContent = t("badge.cost", { h: shift.toFixed(1) });
   }
-  const needCount = selectedNeeds().length;
-  $("personalStatus").textContent =
-    `Compared across ${needCount || "all"} need${needCount === 1 ? "" : "s"} using nationwide services.`;
 }
 
 // ---------- Map click router (gated by mode) ----------
@@ -640,7 +672,7 @@ $("pinCurrentBtn").addEventListener("click", () => armPin("current"));
 $("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
 
 // ---------- Scope picker: provinces vs towns ----------
-const districtLabel = (d) => (!d || d === "all") ? "All Bulgaria" : d;
+const districtLabel = (d) => (!d || d === "all") ? t("prov.all") : tOr(`prov.${d}`, d);
 const districtSelect = $("districtSelect");
 const townSelect = $("townSelect");
 
@@ -684,6 +716,7 @@ function setScope(s) {
 
 // Town list derived from the nationwide matrix (one entry per settlement, max-pop cell).
 let townListBuilt = false;
+let townCount = 0;   // remembered so the placeholder can be re-localized live
 async function ensureTownList() {
   if (townListBuilt || !townSelect) return;
   try {
@@ -696,11 +729,12 @@ async function ensureTownList() {
     });
     const towns = Object.values(byName)
       .sort((a, b) => a.settlement.localeCompare(b.settlement));
-    townSelect.innerHTML = `<option value="">Select a town… (${towns.length})</option>` +
-      towns.map((t) => `<option value="${t.lat},${t.lon}">${t.settlement}</option>`).join("");
+    townCount = towns.length;
+    townSelect.innerHTML = `<option value="">${t("town.select", { n: townCount })}</option>` +
+      towns.map((tw) => `<option value="${tw.lat},${tw.lon}">${tw.settlement}</option>`).join("");
     townListBuilt = true;
   } catch (err) {
-    townSelect.innerHTML = `<option value="">Failed to load towns</option>`;
+    townSelect.innerHTML = `<option value="">${t("town.failed")}</option>`;
     console.error("ensureTownList failed:", err);
   }
 }
@@ -719,3 +753,35 @@ if (townSelect) {
 
 $("scopeProvince").addEventListener("click", () => setScope("province"));
 $("scopeTown").addEventListener("click", () => setScope("town"));
+
+// ---------- Live locale switch ----------
+// I18n.setLocale() already re-translated every [data-i18n] node (including the
+// province + amenity <option> text). Here we only patch the bits JS owns, so the
+// switch is instant and never reloads — and user state (selections, pins) is kept.
+I18n.onChange(() => {
+  // District readout is set dynamically, not via data-i18n.
+  if (scope === "province" && districtSelect) {
+    $("districtName").textContent = districtLabel(districtSelect.value);
+  }
+  // Layer toggles embed localized service names; layerState is preserved on rebuild.
+  if (mode === "municipal" || mode === "personal") buildLayerToggles(mode);
+
+  // Personal need rows: relabel in place to keep each checkbox's state.
+  document.querySelectorAll("#needsList label[data-need]").forEach((row) => {
+    const key = row.dataset.need;
+    const lab = row.querySelector(".need-label");
+    const hint = row.querySelector(".need-hint");
+    if (lab) lab.textContent = t("need." + key);
+    if (hint) hint.textContent = t("needHint." + key);
+  });
+
+  // Town picker placeholder (the town names themselves are locale-independent).
+  if (townListBuilt && townSelect && townSelect.options.length) {
+    townSelect.options[0].textContent = t("town.select", { n: townCount });
+  }
+
+  // Re-render the last transient lines + the efficiency badge in the new language.
+  if (lastStatus) setStatus(lastStatus.key, lastStatus.params);
+  if (lastPersonalStatus) setPersonalStatus(lastPersonalStatus.key, lastPersonalStatus.params);
+  renderEfficiencyBadge();
+});

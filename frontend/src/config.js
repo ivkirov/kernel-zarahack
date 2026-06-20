@@ -14,9 +14,11 @@ window.TPM = {
     simulated:    "#22c55e",
   },
 
-  // Single source of truth for every service type: colour, label, which demographic
-  // group it serves, and whether its layer is drawn by default. Pharmacies are the
+  // Single source of truth for every service type: colour, which demographic group
+  // it serves, and whether its layer is drawn by default. Pharmacies are the
   // largest set (1,620) so they start hidden to keep the first view readable.
+  // NB: the user-facing `label`/`hint` strings below are now localized in i18n.js
+  // (keys `svc.*`, `need.*`, `needHint.*`); the ones here are inert fallbacks.
   SERVICE_META: {
     kindergarten: { label: "Kindergartens", color: "#38bdf8", group: "children_0_6", on: true },
     school:       { label: "Schools",       color: "#818cf8", group: "children_0_6", on: true },

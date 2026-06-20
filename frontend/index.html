@@ -35,12 +35,12 @@
         <span data-stagger
           class="inline-flex items-center gap-2 rounded-full border border-edge bg-panel2 px-3 py-1 text-[11px] tracking-[0.18em] uppercase text-muted mb-5">
           <span class="w-1.5 h-1.5 rounded-full bg-accent2 animate-pulse"></span>
-          Bulgaria · 28 provinces · real open data
+          <span data-i18n="landing.badge">Bulgaria · 28 provinces · real open data</span>
         </span>
-        <h1 data-stagger class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-balance">
+        <h1 data-stagger data-i18n="brand" class="font-display text-4xl sm:text-5xl font-bold tracking-tight text-balance">
           The Time Poverty Matrix
         </h1>
-        <p data-stagger class="text-sm sm:text-base text-muted mt-3 max-w-xl mx-auto text-pretty">
+        <p data-stagger data-i18n="landing.subtitle" class="text-sm sm:text-base text-muted mt-3 max-w-xl mx-auto text-pretty">
           The geography of lost time — the invisible commute tax that thin infrastructure
           puts on young children and seniors. Pick a lens to begin.
         </p>
@@ -62,11 +62,11 @@
                 d="M3.75 21h16.5M4.5 21V7.5L12 3l7.5 4.5V21M9 21v-4.5h6V21M9 9.75h.008v.008H9V9.75zm3 0h.008v.008H12V9.75zm3 0h.008v.008H15V9.75zM9 13.5h.008v.008H9V13.5zm3 0h.008v.008H12V13.5zm3 0h.008v.008H15V13.5z" />
             </svg>
           </div>
-          <h2 class="font-display text-xl font-semibold mb-2 group-hover:text-accent transition">Municipal planner</h2>
-          <p class="text-sm text-muted leading-relaxed">Simulate civic facility placements, read regional
+          <h2 data-i18n="landing.municipal.title" class="font-display text-xl font-semibold mb-2 group-hover:text-accent transition">Municipal planner</h2>
+          <p data-i18n="landing.municipal.desc" class="text-sm text-muted leading-relaxed">Simulate civic facility placements, read regional
             time-loss across a district, and let a trained model recommend the highest-impact build sites.</p>
           <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent">
-            Open planner
+            <span data-i18n="landing.municipal.cta">Open planner</span>
             <svg class="w-4 h-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
           </span>
@@ -87,18 +87,18 @@
                 d="M2.25 12l8.954-8.955a1.5 1.5 0 012.122 0L21 12M4.5 9.75V21h5.25v-6h4.5v6H19.5V9.75" />
             </svg>
           </div>
-          <h2 class="font-display text-xl font-semibold mb-2 group-hover:text-accent2 transition">Relocation planner</h2>
-          <p class="text-sm text-muted leading-relaxed">Drop two pins — your current home and a prospective one —
+          <h2 data-i18n="landing.personal.title" class="font-display text-xl font-semibold mb-2 group-hover:text-accent2 transition">Relocation planner</h2>
+          <p data-i18n="landing.personal.desc" class="text-sm text-muted leading-relaxed">Drop two pins — your current home and a prospective one —
             and compare the weekly hours each address would cost your household in travel.</p>
           <span class="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-accent2">
-            Compare two homes
+            <span data-i18n="landing.personal.cta">Compare two homes</span>
             <svg class="w-4 h-4 transition group-hover:translate-x-1" fill="none" viewBox="0 0 24 24"
                  stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
           </span>
         </button>
       </div>
 
-      <p data-stagger class="text-center text-xs text-faint mt-8">
+      <p data-stagger data-i18n="landing.footer" class="text-center text-xs text-faint mt-8">
         Built on OpenStreetMap · NSI census · GeoNames — 349 settlements, 2,772 services.
       </p>
     </div>
@@ -119,20 +119,20 @@
           <span class="absolute inset-0 rounded-full border-2 border-edge"></span>
           <span class="absolute inset-0 rounded-full border-2 border-transparent border-t-accent animate-spin"></span>
         </div>
-        <p id="mapLoadingText" class="text-sm text-muted">Loading the time-poverty matrix…</p>
+        <p id="mapLoadingText" data-i18n="map.loading.matrix" class="text-sm text-muted">Loading the time-poverty matrix…</p>
       </div>
 
       <!-- Layer filter: toggle which structures the map draws (doubles as the service key) -->
       <div id="layerControl"
         class="absolute top-3 right-3 z-[1000] glass p-3 w-[200px] max-w-[calc(100%-1.5rem)] hidden">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-[11px] uppercase tracking-[0.14em] text-muted font-semibold">Layers</span>
-          <button id="layerToggle" class="text-faint hover:text-accent text-xs transition" aria-label="Collapse layers">−</button>
+          <span data-i18n="layers.title" class="text-[11px] uppercase tracking-[0.14em] text-muted font-semibold">Layers</span>
+          <button id="layerToggle" class="text-faint hover:text-accent text-xs transition" data-i18n-aria-label="layers.collapse" aria-label="Collapse layers">−</button>
         </div>
         <div id="layerBody" class="space-y-1.5">
           <label id="cellsRow" class="flex items-center gap-2.5 text-xs text-slate-200 cursor-pointer">
             <input id="toggleCells" type="checkbox" checked class="accent-accent w-3.5 h-3.5" />
-            <span class="legend-ramp w-6 shrink-0"></span> Time-poverty
+            <span class="legend-ramp w-6 shrink-0"></span> <span data-i18n="layers.timePoverty">Time-poverty</span>
           </label>
           <div id="layerToggles" class="space-y-1.5 pt-1.5 border-t border-edge/70"></div>
         </div>
@@ -141,16 +141,16 @@
       <!-- Floating control: amenity to simulate -->
       <div id="amenityControl"
         class="absolute top-3 left-3 z-[1000] glass px-3 py-2.5 flex flex-wrap items-center gap-2 hidden max-w-[calc(100%-1.5rem)]">
-        <span class="text-xs text-muted">Place a</span>
+        <span data-i18n="amenity.place" class="text-xs text-muted">Place a</span>
         <select id="amenitySelect"
           class="bg-panel2 border border-edge rounded-lg px-2.5 py-1.5 text-sm text-slate-100 focus:border-accent">
-          <option value="kindergarten">Kindergarten · children 0–6</option>
-          <option value="school">School · children 0–6</option>
-          <option value="clinic">Clinic · seniors 65+</option>
-          <option value="hospital">Hospital · seniors 65+</option>
+          <option value="kindergarten" data-i18n="amenityOpt.kindergarten">Kindergarten · children 0–6</option>
+          <option value="school" data-i18n="amenityOpt.school">School · children 0–6</option>
+          <option value="clinic" data-i18n="amenityOpt.clinic">Clinic · seniors 65+</option>
+          <option value="hospital" data-i18n="amenityOpt.hospital">Hospital · seniors 65+</option>
         </select>
         <span class="text-xs text-accent inline-flex items-center gap-1">
-          tap the map
+          <span data-i18n="amenity.tapMap">tap the map</span>
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
         </span>
       </div>
@@ -159,8 +159,8 @@
       <div id="legend"
         class="absolute bottom-3 left-3 z-[1000] glass p-3.5 w-[230px] max-w-[calc(100%-1.5rem)] hidden">
         <div class="flex items-center justify-between mb-2">
-          <span class="text-[11px] uppercase tracking-[0.14em] text-muted font-semibold">Legend</span>
-          <button id="legendToggle" class="text-faint hover:text-accent text-xs transition" aria-label="Collapse legend">−</button>
+          <span data-i18n="legend.title" class="text-[11px] uppercase tracking-[0.14em] text-muted font-semibold">Legend</span>
+          <button id="legendToggle" class="text-faint hover:text-accent text-xs transition" data-i18n-aria-label="legend.collapse" aria-label="Collapse legend">−</button>
         </div>
 
         <div id="legendBody" class="space-y-2.5">
@@ -169,22 +169,22 @@
             <div>
               <div class="legend-ramp mb-1"></div>
               <div class="flex justify-between text-[10px] text-faint">
-                <span>good access</span><span>severe time-poverty</span>
+                <span data-i18n="legend.goodAccess">good access</span><span data-i18n="legend.severe">severe time-poverty</span>
               </div>
-              <p class="text-[10px] text-faint mt-0.5">Circle size = population · colour = nearest-service travel time</p>
+              <p data-i18n="legend.rampNote" class="text-[10px] text-faint mt-0.5">Circle size = population · colour = nearest-service travel time</p>
             </div>
             <div class="border-t border-edge/70 pt-2 space-y-1.5">
-              <div class="legend-row"><span class="w-3 h-3 rounded-sm bg-good shrink-0 rotate-45"></span> Your simulated site</div>
-              <div class="legend-row"><span class="w-4 h-4 rounded-full bg-emerald-500 text-emerald-950 text-[9px] font-bold flex items-center justify-center shrink-0">1</span> AI-recommended site</div>
-              <p class="text-[10px] text-faint pt-0.5">Service dots are keyed in the Layers panel ↗</p>
+              <div class="legend-row"><span class="w-3 h-3 rounded-sm bg-good shrink-0 rotate-45"></span> <span data-i18n="legend.simSite">Your simulated site</span></div>
+              <div class="legend-row"><span class="w-4 h-4 rounded-full bg-emerald-500 text-emerald-950 text-[9px] font-bold flex items-center justify-center shrink-0">1</span> <span data-i18n="legend.aiSite">AI-recommended site</span></div>
+              <p data-i18n="legend.dotsNote" class="text-[10px] text-faint pt-0.5">Service dots are keyed in the Layers panel ↗</p>
             </div>
           </div>
 
           <!-- Personal legend -->
           <div id="legendPersonal" class="space-y-1.5 hidden">
-            <div class="legend-row"><span class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></span> Current residence</div>
-            <div class="legend-row"><span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span> Prospective residence</div>
-            <p class="text-[10px] text-faint pt-1">Drop both pins to compare weekly travel hours.</p>
+            <div class="legend-row"><span class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></span> <span data-i18n="legend.current">Current residence</span></div>
+            <div class="legend-row"><span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span> <span data-i18n="legend.prospective">Prospective residence</span></div>
+            <p data-i18n="legend.personalNote" class="text-[10px] text-faint pt-1">Drop both pins to compare weekly travel hours.</p>
           </div>
         </div>
       </div>
@@ -196,15 +196,15 @@
 
       <header class="flex items-start justify-between gap-3">
         <div>
-          <h1 class="font-display text-2xl font-bold tracking-tight">The Time Poverty Matrix</h1>
-          <p class="text-sm text-muted mt-0.5">Viewing
+          <h1 data-i18n="brand" class="font-display text-2xl font-bold tracking-tight">The Time Poverty Matrix</h1>
+          <p class="text-sm text-muted mt-0.5"><span data-i18n="dash.viewing">Viewing</span>
             <span id="districtName" class="text-accent font-semibold">All Bulgaria</span>
           </p>
         </div>
-        <button id="goHomeBtn" title="Back to mode selection"
+        <button id="goHomeBtn" data-i18n-title="dash.modesTitle" title="Back to mode selection"
           class="shrink-0 rounded-lg border border-edge px-2.5 py-1.5 text-xs text-muted
                  hover:border-accent hover:text-accent transition focus:outline-none focus-visible:border-accent">
-          ← Modes
+          <span data-i18n="dash.modes">← Modes</span>
         </button>
       </header>
 
@@ -213,80 +213,80 @@
         <!-- Scope picker: switch between whole provinces and individual towns -->
         <div class="metric-card !p-3 space-y-2.5">
           <div class="flex items-center gap-1 bg-panel2 border border-edge rounded-lg p-0.5">
-            <button id="scopeProvince" type="button"
+            <button id="scopeProvince" type="button" data-i18n="scope.provinces"
               class="flex-1 rounded-md px-2 py-1 text-xs font-medium transition bg-accent/15 text-accent">
               Provinces</button>
-            <button id="scopeTown" type="button"
+            <button id="scopeTown" type="button" data-i18n="scope.towns"
               class="flex-1 rounded-md px-2 py-1 text-xs font-medium transition text-muted hover:text-slate-100">
               Towns</button>
           </div>
 
           <select id="districtSelect"
             class="w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
-            <option value="all" selected>All Bulgaria</option>
-            <option>Blagoevgrad</option>
-            <option>Burgas</option>
-            <option>Dobrich</option>
-            <option>Gabrovo</option>
-            <option>Haskovo</option>
-            <option>Kardzhali</option>
-            <option>Kyustendil</option>
-            <option>Lovech</option>
-            <option>Montana</option>
-            <option>Pazardzhik</option>
-            <option>Pernik</option>
-            <option>Pleven</option>
-            <option>Plovdiv</option>
-            <option>Razgrad</option>
-            <option>Ruse</option>
-            <option>Shumen</option>
-            <option>Silistra</option>
-            <option>Sliven</option>
-            <option>Smolyan</option>
-            <option>Sofia (Capital)</option>
-            <option>Sofia Province</option>
-            <option>Stara Zagora</option>
-            <option>Targovishte</option>
-            <option>Varna</option>
-            <option>Veliko Tarnovo</option>
-            <option>Vidin</option>
-            <option>Vratsa</option>
-            <option>Yambol</option>
+            <option value="all" selected data-i18n="prov.all">All Bulgaria</option>
+            <option value="Blagoevgrad" data-i18n="prov.Blagoevgrad">Blagoevgrad</option>
+            <option value="Burgas" data-i18n="prov.Burgas">Burgas</option>
+            <option value="Dobrich" data-i18n="prov.Dobrich">Dobrich</option>
+            <option value="Gabrovo" data-i18n="prov.Gabrovo">Gabrovo</option>
+            <option value="Haskovo" data-i18n="prov.Haskovo">Haskovo</option>
+            <option value="Kardzhali" data-i18n="prov.Kardzhali">Kardzhali</option>
+            <option value="Kyustendil" data-i18n="prov.Kyustendil">Kyustendil</option>
+            <option value="Lovech" data-i18n="prov.Lovech">Lovech</option>
+            <option value="Montana" data-i18n="prov.Montana">Montana</option>
+            <option value="Pazardzhik" data-i18n="prov.Pazardzhik">Pazardzhik</option>
+            <option value="Pernik" data-i18n="prov.Pernik">Pernik</option>
+            <option value="Pleven" data-i18n="prov.Pleven">Pleven</option>
+            <option value="Plovdiv" data-i18n="prov.Plovdiv">Plovdiv</option>
+            <option value="Razgrad" data-i18n="prov.Razgrad">Razgrad</option>
+            <option value="Ruse" data-i18n="prov.Ruse">Ruse</option>
+            <option value="Shumen" data-i18n="prov.Shumen">Shumen</option>
+            <option value="Silistra" data-i18n="prov.Silistra">Silistra</option>
+            <option value="Sliven" data-i18n="prov.Sliven">Sliven</option>
+            <option value="Smolyan" data-i18n="prov.Smolyan">Smolyan</option>
+            <option value="Sofia (Capital)" data-i18n="prov.Sofia (Capital)">Sofia (Capital)</option>
+            <option value="Sofia Province" data-i18n="prov.Sofia Province">Sofia Province</option>
+            <option value="Stara Zagora" data-i18n="prov.Stara Zagora">Stara Zagora</option>
+            <option value="Targovishte" data-i18n="prov.Targovishte">Targovishte</option>
+            <option value="Varna" data-i18n="prov.Varna">Varna</option>
+            <option value="Veliko Tarnovo" data-i18n="prov.Veliko Tarnovo">Veliko Tarnovo</option>
+            <option value="Vidin" data-i18n="prov.Vidin">Vidin</option>
+            <option value="Vratsa" data-i18n="prov.Vratsa">Vratsa</option>
+            <option value="Yambol" data-i18n="prov.Yambol">Yambol</option>
           </select>
 
           <!-- Town list (populated from data); jumps the map to the chosen settlement -->
           <select id="townSelect"
             class="hidden w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
-            <option value="">Loading towns…</option>
+            <option value="" data-i18n="town.loading">Loading towns…</option>
           </select>
         </div>
 
         <!-- Baseline systemic loss -->
         <div class="metric-card">
           <div id="systemicHours" class="metric-value text-warn">0</div>
-          <div class="metric-label">Annual wasted hours · baseline</div>
+          <div class="metric-label" data-i18n="metric.systemic">Annual wasted hours · baseline</div>
         </div>
 
         <!-- Simulation ROI -->
         <div class="metric-card border-good/40">
           <div id="hoursSaved" class="metric-value text-good">0</div>
-          <div class="metric-label">Annual hours saved · this intervention</div>
+          <div class="metric-label" data-i18n="metric.saved">Annual hours saved · this intervention</div>
         </div>
 
         <div class="grid grid-cols-2 gap-4">
           <div class="metric-card">
             <div id="peopleImpacted" class="metric-value text-accent">0</div>
-            <div class="metric-label">People impacted</div>
+            <div class="metric-label" data-i18n="metric.people">People impacted</div>
           </div>
           <div class="metric-card">
             <div id="cellsImproved" class="metric-value">0</div>
-            <div class="metric-label">Neighborhoods improved</div>
+            <div class="metric-label" data-i18n="metric.cells">Neighborhoods improved</div>
           </div>
         </div>
 
         <div class="metric-card">
-          <div id="avgMinutes" class="metric-value">0<span class="text-base text-muted"> min</span></div>
-          <div class="metric-label">Avg one-way time saved / trip</div>
+          <div id="avgMinutes" class="metric-value">0<span class="text-base text-muted" data-i18n="unit.min"> min</span></div>
+          <div class="metric-label" data-i18n="metric.avgMin">Avg one-way time saved / trip</div>
         </div>
 
         <!-- ===== AI placement recommender (Option 3b model) ===== -->
@@ -299,9 +299,9 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
               fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
               stroke-linejoin="round"><path d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15l-1.9-4.1L5.5 9l4.6-1.4L12 3z"/></svg>
-            Recommend best sites
+            <span data-i18n="reco.button">Recommend best sites</span>
           </button>
-          <p class="metric-label mt-2">Where to build for the most hours saved</p>
+          <p class="metric-label mt-2" data-i18n="reco.subtitle">Where to build for the most hours saved</p>
           <ol id="recoResults" class="mt-3 space-y-2 text-sm text-slate-200"></ol>
         </div>
 
@@ -311,8 +311,8 @@
       <!-- ===== PERSONAL PANEL ===== -->
       <div id="personalPanel" class="space-y-5 hidden">
         <div>
-          <h2 class="font-display text-lg font-semibold">Relocation planner</h2>
-          <p class="text-sm text-muted">Drop two pins on the map to compare your weekly commute time-tax.</p>
+          <h2 class="font-display text-lg font-semibold" data-i18n="personal.title">Relocation planner</h2>
+          <p class="text-sm text-muted" data-i18n="personal.desc">Drop two pins on the map to compare your weekly commute time-tax.</p>
         </div>
 
         <!-- Journey wizard -->
@@ -322,9 +322,9 @@
                    hover:border-rose-500/70 focus:outline-none focus-visible:border-rose-500">
             <div class="flex items-center gap-3">
               <span class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></span>
-              <span class="font-semibold text-sm">1 · Current residence</span>
+              <span class="font-semibold text-sm" data-i18n="personal.step1">1 · Current residence</span>
             </div>
-            <div id="pinCurrentReadout" class="text-xs text-muted mt-1 pl-6">Tap, then click the map…</div>
+            <div id="pinCurrentReadout" class="text-xs text-muted mt-1 pl-6" data-i18n="personal.tapHint">Tap, then click the map…</div>
           </button>
 
           <button id="pinProspectiveBtn"
@@ -332,42 +332,42 @@
                    hover:border-emerald-400/70 focus:outline-none focus-visible:border-emerald-400">
             <div class="flex items-center gap-3">
               <span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span>
-              <span class="font-semibold text-sm">2 · Prospective residence</span>
+              <span class="font-semibold text-sm" data-i18n="personal.step2">2 · Prospective residence</span>
             </div>
-            <div id="pinProspectiveReadout" class="text-xs text-muted mt-1 pl-6">Tap, then click the map…</div>
+            <div id="pinProspectiveReadout" class="text-xs text-muted mt-1 pl-6" data-i18n="personal.tapHint">Tap, then click the map…</div>
           </button>
         </div>
 
         <!-- Household profile — fine-grained per-amenity needs -->
         <div class="metric-card !p-4 space-y-1">
           <div class="flex items-center justify-between mb-2">
-            <div class="metric-label">Which places does your household travel to?</div>
+            <div class="metric-label" data-i18n="personal.needsTitle">Which places does your household travel to?</div>
           </div>
           <div id="needsList" class="grid grid-cols-1 gap-1.5"></div>
-          <p class="text-[11px] text-faint pt-2">Each need is weighted by how often you actually go there.</p>
+          <p class="text-[11px] text-faint pt-2" data-i18n="personal.needsNote">Each need is weighted by how often you actually go there.</p>
         </div>
 
         <!-- Comparison HUD -->
         <div id="comparePanel" class="space-y-4 hidden">
           <div class="grid grid-cols-2 gap-4">
             <div class="metric-card border-rose-500/40">
-              <div id="currentWeekly" class="metric-value text-rose-500">0<span class="text-base text-muted"> h</span></div>
-              <div class="metric-label">Current weekly time-tax</div>
+              <div id="currentWeekly" class="metric-value text-rose-500">0<span class="text-base text-muted" data-i18n="unit.h"> h</span></div>
+              <div class="metric-label" data-i18n="personal.curWeekly">Current weekly time-tax</div>
             </div>
             <div class="metric-card border-emerald-400/40">
-              <div id="prospectiveWeekly" class="metric-value text-emerald-400">0<span class="text-base text-muted"> h</span></div>
-              <div class="metric-label">Prospective weekly time-tax</div>
+              <div id="prospectiveWeekly" class="metric-value text-emerald-400">0<span class="text-base text-muted" data-i18n="unit.h"> h</span></div>
+              <div class="metric-label" data-i18n="personal.proWeekly">Prospective weekly time-tax</div>
             </div>
           </div>
 
           <div class="metric-card text-center">
             <div id="efficiencyShift" class="metric-value text-emerald-400">—</div>
-            <div class="metric-label">Efficiency shift</div>
+            <div class="metric-label" data-i18n="personal.efficiency">Efficiency shift</div>
           </div>
 
           <!-- Per-need breakdown: where the weekly hours actually come from -->
           <div class="metric-card !p-4">
-            <div class="metric-label mb-2">Per-need breakdown · weekly hours</div>
+            <div class="metric-label mb-2" data-i18n="personal.breakdown">Per-need breakdown · weekly hours</div>
             <ul id="needBreakdown" class="space-y-2 text-sm"></ul>
           </div>
         </div>
@@ -377,6 +377,7 @@
     </aside>
   </div>
 
+  <script src="./src/i18n.js"></script>
   <script src="./src/config.js"></script>
   <script src="./src/app.js"></script>
 </body>
