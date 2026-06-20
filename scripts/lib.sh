@@ -21,8 +21,12 @@ die()  { log "FATAL: $*"; exit 1; }
 # JDK 25 via sdkman, set deterministically; system mvn picks up JAVA_HOME.
 setup_toolchain() {
   export SDKMAN_DIR="$HOME/.sdkman"
+  # sdkman-init.sh references $ZSH_VERSION unguarded, which trips `set -u`;
+  # relax nounset just for the source, then restore it.
+  set +u
   # shellcheck disable=SC1091
   source "$SDKMAN_DIR/bin/sdkman-init.sh"
+  set -u
   export JAVA_HOME="$SDKMAN_DIR/candidates/java/$JAVA_VERSION_ID"
   export PATH="$JAVA_HOME/bin:$PATH"
   java -version 2>&1 | grep -q ' version "25' || die "JDK 25 not active (got: $(java -version 2>&1 | head -1))"
