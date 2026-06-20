@@ -4,7 +4,7 @@ Real data sources (read straight from the gitignored ../datasets/ folder):
   - OSM .pbf  -> supply nodes (kindergartens, schools, hospitals, clinics, pharmacies)
   - NSI xlsx  -> demand weights (population by province x age x urban/rural)
   - GeoNames  -> geocoding backbone (every settlement's lat/lon + province + size)
-See docs/data-sources.md for the full method.
+See docs/datasets.md and docs/data-pipeline.md for the full method.
 """
 
 import os
