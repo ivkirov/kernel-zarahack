@@ -98,6 +98,36 @@
         </button>
       </div>
 
+      <!-- Card C — Civic Accountability Radar (Pillar 3) -->
+      <button id="enterRadar" data-stagger
+        class="group relative mt-5 w-full text-left rounded-2xl border border-edge bg-panel p-6 overflow-hidden
+               transition duration-300 hover:border-amber-400/70 hover:-translate-y-0.5
+               focus:outline-none focus-visible:border-amber-400">
+        <span class="pointer-events-none absolute -right-10 -top-10 w-40 h-40 rounded-full bg-amber-400/10 blur-2xl
+                     opacity-0 group-hover:opacity-100 transition duration-500"></span>
+        <div class="flex items-center gap-4">
+          <div class="w-12 h-12 shrink-0 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center
+                      ring-1 ring-inset ring-amber-400/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" viewBox="0 0 24 24"
+                 stroke="currentColor" stroke-width="1.6">
+              <path stroke-linecap="round" stroke-linejoin="round"
+                d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95 6.95l-1.41-1.41M7.46 7.46L6.05 6.05m11.9 0l-1.41 1.41M7.46 16.54l-1.41 1.41" />
+              <circle cx="12" cy="12" r="3.2" />
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <div class="flex items-center gap-2">
+              <h2 data-i18n="landing.radar.title" class="font-display text-xl font-semibold group-hover:text-amber-400 transition">Civic Accountability Radar</h2>
+              <span data-i18n="landing.radar.badge" class="text-[10px] uppercase tracking-wider bg-amber-400/15 text-amber-300 px-1.5 py-0.5 rounded">New</span>
+            </div>
+            <p data-i18n="landing.radar.desc" class="text-sm text-muted leading-relaxed mt-1">Track the new schools, kindergartens and clinics
+              municipalities have put out to tender — and cross-reference them against where time-poverty is worst.</p>
+          </div>
+          <svg class="w-5 h-5 ml-auto shrink-0 text-amber-400 transition group-hover:translate-x-1" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </div>
+      </button>
+
       <p data-stagger data-i18n="landing.footer" class="text-center text-xs text-faint mt-8">
         Built on OpenStreetMap · NSI census · GeoNames — 349 settlements, 2,772 services.
       </p>
@@ -178,6 +208,15 @@
               <div class="legend-row"><span class="w-4 h-4 rounded-full bg-emerald-500 text-emerald-950 text-[9px] font-bold flex items-center justify-center shrink-0">1</span> <span data-i18n="legend.aiSite">AI-recommended site</span></div>
               <p data-i18n="legend.dotsNote" class="text-[10px] text-faint pt-0.5">Service dots are keyed in the Layers panel ↗</p>
             </div>
+          </div>
+
+          <!-- Radar legend -->
+          <div id="legendRadar" class="space-y-1.5 hidden">
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#22c55e">✓</span><span data-i18n="radar.legend.good">Well sited (≤8 km)</span></div>
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#f59e0b">!</span><span data-i18n="radar.legend.review">Review (8–25 km)</span></div>
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#ef4444">⚑</span><span data-i18n="radar.legend.flag">Misallocation risk (&gt;25 km)</span></div>
+            <div class="legend-row"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#10b981"></span><span data-i18n="radar.legend.optimal">ML-optimal site</span></div>
+            <p data-i18n="radar.legend.note" class="text-[10px] text-faint pt-0.5">Dashed line = distance from the build to the model's nearest optimal site.</p>
           </div>
 
           <!-- Personal legend -->
@@ -373,6 +412,44 @@
         </div>
 
         <p id="personalStatus" class="text-xs text-faint"></p>
+      </div>
+
+      <!-- ===== RADAR PANEL (Pillar 3) ===== -->
+      <div id="radarPanel" class="space-y-5 hidden">
+        <div>
+          <h2 data-i18n="radar.title" class="font-display text-lg font-semibold">Civic Accountability Radar</h2>
+          <p data-i18n="radar.subtitle" class="text-sm text-muted">New civic builds municipalities have put out to tender, scraped from the
+            public-procurement registry (AOP).</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="metric-card border-amber-400/40">
+            <div id="radarTotal" class="metric-value text-amber-400">0</div>
+            <div data-i18n="radar.stat.total" class="metric-label">Planned projects tracked</div>
+          </div>
+          <div class="metric-card">
+            <div id="radarBuyers" class="metric-value">0</div>
+            <div data-i18n="radar.stat.buyers" class="metric-label">Municipalities</div>
+          </div>
+        </div>
+
+        <!-- Amenity filter -->
+        <div class="metric-card !p-3 flex items-center gap-3">
+          <span data-i18n="radar.filter.label" class="text-xs text-muted shrink-0">Type</span>
+          <select id="radarFilter"
+            class="flex-1 bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-amber-400">
+            <option value="all" data-i18n="radar.filter.all">All civic builds</option>
+            <option value="kindergarten" data-i18n="svc.kindergarten">Kindergartens</option>
+            <option value="school" data-i18n="svc.school">Schools</option>
+            <option value="clinic" data-i18n="svc.clinic">Clinics</option>
+            <option value="hospital" data-i18n="svc.hospital">Hospitals</option>
+          </select>
+        </div>
+
+        <!-- Project feed -->
+        <ul id="radarFeed" class="space-y-3"></ul>
+
+        <p id="radarStatus" class="text-xs text-faint"></p>
       </div>
     </aside>
   </div>

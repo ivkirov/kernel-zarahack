@@ -79,6 +79,7 @@ const cellLayer = L.layerGroup().addTo(map);
 const simLayer  = L.layerGroup().addTo(map);
 const personalLayer = L.layerGroup().addTo(map);
 const recoLayer = L.layerGroup().addTo(map);   // AI placement recommendations
+const radarLayer = L.layerGroup().addTo(map);  // Radar: project + optimal-site markers
 
 // Visibility state (mirrors SERVICE_META defaults + the choropleth toggle).
 const layerState = {};
@@ -218,6 +219,7 @@ function nodePopup(n) {
 }
 function drawNodes(nodes) {
   Object.values(serviceLayers).forEach((l) => l.clearLayers());
+  if (mode === "radar") { applyLayerVisibility(); return; }  // radar shows choropleth only
   nodes.forEach((n) => {
     const meta = SERVICE_META[n.serviceType];
     const layer = serviceLayers[n.serviceType];
@@ -580,6 +582,210 @@ function renderEfficiencyBadge() {
   }
 }
 
+// ---------- Civic Accountability Radar (Pillar 3) ----------
+// Amenity badge labels come from i18n (svc.* keys) via svcLabel().
+
+// Great-circle distance (km).
+function haversineKm(aLat, aLon, bLat, bLon) {
+  const R = 6371, toRad = (d) => (d * Math.PI) / 180;
+  const dLat = toRad(bLat - aLat), dLon = toRad(bLon - aLon);
+  const s = Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(aLat)) * Math.cos(toRad(bLat)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(s));
+}
+
+// Audit verdict thresholds: how far a build may sit from an ML-optimal site.
+const AUDIT = {
+  good:    { color: "#22c55e", glyph: "✓" },
+  review:  { color: "#f59e0b", glyph: "!" },
+  flag:    { color: "#ef4444", glyph: "⚑" },
+  unknown: { color: "#64748b", glyph: "?" },
+};
+const auditLabel = (verdict) => t(`radar.audit.${verdict}`);
+function verdictFor(km) {
+  if (km == null) return "unknown";
+  if (km <= 8) return "good";
+  if (km <= 25) return "review";
+  return "flag";
+}
+
+// Cache ML optimal-site lookups per district+amenity (avoids N duplicate calls).
+const recoCache = {};
+async function mlOptimalSites(district, amenity) {
+  const key = `${district}|${amenity}`;
+  if (recoCache[key]) return recoCache[key];
+  const p = (async () => {
+    try {
+      const url = `${ML_BASE_URL}/recommend?amenity=${encodeURIComponent(amenity)}` +
+                  `&district=${encodeURIComponent(district)}&top=3`;
+      const res = await fetch(url);
+      if (!res.ok) return [];
+      const data = await res.json();
+      return data.recommendations || [];
+    } catch { return []; }
+  })();
+  recoCache[key] = p;
+  return p;
+}
+
+// Cross-reference one project against the model's optimal sites for its district.
+async function auditProject(p) {
+  if (p.lat == null || p.lon == null || !p.district) {
+    return { verdict: "unknown", km: null, optimal: null };
+  }
+  const sites = await mlOptimalSites(p.district, p.amenityType);
+  if (!sites.length) return { verdict: "unknown", km: null, optimal: null };
+  let best = null, bestKm = Infinity;
+  for (const s of sites) {
+    const km = haversineKm(p.lat, p.lon, s.lat, s.lon);
+    if (km < bestKm) { bestKm = km; best = s; }
+  }
+  return { verdict: verdictFor(bestKm), km: bestKm, optimal: best };
+}
+
+function radarPinIcon(amenityColor, verdict) {
+  const v = AUDIT[verdict];
+  return L.divIcon({
+    className: "",
+    html: `<div style="position:relative;width:24px;height:24px">
+      <div style="width:24px;height:24px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);
+        background:${amenityColor};border:2px solid ${v.color};box-shadow:0 1px 6px rgba(0,0,0,.6)"></div>
+      <div style="position:absolute;top:-7px;right:-7px;width:15px;height:15px;border-radius:50%;
+        background:${v.color};color:#0a0f1e;font-size:10px;font-weight:800;line-height:15px;
+        text-align:center;border:1px solid #0a0f1e">${v.glyph}</div>
+    </div>`,
+    iconSize: [24, 24], iconAnchor: [12, 22],
+  });
+}
+
+// Draw project markers (+ optimal site + deviation line for non-good verdicts).
+function placeRadarMarkers(projects) {
+  radarLayer.clearLayers();
+  projects.forEach((p) => {
+    if (p.lat == null || p.lon == null) return;
+    const color = (SERVICE_META[p.amenityType] || {}).color || "#f59e0b";
+    const a = p._audit || { verdict: "unknown", km: null, optimal: null };
+    const v = AUDIT[a.verdict];
+    const km = a.km == null ? "—" : `${a.km.toFixed(1)} km`;
+    const m = L.marker([p.lat, p.lon], { icon: radarPinIcon(color, a.verdict), zIndexOffset: 800 })
+      .addTo(radarLayer)
+      .bindPopup(
+        `<b>${p.projectName}</b><br>${p.buyerName}<br>` +
+        `<span style="color:${v.color};font-weight:700">${v.glyph} ${auditLabel(a.verdict)}</span> · ` +
+        `${t("radar.popup.fromOptimal", { km })}<br>` +
+        (a.optimal
+          ? t("radar.popup.modelBest", {
+              town: `<b>${a.optimal.nearestTown}</b>`,
+              hours: (a.optimal.predictedHoursSaved || 0).toLocaleString(),
+            })
+          : t("radar.popup.notAudited")));
+    p._marker = m;
+
+    // Show the deviation: line to the nearest optimal site + a small optimal marker.
+    if (a.optimal && (a.verdict === "review" || a.verdict === "flag")) {
+      L.polyline([[p.lat, p.lon], [a.optimal.lat, a.optimal.lon]], {
+        color: v.color, weight: 1.5, dashArray: "5 5", opacity: 0.8, interactive: false,
+      }).addTo(radarLayer);
+      L.circleMarker([a.optimal.lat, a.optimal.lon], {
+        radius: 5, color: "#10b981", fillColor: "#10b981", fillOpacity: 0.9, weight: 1,
+      }).bindPopup(`<b>★ ${t("radar.popup.optimal")}</b><br>${t("radar.popup.optimalNear", { town: a.optimal.nearestTown })}`).addTo(radarLayer);
+    }
+  });
+}
+
+function radarFeedItem(p) {
+  const color = (SERVICE_META[p.amenityType] || {}).color || "#f59e0b";
+  const label = svcLabel(p.amenityType);
+  const date = (p.scrapedAt || "").slice(0, 10);
+  const a = p._audit;
+  const v = AUDIT[(a && a.verdict) || "unknown"];
+  const auditHtml = a
+    ? `<span class="inline-flex items-center gap-1 text-[11px] font-semibold px-2 py-0.5 rounded"
+         style="background:${v.color}1a;color:${v.color}">${v.glyph} ${auditLabel(a.verdict)}${a.km != null ? ` · ${a.km.toFixed(0)}km` : ""}</span>`
+    : `<span class="text-[11px] text-faint">${t("radar.feed.auditing")}</span>`;
+
+  const li = document.createElement("li");
+  li.className = "metric-card !p-4 cursor-pointer hover:border-amber-400/50 transition";
+  li.dataset.pn = p.procurementNumber;
+  li.innerHTML =
+    `<div class="flex items-start justify-between gap-3">
+      <div class="min-w-0">
+        <div class="text-sm font-medium text-slate-100 leading-snug">${p.projectName}</div>
+        <div class="text-xs text-muted mt-1">${p.buyerName}</div>
+      </div>
+      <span class="shrink-0 inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-1 rounded-md"
+            style="background:${color}1a;color:${color}">
+        <span class="w-2 h-2 rounded-full" style="background:${color}"></span>${label}</span>
+    </div>
+    <div class="flex items-center justify-between mt-3">
+      ${auditHtml}
+      <span class="text-[11px] text-faint tabular-nums">${t("radar.feed.ref", { num: p.procurementNumber, date })}</span>
+    </div>`;
+  li.addEventListener("click", () => flyToProject(p));
+  return li;
+}
+
+function renderRadar(data) {
+  const feed = $("radarFeed");
+  feed.innerHTML = "";
+  setText("radarTotal", data.total || 0, { decimals: 0 });
+  setText("radarBuyers", new Set(data.projects.map((p) => p.buyerName)).size, { decimals: 0 });
+
+  if (!data.available) {
+    feed.innerHTML = `<li class="metric-card text-sm text-muted">${t("radar.status.empty")}</li>`;
+    $("radarStatus").textContent = t("radar.status.emptyShort");
+    return;
+  }
+  if (!data.projects.length) {
+    feed.innerHTML = `<li class="metric-card text-sm text-muted">${t("radar.status.nomatch")}</li>`;
+    $("radarStatus").textContent = "";
+    return;
+  }
+  data.projects.forEach((p) => feed.appendChild(radarFeedItem(p)));
+  revealStagger("#radarFeed li", { y: 8, duration: 0.4, stagger: 0.05 });
+}
+
+function flyToProject(p) {
+  if (p.lat == null || p.lon == null) return;
+  map.flyTo([p.lat, p.lon], 12, { duration: 0.8 });
+  if (p._marker) p._marker.openPopup();
+}
+
+let radarProjects = [];
+let radarData = null;        // keep last payload so a locale switch can re-render
+async function loadRadar(amenity) {
+  const statusEl = $("radarStatus");
+  statusEl.textContent = t("radar.status.loading");
+  radarLayer.clearLayers();
+  try {
+    const q = amenity && amenity !== "all" ? `?amenity=${encodeURIComponent(amenity)}` : "";
+    const res = await fetch(`${API_BASE_URL}/planned-projects${q}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    radarData = data;
+    radarProjects = data.projects || [];
+    renderRadar(data);                       // fast first paint (badges show "auditing…")
+
+    if (data.available && radarProjects.length) {
+      statusEl.textContent = t("radar.status.auditing");
+      await Promise.all(radarProjects.map(async (p) => { p._audit = await auditProject(p); }));
+      renderRadar(data);                     // re-paint with verdicts
+      placeRadarMarkers(radarProjects);
+      updateRadarSummary();
+    }
+  } catch (err) {
+    $("radarFeed").innerHTML = "";
+    statusEl.textContent = t("radar.status.failed", { err: err.message });
+    console.error("loadRadar failed:", err);
+  }
+}
+
+function updateRadarSummary() {
+  if (!radarData || !radarData.available || !radarProjects.length) return;
+  const n = (v) => radarProjects.filter((p) => (p._audit || {}).verdict === v).length;
+  $("radarStatus").textContent = t("radar.status.summary", { flag: n("flag"), review: n("review"), good: n("good") });
+}
+
 // ---------- Map click router (gated by mode) ----------
 let mode = null;
 map.on("click", (e) => {
@@ -595,6 +801,7 @@ function showLegend(which) {
   show($("legend"), which !== null);
   show($("legendMunicipal"), which === "municipal");
   show($("legendPersonal"), which === "personal");
+  show($("legendRadar"), which === "radar");
 }
 
 // Dismiss the landing portal with a quick fade before revealing the app.
@@ -612,6 +819,7 @@ function enterMunicipal() {
     mode = "municipal";
     show($("municipalPanel"), true);
     show($("personalPanel"), false);
+    show($("radarPanel"), false);
     show($("amenityControl"), true);
     show($("layerControl"), true);
     show($("cellsRow"), true);
@@ -620,6 +828,7 @@ function enterMunicipal() {
     buildLayerToggles("municipal");
     showLegend("municipal");
     personalLayer.clearLayers();
+    radarLayer.clearLayers();
     map.invalidateSize();
     loadMatrix();
     revealStagger("#municipalPanel > *");
@@ -634,6 +843,7 @@ function enterPersonal() {
     mode = "personal";
     show($("municipalPanel"), false);
     show($("personalPanel"), true);
+    show($("radarPanel"), false);
     show($("amenityControl"), false);
     show($("layerControl"), true);
     show($("cellsRow"), false);     // no choropleth in personal mode
@@ -643,6 +853,7 @@ function enterPersonal() {
     showLegend("personal");
     simLayer.clearLayers();
     recoLayer.clearLayers();
+    radarLayer.clearLayers();
     const recoList = $("recoResults");
     if (recoList) recoList.innerHTML = "";
     buildNeeds();
@@ -651,6 +862,34 @@ function enterPersonal() {
     loadPersonalStructures();
     revealStagger("#personalPanel > *");
     pop("#layerControl", { delay: 0.15 });
+    pop("#legend", { delay: 0.2 });
+  });
+}
+
+function enterRadar() {
+  dismissLanding(() => {
+    mode = "radar";
+    show($("municipalPanel"), false);
+    show($("personalPanel"), false);
+    show($("radarPanel"), true);
+    show($("amenityControl"), false);
+    show($("layerControl"), false);
+    showLegend("radar");
+    $("districtName").textContent = t("radar.districtName");
+    // Clean slate: Radar shows ONLY project flags + deviation lines (+ country outline).
+    simLayer.clearLayers();
+    recoLayer.clearLayers();
+    personalLayer.clearLayers();
+    cellLayer.clearLayers();
+    Object.values(serviceLayers).forEach((l) => l.clearLayers());
+    cellsOn = false;
+    applyLayerVisibility();
+    district = "all";
+    map.invalidateSize();
+    map.setView(MAP_CENTER, MAP_ZOOM);
+    loadRadar("all");
+    $("radarFilter").value = "all";
+    revealStagger("#radarPanel > *");
     pop("#legend", { delay: 0.2 });
   });
 }
@@ -666,10 +905,12 @@ function goHome() {
 
 $("enterMunicipal").addEventListener("click", enterMunicipal);
 $("enterPersonal").addEventListener("click", enterPersonal);
+$("enterRadar").addEventListener("click", enterRadar);
 $("goHomeBtn").addEventListener("click", goHome);
 $("recommendBtn").addEventListener("click", recommendSites);
 $("pinCurrentBtn").addEventListener("click", () => armPin("current"));
 $("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
+$("radarFilter").addEventListener("change", (e) => loadRadar(e.target.value));
 
 // ---------- Scope picker: provinces vs towns ----------
 const districtLabel = (d) => (!d || d === "all") ? t("prov.all") : tOr(`prov.${d}`, d);
@@ -760,8 +1001,18 @@ $("scopeTown").addEventListener("click", () => setScope("town"));
 // switch is instant and never reloads — and user state (selections, pins) is kept.
 I18n.onChange(() => {
   // District readout is set dynamically, not via data-i18n.
-  if (scope === "province" && districtSelect) {
+  if (mode === "radar") {
+    $("districtName").textContent = t("radar.districtName");
+  } else if (scope === "province" && districtSelect) {
     $("districtName").textContent = districtLabel(districtSelect.value);
+  }
+  // Radar feed + markers embed localized labels; re-render in place (audits cached).
+  if (mode === "radar" && radarData) {
+    renderRadar(radarData);
+    if (radarData.available && radarProjects.length) {
+      placeRadarMarkers(radarProjects);
+      updateRadarSummary();
+    }
   }
   // Layer toggles embed localized service names; layerState is preserved on rebuild.
   if (mode === "municipal" || mode === "personal") buildLayerToggles(mode);
