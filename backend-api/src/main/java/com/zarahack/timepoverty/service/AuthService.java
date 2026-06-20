@@ -57,6 +57,26 @@ public class AuthService {
         return token(u);
     }
 
+    /**
+     * Self-serve "payment". Stands in for a real checkout: it activates the
+     * current account's paid access so a freshly-registered reporter/municipality
+     * (or a free user upgrading) can use/test their tier without an admin grant.
+     *
+     *   FREE_USER → upgraded to PAID_USER (unlimited checks + AI extras), granted
+     *   REPORTER / MUNICIPALITY / PAID_USER → access granted in place
+     *   ADMIN → no-op (already has everything)
+     */
+    public AuthResponse activate(AppUser u) {
+        if (u.getRole() == Role.FREE_USER) {
+            u.setRole(Role.PAID_USER);
+        }
+        if (u.getRole() != Role.ADMIN) {
+            u.setAccessGranted(true);
+        }
+        u = users.save(u);
+        return token(u);
+    }
+
     public AuthResponse login(LoginRequest req) {
         String email = req.email == null ? "" : req.email.trim().toLowerCase();
         AppUser u = users.findByEmail(email)

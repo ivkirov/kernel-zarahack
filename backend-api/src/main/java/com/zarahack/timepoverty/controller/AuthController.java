@@ -25,6 +25,12 @@ public class AuthController {
         return auth.login(req);
     }
 
+    /** Self-serve paywall "payment": activates the current account's paid access. */
+    @PostMapping("/activate")
+    public AuthResponse activate() {
+        return auth.activate(CurrentUser.require());
+    }
+
     /** Current account (used by the frontend to bootstrap role-aware UI on load). */
     @GetMapping("/me")
     public UserView me() {

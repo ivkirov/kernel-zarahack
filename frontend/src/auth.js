@@ -17,6 +17,11 @@
   try { token = localStorage.getItem(TOKEN_KEY); } catch { /* private mode */ }
   let user = null;
   const readyCbs = new Set();
+  const activatedCbs = new Set();
+
+  // Paywall codes that a self-serve "payment" can't resolve (a role mismatch,
+  // not a missing purchase) — these hide the Pay button.
+  const NON_PAYABLE = new Set(["ACCESS_PERSONAL"]);
 
   const $ = (id) => document.getElementById(id);
   const show = (el, v) => el && el.classList.toggle("hidden", !v);
@@ -185,9 +190,31 @@
     $("paywallTitle").textContent = T(titleKey) === titleKey ? T("paywall.title.DEFAULT") : T(titleKey);
     const body = T(bodyKey);
     $("paywallBody").textContent = body === bodyKey ? (serverMsg || T("paywall.body.DEFAULT")) : body;
+    // Pay button only when a purchase would actually unlock the feature.
+    const payable = !!user && user.role !== "ADMIN" && !NON_PAYABLE.has(code);
+    const payBtn = $("paywallPay");
+    if (payBtn) { payBtn.disabled = false; payBtn.textContent = T("paywall.pay"); }
+    show(payBtn, payable);
+    show($("paywallTestNote"), payable);
     show($("paywallModal"), true);
   }
   function hidePaywall() { show($("paywallModal"), false); }
+
+  // The "payment" — activates this account's paid access, then unlocks in place.
+  async function payAndUnlock() {
+    const btn = $("paywallPay");
+    if (btn) { btn.disabled = true; btn.textContent = T("paywall.processing"); }
+    try {
+      const res = await apiFetch(AUTH_BASE_URL + "/activate", { method: "POST" });
+      const data = await res.json();
+      setSession(data.token, data.user);
+      renderAccountBar();
+      hidePaywall();
+      activatedCbs.forEach((cb) => { try { cb(user); } catch (e) { console.error(e); } });
+    } catch (err) {
+      if (btn) { btn.disabled = false; btn.textContent = T("paywall.payFailed"); }
+    }
+  }
 
   // ---- admin user management ----
   async function openAdmin() {
@@ -273,6 +300,7 @@
     get token() { return token; },
     apiFetch,
     onReady(cb) { readyCbs.add(cb); if (user) { try { cb(user); } catch (e) { console.error(e); } } },
+    onActivated(cb) { activatedCbs.add(cb); },
     logout, showPaywall, refreshMe, openAdmin,
   };
 
@@ -291,6 +319,7 @@
     if (backBtn) backBtn.addEventListener("click", showWelcome);
     $("paywallClose").addEventListener("click", hidePaywall);
     $("paywallOk").addEventListener("click", hidePaywall);
+    $("paywallPay").addEventListener("click", payAndUnlock);
     $("logoutBtn").addEventListener("click", logout);
     $("adminUsersBtn").addEventListener("click", openAdmin);
     const up = $("acctUpgradeBtn");

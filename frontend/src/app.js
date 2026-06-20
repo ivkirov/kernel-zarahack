@@ -1164,12 +1164,28 @@ function onDemoPaidToggle(on) {
 // ---------- Role-aware landing + personal-panel gating ----------
 Auth.onReady((user) => applyRoleGating(user));
 
-function applyRoleGating(user) {
+// Re-skin the UI in place after a self-serve paywall "payment" unlocks a tier —
+// without bouncing the user back to the portal (goHome) like a fresh session does.
+Auth.onActivated((user) => {
   currentUser = user;
-  const role = user.role;
+  showLensButtons(user.role);
+  if (mode === "personal") {
+    buildNeeds();
+    buildLayerToggles("personal");
+    applyPersonalGating();
+    if (lastCompareData) renderAiExplanation(lastCompareData);
+  }
+});
+
+function showLensButtons(role) {
   show($("enterMunicipal"), role === "ADMIN" || role === "MUNICIPALITY");
   show($("enterPersonal"),  role === "ADMIN" || role === "FREE_USER" || role === "PAID_USER");
   show($("enterRadar"),     role === "ADMIN" || role === "REPORTER");
+}
+
+function applyRoleGating(user) {
+  currentUser = user;
+  showLensButtons(user.role);
   goHome();   // a fresh session always lands on the (now role-filtered) portal
 }
 
