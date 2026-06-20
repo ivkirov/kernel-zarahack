@@ -23,6 +23,10 @@
       // Brand
       "brand": "The Time Poverty Matrix",
 
+      // Deploy version badge
+      "version.deployed": "deployed",
+      "version.unknown": "version unknown",
+
       // Language switcher
       "lang.aria": "Change language",
       "lang.name.bg": "Български",
@@ -336,6 +340,10 @@
     bg: {
       // Brand
       "brand": "Матрицата на изгубеното време",
+
+      // Deploy version badge
+      "version.deployed": "внедрено",
+      "version.unknown": "неизвестна версия",
 
       // Language switcher
       "lang.aria": "Смяна на езика",

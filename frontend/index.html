@@ -756,9 +756,16 @@
     </div>
   </div>
 
+  <!-- Deploy stamp badge: shows the live commit, fed by frontend/version.json -->
+  <a id="version-badge" href="#" target="_blank" rel="noopener"
+     class="fixed bottom-2 right-2 z-[1200] hidden items-center gap-1.5 rounded-md
+            bg-slate-900/70 px-2 py-1 text-[11px] text-faint backdrop-blur
+            hover:text-slate-200 transition ring-1 ring-white/10"></a>
+
   <script src="./src/i18n.js"></script>
   <script src="./src/config.js"></script>
   <script src="./src/auth.js"></script>
   <script src="./src/app.js"></script>
+  <script src="./src/version.js"></script>
 </body>
 </html>

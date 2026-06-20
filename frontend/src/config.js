@@ -16,6 +16,7 @@ window.TPM = {
   AUTH_BASE_URL: `${_API}/api/v1/auth`,   // register / login / me
   ADMIN_BASE_URL: `${_API}/api/v1/admin`,  // admin user management
   ML_BASE_URL: `${_ML}/api/ml`,   // Python ML sidecar (placement + travel-time bots)
+  VERSION_URL: "./version.json",  // deploy stamp copied next to index.html (same-origin)
 
   // Amenities a FREE_USER may filter/compare by. Everything else is shown-but-locked
   // behind the paywall. Mirrors the backend's Features.FREE_ALLOWED_AMENITIES.
