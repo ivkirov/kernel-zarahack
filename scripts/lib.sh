@@ -55,20 +55,22 @@ stop_service() {
   fi
 }
 
-# Free a TCP port by killing its listening owner — but NEVER this shell or its
-# parent (guards against the old pkill-by-pattern footgun). Targeted via ss.
+# Free a TCP port by killing whoever holds it — but NEVER this shell or its
+# parent (guards against the old pkill-by-pattern footgun). Uses `fuser`, since
+# this VM has neither `ss` nor `lsof` on PATH. fuser prints owning PIDs to stdout.
 free_port() {
-  local port="$1" pid
-  pid="$(ss -ltnpH "sport = :$port" 2>/dev/null | grep -oP 'pid=\K[0-9]+' | head -1 || true)"
-  if [[ -z "$pid" ]]; then
-    pid="$(sudo ss -ltnpH "sport = :$port" 2>/dev/null | grep -oP 'pid=\K[0-9]+' | head -1 || true)"
+  local port="$1" pids pid
+  pids="$(fuser "$port/tcp" 2>/dev/null | tr -s ' ' '\n' | grep -E '^[0-9]+$' || true)"
+  if [[ -z "$pids" ]]; then
+    pids="$(sudo fuser "$port/tcp" 2>/dev/null | tr -s ' ' '\n' | grep -E '^[0-9]+$' || true)"
   fi
-  if [[ -n "$pid" && "$pid" != "$$" && "$pid" != "$PPID" ]]; then
+  for pid in $pids; do
+    [[ -z "$pid" || "$pid" == "$$" || "$pid" == "$PPID" ]] && continue
     kill "$pid" 2>/dev/null || sudo kill "$pid" 2>/dev/null || true
     for _ in $(seq 1 20); do kill -0 "$pid" 2>/dev/null || break; sleep 0.25; done
     kill -9 "$pid" 2>/dev/null || sudo kill -9 "$pid" 2>/dev/null || true
     log "freed port $port (was pid $pid)"
-  fi
+  done
 }
 
 # Launch a service fully detached. The exec'd PID is the service itself, so the
