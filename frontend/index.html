@@ -210,11 +210,19 @@
 
       <!-- ===== MUNICIPAL PANEL ===== -->
       <div id="municipalPanel" class="space-y-5">
-        <!-- Province picker (whole country or a single oblast) -->
-        <div class="metric-card !p-3 flex items-center gap-3">
-          <span class="text-xs text-muted shrink-0">Province</span>
+        <!-- Scope picker: switch between whole provinces and individual towns -->
+        <div class="metric-card !p-3 space-y-2.5">
+          <div class="flex items-center gap-1 bg-panel2 border border-edge rounded-lg p-0.5">
+            <button id="scopeProvince" type="button"
+              class="flex-1 rounded-md px-2 py-1 text-xs font-medium transition bg-accent/15 text-accent">
+              Provinces</button>
+            <button id="scopeTown" type="button"
+              class="flex-1 rounded-md px-2 py-1 text-xs font-medium transition text-muted hover:text-slate-100">
+              Towns</button>
+          </div>
+
           <select id="districtSelect"
-            class="flex-1 bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
+            class="w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
             <option value="all" selected>All Bulgaria</option>
             <option>Blagoevgrad</option>
             <option>Burgas</option>
@@ -244,6 +252,12 @@
             <option>Vidin</option>
             <option>Vratsa</option>
             <option>Yambol</option>
+          </select>
+
+          <!-- Town list (populated from data); jumps the map to the chosen settlement -->
+          <select id="townSelect"
+            class="hidden w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
+            <option value="">Loading towns…</option>
           </select>
         </div>
 

@@ -1,6 +1,7 @@
 const {
   API_BASE_URL, ML_BASE_URL, DISTRICT, MAP_CENTER, MAP_ZOOM,
   COLORS, SERVICE_META, PERSONAL_NEEDS, MATRIX_CACHE_TTL,
+  BG_BOUNDS, BG_OUTLINE_URL, OUT_OF_BOUNDS_MSG,
 } = window.TPM;
 
 // Active municipal district; "all" = whole country. Mutable via the province picker.
@@ -8,11 +9,61 @@ let district = DISTRICT;
 
 // ---------- Leaflet init ----------
 // preferCanvas keeps the nationwide view (~17k vector layers) smooth.
-const map = L.map("map", { zoomControl: true, preferCanvas: true }).setView(MAP_CENTER, MAP_ZOOM);
+// maxBounds + full viscosity hard-clamp panning to Bulgaria (scroll too far → snaps back).
+const BG_LATLNG_BOUNDS = L.latLngBounds(BG_BOUNDS);
+const map = L.map("map", {
+  zoomControl: true, preferCanvas: true,
+  maxBounds: BG_LATLNG_BOUNDS, maxBoundsViscosity: 1.0, minZoom: 7,
+}).setView(MAP_CENTER, MAP_ZOOM);
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
   attribution: "© OpenStreetMap, © CARTO",
   maxZoom: 19,
 }).addTo(map);
+
+// ---------- Bulgaria geofence (outline + point-in-country test) ----------
+let bgRings = null;   // array of [ [lng,lat], ... ] outer rings
+async function loadBulgariaOutline() {
+  try {
+    const res = await fetch(BG_OUTLINE_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    bgRings = (await res.json()).rings;
+    // Faint outline so the data region reads as intentional, not a crop.
+    // Each ring is its own polygon (multipolygon), not holes of one.
+    const latlngs = bgRings.map((r) => [r.map(([lng, lat]) => [lat, lng])]);
+    L.polygon(latlngs, {
+      color: "#38bdf8", weight: 1, opacity: 0.35,
+      fill: false, interactive: false,
+    }).addTo(map);
+  } catch (err) {
+    console.warn("Bulgaria outline failed to load; click-gating disabled:", err);
+  }
+}
+loadBulgariaOutline();
+
+// Ray-casting point-in-polygon over the outer rings (true if inside any province).
+function inBulgaria(lat, lng) {
+  if (!bgRings) return BG_LATLNG_BOUNDS.contains([lat, lng]);   // fallback: bbox
+  for (const ring of bgRings) {
+    let inside = false;
+    for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+      const xi = ring[i][0], yi = ring[i][1];
+      const xj = ring[j][0], yj = ring[j][1];
+      const hit = (yi > lat) !== (yj > lat) &&
+        lng < ((xj - xi) * (lat - yi)) / (yj - yi) + xi;
+      if (hit) inside = !inside;
+    }
+    if (inside) return true;
+  }
+  return false;
+}
+
+// Reusable "out of bounds" popup.
+function outOfBoundsPopup(latlng) {
+  L.popup({ closeButton: true, className: "" })
+    .setLatLng(latlng)
+    .setContent(`<b>Out of coverage</b><br>${OUT_OF_BOUNDS_MSG}`)
+    .openOn(map);
+}
 
 // One layer group per service type so filtering is a cheap add/remove (no redraw).
 const serviceLayers = {};
@@ -149,6 +200,7 @@ function drawNodes(nodes) {
     const meta = SERVICE_META[n.serviceType];
     const layer = serviceLayers[n.serviceType];
     if (!layer) return;
+    if (mode === "municipal" && meta.personalOnly) return;   // pharmacies are personal-only
     L.circleMarker([n.lat, n.lon], {
       radius: 4, color: meta.color, fillColor: meta.color, fillOpacity: 0.9, weight: 1,
     }).bindPopup(nodePopup(n)).addTo(layer);
@@ -190,10 +242,17 @@ function setLayerVisible(type, on) {
 }
 
 // ---------- Layer filter UI ----------
-function buildLayerToggles() {
+// personalOnly layers (pharmacies) are hidden in municipal mode and shown in personal.
+function setModeLayerDefaults(forMode) {
+  Object.entries(SERVICE_META).forEach(([t, m]) => {
+    if (m.personalOnly) layerState[t] = forMode === "personal" ? m.on : false;
+  });
+}
+function buildLayerToggles(forMode) {
   const box = $("layerToggles");
   box.innerHTML = "";
   Object.entries(SERVICE_META).forEach(([type, m]) => {
+    if (forMode === "municipal" && m.personalOnly) return;   // no pharmacy toggle here
     const row = document.createElement("label");
     row.className = "flex items-center gap-2.5 text-xs text-slate-200 cursor-pointer";
     row.innerHTML =
@@ -206,7 +265,8 @@ function buildLayerToggles() {
     });
   });
 }
-buildLayerToggles();
+setModeLayerDefaults("municipal");
+buildLayerToggles("municipal");
 
 $("toggleCells").addEventListener("change", (e) => { cellsOn = e.target.checked; applyLayerVisibility(); });
 
@@ -491,6 +551,9 @@ async function runCompare() {
 // ---------- Map click router (gated by mode) ----------
 let mode = null;
 map.on("click", (e) => {
+  if (mode !== "municipal" && mode !== "personal") return;
+  // Reject interactions outside the country — we only have Bulgarian data.
+  if (!inBulgaria(e.latlng.lat, e.latlng.lng)) { outOfBoundsPopup(e.latlng); return; }
   if (mode === "municipal") simulateAt(e);
   else if (mode === "personal") dropPersonalPin(e);
 });
@@ -520,6 +583,9 @@ function enterMunicipal() {
     show($("amenityControl"), true);
     show($("layerControl"), true);
     show($("cellsRow"), true);
+    setScope("province");
+    setModeLayerDefaults("municipal");
+    buildLayerToggles("municipal");
     showLegend("municipal");
     personalLayer.clearLayers();
     map.invalidateSize();
@@ -540,6 +606,8 @@ function enterPersonal() {
     show($("layerControl"), true);
     show($("cellsRow"), false);     // no choropleth in personal mode
     cellsOn = false;
+    setModeLayerDefaults("personal");
+    buildLayerToggles("personal");
     showLegend("personal");
     simLayer.clearLayers();
     recoLayer.clearLayers();
@@ -571,9 +639,11 @@ $("recommendBtn").addEventListener("click", recommendSites);
 $("pinCurrentBtn").addEventListener("click", () => armPin("current"));
 $("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
 
-// ---------- Province picker (municipal) ----------
+// ---------- Scope picker: provinces vs towns ----------
 const districtLabel = (d) => (!d || d === "all") ? "All Bulgaria" : d;
 const districtSelect = $("districtSelect");
+const townSelect = $("townSelect");
+
 if (districtSelect) {
   district = districtSelect.value;
   $("districtName").textContent = districtLabel(district);
@@ -585,3 +655,67 @@ if (districtSelect) {
     loadMatrix();
   });
 }
+
+let scope = "province";
+function setScope(s) {
+  scope = s;
+  const prov = s === "province";
+  for (const [btn, active] of [["scopeProvince", prov], ["scopeTown", !prov]]) {
+    const el = $(btn);
+    el.classList.toggle("bg-accent/15", active);
+    el.classList.toggle("text-accent", active);
+    el.classList.toggle("text-muted", !active);
+  }
+  show(districtSelect, prov);
+  show(townSelect, !prov);
+  if (prov) {
+    $("districtName").textContent = districtLabel(districtSelect.value);
+  } else {
+    ensureTownList();
+    if (district !== "all") {              // towns are nationwide — widen the matrix
+      district = "all";
+      districtSelect.value = "all";
+      recoLayer.clearLayers();
+      $("recoResults").innerHTML = "";
+      loadMatrix();
+    }
+  }
+}
+
+// Town list derived from the nationwide matrix (one entry per settlement, max-pop cell).
+let townListBuilt = false;
+async function ensureTownList() {
+  if (townListBuilt || !townSelect) return;
+  try {
+    const data = await fetchMatrix("all");
+    const byName = {};
+    data.cells.forEach((c) => {
+      if (!c.settlement) return;
+      const cur = byName[c.settlement];
+      if (!cur || c.population > cur.population) byName[c.settlement] = c;
+    });
+    const towns = Object.values(byName)
+      .sort((a, b) => a.settlement.localeCompare(b.settlement));
+    townSelect.innerHTML = `<option value="">Select a town… (${towns.length})</option>` +
+      towns.map((t) => `<option value="${t.lat},${t.lon}">${t.settlement}</option>`).join("");
+    townListBuilt = true;
+  } catch (err) {
+    townSelect.innerHTML = `<option value="">Failed to load towns</option>`;
+    console.error("ensureTownList failed:", err);
+  }
+}
+
+if (townSelect) {
+  townSelect.addEventListener("change", (e) => {
+    const v = e.target.value;
+    if (!v) return;
+    const [lat, lon] = v.split(",").map(Number);
+    const name = e.target.selectedOptions[0].textContent;
+    $("districtName").textContent = name;
+    map.flyTo([lat, lon], 12, { duration: 0.8 });
+    L.popup().setLatLng([lat, lon]).setContent(`<b>${name}</b>`).openOn(map);
+  });
+}
+
+$("scopeProvince").addEventListener("click", () => setScope("province"));
+$("scopeTown").addEventListener("click", () => setScope("town"));

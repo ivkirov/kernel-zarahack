@@ -22,7 +22,8 @@ window.TPM = {
     school:       { label: "Schools",       color: "#818cf8", group: "children_0_6", on: true },
     clinic:       { label: "Clinics",       color: "#fb923c", group: "seniors_65p",  on: true },
     hospital:     { label: "Hospitals",     color: "#f87171", group: "seniors_65p",  on: true },
-    pharmacy:     { label: "Pharmacies",    color: "#34d399", group: "seniors_65p",  on: false },
+    // Pharmacies are personal-mode only (too dense + not a planning lever for municipalities).
+    pharmacy:     { label: "Pharmacies",    color: "#34d399", group: "seniors_65p",  on: true, personalOnly: true },
   },
 
   // Fine-grained needs for the personal planner (sent to /personal-compare as `needs`).
@@ -36,4 +37,9 @@ window.TPM = {
 
   // Local matrix cache: skip refetch within this window (ms) per district.
   MATRIX_CACHE_TTL: 1000 * 60 * 30,   // 30 min
+
+  // Geofencing: we only have Bulgarian data. Clamp panning + gate clicks to here.
+  BG_BOUNDS: [[41.0, 22.0], [44.4, 28.9]],   // [[south,west],[north,east]] (padded)
+  BG_OUTLINE_URL: "./data/bulgaria.json",     // outer rings for outline + point-in-country test
+  OUT_OF_BOUNDS_MSG: "We currently only have data for Bulgaria.",
 };
