@@ -12,9 +12,10 @@ let district = DISTRICT;
 // maxBounds + full viscosity hard-clamp panning to Bulgaria (scroll too far → snaps back).
 const BG_LATLNG_BOUNDS = L.latLngBounds(BG_BOUNDS);
 const map = L.map("map", {
-  zoomControl: true, preferCanvas: true,
+  zoomControl: false, preferCanvas: true,         // zoom moved bottom-right (top-left = back arrow)
   maxBounds: BG_LATLNG_BOUNDS, maxBoundsViscosity: 1.0, minZoom: 7,
 }).setView(MAP_CENTER, MAP_ZOOM);
+L.control.zoom({ position: "bottomright" }).addTo(map);
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
   attribution: "© OpenStreetMap, © CARTO",
   maxZoom: 19,
@@ -594,19 +595,27 @@ function haversineKm(aLat, aLon, bLat, bLon) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
-// Audit verdict thresholds: how far a build may sit from an ML-optimal site.
+// Audit verdict colours/glyphs. `far` = the model's optimal sits beyond the
+// province's own scale, so the deviation is not a meaningful misalignment.
 const AUDIT = {
   good:    { color: "#22c55e", glyph: "✓" },
   review:  { color: "#f59e0b", glyph: "!" },
   flag:    { color: "#ef4444", glyph: "⚑" },
+  far:     { color: "#64748b", glyph: "∞" },
   unknown: { color: "#64748b", glyph: "?" },
 };
 const auditLabel = (verdict) => t(`radar.audit.${verdict}`);
-function verdictFor(km) {
+const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
+
+// Misalignment is judged relative to the PROVINCE's own size, not a fixed km value:
+// `scale` is the size-dependent maximum distance that can still count as misalignment.
+// Beyond it, the optimal is simply in a different part of the region → "far" (neutral).
+function verdictFor(km, scale) {
   if (km == null) return "unknown";
-  if (km <= 8) return "good";
-  if (km <= 25) return "review";
-  return "flag";
+  if (km <= 0.30 * scale) return "good";
+  if (km <= 0.70 * scale) return "review";
+  if (km <= scale)        return "flag";
+  return "far";
 }
 
 // Cache ML optimal-site lookups per district+amenity (avoids N duplicate calls).
@@ -628,19 +637,40 @@ async function mlOptimalSites(district, amenity) {
   return p;
 }
 
+// Characteristic radius (km) of a province = 90th-percentile settlement distance from
+// its centroid. Drives the size-dependent misalignment scale. Cached per district.
+const provinceScaleCache = {};
+async function provinceScaleKm(district) {
+  if (district in provinceScaleCache) return provinceScaleCache[district];
+  let scale = 22;   // safe default if the matrix can't be fetched
+  try {
+    const cells = (await fetchMatrix(district)).cells || [];
+    if (cells.length >= 3) {
+      const lat = cells.reduce((s, c) => s + c.lat, 0) / cells.length;
+      const lon = cells.reduce((s, c) => s + c.lon, 0) / cells.length;
+      const d = cells.map((c) => haversineKm(lat, lon, c.lat, c.lon)).sort((a, b) => a - b);
+      const r = d[Math.floor(d.length * 0.9)];     // province "radius"
+      scale = clamp(r, 10, 35);                     // size-dependent, hard-capped at 35 km
+    }
+  } catch { /* keep default */ }
+  provinceScaleCache[district] = scale;
+  return scale;
+}
+
 // Cross-reference one project against the model's optimal sites for its district.
 async function auditProject(p) {
   if (p.lat == null || p.lon == null || !p.district) {
-    return { verdict: "unknown", km: null, optimal: null };
+    return { verdict: "unknown", km: null, optimal: null, scale: null };
   }
   const sites = await mlOptimalSites(p.district, p.amenityType);
-  if (!sites.length) return { verdict: "unknown", km: null, optimal: null };
+  if (!sites.length) return { verdict: "unknown", km: null, optimal: null, scale: null };
   let best = null, bestKm = Infinity;
   for (const s of sites) {
     const km = haversineKm(p.lat, p.lon, s.lat, s.lon);
     if (km < bestKm) { bestKm = km; best = s; }
   }
-  return { verdict: verdictFor(bestKm), km: bestKm, optimal: best };
+  const scale = await provinceScaleKm(p.district);
+  return { verdict: verdictFor(bestKm, scale), km: bestKm, optimal: best, scale };
 }
 
 function radarPinIcon(amenityColor, verdict) {
@@ -807,10 +837,11 @@ function showLegend(which) {
 // Dismiss the landing portal with a quick fade before revealing the app.
 function dismissLanding(after) {
   const landing = $("landing");
-  if (!gsapOK) { show(landing, false); after(); return; }
+  const reveal = () => { show($("goHomeBtn"), true); after(); };
+  if (!gsapOK) { show(landing, false); reveal(); return; }
   gsap.to(landing, {
     autoAlpha: 0, duration: 0.35, ease: "power2.in",
-    onComplete: () => { show(landing, false); landing.style.opacity = ""; landing.style.visibility = ""; after(); },
+    onComplete: () => { show(landing, false); landing.style.opacity = ""; landing.style.visibility = ""; reveal(); },
   });
 }
 
@@ -887,6 +918,7 @@ function enterRadar() {
     district = "all";
     map.invalidateSize();
     map.setView(MAP_CENTER, MAP_ZOOM);
+    hideLoading();          // radar doesn't load the matrix — clear the map overlay
     loadRadar("all");
     $("radarFilter").value = "all";
     revealStagger("#radarPanel > *");
@@ -897,6 +929,7 @@ function enterRadar() {
 function goHome() {
   mode = null;
   show($("landing"), true);
+  show($("goHomeBtn"), false);
   show($("layerControl"), false);
   showLegend(null);
   cellsOn = true;   // restore municipal default for next entry

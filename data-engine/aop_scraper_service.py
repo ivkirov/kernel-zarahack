@@ -2,19 +2,31 @@
 
 Scheduled background service that scrapes the legacy Bulgarian public-procurement
 registry (aop.bg), keeps only records describing NEW civic builds (schools,
-kindergartens, clinics, hospitals), and caches them — deduplicated — in PostgreSQL
-so the Radar UI always has clean, audited data to display.
+kindergartens, clinics, hospitals), geocodes their build location, and caches them —
+deduplicated — in PostgreSQL so the Radar UI has clean, audited data to display.
+
+How it really works against aop.bg (verified live):
+  1. Quick-search:  GET ssearch.php?mode=search&word=<TERM>  with TERM Windows-1251
+     encoded. Results are vertical label:value blocks of <tr class="odd|even">; each
+     record exposes a document id + an "Описание" (subject) + a detail-page link.
+  2. Detail page:   GET ng/form.php?id=<ID>&mode=view  →  buyer ("Официално
+     наименование") and the build location ("Основно място на изпълнение: гр. X").
+  3. Geocode the build town against the project's local GeoNames gazetteer (offline,
+     no external geocoder) → lat/lon + Latin province for the ML audit.
 
 Runs an immediate scrape on startup, then repeats once every two weeks.
 
     cd data-engine && set -a; source ../.env; set +a
     ./venv/bin/python aop_scraper_service.py
-
-Reuses the project's standard DB connection (config.pg_dsn → PG* env vars), matching
-the rest of the data-engine. See docs/datasets.md for the wider data method.
 """
 
+import csv
+import io
 import logging
+import re
+import time
+import zipfile
+from urllib.parse import quote, urljoin
 
 import psycopg2
 import requests
@@ -23,7 +35,7 @@ from bs4 import BeautifulSoup
 from dotenv import load_dotenv
 from psycopg2.extras import execute_values
 
-from config import pg_dsn
+from config import (ADMIN1_TO_DISTRICT, GEONAMES_MEMBER, GEONAMES_ZIP, pg_dsn)
 
 load_dotenv()
 
@@ -34,24 +46,28 @@ logging.basicConfig(
 log = logging.getLogger("aop_scraper")
 
 # --- Target endpoint -------------------------------------------------------- #
-# Legacy registry search. The portal predates UTF-8: responses are Windows-1251,
-# so we MUST decode explicitly or every Cyrillic field turns to mojibake.
-AOP_SEARCH_URL = "http://www.aop.bg/ssearch.php"
+# Legacy registry. The portal predates UTF-8: requests AND responses are Windows-1251,
+# so the search term must be cp1251-encoded and responses decoded explicitly.
+AOP_BASE = "https://www.aop.bg/"
+AOP_SEARCH_URL = AOP_BASE + "ssearch.php"
 RESPONSE_ENCODING = "windows-1251"
-REQUEST_TIMEOUT = 20  # seconds — guard against the old portal hanging
+REQUEST_TIMEOUT = 25
+USER_AGENT = ("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+              "(KHTML, like Gecko) Chrome/120 Safari/537.36")
+# Politeness / safety caps for a single run against a .gov host.
+MAX_DETAILS_PER_TERM = 8
+DETAIL_DELAY_SEC = 0.5
 
 # --- Filtering vocabulary (Bulgarian) --------------------------------------- #
-# Keep a record only if its description mentions BOTH an action (it's a build)
-# AND a target civic amenity. Both gates must pass.
-ACTION_KEYWORDS = ["изграждане", "строеж", "ново строителство"]
+# A record is kept only if its text mentions BOTH an action (it's a build) AND a
+# target civic amenity. The TARGET keys double as the search terms.
+ACTION_KEYWORDS = ["изграждане", "строеж", "ново строителство", "строителство", "проектиране"]
 
-# Ordered most-specific-first so multi-word / narrower terms win the match:
-# "детска градина" before "училище", "поликлиника" before "клиника".
+# Ordered most-specific-first so narrower terms win: "детска градина" before "училище".
 TARGET_AMENITY = {
     "детска градина": "kindergarten",
     "училище":        "school",
     "поликлиника":    "clinic",
-    "клиника":        "clinic",
     "болница":        "hospital",
 }
 
@@ -62,10 +78,13 @@ TARGET_AMENITY = {
 DDL = """
 CREATE TABLE IF NOT EXISTS planned_municipal_projects (
     id                  BIGSERIAL    PRIMARY KEY,
-    procurement_number  VARCHAR(50)  UNIQUE,        -- dedup key
+    procurement_number  VARCHAR(50)  UNIQUE,        -- dedup key (AOP document id)
     buyer_name          VARCHAR(255),
     project_name        TEXT,
     amenity_type        VARCHAR(50),
+    lat                 DOUBLE PRECISION,
+    lon                 DOUBLE PRECISION,
+    district            VARCHAR(80),
     scraped_at          TIMESTAMP    NOT NULL DEFAULT NOW()
 );
 
@@ -78,88 +97,164 @@ def ensure_schema(conn):
     """Create the cache table + index if they don't already exist (idempotent)."""
     with conn.cursor() as cur:
         cur.execute(DDL)
+        # Tolerate a pre-existing table created by an older version without coords.
+        cur.execute("""
+            ALTER TABLE planned_municipal_projects
+              ADD COLUMN IF NOT EXISTS lat DOUBLE PRECISION,
+              ADD COLUMN IF NOT EXISTS lon DOUBLE PRECISION,
+              ADD COLUMN IF NOT EXISTS district VARCHAR(80)
+        """)
     conn.commit()
+
+
+# --------------------------------------------------------------------------- #
+# Local GeoNames geocoder (offline; no external calls)
+# --------------------------------------------------------------------------- #
+_GAZETTEER = None  # lazy: normalized Cyrillic town -> (lat, lon, district)
+
+
+def _norm_town(name):
+    """Strip settlement prefixes/punctuation and lowercase for matching."""
+    if not name:
+        return ""
+    s = name.strip()
+    s = re.sub(r"^(гр\.?|с\.?|град|село|общ\.?|община)\s+", "", s, flags=re.IGNORECASE)
+    s = re.sub(r"[\"'„“».,;:()]", "", s).strip()
+    return s.lower()
+
+
+def _load_gazetteer():
+    """Cyrillic-name → (lat, lon, district) from GeoNames BG.txt, biggest town wins."""
+    idx = {}
+    with zipfile.ZipFile(GEONAMES_ZIP) as zf:
+        text = zf.read(GEONAMES_MEMBER).decode("utf-8")
+    for r in csv.reader(io.StringIO(text), delimiter="\t"):
+        if len(r) < 15 or r[6] != "P":          # feature class P = populated place
+            continue
+        district = ADMIN1_TO_DISTRICT.get(r[10])
+        if not district:
+            continue
+        try:
+            lat, lon = float(r[4]), float(r[5])
+        except ValueError:
+            continue
+        pop = int(r[14]) if r[14] else 0
+        names = {r[1], r[2]}                      # name + asciiname
+        for alt in r[3].split(","):              # Cyrillic alternate names only
+            if any("Ѐ" <= ch <= "ӿ" for ch in alt):
+                names.add(alt)
+        for n in names:
+            k = _norm_town(n)
+            if k and (k not in idx or pop > idx[k][3]):
+                idx[k] = (round(lat, 6), round(lon, 6), district, pop)
+    log.info("gazetteer loaded: %d place names", len(idx))
+    return idx
+
+
+def geocode(*candidates):
+    """First candidate town/text that matches the gazetteer → (lat, lon, district)."""
+    global _GAZETTEER
+    if _GAZETTEER is None:
+        _GAZETTEER = _load_gazetteer()
+    for cand in candidates:
+        hit = _GAZETTEER.get(_norm_town(cand))
+        if hit:
+            return hit[0], hit[1], hit[2]
+    return None, None, None
 
 
 # --------------------------------------------------------------------------- #
 # Fetch
 # --------------------------------------------------------------------------- #
-def fetch_search_html(params=None):
-    """GET the registry search page and return it as a decoded str, or None on failure.
+_session = requests.Session()
+_session.headers.update({"User-Agent": USER_AGENT})
 
-    Never raises — a network hiccup must not kill the long-running scheduler.
-    """
+
+def _get(url, params=None):
+    """GET → decoded cp1251 text, or None on failure (never raises)."""
     try:
-        resp = requests.get(AOP_SEARCH_URL, params=params, timeout=REQUEST_TIMEOUT)
+        resp = _session.get(url, params=params, timeout=REQUEST_TIMEOUT)
         resp.raise_for_status()
     except requests.RequestException as exc:
-        log.warning("fetch failed (%s): %s", AOP_SEARCH_URL, exc)
+        log.warning("fetch failed (%s): %s", url, exc)
         return None
-
-    # Force the legacy encoding so Bulgarian Cyrillic survives intact.
     resp.encoding = RESPONSE_ENCODING
     return resp.text
 
 
-# --------------------------------------------------------------------------- #
-# Parse  (best-effort, isolated calibration point)
-# --------------------------------------------------------------------------- #
-def parse_records(html):
-    """Extract raw {procurement_number, buyer_name, project_name} rows from the HTML.
+def fetch_search(term):
+    """Quick-search for one Bulgarian term (cp1251 url-encoded)."""
+    q = quote(term.encode(RESPONSE_ENCODING))
+    return _get(f"{AOP_SEARCH_URL}?mode=search&word={q}")
 
-    The live AOP table layout could not be verified remotely, so this is deliberately
-    defensive: it walks every <tr>, reads its <td> cells positionally, and skips any
-    row that doesn't look like a data row. Returns [] (never raises) on empty or
-    malformed input.
 
-    >>> CALIBRATION POINT <<<  If AOP's real column order differs, adjust the cell
-    indices below against a captured live response — nothing else needs to change.
-    """
+# --------------------------------------------------------------------------- #
+# Parse — search results are vertical label:value blocks of <tr class="odd|even">
+# --------------------------------------------------------------------------- #
+_ID_RE = re.compile(r"[?&]id=(\d+)")
+
+
+def parse_search(html):
+    """Group result rows into records: {procurement_number, project_name, detail_url}."""
     if not html:
         return []
-
-    records = []
+    records, cur = [], None
     try:
         soup = BeautifulSoup(html, "html.parser")
-        for row in soup.find_all("tr"):
+        for row in soup.select("tr.odd, tr.even"):
             cells = row.find_all("td")
-            if len(cells) < 3:
-                continue  # header, spacer, or non-record row
-
-            number = cells[0].get_text(strip=True)
-            buyer = cells[1].get_text(strip=True)
-            description = cells[2].get_text(strip=True)
-
-            if not number or not description:
+            if len(cells) < 2:
                 continue
+            label = " ".join(cells[0].get_text(" ", strip=True).split())
+            value = " ".join(cells[1].get_text(" ", strip=True).split())
 
-            records.append({
-                "procurement_number": number,
-                "buyer_name": buyer,
-                "project_name": description,
-            })
-    except Exception as exc:  # parsing must never crash the service
-        log.warning("parse failed: %s", exc)
-        return []
-
+            if label.startswith("Водещ документ"):
+                if cur and cur.get("procurement_number"):
+                    records.append(cur)
+                cur = {"procurement_number": None, "project_name": "", "detail_url": None}
+                link = cells[1].find("a")
+                if link and link.get("href"):
+                    cur["detail_url"] = urljoin(AOP_BASE, link["href"])
+                    m = _ID_RE.search(link["href"])
+                    if m:
+                        cur["procurement_number"] = m.group(1)
+                if not cur["procurement_number"]:           # fall back to the ( NNN ) id
+                    m = re.search(r"\(\s*(\d+)\s*\)", value)
+                    if m:
+                        cur["procurement_number"] = m.group(1)
+            elif cur is not None and label.startswith("Описание"):
+                cur["project_name"] = value
+        if cur and cur.get("procurement_number"):
+            records.append(cur)
+    except Exception as exc:                                # parsing must never crash
+        log.warning("parse_search failed: %s", exc)
     return records
+
+
+_BUYER_RE = re.compile(r"Официално наименование:\s*(.+?)\s*(?:Национален|Пощенски|Адрес|код NUTS|$)")
+_PLACE_RE = re.compile(r"Основно място на изпълнение:\s*(.+?)\s*(?:II\.|Информация|Допълнителна|$)")
+
+
+def parse_detail(html):
+    """Pull (buyer, build_town) from a detail page's flattened text."""
+    if not html:
+        return None, None
+    text = " ".join(re.sub(r"<[^>]+>", " ", html).split())
+    buyer = m.group(1).strip()[:255] if (m := _BUYER_RE.search(text)) else None
+    town = m.group(1).strip() if (m := _PLACE_RE.search(text)) else None
+    return buyer, town
 
 
 # --------------------------------------------------------------------------- #
 # Filter + amenity mapping
 # --------------------------------------------------------------------------- #
 def classify(description):
-    """Return the English amenity_type if the text describes a new civic build, else None.
-
-    Requires at least one ACTION keyword AND at least one TARGET keyword.
-    """
+    """English amenity_type if the text is a NEW civic build (action + target), else None."""
     if not description:
         return None
     text = description.lower()
-
-    if not any(action in text for action in ACTION_KEYWORDS):
+    if not any(a in text for a in ACTION_KEYWORDS):
         return None
-
     for target, amenity in TARGET_AMENITY.items():
         if target in text:
             return amenity
@@ -170,30 +265,17 @@ def classify(description):
 # Persist
 # --------------------------------------------------------------------------- #
 def upsert_records(records):
-    """Filter to civic builds and INSERT ... ON CONFLICT DO NOTHING (dedup by number).
-
-    Returns the number of records that passed the filter and were sent to the DB.
-    Never raises — DB errors are logged and swallowed so the scheduler keeps running.
-    """
+    """INSERT ... ON CONFLICT DO NOTHING (dedup by AOP id). Returns rows written."""
     if not records:
         log.info("no records to persist")
         return 0
-
-    values = []
-    for r in records:
-        amenity = classify(r.get("project_name", ""))
-        if amenity is None:
-            continue
-        values.append((
-            r["procurement_number"][:50],
-            (r.get("buyer_name") or "")[:255],
-            r.get("project_name") or "",
-            amenity,
-        ))
-
-    if not values:
-        log.info("scraped %d row(s); 0 matched the civic-build filter", len(records))
-        return 0
+    values = [(
+        r["procurement_number"][:50],
+        (r.get("buyer_name") or "")[:255],
+        r.get("project_name") or "",
+        r["amenity_type"],
+        r.get("lat"), r.get("lon"), r.get("district"),
+    ) for r in records]
 
     try:
         with psycopg2.connect(**pg_dsn()) as conn:
@@ -201,7 +283,7 @@ def upsert_records(records):
             with conn.cursor() as cur:
                 execute_values(cur, """
                     INSERT INTO planned_municipal_projects
-                      (procurement_number, buyer_name, project_name, amenity_type)
+                      (procurement_number, buyer_name, project_name, amenity_type, lat, lon, district)
                     VALUES %s
                     ON CONFLICT (procurement_number) DO NOTHING
                 """, values, page_size=500)
@@ -209,32 +291,63 @@ def upsert_records(records):
     except psycopg2.Error as exc:
         log.error("DB write failed: %s", exc)
         return 0
-
-    log.info("scraped %d row(s); %d civic build(s) upserted (dedup on conflict)",
-             len(records), len(values))
+    log.info("%d civic build(s) upserted (dedup on conflict)", len(values))
     return len(values)
 
 
 # --------------------------------------------------------------------------- #
 # Job + scheduler
 # --------------------------------------------------------------------------- #
+def scrape_term(term):
+    """Search one term → enrich each civic-build hit with buyer + geocoded location."""
+    hits = parse_search(fetch_search(term))
+    log.info("term %r → %d search result(s)", term, len(hits))
+    out, seen = [], set()
+    for h in hits:
+        pid = h["procurement_number"]
+        if pid in seen:
+            continue
+        seen.add(pid)
+        if len(out) >= MAX_DETAILS_PER_TERM:
+            break
+
+        buyer, town = parse_detail(_get(h["detail_url"])) if h.get("detail_url") else (None, None)
+        time.sleep(DETAIL_DELAY_SEC)
+        # Classify on description + buyer (subject text is the strongest signal).
+        amenity = classify(h.get("project_name", "")) or classify(buyer or "")
+        if amenity is None:
+            continue
+        lat, lon, district = geocode(town, buyer)
+        out.append({
+            "procurement_number": pid,
+            "buyer_name": buyer,
+            "project_name": h.get("project_name", ""),
+            "amenity_type": amenity,
+            "lat": lat, "lon": lon, "district": district,
+        })
+    return out
+
+
 def run_scrape_job():
-    """One end-to-end pass: fetch → parse → filter → cache. Self-contained & safe."""
+    """One end-to-end pass over every target term: fetch → parse → enrich → cache."""
     log.info("scrape job started")
     try:
-        html = fetch_search_html()
-        records = parse_records(html)
-        upsert_records(records)
-    except Exception as exc:  # belt-and-braces: a job must never kill the scheduler
+        all_records, seen = [], set()
+        for term in TARGET_AMENITY:
+            for rec in scrape_term(term):
+                if rec["procurement_number"] not in seen:
+                    seen.add(rec["procurement_number"])
+                    all_records.append(rec)
+        geocoded = sum(1 for r in all_records if r["lat"] is not None)
+        log.info("collected %d civic build(s); %d geocoded", len(all_records), geocoded)
+        upsert_records(all_records)
+    except Exception as exc:                     # a job must never kill the scheduler
         log.exception("scrape job crashed: %s", exc)
     log.info("scrape job finished")
 
 
 def main():
-    # Manual initial run so data extraction is testable immediately, without waiting
-    # two weeks for the first scheduled tick.
-    run_scrape_job()
-
+    run_scrape_job()                             # immediate run so it's testable now
     scheduler = BlockingScheduler()
     scheduler.add_job(run_scrape_job, "interval", weeks=2, id="aop_biweekly")
     log.info("scheduler armed: bi-weekly (every 2 weeks). Ctrl-C to stop.")

@@ -98,7 +98,7 @@
         </button>
       </div>
 
-      <!-- Card C — Civic Accountability Radar (Pillar 3) -->
+      <!-- Card C — Accountability Radar (Pillar 3) -->
       <button id="enterRadar" data-stagger
         class="group relative mt-5 w-full text-left rounded-2xl border border-edge bg-panel p-6 overflow-hidden
                transition duration-300 hover:border-amber-400/70 hover:-translate-y-0.5
@@ -117,7 +117,7 @@
           </div>
           <div class="min-w-0">
             <div class="flex items-center gap-2">
-              <h2 data-i18n="landing.radar.title" class="font-display text-xl font-semibold group-hover:text-amber-400 transition">Civic Accountability Radar</h2>
+              <h2 data-i18n="landing.radar.title" class="font-display text-xl font-semibold group-hover:text-amber-400 transition">Accountability Radar</h2>
               <span data-i18n="landing.radar.badge" class="text-[10px] uppercase tracking-wider bg-amber-400/15 text-amber-300 px-1.5 py-0.5 rounded">New</span>
             </div>
             <p data-i18n="landing.radar.desc" class="text-sm text-muted leading-relaxed mt-1">Track the new schools, kindergartens and clinics
@@ -170,7 +170,7 @@
 
       <!-- Floating control: amenity to simulate -->
       <div id="amenityControl"
-        class="absolute top-3 left-3 z-[1000] glass px-3 py-2.5 flex flex-wrap items-center gap-2 hidden max-w-[calc(100%-1.5rem)]">
+        class="absolute top-3 left-[4.75rem] z-[1000] glass px-3 py-2.5 flex flex-wrap items-center gap-2 hidden max-w-[calc(100%-5.25rem)]">
         <span data-i18n="amenity.place" class="text-xs text-muted">Place a</span>
         <select id="amenitySelect"
           class="bg-panel2 border border-edge rounded-lg px-2.5 py-1.5 text-sm text-slate-100 focus:border-accent">
@@ -212,9 +212,10 @@
 
           <!-- Radar legend -->
           <div id="legendRadar" class="space-y-1.5 hidden">
-            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#22c55e">✓</span><span data-i18n="radar.legend.good">Well sited (≤8 km)</span></div>
-            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#f59e0b">!</span><span data-i18n="radar.legend.review">Review (8–25 km)</span></div>
-            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#ef4444">⚑</span><span data-i18n="radar.legend.flag">Misallocation risk (&gt;25 km)</span></div>
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#22c55e">✓</span><span data-i18n="radar.legend.good">Well sited</span></div>
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#f59e0b">!</span><span data-i18n="radar.legend.review">Review</span></div>
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#ef4444">⚑</span><span data-i18n="radar.legend.flag">Misallocation risk</span></div>
+            <div class="legend-row"><span class="w-3.5 h-3.5 rounded-full flex items-center justify-center text-[9px] font-extrabold text-base shrink-0" style="background:#64748b">∞</span><span data-i18n="radar.legend.far">Optimal elsewhere in province</span></div>
             <div class="legend-row"><span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:#10b981"></span><span data-i18n="radar.legend.optimal">ML-optimal site</span></div>
             <p data-i18n="radar.legend.note" class="text-[10px] text-faint pt-0.5">Dashed line = distance from the build to the model's nearest optimal site.</p>
           </div>
@@ -233,18 +234,11 @@
     <aside class="w-full lg:w-[420px] xl:w-[460px] shrink-0 bg-base/70 lg:border-l border-edge
                   p-5 sm:p-6 overflow-y-auto space-y-5">
 
-      <header class="flex items-start justify-between gap-3">
-        <div>
-          <h1 data-i18n="brand" class="font-display text-2xl font-bold tracking-tight">The Time Poverty Matrix</h1>
-          <p class="text-sm text-muted mt-0.5"><span data-i18n="dash.viewing">Viewing</span>
-            <span id="districtName" class="text-accent font-semibold">All Bulgaria</span>
-          </p>
-        </div>
-        <button id="goHomeBtn" data-i18n-title="dash.modesTitle" title="Back to mode selection"
-          class="shrink-0 rounded-lg border border-edge px-2.5 py-1.5 text-xs text-muted
-                 hover:border-accent hover:text-accent transition focus:outline-none focus-visible:border-accent">
-          <span data-i18n="dash.modes">← Modes</span>
-        </button>
+      <header>
+        <h1 data-i18n="brand" class="font-display text-2xl font-bold tracking-tight">The Time Poverty Matrix</h1>
+        <p class="text-sm text-muted mt-0.5"><span data-i18n="dash.viewing">Viewing</span>
+          <span id="districtName" class="text-accent font-semibold">All Bulgaria</span>
+        </p>
       </header>
 
       <!-- ===== MUNICIPAL PANEL ===== -->
@@ -417,7 +411,7 @@
       <!-- ===== RADAR PANEL (Pillar 3) ===== -->
       <div id="radarPanel" class="space-y-5 hidden">
         <div>
-          <h2 data-i18n="radar.title" class="font-display text-lg font-semibold">Civic Accountability Radar</h2>
+          <h2 data-i18n="radar.title" class="font-display text-lg font-semibold">Accountability Radar</h2>
           <p data-i18n="radar.subtitle" class="text-sm text-muted">New civic builds municipalities have put out to tender, scraped from the
             public-procurement registry (AOP).</p>
         </div>
@@ -453,6 +447,16 @@
       </div>
     </aside>
   </div>
+
+  <!-- Back to mode selection: big arrow, top-left, over the map.
+       z below the landing portal (2000) so it stays hidden on the home screen. -->
+  <button id="goHomeBtn" data-i18n-aria-label="dash.modesTitle" aria-label="Back to mode selection"
+    class="hidden fixed top-4 left-4 z-[1500] glass flex items-center justify-center w-12 h-12 rounded-full
+           text-slate-100 hover:text-accent active:scale-95 transition focus:outline-none focus-visible:border-accent">
+    <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+    </svg>
+  </button>
 
   <script src="./src/i18n.js"></script>
   <script src="./src/config.js"></script>
