@@ -33,6 +33,17 @@ public class TimePovertyService {
         return "children_0_6".equals(group) ? visitsChildren : visitsSeniors;
     }
 
+    // A blank / "all" district means evaluate the whole country (all 28 provinces).
+    private boolean isNationwide(String d) {
+        return d == null || d.isBlank() || d.equalsIgnoreCase("all") || d.equalsIgnoreCase("All Bulgaria");
+    }
+    private List<InfrastructureNode> nodesFor(String d) {
+        return isNationwide(d) ? nodeRepo.findAll() : nodeRepo.findByDistrict(d);
+    }
+    private List<DemographicWeight> weightsFor(String d) {
+        return isNationwide(d) ? weightRepo.findAll() : weightRepo.findByDistrict(d);
+    }
+
     /** Minimum one-way travel time (minutes) from a cell to the nearest serving node. */
     private double nearestMinutes(double lat, double lon, List<InfrastructureNode> serviceNodes) {
         double best = Double.MAX_VALUE;
@@ -51,8 +62,13 @@ public class TimePovertyService {
 
     // ---------- GET /matrix ----------
     public MatrixResponse buildMatrix(String district) {
-        List<InfrastructureNode> nodes = nodeRepo.findByDistrict(district);
-        List<DemographicWeight> weights = weightRepo.findByDistrict(district);
+        List<InfrastructureNode> nodes = nodesFor(district);
+        List<DemographicWeight> weights = weightsFor(district);
+        // Pre-bucket nodes by the group they serve so we don't re-filter for every cell
+        // (matters for the nationwide view: ~14k cells x ~2.8k nodes).
+        Map<String, List<InfrastructureNode>> servingByGroup = new HashMap<>();
+        GROUP_SERVICES.forEach((g, svc) ->
+            servingByGroup.put(g, nodes.stream().filter(n -> svc.contains(n.getServiceType())).toList()));
 
         MatrixResponse resp = new MatrixResponse();
         resp.district = district;
@@ -68,10 +84,7 @@ public class TimePovertyService {
         }
 
         for (DemographicWeight w : weights) {
-            List<String> services = GROUP_SERVICES.getOrDefault(w.getGroupKey(), List.of());
-            List<InfrastructureNode> serving = nodes.stream()
-                .filter(n -> services.contains(n.getServiceType())).toList();
-
+            List<InfrastructureNode> serving = servingByGroup.getOrDefault(w.getGroupKey(), List.of());
             double tNearest = nearestMinutes(w.getLat(), w.getLon(), serving);
             double hours = annualHours(tNearest, w.getPopulation(), w.getGroupKey());
             systemic += hours;
@@ -97,8 +110,8 @@ public class TimePovertyService {
             .map(Map.Entry::getKey).findFirst()
             .orElseThrow(() -> new IllegalArgumentException("Unknown amenity: " + req.amenityType));
 
-        List<InfrastructureNode> nodes = nodeRepo.findByDistrict(req.district);
-        List<DemographicWeight> weights = weightRepo.findByDistrict(req.district).stream()
+        List<InfrastructureNode> nodes = nodesFor(req.district);
+        List<DemographicWeight> weights = weightsFor(req.district).stream()
             .filter(w -> w.getGroupKey().equals(group)).toList();
 
         List<String> services = GROUP_SERVICES.get(group);
