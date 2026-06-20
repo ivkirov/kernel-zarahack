@@ -26,10 +26,66 @@
 </head>
 <body class="bg-base text-slate-100 font-sans min-h-[100dvh] lg:h-[100dvh] lg:overflow-hidden antialiased">
 
+  <!-- AUTH GATE: login / register. Sits above everything until a session exists. -->
+  <div id="authOverlay"
+    class="fixed inset-0 z-[4000] bg-base flex items-center justify-center px-6 py-10 overflow-y-auto hidden">
+    <div class="w-full max-w-sm">
+      <div class="text-center mb-6">
+        <h1 data-i18n="brand" class="font-display text-2xl font-bold tracking-tight">The Time Poverty Matrix</h1>
+        <p id="authTitle" class="text-sm text-muted mt-1">Welcome back</p>
+      </div>
+
+      <form id="authForm" class="space-y-3">
+        <div id="authRegisterFields" class="space-y-3 hidden">
+          <input id="authName" type="text" data-i18n-placeholder="auth.name" placeholder="Display name"
+            class="w-full bg-panel2 border border-edge rounded-lg px-3 py-2.5 text-sm text-slate-100 focus:border-accent outline-none" />
+          <div>
+            <label data-i18n="auth.persona" class="block text-xs text-muted mb-1">I'm signing up as…</label>
+            <select id="authPersona"
+              class="w-full bg-panel2 border border-edge rounded-lg px-3 py-2.5 text-sm text-slate-100 focus:border-accent outline-none">
+              <option value="individual" data-i18n="auth.persona.individual">Individual — relocation planner</option>
+              <option value="reporter" data-i18n="auth.persona.reporter">Reporter — accountability radar (paid)</option>
+              <option value="municipality" data-i18n="auth.persona.municipality">Municipality — civic planner (paid)</option>
+            </select>
+            <p data-i18n="auth.paidNote" class="text-[11px] text-faint mt-1">Paid roles are activated by an administrator after signup.</p>
+          </div>
+        </div>
+
+        <input id="authEmail" type="email" required data-i18n-placeholder="auth.email" placeholder="Email"
+          class="w-full bg-panel2 border border-edge rounded-lg px-3 py-2.5 text-sm text-slate-100 focus:border-accent outline-none" />
+        <input id="authPassword" type="password" required data-i18n-placeholder="auth.password" placeholder="Password"
+          class="w-full bg-panel2 border border-edge rounded-lg px-3 py-2.5 text-sm text-slate-100 focus:border-accent outline-none" />
+
+        <p id="authError" class="text-xs text-rose-400 hidden"></p>
+
+        <button id="authSubmit" type="submit"
+          class="w-full rounded-lg bg-accent hover:bg-accent/90 text-base font-semibold px-4 py-2.5 transition
+                 disabled:opacity-60 disabled:cursor-wait focus:outline-none">Sign in</button>
+      </form>
+
+      <p class="text-center text-xs text-muted mt-5">
+        <span id="authToggleText">No account yet?</span>
+        <button id="authToggleBtn" class="text-accent font-semibold ml-1 hover:underline">Sign up</button>
+      </p>
+    </div>
+  </div>
+
   <!-- LANDING PORTAL: choose a mode -->
   <div id="landing"
     class="fixed inset-0 z-[2000] bg-base flex flex-col items-center justify-center px-6 py-10 overflow-y-auto">
     <div class="relative w-full max-w-4xl">
+
+      <!-- Account bar: who's signed in + admin tools + logout -->
+      <div class="flex items-center justify-end gap-3 mb-6 text-sm">
+        <div class="text-right leading-tight">
+          <div id="acctEmail" class="text-slate-200 font-medium"></div>
+          <div id="acctRole" class="text-[11px] text-muted uppercase tracking-wide"></div>
+        </div>
+        <button id="adminUsersBtn" data-i18n="admin.manage"
+          class="hidden rounded-lg border border-edge bg-panel2 px-3 py-1.5 text-xs font-semibold text-slate-100 hover:border-accent transition">Manage users</button>
+        <button id="logoutBtn" data-i18n="auth.logout"
+          class="rounded-lg border border-edge bg-panel2 px-3 py-1.5 text-xs font-semibold text-slate-100 hover:border-rose-400 hover:text-rose-300 transition">Log out</button>
+      </div>
 
       <div class="text-center mb-10">
         <span data-stagger
@@ -185,9 +241,23 @@
         </span>
       </div>
 
+      <!-- Bottom-left stack: paid-mode demo toggle (above) + legend (below) -->
+      <div class="absolute bottom-3 left-3 z-[1000] flex flex-col gap-2 w-[230px] max-w-[calc(100%-1.5rem)]">
+
+      <!-- Demo toggle (admin only): preview the paid vs free personal experience -->
+      <div id="paidToggle" class="glass p-2.5 hidden">
+        <label class="flex items-center justify-between gap-3 cursor-pointer">
+          <span class="text-xs text-slate-200">
+            <span class="block font-semibold" data-i18n="paidToggle.label">Paid user</span>
+            <span class="block text-[10px] text-faint" data-i18n="paidToggle.hint">demo · toggles locked features</span>
+          </span>
+          <input id="paidToggleInput" type="checkbox" class="accent-accent2 w-4 h-4" />
+        </label>
+      </div>
+
       <!-- Map legend — decodes what every colour and marker means -->
       <div id="legend"
-        class="absolute bottom-3 left-3 z-[1000] glass p-3.5 w-[230px] max-w-[calc(100%-1.5rem)] hidden">
+        class="glass p-3.5 hidden">
         <div class="flex items-center justify-between mb-2">
           <span data-i18n="legend.title" class="text-[11px] uppercase tracking-[0.14em] text-muted font-semibold">Legend</span>
           <button id="legendToggle" class="text-faint hover:text-accent text-xs transition" data-i18n-aria-label="legend.collapse" aria-label="Collapse legend">−</button>
@@ -228,6 +298,7 @@
           </div>
         </div>
       </div>
+      </div><!-- /bottom-left stack -->
     </section>
 
     <!-- DASHBOARD -->
@@ -348,6 +419,15 @@
           <p class="text-sm text-muted" data-i18n="personal.desc">Drop two pins on the map to compare your weekly commute time-tax.</p>
         </div>
 
+        <!-- Free-tier usage meter (hidden for paid / admin) -->
+        <div id="quotaBadge" class="hidden metric-card !p-3 flex items-center justify-between gap-3 border-amber-400/40">
+          <span class="text-xs text-muted"><span data-i18n="quota.label">Free relocation checks</span>:
+            <span id="quotaRemaining" class="text-amber-300 font-semibold tabular-nums">3</span><span class="text-faint">/<span id="quotaLimit">3</span></span>
+          </span>
+          <button id="quotaUpgradeBtn" data-i18n="quota.upgrade"
+            class="text-[11px] font-semibold text-accent hover:underline">Upgrade</button>
+        </div>
+
         <!-- Journey wizard -->
         <div class="space-y-3">
           <button id="pinCurrentBtn"
@@ -403,6 +483,33 @@
             <div class="metric-label mb-2" data-i18n="personal.breakdown">Per-need breakdown · weekly hours</div>
             <ul id="needBreakdown" class="space-y-2 text-sm"></ul>
           </div>
+
+          <!-- AI explanation (tier 1). Free users see a locked teaser instead. -->
+          <div id="aiExplainCard" class="metric-card !p-4 border-accent2/40 hidden">
+            <div class="flex items-center gap-2 mb-2">
+              <svg class="w-4 h-4 text-accent2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l1.9 4.6L18.5 9l-4.6 1.9L12 15l-1.9-4.1L5.5 9l4.6-1.4L12 3z"/></svg>
+              <div class="metric-label !mb-0" data-i18n="personal.aiTitle">AI explanation</div>
+            </div>
+            <p id="aiExplainText" class="text-sm text-slate-200 leading-relaxed"></p>
+          </div>
+          <button id="aiExplainLocked" type="button"
+            class="hidden w-full metric-card !p-4 border-dashed border-edge text-left hover:border-accent2/60 transition">
+            <div class="flex items-center gap-2 text-sm font-medium text-slate-200">
+              <span>🔒</span><span data-i18n="personal.aiLocked">Unlock the AI explanation</span>
+            </div>
+            <p class="text-xs text-faint mt-1" data-i18n="personal.aiLockedNote">A paid (tier 1) feature — get a written read on what the numbers mean.</p>
+          </button>
+        </div>
+
+        <!-- Suggest best areas (tier 1). Locked for free users. -->
+        <div class="metric-card border-emerald-500/40">
+          <button id="suggestBtn"
+            class="w-full flex items-center justify-center gap-2 rounded-lg bg-emerald-600 hover:bg-emerald-500
+                   active:scale-[.98] text-white font-semibold px-4 py-2.5 transition disabled:opacity-60 disabled:cursor-wait">
+            <span>🔒</span><span data-i18n="suggest.button">Suggest the best areas to live</span>
+          </button>
+          <p class="metric-label mt-2" data-i18n="suggest.subtitle">Ranked by lowest weekly travel time for your needs</p>
+          <ol id="suggestResults" class="mt-3 space-y-2 text-sm text-slate-200"></ol>
         </div>
 
         <p id="personalStatus" class="text-xs text-faint"></p>
@@ -458,8 +565,43 @@
     </svg>
   </button>
 
+  <!-- PAYWALL MODAL -->
+  <div id="paywallModal" class="fixed inset-0 z-[3500] bg-base/80 backdrop-blur-sm flex items-center justify-center px-6 hidden">
+    <div class="w-full max-w-sm rounded-2xl border border-edge bg-panel p-6 relative">
+      <button id="paywallClose" class="absolute top-3 right-3 text-faint hover:text-slate-100 text-lg leading-none">×</button>
+      <div class="w-12 h-12 rounded-xl bg-accent/10 text-accent flex items-center justify-center mb-4 text-2xl ring-1 ring-inset ring-accent/20">🔒</div>
+      <h2 id="paywallTitle" class="font-display text-lg font-semibold mb-2">Paid feature</h2>
+      <p id="paywallBody" class="text-sm text-muted leading-relaxed">This feature requires a paid account.</p>
+      <button id="paywallOk" data-i18n="paywall.ok"
+        class="mt-5 w-full rounded-lg bg-accent hover:bg-accent/90 text-base font-semibold px-4 py-2.5 transition">Got it</button>
+    </div>
+  </div>
+
+  <!-- ADMIN: user management -->
+  <div id="adminModal" class="fixed inset-0 z-[3500] bg-base/80 backdrop-blur-sm flex items-center justify-center px-6 py-10 overflow-y-auto hidden">
+    <div class="w-full max-w-2xl rounded-2xl border border-edge bg-panel p-6 relative">
+      <button id="adminClose" class="absolute top-3 right-3 text-faint hover:text-slate-100 text-lg leading-none">×</button>
+      <h2 data-i18n="admin.title" class="font-display text-lg font-semibold mb-1">User management</h2>
+      <p data-i18n="admin.subtitle" class="text-sm text-muted mb-4">Grant paid access and assign roles.</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left">
+          <thead class="text-[11px] uppercase tracking-wide text-faint">
+            <tr>
+              <th class="py-2 pr-3" data-i18n="admin.col.account">Account</th>
+              <th class="py-2 pr-3" data-i18n="admin.col.role">Role</th>
+              <th class="py-2 pr-3 text-center" data-i18n="admin.col.access">Access</th>
+              <th class="py-2"></th>
+            </tr>
+          </thead>
+          <tbody id="adminTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
   <script src="./src/i18n.js"></script>
   <script src="./src/config.js"></script>
+  <script src="./src/auth.js"></script>
   <script src="./src/app.js"></script>
 </body>
 </html>

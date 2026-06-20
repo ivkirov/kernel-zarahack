@@ -270,4 +270,58 @@ public class TimePovertyService {
         out.gain = out.efficiencyShiftHours > 0;
         return out;
     }
+
+    // ---------- POST /personal-suggest (tier-1 paid) ----------
+    /**
+     * Rank candidate settlements by the lowest weekly travel time for the
+     * household's selected needs, returning the best `topN` against the current pin.
+     */
+    public PersonalSuggestResponse suggestAreas(PersonalCompareRequest req, int topN) {
+        List<InfrastructureNode> nodes = nodeRepo.findAll();
+
+        List<String> needs = (req.householdProfile != null && req.householdProfile.needs != null)
+            ? req.householdProfile.needs.stream().filter(SERVICE_VISITS::containsKey).distinct().toList()
+            : List.of("kindergarten", "school", "clinic", "pharmacy");
+
+        // Pre-bucket serving nodes once per need (candidates × needs × nodes otherwise).
+        Map<String, List<InfrastructureNode>> servingByNeed = new HashMap<>();
+        for (String svc : needs) servingByNeed.put(svc, servingOf(nodes, List.of(svc)));
+
+        PersonalSuggestResponse out = new PersonalSuggestResponse();
+        out.currentWeeklyHours = weeklyHoursAt(req.currentLat, req.currentLon, needs, servingByNeed);
+
+        // One representative centroid per settlement (its largest-population cell).
+        Map<String, DemographicWeight> bySettlement = new HashMap<>();
+        for (DemographicWeight w : weightRepo.findAll()) {
+            if (w.getSettlement() == null) continue;
+            DemographicWeight cur = bySettlement.get(w.getSettlement());
+            if (cur == null || w.getPopulation() > cur.getPopulation()) bySettlement.put(w.getSettlement(), w);
+        }
+
+        List<PersonalSuggestResponse.Suggestion> ranked = new ArrayList<>();
+        for (DemographicWeight w : bySettlement.values()) {
+            double weekly = weeklyHoursAt(w.getLat(), w.getLon(), needs, servingByNeed);
+            PersonalSuggestResponse.Suggestion s = new PersonalSuggestResponse.Suggestion();
+            s.settlement = w.getSettlement();
+            s.district = w.getDistrict();
+            s.lat = w.getLat(); s.lon = w.getLon();
+            s.weeklyHours = weekly;
+            s.hoursSavedVsCurrent = out.currentWeeklyHours - weekly;
+            ranked.add(s);
+        }
+        ranked.sort(Comparator.comparingDouble(s -> s.weeklyHours));
+        out.suggestions = ranked.stream().limit(Math.max(1, topN)).toList();
+        return out;
+    }
+
+    /** Total weekly round-trip hours at a point across the given needs. */
+    private double weeklyHoursAt(double lat, double lon, List<String> needs,
+                                 Map<String, List<InfrastructureNode>> servingByNeed) {
+        double total = 0.0;
+        for (String svc : needs) {
+            double oneWay = nearestMinutes(lat, lon, servingByNeed.getOrDefault(svc, List.of()));
+            total += weeklyHoursService(oneWay, svc);
+        }
+        return total;
+    }
 }

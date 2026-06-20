@@ -10,6 +10,12 @@ public class PersonalCompareResponse {
     public List<NeedBreakdown> currentBreakdown;
     public List<NeedBreakdown> prospectiveBreakdown;
 
+    // ---- tier-gated fields ----
+    /** Narrative interpretation of the result — only for paid (tier 1) / admin. */
+    public String aiExplanation;
+    /** Remaining free relocation checks for FREE_USER; null = unlimited (paid/admin). */
+    public Integer freeGuessesRemaining;
+
     public static class NeedBreakdown {
         public String group;          // children_0_6 | seniors_65p, or a service type in per-need mode
         public String label;          // human-friendly label for the UI (e.g. "Pharmacy")

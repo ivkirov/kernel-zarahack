@@ -1,6 +1,19 @@
 window.TPM = {
   API_BASE_URL: "http://localhost:8080/api/v1/time-poverty",
+  AUTH_BASE_URL: "http://localhost:8080/api/v1/auth",   // register / login / me
+  ADMIN_BASE_URL: "http://localhost:8080/api/v1/admin",  // admin user management
   ML_BASE_URL: "http://localhost:8000/api/ml",   // Python ML sidecar (placement + travel-time bots)
+
+  // Amenities a FREE_USER may filter/compare by. Everything else is shown-but-locked
+  // behind the paywall. Mirrors the backend's Features.FREE_ALLOWED_AMENITIES.
+  FREE_ALLOWED_AMENITIES: ["school", "clinic", "hospital", "pharmacy"],
+
+  // Future personal-only filters (no data yet) — shown disabled behind an extra
+  // paywall for everyone but admin, per the tier-1 "additional filters" add-on.
+  FUTURE_NEEDS: [
+    { key: "gym",    color: "#a78bfa" },
+    { key: "barber", color: "#f472b6" },
+  ],
   DISTRICT: "all",            // default municipal view: whole country (switchable in the picker)
   // Bulgaria center (the map auto-fits to the loaded district on entry)
   MAP_CENTER: [42.73, 25.48],

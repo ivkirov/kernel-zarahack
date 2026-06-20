@@ -2,7 +2,40 @@ const {
   API_BASE_URL, ML_BASE_URL, DISTRICT, MAP_CENTER, MAP_ZOOM,
   COLORS, SERVICE_META, PERSONAL_NEEDS, MATRIX_CACHE_TTL,
   BG_BOUNDS, BG_OUTLINE_URL, OUT_OF_BOUNDS_MSG,
+  FREE_ALLOWED_AMENITIES, FUTURE_NEEDS,
 } = window.TPM;
+
+// ---- account / role state (populated by auth.js via Auth.onReady) ----
+let currentUser = null;
+const isAdmin = () => currentUser && currentUser.role === "ADMIN";
+
+// Demo toggle: lets the admin preview the paid vs free personal experience.
+// Browser-cached, default OFF (= free). Only affects the admin's own view; the
+// backend always grants the admin, so this is purely a presentation switch.
+const DEMO_PAID_KEY = "tpm_demo_paid";
+let demoPaid = (() => { try { return localStorage.getItem(DEMO_PAID_KEY) === "1"; } catch { return false; } })();
+function setDemoPaid(v) { demoPaid = !!v; try { localStorage.setItem(DEMO_PAID_KEY, v ? "1" : "0"); } catch { /* ignore */ } }
+
+// Effective personal-lens entitlements. For the admin these follow the demo
+// toggle; for real accounts they follow the role/tier.
+function personalIsPaid() {
+  if (!currentUser) return false;
+  if (currentUser.role === "ADMIN") return demoPaid;
+  if (currentUser.role === "PAID_USER") return !!currentUser.active;
+  return false;
+}
+function personalIsFree() {
+  if (!currentUser) return false;
+  if (currentUser.role === "ADMIN") return !demoPaid;
+  return currentUser.role === "FREE_USER";
+}
+// Free experience may only filter by a fixed amenity set; paid/admin = anything.
+const amenityLockedForUser = (key) =>
+  personalIsFree() && !FREE_ALLOWED_AMENITIES.includes(key);
+
+// The admin's demo-free mode has no server-side quota (the backend always grants
+// the admin), so we simulate the free allowance client-side to make the demo real.
+const quotaIsClientSide = () => isAdmin() && personalIsFree();
 
 // Active municipal district; "all" = whole country. Mutable via the province picker.
 let district = DISTRICT;
@@ -205,7 +238,7 @@ async function fetchMatrix(d) {
     }
   } catch { /* corrupt/oversized cache — ignore */ }
 
-  const res = await fetch(`${API_BASE_URL}/matrix?district=${encodeURIComponent(d)}`);
+  const res = await Auth.apiFetch(`${API_BASE_URL}/matrix?district=${encodeURIComponent(d)}`);
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   const data = await res.json();
   memCache[d] = data;
@@ -278,12 +311,19 @@ function buildLayerToggles(forMode) {
   box.innerHTML = "";
   Object.entries(SERVICE_META).forEach(([type, m]) => {
     if (forMode === "municipal" && m.personalOnly) return;   // no pharmacy toggle here
+    const locked = forMode === "personal" && amenityLockedForUser(type);
+    if (locked) { layerState[type] = false; }
     const row = document.createElement("label");
-    row.className = "flex items-center gap-2.5 text-xs text-slate-200 cursor-pointer";
+    row.className = "flex items-center gap-2.5 text-xs text-slate-200 " + (locked ? "opacity-60 cursor-pointer" : "cursor-pointer");
     row.innerHTML =
-      `<input type="checkbox" id="lyr_${type}" ${layerState[type] ? "checked" : ""} class="accent-accent w-3.5 h-3.5"/>` +
-      `<span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${m.color}"></span>${svcLabel(type)}`;
+      `<input type="checkbox" id="lyr_${type}" ${layerState[type] ? "checked" : ""} ${locked ? "disabled" : ""} class="accent-accent w-3.5 h-3.5"/>` +
+      `<span class="w-2.5 h-2.5 rounded-full shrink-0" style="background:${m.color}"></span>${svcLabel(type)}` +
+      (locked ? `<span class="ml-auto text-[11px]">🔒</span>` : "");
     box.appendChild(row);
+    if (locked) {
+      row.addEventListener("click", (e) => { e.preventDefault(); Auth.showPaywall("PAYWALL_FILTER"); });
+      return;
+    }
     row.querySelector("input").addEventListener("change", (e) => {
       layerState[type] = e.target.checked;
       applyLayerVisibility();
@@ -356,7 +396,7 @@ async function simulateAt(e) {
 
   setStatus("status.simulating");
 
-  const res = await fetch(`${API_BASE_URL}/simulate`, {
+  const res = await Auth.apiFetch(`${API_BASE_URL}/simulate`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
@@ -484,27 +524,45 @@ async function dropPersonalPin(e) {
 
 // ---------- Personal needs UI ----------
 const NEED_DEFAULT = new Set(["kindergarten", "school", "clinic", "pharmacy"]);
+
+// Render one need row. `locked` rows are disabled and pop a paywall on click.
+function needRow(box, key, color, locked, paywallCode, checked) {
+  const row = document.createElement("label");
+  row.dataset.need = key;   // lets a locale switch find + re-label this row
+  row.className = "flex items-center justify-between gap-2 rounded-lg border border-edge bg-panel2 " +
+    "px-3 py-2 transition " + (locked ? "opacity-60 cursor-pointer" : "cursor-pointer hover:border-accent2/60");
+  row.innerHTML =
+    `<span class="flex items-center gap-2.5 text-sm">
+      <input type="checkbox" data-need="${key}" ${checked ? "checked" : ""} ${locked ? "disabled" : ""} class="accent-accent2 w-4 h-4"/>
+      <span class="w-2.5 h-2.5 rounded-full" style="background:${color}"></span>
+      <span class="need-label">${t("need." + key)}</span></span>
+    <span class="text-[11px] text-faint need-hint">${locked ? "🔒" : t("needHint." + key)}</span>`;
+  box.appendChild(row);
+  const cb = row.querySelector("input");
+  if (locked) {
+    row.addEventListener("click", (e) => { e.preventDefault(); Auth.showPaywall(paywallCode); });
+    return;
+  }
+  cb.addEventListener("change", () => {
+    if (cb.checked) setLayerVisible(key, true);   // show what you're comparing
+    // Free users: don't spend a check on every toggle — recompute on the next pin drop.
+    if (personalIsFree()) { setPersonalStatus("personal.toggleHint"); return; }
+    runCompare();
+  });
+}
+
 function buildNeeds() {
   const box = $("needsList");
   box.innerHTML = "";
   PERSONAL_NEEDS.forEach((n) => {
     const color = (SERVICE_META[n.key] || {}).color || "#8ea2c0";
-    const row = document.createElement("label");
-    row.dataset.need = n.key;   // lets a locale switch find + re-label this row
-    row.className = "flex items-center justify-between gap-2 rounded-lg border border-edge bg-panel2 " +
-      "px-3 py-2 cursor-pointer hover:border-accent2/60 transition";
-    row.innerHTML =
-      `<span class="flex items-center gap-2.5 text-sm">
-        <input type="checkbox" data-need="${n.key}" ${NEED_DEFAULT.has(n.key) ? "checked" : ""} class="accent-accent2 w-4 h-4"/>
-        <span class="w-2.5 h-2.5 rounded-full" style="background:${color}"></span>
-        <span class="need-label">${t("need." + n.key)}</span></span>
-      <span class="text-[11px] text-faint need-hint">${t("needHint." + n.key)}</span>`;
-    box.appendChild(row);
-    const cb = row.querySelector("input");
-    cb.addEventListener("change", () => {
-      if (cb.checked) setLayerVisible(n.key, true);   // show what you're comparing
-      runCompare();
-    });
+    const locked = amenityLockedForUser(n.key);
+    needRow(box, n.key, color, locked, "PAYWALL_FILTER", NEED_DEFAULT.has(n.key) && !locked);
+  });
+  // Future personal-only filters (gyms, barbers…) — no data yet, always locked
+  // behind the "additional filters" add-on paywall (for everyone, incl. admin).
+  (FUTURE_NEEDS || []).forEach((n) => {
+    needRow(box, n.key, n.color, true, "PAYWALL_UPGRADE", false);
   });
 }
 function selectedNeeds() {
@@ -547,13 +605,27 @@ async function runCompare() {
     householdProfile: { needs: selectedNeeds() },
   };
 
+  // Admin demo-free has no server quota — enforce the allowance client-side.
+  if (quotaIsClientSide() && (currentUser.freeGuessesRemaining ?? 0) <= 0) {
+    Auth.showPaywall("PAYWALL_QUOTA");
+    return;
+  }
+
   setPersonalStatus("personal.calculating");
-  const res = await fetch(`${API_BASE_URL}/personal-compare`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  const data = await res.json();
+  let data;
+  try {
+    const res = await Auth.apiFetch(`${API_BASE_URL}/personal-compare`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    data = await res.json();
+    lastCompareData = data;
+  } catch (err) {
+    // apiFetch already surfaced the paywall/auth modal; just clear the spinner.
+    setPersonalStatus(null);
+    return;
+  }
 
   show($("comparePanel"), true);
   setText("currentWeekly", data.currentWeeklyHours, { decimals: 1 });
@@ -562,6 +634,11 @@ async function runCompare() {
 
   lastShift = { shift: data.efficiencyShiftHours, gain: data.gain };
   renderEfficiencyBadge();
+  renderAiExplanation(data);
+  if (data.freeGuessesRemaining != null) updateQuotaBadge(data.freeGuessesRemaining);
+  else if (quotaIsClientSide()) {
+    updateQuotaBadge(Math.max(0, (currentUser.freeGuessesRemaining ?? currentUser.freeGuessLimit) - 1));
+  }
 
   const needCount = selectedNeeds().length;
   setPersonalStatus("personal.compared", { label: needCount || t("common.all") });
@@ -569,6 +646,7 @@ async function runCompare() {
 
 // Efficiency badge depends on locale (units + phrasing) — render from stored state.
 let lastShift = null;   // { shift, gain } | null
+let lastCompareData = null;   // last /personal-compare payload (re-rendered on demo toggle)
 function renderEfficiencyBadge() {
   const badge = $("efficiencyShift");
   if (!badge || !lastShift) return;
@@ -789,7 +867,7 @@ async function loadRadar(amenity) {
   radarLayer.clearLayers();
   try {
     const q = amenity && amenity !== "all" ? `?amenity=${encodeURIComponent(amenity)}` : "";
-    const res = await fetch(`${API_BASE_URL}/planned-projects${q}`);
+    const res = await Auth.apiFetch(`${API_BASE_URL}/planned-projects${q}`);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
     radarData = data;
@@ -888,6 +966,7 @@ function enterPersonal() {
     const recoList = $("recoResults");
     if (recoList) recoList.innerHTML = "";
     buildNeeds();
+    applyPersonalGating();
     armPin("current");
     map.invalidateSize();
     loadPersonalStructures();
@@ -931,19 +1010,162 @@ function goHome() {
   show($("landing"), true);
   show($("goHomeBtn"), false);
   show($("layerControl"), false);
+  show($("paidToggle"), false);
   showLegend(null);
   cellsOn = true;   // restore municipal default for next entry
   revealStagger("#landing [data-stagger]", { y: 22, duration: 0.55, stagger: 0.07 });
 }
 
-$("enterMunicipal").addEventListener("click", enterMunicipal);
-$("enterPersonal").addEventListener("click", enterPersonal);
-$("enterRadar").addEventListener("click", enterRadar);
+// Gate each lens on role + admin-granted access; pop a paywall instead of entering.
+function gateEnter(kind) {
+  const u = currentUser;
+  if (!u) return false;
+  if (u.role === "ADMIN") return true;
+  if (kind === "municipal") {
+    if (u.role !== "MUNICIPALITY") { Auth.showPaywall("ACCESS_MUNICIPAL"); return false; }
+    if (!u.active) { Auth.showPaywall("ACCESS_PENDING"); return false; }
+    return true;
+  }
+  if (kind === "radar") {
+    if (u.role !== "REPORTER") { Auth.showPaywall("ACCESS_REPORTER"); return false; }
+    if (!u.active) { Auth.showPaywall("ACCESS_PENDING"); return false; }
+    return true;
+  }
+  // personal: free + paid individuals (free is always allowed, just limited)
+  if (u.role === "FREE_USER" || u.role === "PAID_USER") return true;
+  Auth.showPaywall("ACCESS_PERSONAL");
+  return false;
+}
+
+$("enterMunicipal").addEventListener("click", () => { if (gateEnter("municipal")) enterMunicipal(); });
+$("enterPersonal").addEventListener("click", () => { if (gateEnter("personal")) enterPersonal(); });
+$("enterRadar").addEventListener("click", () => { if (gateEnter("radar")) enterRadar(); });
 $("goHomeBtn").addEventListener("click", goHome);
 $("recommendBtn").addEventListener("click", recommendSites);
 $("pinCurrentBtn").addEventListener("click", () => armPin("current"));
 $("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
 $("radarFilter").addEventListener("change", (e) => loadRadar(e.target.value));
+$("suggestBtn").addEventListener("click", suggestAreas);
+$("quotaUpgradeBtn").addEventListener("click", () => Auth.showPaywall("PAYWALL_QUOTA"));
+$("aiExplainLocked").addEventListener("click", () => Auth.showPaywall("PAYWALL_UPGRADE"));
+$("paidToggleInput").addEventListener("change", (e) => onDemoPaidToggle(e.target.checked));
+
+// Admin demo toggle: re-skin the personal lens (filters, layers, paid extras) in place.
+function onDemoPaidToggle(on) {
+  setDemoPaid(on);
+  buildNeeds();
+  buildLayerToggles("personal");
+  applyPersonalGating();
+  if (lastCompareData) renderAiExplanation(lastCompareData);
+}
+
+// ---------- Role-aware landing + personal-panel gating ----------
+Auth.onReady((user) => applyRoleGating(user));
+
+function applyRoleGating(user) {
+  currentUser = user;
+  const role = user.role;
+  show($("enterMunicipal"), role === "ADMIN" || role === "MUNICIPALITY");
+  show($("enterPersonal"),  role === "ADMIN" || role === "FREE_USER" || role === "PAID_USER");
+  show($("enterRadar"),     role === "ADMIN" || role === "REPORTER");
+  goHome();   // a fresh session always lands on the (now role-filtered) portal
+}
+
+// Configure the personal panel for the current account (quota meter, paid extras).
+function applyPersonalGating() {
+  const free = personalIsFree();
+  const paid = personalIsPaid();
+  // Demo paid/free toggle is an admin-only preview tool.
+  show($("paidToggle"), isAdmin());
+  const ti = $("paidToggleInput");
+  if (ti) ti.checked = demoPaid;
+  show($("quotaBadge"), free);
+  if (free) {
+    // Admin demo resets to a full allowance; real free users keep their server count.
+    const rem = (currentUser.role === "ADMIN" || currentUser.freeGuessesRemaining == null)
+      ? currentUser.freeGuessLimit : currentUser.freeGuessesRemaining;
+    updateQuotaBadge(rem);
+  }
+  // Suggest button: unlock for paid/admin, lock (icon) for free.
+  const lock = $("suggestBtn").querySelector("span");
+  if (lock) lock.textContent = paid ? "✨" : "🔒";
+  // Reset the per-comparison cards.
+  show($("aiExplainCard"), false);
+  show($("aiExplainLocked"), false);
+  $("suggestResults").innerHTML = "";
+}
+
+function updateQuotaBadge(remaining) {
+  const r = $("quotaRemaining"), l = $("quotaLimit");
+  if (r) r.textContent = remaining;
+  if (l && currentUser) l.textContent = currentUser.freeGuessLimit;
+  if (currentUser) currentUser.freeGuessesRemaining = remaining;
+}
+
+// AI explanation (tier 1) vs locked teaser (free). Honours the demo toggle, so
+// the admin can preview the locked state even though the backend returned text.
+function renderAiExplanation(data) {
+  if (personalIsPaid() && data && data.aiExplanation) {
+    $("aiExplainText").textContent = data.aiExplanation;
+    show($("aiExplainCard"), true);
+    show($("aiExplainLocked"), false);
+  } else if (personalIsFree()) {
+    show($("aiExplainCard"), false);
+    show($("aiExplainLocked"), true);
+  } else {
+    show($("aiExplainCard"), false);
+    show($("aiExplainLocked"), false);
+  }
+}
+
+// ---------- Personal: suggest best areas (tier 1 paid) ----------
+async function suggestAreas() {
+  if (!personalIsPaid()) { Auth.showPaywall("PAYWALL_UPGRADE"); return; }
+  if (!pins.current) { setPersonalStatus("suggest.needPin"); return; }
+  const btn = $("suggestBtn");
+  const list = $("suggestResults");
+  btn.disabled = true;
+  list.innerHTML = "";
+  recoLayer.clearLayers();
+  setPersonalStatus("suggest.asking");
+  try {
+    const c = pins.current.getLatLng();
+    const res = await Auth.apiFetch(`${API_BASE_URL}/personal-suggest?top=5`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ currentLat: c.lat, currentLon: c.lng, householdProfile: { needs: selectedNeeds() } }),
+    });
+    const data = await res.json();
+    const pts = [];
+    (data.suggestions || []).forEach((s, i) => {
+      const rank = i + 1;
+      pts.push([s.lat, s.lon]);
+      L.marker([s.lat, s.lon], { icon: recoIcon(rank), zIndexOffset: 1000 })
+        .addTo(recoLayer)
+        .bindPopup(`<b>${t("suggest.popup")} #${rank}</b><br>${s.settlement}` +
+                   `<br>${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk`);
+      const li = document.createElement("li");
+      li.className = "flex items-start gap-2";
+      li.innerHTML =
+        `<span class="mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>` +
+        `<span><b>${s.settlement}</b> — ${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk` +
+        (s.hoursSavedVsCurrent > 0.05
+          ? `<span class="text-emerald-400"> (−${s.hoursSavedVsCurrent.toFixed(1)} ${t("suggest.saved")})</span>` : "") +
+        `</span>`;
+      list.appendChild(li);
+    });
+    revealStagger("#suggestResults li", { y: 8, duration: 0.4, stagger: 0.06 });
+    if (pts.length) {
+      map.fitBounds(L.latLngBounds(pts.concat([[pins.current.getLatLng().lat, pins.current.getLatLng().lng]])), { padding: [50, 50], maxZoom: 11 });
+      setPersonalStatus("suggest.result", { n: pts.length });
+    } else {
+      setPersonalStatus("suggest.none");
+    }
+  } catch (err) {
+    if (!err.paywall) setPersonalStatus("suggest.failed", { err: err.message });
+  } finally {
+    btn.disabled = false;
+  }
+}
 
 // ---------- Scope picker: provinces vs towns ----------
 const districtLabel = (d) => (!d || d === "all") ? t("prov.all") : tOr(`prov.${d}`, d);
