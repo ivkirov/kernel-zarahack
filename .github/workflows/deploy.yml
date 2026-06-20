@@ -1,0 +1,25 @@
+name: deploy
+
+# Self-hosted runner ON the deployment VM. On every push to master it rebuilds
+# and restarts the three tiers and stamps the live commit. There is no cloud
+# host — the runner is the deploy mechanism. See scripts/deploy.sh.
+on:
+  push:
+    branches: [master]
+  workflow_dispatch: {}
+
+concurrency:
+  group: deploy-master
+  cancel-in-progress: false   # never cancel a deploy mid-restart; let it finish
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, linux]
+    steps:
+      - uses: actions/checkout@v4
+      # Run the just-pushed script from the runner checkout, but it operates on
+      # the canonical /home/user/project (git checkout --force <sha> there), so
+      # the running script can't be swapped out from under itself.
+      - name: Deploy
+        shell: bash
+        run: bash "$GITHUB_WORKSPACE/scripts/deploy.sh" "$GITHUB_SHA"

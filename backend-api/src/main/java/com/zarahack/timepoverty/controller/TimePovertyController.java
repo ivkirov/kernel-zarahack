@@ -86,7 +86,7 @@ public class TimePovertyController {
             users.save(u);
             resp.freeGuessesRemaining = Math.max(0, Features.FREE_GUESS_LIMIT - u.getFreeGuessesUsed());
         } else if (Features.hasPaidPersonal(u)) {
-            resp.aiExplanation = explanationService.explain(resp);   // tier-1 perk
+            resp.aiExplanation = explanationService.explain(resp, request.language);   // tier-1 perk
         }
         return resp;
     }

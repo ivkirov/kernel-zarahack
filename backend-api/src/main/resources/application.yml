@@ -20,7 +20,20 @@ spring:
 
 app:
   geo:
-    assumed-speed-kmh: 4.5
+    assumed-speed-kmh: 4.5          # municipal access lens: walking ("15-minute city" deprivation view)
+    # Personal relocation planner uses a realistic mode-aware model: people walk
+    # to nearby services but DRIVE to far ones (so a 30 km kindergarten doesn't
+    # read as ~6 h each way on foot).
+    personal:
+      walk-speed-kmh: 4.5
+      drive-speed-kmh: 28
+      walk-threshold-km: 2.0          # car owners walk up to 2 km, drive beyond
   visits-per-year:
     children_0_6: 180
     seniors_65p: 24
+  gemini:
+    api-key: ${GEMINI_API_KEY:}            # set this env var to enable AI explanations
+    model: ${GEMINI_MODEL:gemini-3.1-flash-lite}
+  # Path to the deploy stamp written by scripts/deploy.sh; surfaced at GET /api/v1/version.
+  # Empty when running locally without a deploy — the endpoint then reports "unknown".
+  deploy-stamp-path: ${DEPLOY_STAMP_PATH:}

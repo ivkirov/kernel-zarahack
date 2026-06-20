@@ -23,6 +23,10 @@
       // Brand
       "brand": "Reclaim",
 
+      // Deploy version badge
+      "version.deployed": "deployed",
+      "version.unknown": "version unknown",
+
       // Language switcher
       "lang.aria": "Change language",
       "lang.name.bg": "Български",
@@ -38,6 +42,23 @@
       "landing.personal.desc": "Drop two pins — your current home and a prospective one — and compare the weekly hours each address would cost your household in travel.",
       "landing.personal.cta": "Compare two homes",
       "landing.footer": "Built on OpenStreetMap · NSI census · GeoNames — 349 settlements, 2,772 services.",
+
+      // Public welcome / hero (logged-out)
+      "hero.signin": "Sign in",
+      "hero.title": "The geography of lost time",
+      "hero.tagline": "Thin infrastructure charges Bulgaria's families and seniors an invisible tax — paid in hours on the road. Map it, simulate the fix, and compare what any address would really cost you.",
+      "hero.cta.start": "Get started — it's free",
+      "hero.cta.signin": "I already have an account",
+      "hero.f1.title": "Municipal planner",
+      "hero.f1.desc": "Simulate where a new school or clinic would save the most hours.",
+      "hero.f2.title": "Relocation planner",
+      "hero.f2.desc": "Compare two homes by the weekly travel time each would cost you.",
+      "hero.f3.title": "Accountability Radar",
+      "hero.f3.desc": "See planned civic builds against where time-poverty is worst.",
+      "hero.footer": "Built on OpenStreetMap · NSI census · GeoNames — 349 settlements, 2,772 services.",
+      "auth.back": "Back",
+      "personal.searchCity": "Search a city or village…",
+      "personal.orTapMap": "or pick it on the map",
 
       // Map overlays
       "map.loading.matrix": "Loading Reclaim…",
@@ -126,6 +147,7 @@
       "status.servicesFailed": "Failed to load services: {err}",
       "status.simulating": "Simulating intervention…",
       "status.simSaved": "Intervention would save {hours} hours/year.",
+      "status.simWellServed": "This spot is already well-served for {amenity} — no time saved. Try a more remote area, or use “Recommend best sites”.",
       "sim.popup": "Simulated {amenity}",
       "reco.asking": "Asking the AI model for the best build sites…",
       "reco.popupTitle": "★ Recommended site #{rank}",
@@ -195,7 +217,12 @@
       "suggest.saved": "h/wk saved",
       "suggest.popup": "Suggested area",
       "suggest.needPin": "Drop your current-home pin first.",
+      "suggest.needProspective": "Set a prospective home first to suggest better areas.",
       "personal.toggleHint": "Filters updated — drop a pin to run a new check.",
+      "personal.soonHint": "Gyms and barbers aren't mapped yet — there's no open dataset for them.",
+      "need.soon": "Soon",
+      "personal.ownsCar": "I own a car",
+      "personal.ownsCarHint": "Trips over 2 km are timed by car; shorter ones on foot.",
 
       // Future personal filters (no data yet)
       "need.gym": "Gym",
@@ -314,6 +341,10 @@
       // Brand
       "brand": "Reclaim",
 
+      // Deploy version badge
+      "version.deployed": "внедрено",
+      "version.unknown": "неизвестна версия",
+
       // Language switcher
       "lang.aria": "Смяна на езика",
       "lang.name.bg": "Български",
@@ -329,6 +360,23 @@
       "landing.personal.desc": "Постави две точки — настоящия си дом и евентуален нов — и сравни седмичните часове, които всеки адрес би струвал на домакинството ти за пътуване.",
       "landing.personal.cta": "Сравни два дома",
       "landing.footer": "Изградено върху OpenStreetMap · НСИ преброяване · GeoNames — 349 населени места, 2772 услуги.",
+
+      // Public welcome / hero (logged-out)
+      "hero.signin": "Вход",
+      "hero.title": "Географията на изгубеното време",
+      "hero.tagline": "Слабата инфраструктура налага на българските семейства и възрастни хора невидим данък — плащан в часове по пътищата. Картирай го, симулирай решението и сравни колко наистина би ти струвал всеки адрес.",
+      "hero.cta.start": "Започни — безплатно е",
+      "hero.cta.signin": "Вече имам акаунт",
+      "hero.f1.title": "Общинско планиране",
+      "hero.f1.desc": "Симулирай къде ново училище или поликлиника би спестило най-много часове.",
+      "hero.f2.title": "Планер за преместване",
+      "hero.f2.desc": "Сравни два дома по седмичното време за пътуване, което всеки би ти струвал.",
+      "hero.f3.title": "Радар за отчетност",
+      "hero.f3.desc": "Виж планираните обществени строежи спрямо това къде недостигът на време е най-голям.",
+      "hero.footer": "Изградено върху OpenStreetMap · НСИ преброяване · GeoNames — 349 населени места, 2772 услуги.",
+      "auth.back": "Назад",
+      "personal.searchCity": "Търси град или село…",
+      "personal.orTapMap": "или избери на картата",
 
       // Map overlays
       "map.loading.matrix": "Зареждане на Reclaim…",
@@ -417,6 +465,7 @@
       "status.servicesFailed": "Неуспешно зареждане на услугите: {err}",
       "status.simulating": "Симулиране на намеса…",
       "status.simSaved": "Намесата би спестила {hours} часа/година.",
+      "status.simWellServed": "Това място вече е добре обслужено за {amenity} — няма спестено време. Опитай по-отдалечен район или „Препоръчай най-добрите места“.",
       "sim.popup": "Симулиран обект: {amenity}",
       "reco.asking": "Питам ИИ модела за най-добрите места за строеж…",
       "reco.popupTitle": "★ Препоръчано място №{rank}",
@@ -486,7 +535,12 @@
       "suggest.saved": "ч/седм. спестени",
       "suggest.popup": "Предложен район",
       "suggest.needPin": "Първо постави точка за настоящия дом.",
+      "suggest.needProspective": "Първо задай евентуален дом, за да предложим по-добри райони.",
       "personal.toggleHint": "Филтрите са обновени — постави точка за нова проверка.",
+      "personal.soonHint": "Фитнеси и бръснари още не са картирани — няма отворени данни за тях.",
+      "need.soon": "Скоро",
+      "personal.ownsCar": "Имам кола",
+      "personal.ownsCarHint": "Пътувания над 2 км се изчисляват с кола; по-късите — пеша.",
 
       // Бъдещи лични филтри (още без данни)
       "need.gym": "Фитнес",

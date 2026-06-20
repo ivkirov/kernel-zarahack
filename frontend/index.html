@@ -30,6 +30,11 @@
   <div id="authOverlay"
     class="fixed inset-0 z-[4000] bg-base flex items-center justify-center px-6 py-10 overflow-y-auto hidden">
     <div class="w-full max-w-sm">
+      <button id="authBack" data-i18n="auth.back"
+        class="mb-5 inline-flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent transition focus:outline-none">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+        Back
+      </button>
       <div class="text-center mb-6">
         <h1 data-i18n="brand" class="font-display text-2xl font-bold tracking-tight">Reclaim</h1>
         <p id="authTitle" class="text-sm text-muted mt-1">Welcome back</p>
@@ -67,6 +72,84 @@
         <span id="authToggleText">No account yet?</span>
         <button id="authToggleBtn" class="text-accent font-semibold ml-1 hover:underline">Sign up</button>
       </p>
+    </div>
+  </div>
+
+  <!-- WELCOME / PUBLIC LANDING: the first thing a logged-out visitor sees.
+       Sits above the mode-picker (z-2000) but below the auth overlay (z-4000). -->
+  <div id="welcome" class="fixed inset-0 z-[3000] bg-base overflow-y-auto hidden">
+    <div class="min-h-full flex flex-col">
+
+      <!-- slim top bar (the language switcher floats top-right, so keep this side clear) -->
+      <header class="flex items-center px-5 sm:px-8 py-4">
+        <div class="flex items-center gap-2.5">
+          <span class="w-8 h-8 rounded-lg bg-accent/15 ring-1 ring-inset ring-accent/25 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="10" r="6" class="text-accent"/>
+              <path stroke-linecap="round" d="M12 7v3l2 1.5M12 16v5" class="text-accent2"/>
+            </svg>
+          </span>
+          <span class="font-display font-semibold tracking-tight" data-i18n="brand">The Time Poverty Matrix</span>
+        </div>
+      </header>
+
+      <!-- hero -->
+      <main class="flex-1 flex flex-col items-center justify-center text-center px-6 py-10">
+        <div class="w-full max-w-3xl">
+          <span class="tpm-rise inline-flex items-center gap-2 rounded-full border border-edge bg-panel2 px-3 py-1 text-xs tracking-[0.18em] uppercase text-muted mb-6">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent2 animate-pulse"></span>
+            <span data-i18n="landing.badge">Bulgaria · 28 provinces · real open data</span>
+          </span>
+          <h1 class="tpm-rise font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-balance">
+            <span data-i18n="hero.title">The geography of lost time</span>
+          </h1>
+          <p class="tpm-rise-2 text-base sm:text-lg text-muted mt-5 max-w-2xl mx-auto leading-relaxed text-pretty"
+             data-i18n="hero.tagline">
+            Thin infrastructure charges Bulgaria's families and seniors an invisible tax — paid in hours on the road.
+            Map it, simulate the fix, and compare what any address would really cost you.
+          </p>
+
+          <div class="tpm-rise-3 mt-9 flex flex-col sm:flex-row items-center justify-center gap-3">
+            <button id="welcomeStart" data-i18n="hero.cta.start"
+              class="w-full sm:w-auto rounded-xl bg-accent hover:bg-accent/90 text-white font-semibold px-7 py-3 shadow-glow
+                     transition active:scale-[.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-accent">
+              Get started — it's free</button>
+            <button id="welcomeSignIn2" data-i18n="hero.cta.signin"
+              class="w-full sm:w-auto rounded-xl border border-edge bg-panel hover:border-accent/60 font-semibold px-7 py-3
+                     transition active:scale-[.98] focus:outline-none focus-visible:border-accent">
+              I already have an account</button>
+          </div>
+
+          <!-- three pillars -->
+          <div class="tpm-rise-3 mt-12 grid sm:grid-cols-3 gap-3 text-left">
+            <div class="rounded-2xl border border-edge bg-panel/70 p-5">
+              <div class="w-10 h-10 rounded-xl bg-accent/10 text-accent flex items-center justify-center ring-1 ring-inset ring-accent/20 mb-3">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M5 21V5a1 1 0 011-1h4a1 1 0 011 1v16M13 21V9a1 1 0 011-1h4a1 1 0 011 1v12M8 8h0m0 4h0m8 0h0m0 4h0"/></svg>
+              </div>
+              <h3 class="font-display font-semibold mb-1" data-i18n="hero.f1.title">Municipal planner</h3>
+              <p class="text-sm text-muted leading-relaxed" data-i18n="hero.f1.desc">Simulate where a new school or clinic would save the most hours.</p>
+            </div>
+            <div class="rounded-2xl border border-edge bg-panel/70 p-5">
+              <div class="w-10 h-10 rounded-xl bg-accent2/10 text-accent2 flex items-center justify-center ring-1 ring-inset ring-accent2/20 mb-3">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M3 11l9-8 9 8M5 9.5V21h5v-6h4v6h5V9.5"/></svg>
+              </div>
+              <h3 class="font-display font-semibold mb-1" data-i18n="hero.f2.title">Relocation planner</h3>
+              <p class="text-sm text-muted leading-relaxed" data-i18n="hero.f2.desc">Compare two homes by the weekly travel time each would cost you.</p>
+            </div>
+            <div class="rounded-2xl border border-edge bg-panel/70 p-5">
+              <div class="w-10 h-10 rounded-xl bg-amber-400/10 text-amber-400 flex items-center justify-center ring-1 ring-inset ring-amber-400/20 mb-3">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2m0 14v2m9-9h-2M5 12H3m14.95 6.95l-1.41-1.41M7.46 7.46L6.05 6.05m11.9 0l-1.41 1.41M7.46 16.54l-1.41 1.41"/><circle cx="12" cy="12" r="3.2"/></svg>
+              </div>
+              <h3 class="font-display font-semibold mb-1" data-i18n="hero.f3.title">Accountability Radar</h3>
+              <p class="text-sm text-muted leading-relaxed" data-i18n="hero.f3.desc">See planned civic builds against where time-poverty is worst.</p>
+            </div>
+          </div>
+        </div>
+      </main>
+
+      <footer class="px-6 py-6 text-center text-xs text-faint" data-i18n="hero.footer">
+        Built on OpenStreetMap · NSI census · GeoNames — 349 settlements, 2,772 services.
+      </footer>
     </div>
   </div>
 
@@ -339,8 +422,8 @@
     </section>
 
     <!-- DASHBOARD -->
-    <aside class="w-full lg:w-[420px] xl:w-[460px] shrink-0 bg-base/70 lg:border-l border-edge
-                  p-5 sm:p-6 overflow-y-auto space-y-5">
+    <aside class="w-full lg:w-[460px] xl:w-[500px] shrink-0 bg-base/70 lg:border-l border-edge
+                  p-5 sm:p-6 lg:pt-16 overflow-y-auto space-y-5">
 
       <header>
         <h1 data-i18n="brand" class="font-display text-2xl font-bold tracking-tight">Reclaim</h1>
@@ -465,28 +548,65 @@
             class="text-[11px] font-semibold text-accent hover:underline">Upgrade</button>
         </div>
 
-        <!-- Journey wizard -->
+        <!-- Journey wizard: search a city, or pick it on the map -->
         <div class="space-y-3">
-          <button id="pinCurrentBtn"
-            class="w-full text-left rounded-xl border border-edge bg-panel p-4 transition
-                   hover:border-rose-500/70 focus:outline-none focus-visible:border-rose-500">
+          <!-- Current residence -->
+          <div class="rounded-xl border border-edge bg-panel p-4 space-y-2.5">
             <div class="flex items-center gap-3">
               <span class="w-3 h-3 rounded-full bg-rose-500 shrink-0"></span>
               <span class="font-semibold text-sm" data-i18n="personal.step1">1 · Current residence</span>
             </div>
-            <div id="pinCurrentReadout" class="text-xs text-muted mt-1 pl-6" data-i18n="personal.tapHint">Tap, then click the map…</div>
-          </button>
+            <div class="relative">
+              <svg class="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-faint pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.3-4.3M11 19a8 8 0 100-16 8 8 0 000 16z"/></svg>
+              <input id="searchCurrent" type="text" autocomplete="off" spellcheck="false"
+                data-i18n-placeholder="personal.searchCity" placeholder="Search a city or village…"
+                class="w-full bg-panel2 border border-edge rounded-lg pl-8 pr-3 py-2 text-sm text-slate-100 placeholder:text-faint focus:border-rose-500 outline-none" />
+              <ul id="suggestCurrent" class="hidden absolute z-[30] left-0 right-0 mt-1 max-h-56 overflow-y-auto rounded-lg border border-edge bg-panel shadow-card py-1"></ul>
+            </div>
+            <button id="pinCurrentBtn" type="button"
+              class="flex items-center gap-1.5 text-xs text-muted hover:text-rose-300 border border-transparent rounded-md px-1.5 py-1 -ml-1.5 transition focus:outline-none">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-6-5.7-6-10a6 6 0 1112 0c0 4.3-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
+              <span data-i18n="personal.orTapMap">or pick it on the map</span>
+            </button>
+            <div id="pinCurrentReadout" class="text-xs text-faint" data-i18n="personal.tapHint">Tap, then click the map…</div>
+          </div>
 
-          <button id="pinProspectiveBtn"
-            class="w-full text-left rounded-xl border border-edge bg-panel p-4 transition
-                   hover:border-emerald-400/70 focus:outline-none focus-visible:border-emerald-400">
+          <!-- Prospective residence -->
+          <div class="rounded-xl border border-edge bg-panel p-4 space-y-2.5">
             <div class="flex items-center gap-3">
               <span class="w-3 h-3 rounded-full bg-emerald-400 shrink-0"></span>
               <span class="font-semibold text-sm" data-i18n="personal.step2">2 · Prospective residence</span>
             </div>
-            <div id="pinProspectiveReadout" class="text-xs text-muted mt-1 pl-6" data-i18n="personal.tapHint">Tap, then click the map…</div>
-          </button>
+            <div class="relative">
+              <svg class="w-4 h-4 absolute left-2.5 top-1/2 -translate-y-1/2 text-faint pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.3-4.3M11 19a8 8 0 100-16 8 8 0 000 16z"/></svg>
+              <input id="searchProspective" type="text" autocomplete="off" spellcheck="false"
+                data-i18n-placeholder="personal.searchCity" placeholder="Search a city or village…"
+                class="w-full bg-panel2 border border-edge rounded-lg pl-8 pr-3 py-2 text-sm text-slate-100 placeholder:text-faint focus:border-emerald-400 outline-none" />
+              <ul id="suggestProspective" class="hidden absolute z-[30] left-0 right-0 mt-1 max-h-56 overflow-y-auto rounded-lg border border-edge bg-panel shadow-card py-1"></ul>
+            </div>
+            <button id="pinProspectiveBtn" type="button"
+              class="flex items-center gap-1.5 text-xs text-muted hover:text-emerald-300 border border-transparent rounded-md px-1.5 py-1 -ml-1.5 transition focus:outline-none">
+              <svg class="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21s-6-5.7-6-10a6 6 0 1112 0c0 4.3-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg>
+              <span data-i18n="personal.orTapMap">or pick it on the map</span>
+            </button>
+            <div id="pinProspectiveReadout" class="text-xs text-faint" data-i18n="personal.tapHint">Tap, then click the map…</div>
+          </div>
         </div>
+
+        <!-- Travel mode: owning a car switches far trips from walking to driving -->
+        <label class="flex items-center justify-between gap-3 rounded-xl border border-edge bg-panel px-4 py-3 cursor-pointer hover:border-accent2/50 transition">
+          <span class="flex items-center gap-2.5 text-sm font-medium text-slate-200">
+            <svg class="w-5 h-5 text-accent2 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.7">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 11l1.6-3.8A2 2 0 018.4 6h7.2a2 2 0 011.8 1.2L19 11m-14 0h14a1 1 0 011 1v4a1 1 0 01-1 1h-1m-13 0H5a1 1 0 01-1-1v-4a1 1 0 011-1z"/>
+              <circle cx="7.5" cy="16.5" r="1.5"/><circle cx="16.5" cy="16.5" r="1.5"/>
+            </svg>
+            <span>
+              <span data-i18n="personal.ownsCar">I own a car</span>
+              <span class="block text-[11px] font-normal text-faint" data-i18n="personal.ownsCarHint">Trips over 2 km are timed by car; shorter ones on foot.</span>
+            </span>
+          </span>
+          <input id="ownsCar" type="checkbox" checked class="accent-accent2 w-4 h-4 shrink-0" />
+        </label>
 
         <!-- Household profile — fine-grained per-amenity needs -->
         <div class="metric-card !p-4 space-y-1">
@@ -636,9 +756,16 @@
     </div>
   </div>
 
+  <!-- Deploy stamp badge: shows the live commit, fed by frontend/version.json -->
+  <a id="version-badge" href="#" target="_blank" rel="noopener"
+     class="fixed bottom-2 right-2 z-[1200] hidden items-center gap-1.5 rounded-md
+            bg-slate-900/70 px-2 py-1 text-[11px] text-faint backdrop-blur
+            hover:text-slate-200 transition ring-1 ring-white/10"></a>
+
   <script src="./src/i18n.js"></script>
   <script src="./src/config.js"></script>
   <script src="./src/auth.js"></script>
   <script src="./src/app.js"></script>
+  <script src="./src/version.js"></script>
 </body>
 </html>

@@ -8,6 +8,8 @@ Loads data from cached CSVs at startup (dataset-free; see INTEGRATION.md). The s
 models drop into the Postgres-backed app later unchanged.
 """
 
+import json
+import os
 from pathlib import Path
 
 import joblib
@@ -35,7 +37,9 @@ def _resolve_district(district):
 app = FastAPI(title="Reclaim — ML Service")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5500", "http://127.0.0.1:5500"],
+    allow_origins=["http://localhost:5500", "http://127.0.0.1:5500",
+                   "http://localhost:7001", "http://127.0.0.1:7001"],
+    allow_origin_regex=r"https://.*\.vs2\.openkbs\.com",
     allow_methods=["*"], allow_headers=["*"],
 )
 
@@ -73,6 +77,20 @@ def health():
             "nodes": int(len(NODES)),
             "amenities": sorted({p["amenity"] for p in PLACEMENT.values()}),
             "groups": sorted(PLACEMENT.keys())}
+
+
+# Deploy stamp written by scripts/deploy.sh; reports the live commit. Public; the
+# proxy intercepts /health, so this lives under the /api/ml/* prefix instead.
+_STAMP = Path(os.environ["DEPLOY_STAMP_PATH"]) if os.environ.get("DEPLOY_STAMP_PATH") \
+    else Path(__file__).parent.parent / "deploy-stamp.json"
+
+
+@app.get("/api/ml/version")
+def version():
+    try:
+        return json.loads(_STAMP.read_text())
+    except Exception:
+        return {"status": "unknown"}
 
 
 @app.post("/api/ml/traveltime")

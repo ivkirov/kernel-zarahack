@@ -3,6 +3,8 @@ node_modules/
 .*
 !.gitignore
 !.env.example
+!.github
+!.github/**
 !data-engine/.python-version
 
 # --- Time Poverty Matrix ---
@@ -31,3 +33,10 @@ frontend/dist/output.css
 
 #Datasets
 datasets/
+
+# --- Deploy artifacts (scripts/deploy.sh) ---
+# Stamps written per-deploy on the VM; the live commit, not source.
+/deploy-stamp.json
+/frontend/version.json
+# Detached service PID files + logs.
+/.run/

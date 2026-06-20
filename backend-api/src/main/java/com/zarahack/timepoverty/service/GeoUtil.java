@@ -19,4 +19,17 @@ public final class GeoUtil {
     public static double travelMinutes(double km, double speedKmh) {
         return (km / speedKmh) * 60.0;
     }
+
+    /**
+     * Mode-aware one-way travel time (minutes): walk the first {@code walkThresholdKm},
+     * then drive the remainder. Assuming a household walks to every service (the
+     * municipal access-deprivation lens) wildly overstates time for far amenities a
+     * real household would drive to — e.g. a kindergarten 30 km away.
+     */
+    public static double travelMinutes(double km, double walkKmh, double driveKmh, double walkThresholdKm) {
+        if (km <= walkThresholdKm) return (km / walkKmh) * 60.0;
+        double walkPart = (walkThresholdKm / walkKmh) * 60.0;
+        double drivePart = ((km - walkThresholdKm) / driveKmh) * 60.0;
+        return walkPart + drivePart;
+    }
 }
