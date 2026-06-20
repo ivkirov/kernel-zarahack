@@ -3,17 +3,21 @@ module.exports = {
   content: ["./index.html", "./src/**/*.js"],
   theme: {
     extend: {
+      // Semantic palette driven by CSS variables so a single class on <html>
+      // (default = dark; `.theme-maps` = Google-Maps light) re-skins everything.
+      // Variable RGB triplets live in src/input.css.
       colors: {
-        base:    "#0a0f1e",   // page background (deep ink-navy)
-        panel:   "#111a30",   // card background
-        panel2:  "#0e1528",   // recessed surface
-        edge:    "#21304f",   // borders
-        accent:  "#38bdf8",   // cyan — interactive / municipal
-        accent2: "#34d399",   // emerald — personal / positive
-        warn:    "#fb923c",   // orange — high time poverty
-        good:    "#22c55e",   // green — hours saved
-        muted:   "#8ea2c0",   // secondary text (cool gray)
-        faint:   "#5b6c8a",   // tertiary text
+        base:    "rgb(var(--c-base) / <alpha-value>)",    // page background
+        panel:   "rgb(var(--c-panel) / <alpha-value>)",   // card background
+        panel2:  "rgb(var(--c-panel2) / <alpha-value>)",  // recessed surface
+        edge:    "rgb(var(--c-edge) / <alpha-value>)",    // borders
+        accent:  "rgb(var(--c-accent) / <alpha-value>)",  // interactive / municipal
+        accent2: "rgb(var(--c-accent2) / <alpha-value>)", // personal / positive
+        warn:    "rgb(var(--c-warn) / <alpha-value>)",    // high time poverty
+        good:    "rgb(var(--c-good) / <alpha-value>)",    // hours saved
+        muted:   "rgb(var(--c-muted) / <alpha-value>)",   // secondary text
+        faint:   "rgb(var(--c-faint) / <alpha-value>)",   // tertiary text
+        ink:     "rgb(var(--c-ink) / <alpha-value>)",     // primary text (theme-aware)
       },
       fontFamily: {
         sans:    ["Inter", "system-ui", "sans-serif"],

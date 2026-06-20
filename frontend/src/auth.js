@@ -136,15 +136,40 @@
   }
   function logout() { hardLogout(); }
 
-  // ---- account bar (inside the landing screen) ----
+  // ---- account card (inside the landing screen) ----
   function renderAccountBar() {
     if (!$("acctEmail")) return;
-    $("acctEmail").textContent = user ? user.email : "";
-    const roleEl = $("acctRole");
-    if (roleEl) {
-      roleEl.textContent = user ? T("role." + user.role) + (user.active ? "" : " · " + T("role.pending")) : "";
+    const set = (id, txt) => { const el = $(id); if (el) el.textContent = txt; };
+    if (!user) { set("acctEmail", ""); set("acctName", ""); return; }
+
+    const name = user.displayName || user.email.split("@")[0];
+    set("acctName", name);
+    set("acctEmail", user.email);
+    const av = $("acctAvatar");
+    if (av) av.textContent = (name[0] || "·").toUpperCase();
+    set("acctRole", T("role." + user.role));
+
+    const isFree = user.role === "FREE_USER";
+    const isAdmin = user.role === "ADMIN";
+    const pending = !isFree && !isAdmin && !user.accessGranted;
+
+    // Plan label
+    set("acctPlan", isFree ? T("plan.free") : pending ? T("plan.pending") : T("plan.active"));
+
+    // Free-tier usage meter
+    const usageEl = $("acctUsage"), bar = $("acctUsageBar"), fill = $("acctUsageFill");
+    if (isFree && typeof user.freeGuessesRemaining === "number") {
+      const lim = user.freeGuessLimit || 3, rem = Math.max(0, user.freeGuessesRemaining);
+      if (usageEl) usageEl.textContent = `${rem}/${lim} ${T("acct.checksLeft")}`;
+      if (bar) bar.classList.remove("hidden");
+      if (fill) fill.style.width = `${Math.round((rem / lim) * 100)}%`;
+    } else {
+      if (usageEl) usageEl.textContent = "";
+      if (bar) bar.classList.add("hidden");
     }
-    show($("adminUsersBtn"), !!user && user.role === "ADMIN");
+
+    show($("acctUpgradeBtn"), isFree || pending);
+    show($("adminUsersBtn"), isAdmin);
   }
 
   // ---- paywall modal ----
@@ -253,6 +278,8 @@
     $("paywallOk").addEventListener("click", hidePaywall);
     $("logoutBtn").addEventListener("click", logout);
     $("adminUsersBtn").addEventListener("click", openAdmin);
+    const up = $("acctUpgradeBtn");
+    if (up) up.addEventListener("click", () => showPaywall("UPGRADE"));
     $("adminClose").addEventListener("click", closeAdmin);
     // Re-localize auth/admin labels on a live locale switch.
     if (window.I18n) window.I18n.onChange(() => { switchAuthMode(authMode); renderAccountBar(); });

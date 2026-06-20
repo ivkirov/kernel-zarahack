@@ -45,6 +45,8 @@
       "layers.title": "Layers",
       "layers.collapse": "Collapse layers",
       "layers.timePoverty": "Time-poverty",
+      "theme.dark": "Dark",
+      "theme.maps": "Light",
       "amenity.place": "Place a",
       "amenity.tapMap": "tap the map",
       "legend.title": "Legend",
@@ -69,6 +71,7 @@
       "dash.viewing": "Viewing",
       "dash.modes": "← Modes",
       "dash.modesTitle": "Back to mode selection",
+      "dash.tools": "Your tools",
       "scope.provinces": "Provinces",
       "scope.towns": "Towns",
       "town.loading": "Loading towns…",
@@ -174,6 +177,10 @@
       // Free-tier quota
       "quota.label": "Free relocation checks",
       "quota.upgrade": "Upgrade",
+      "plan.free": "Free plan",
+      "plan.active": "Paid · active",
+      "plan.pending": "Activation pending",
+      "acct.checksLeft": "checks left",
 
       // Personal — paid extras
       "personal.aiTitle": "AI explanation",
@@ -329,6 +336,8 @@
       "layers.title": "Слоеве",
       "layers.collapse": "Свий слоевете",
       "layers.timePoverty": "Изгубено време",
+      "theme.dark": "Тъмна",
+      "theme.maps": "Светла",
       "amenity.place": "Постави",
       "amenity.tapMap": "докосни картата",
       "legend.title": "Легенда",
@@ -353,6 +362,7 @@
       "dash.viewing": "Преглеждаш",
       "dash.modes": "← Режими",
       "dash.modesTitle": "Назад към избора на режим",
+      "dash.tools": "Вашите инструменти",
       "scope.provinces": "Области",
       "scope.towns": "Градове",
       "town.loading": "Зареждане на градове…",
@@ -458,6 +468,10 @@
       // Безплатен лимит
       "quota.label": "Безплатни проверки за преместване",
       "quota.upgrade": "Надгради",
+      "plan.free": "Безплатен план",
+      "plan.active": "Платен · активен",
+      "plan.pending": "Очаква активиране",
+      "acct.checksLeft": "оставащи проверки",
 
       // Лични — платени екстри
       "personal.aiTitle": "ИИ обяснение",

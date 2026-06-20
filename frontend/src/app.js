@@ -49,10 +49,50 @@ const map = L.map("map", {
   maxBounds: BG_LATLNG_BOUNDS, maxBoundsViscosity: 1.0, minZoom: 7,
 }).setView(MAP_CENTER, MAP_ZOOM);
 L.control.zoom({ position: "bottomright" }).addTo(map);
-L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-  attribution: "© OpenStreetMap, © CARTO",
-  maxZoom: 19,
-}).addTo(map);
+
+// Swappable basemap: dark ink tiles, or a Google-Maps-style light street basemap
+// (CARTO Voyager — no API key, closest free look to Google Maps).
+// dark = CARTO dark ink; maps = OSM standard (bright, saturated greens/blues —
+// the most vivid no-key basemap, closest to Google Maps' brightness).
+const BASEMAPS = {
+  dark: { url: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+          attribution: "© OpenStreetMap, © CARTO", subdomains: "abcd", maxZoom: 19 },
+  maps: { url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+          attribution: "© OpenStreetMap contributors", subdomains: "abc", maxZoom: 19 },
+};
+let baseTiles = null;
+function setBasemap(theme) {
+  if (baseTiles) map.removeLayer(baseTiles);
+  const cfg = BASEMAPS[theme] || BASEMAPS.dark;
+  baseTiles = L.tileLayer(cfg.url, {
+    attribution: cfg.attribution, subdomains: cfg.subdomains, maxZoom: cfg.maxZoom,
+  }).addTo(map);
+  baseTiles.bringToBack();
+}
+
+// ---------- Global theme switcher (dark ↔ Google-Maps light) ----------
+const THEME_KEY = "tpm-theme";
+let bgOutline = null;   // country outline polygon, recolored per theme
+function currentTheme() { return localStorage.getItem(THEME_KEY) === "maps" ? "maps" : "dark"; }
+function applyTheme(theme) {
+  const maps = theme === "maps";
+  const root = document.documentElement;
+  root.classList.toggle("theme-maps", maps);
+  root.classList.toggle("dark", !maps);
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", maps ? "#ffffff" : "#0a0f1e");
+  setBasemap(theme);
+  if (bgOutline) bgOutline.setStyle({ color: maps ? "#1a73e8" : "#38bdf8" });
+  document.querySelectorAll("[data-theme-opt]").forEach((b) => {
+    const on = b.dataset.themeOpt === theme;
+    b.classList.toggle("is-active", on);
+    b.classList.toggle("text-muted", !on);
+  });
+  localStorage.setItem(THEME_KEY, theme);
+}
+document.querySelectorAll("[data-theme-opt]").forEach((b) =>
+  b.addEventListener("click", () => applyTheme(b.dataset.themeOpt)));
+applyTheme(currentTheme());   // sets the initial basemap too
 
 // ---------- Bulgaria geofence (outline + point-in-country test) ----------
 let bgRings = null;   // array of [ [lng,lat], ... ] outer rings
@@ -64,8 +104,8 @@ async function loadBulgariaOutline() {
     // Faint outline so the data region reads as intentional, not a crop.
     // Each ring is its own polygon (multipolygon), not holes of one.
     const latlngs = bgRings.map((r) => [r.map(([lng, lat]) => [lat, lng])]);
-    L.polygon(latlngs, {
-      color: "#38bdf8", weight: 1, opacity: 0.35,
+    bgOutline = L.polygon(latlngs, {
+      color: currentTheme() === "maps" ? "#1a73e8" : "#38bdf8", weight: 1, opacity: 0.35,
       fill: false, interactive: false,
     }).addTo(map);
   } catch (err) {
