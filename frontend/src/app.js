@@ -1,7 +1,11 @@
 const { API_BASE_URL, DISTRICT, MAP_CENTER, MAP_ZOOM, COLORS } = window.TPM;
 
-// ---------- Leaflet init over the pilot city ----------
-const map = L.map("map", { zoomControl: true }).setView(MAP_CENTER, MAP_ZOOM);
+// Active municipal district; "all" = whole country. Mutable via the province picker.
+let district = DISTRICT;
+
+// ---------- Leaflet init ----------
+// preferCanvas keeps the nationwide view (~17k vector layers) smooth.
+const map = L.map("map", { zoomControl: true, preferCanvas: true }).setView(MAP_CENTER, MAP_ZOOM);
 L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
   attribution: "© OpenStreetMap, © CARTO",
   maxZoom: 19,
@@ -47,46 +51,56 @@ function povertyColor(minutes) {
 
 // ---------- Load baseline matrix ----------
 async function loadMatrix() {
-  document.getElementById("status").textContent = "Loading matrix…";
-  const res = await fetch(`${API_BASE_URL}/matrix?district=${encodeURIComponent(DISTRICT)}`);
-  const data = await res.json();
+  const statusEl = document.getElementById("status");
+  statusEl.textContent = "Loading matrix…";
+  try {
+    const res = await fetch(`${API_BASE_URL}/matrix?district=${encodeURIComponent(district)}`);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
 
-  nodeLayer.clearLayers();
-  cellLayer.clearLayers();
+    nodeLayer.clearLayers();
+    cellLayer.clearLayers();
+    const pts = [];
 
-  // Existing service nodes
-  data.nodes.forEach(n => {
-    L.circleMarker([n.lat, n.lon], {
-      radius: 5, color: COLORS[n.serviceType] || "#94a3b8",
-      fillOpacity: 0.9, weight: 1,
-    }).bindPopup(`<b>${n.name || n.serviceType}</b><br>${n.serviceType}`)
-      .addTo(nodeLayer);
-  });
+    // Existing service nodes (small, clickable for identification)
+    data.nodes.forEach(n => {
+      pts.push([n.lat, n.lon]);
+      L.circleMarker([n.lat, n.lon], {
+        radius: 5, color: COLORS[n.serviceType] || "#94a3b8",
+        fillOpacity: 0.9, weight: 1,
+      }).bindPopup(`<b>${n.name || n.serviceType}</b><br>${n.serviceType}`)
+        .addTo(nodeLayer);
+    });
 
-  // Time-poverty cells (sized by population, colored by nearest travel time)
-  data.cells.forEach(c => {
-    L.circle([c.lat, c.lon], {
-      radius: 120 + Math.sqrt(c.population) * 25,
-      color: povertyColor(c.nearestMinutes),
-      fillColor: povertyColor(c.nearestMinutes),
-      fillOpacity: 0.25, weight: 1,
-    }).bindPopup(
-      `<b>${c.settlement}</b><br>${c.groupKey}<br>` +
-      `Pop: ${c.population}<br>Nearest: ${c.nearestMinutes.toFixed(1)} min<br>` +
-      `Time-Poverty Score: ${c.timePovertyScore.toFixed(0)}`
-    ).addTo(cellLayer);
-  });
+    // Time-poverty cells (sized by population, colored by nearest travel time).
+    // interactive:false → a click passes THROUGH to the map so you can place a
+    // structure anywhere, even on top of a cell.
+    data.cells.forEach(c => {
+      pts.push([c.lat, c.lon]);
+      L.circle([c.lat, c.lon], {
+        radius: 120 + Math.sqrt(c.population) * 25,
+        color: povertyColor(c.nearestMinutes),
+        fillColor: povertyColor(c.nearestMinutes),
+        fillOpacity: 0.25, weight: 1, interactive: false,
+      }).addTo(cellLayer);
+    });
 
-  setText("systemicHours", data.totalAnnualWastedHours, { decimals: 0 });
-  document.getElementById("status").textContent =
-    `Loaded ${data.nodes.length} services, ${data.cells.length} cells.`;
+    setText("systemicHours", data.totalAnnualWastedHours, { decimals: 0 });
+    statusEl.textContent = `Loaded ${data.nodes.length} services, ${data.cells.length} cells.`;
+    // Frame the view to whatever district (or the whole country) was loaded.
+    if (pts.length) map.fitBounds(L.latLngBounds(pts), { padding: [25, 25] });
+  } catch (err) {
+    // Surface failures instead of leaving a silently-blank map.
+    statusEl.textContent = `Failed to load matrix: ${err.message}`;
+    console.error("loadMatrix failed:", err);
+  }
 }
 
 // ---------- Municipal: click → simulate ----------
 async function simulateAt(e) {
   const amenityType = document.getElementById("amenitySelect").value;
   const payload = {
-    district: DISTRICT,
+    district,
     lat: e.latlng.lat,
     lon: e.latlng.lng,
     amenityType,
@@ -112,16 +126,13 @@ async function simulateAt(e) {
   setText("cellsImproved", sim.affectedCells, { decimals: 0 });
   setText("avgMinutes", sim.minutesSavedPerTripAvg, { decimals: 1 });
 
-  // Shade improved cells green
+  // Shade improved cells green (non-interactive so you can place again on top)
   sim.deltas.forEach(d => {
     L.circle([d.lat, d.lon], {
       radius: 120 + Math.sqrt(d.population) * 25,
       color: COLORS.simulated, fillColor: COLORS.simulated,
-      fillOpacity: 0.35, weight: 1,
-    }).bindPopup(
-      `${d.beforeMinutes.toFixed(1)} → ${d.afterMinutes.toFixed(1)} min<br>` +
-      `Saves ${d.hoursSavedAnnual.toFixed(0)} h/yr`
-    ).addTo(simLayer);
+      fillOpacity: 0.35, weight: 1, interactive: false,
+    }).addTo(simLayer);
   });
 
   document.getElementById("status").textContent =
@@ -204,7 +215,7 @@ async function runCompare() {
     badge.textContent = `Time Efficiency Loss: ${shift.toFixed(1)} Hours/Week`;
   }
   document.getElementById("personalStatus").textContent =
-    `Compared against ${DISTRICT} services for your selected needs.`;
+    `Compared against nationwide services for your selected needs.`;
 }
 
 // ---------- Map click router (gated by mode) ----------
@@ -215,7 +226,6 @@ map.on("click", (e) => {
 });
 
 // ---------- Mode switching ----------
-let matrixLoaded = false;
 const $ = (id) => document.getElementById(id);
 
 function show(el, visible) { el.classList.toggle("hidden", !visible); }
@@ -228,7 +238,7 @@ function enterMunicipal() {
   show($("amenityControl"), true);
   personalLayer.clearLayers();
   map.invalidateSize();
-  if (!matrixLoaded) { loadMatrix(); matrixLoaded = true; }
+  loadMatrix();   // always redraw — entering personal mode clears these layers
 }
 
 function enterPersonal() {
@@ -256,3 +266,16 @@ $("pinCurrentBtn").addEventListener("click", () => armPin("current"));
 $("pinProspectiveBtn").addEventListener("click", () => armPin("prospective"));
 $("hasChildren").addEventListener("change", runCompare);
 $("needsSeniorCare").addEventListener("change", runCompare);
+
+// ---------- Province picker (municipal) ----------
+const districtLabel = (d) => (!d || d === "all") ? "All Bulgaria" : d;
+const districtSelect = $("districtSelect");
+if (districtSelect) {
+  district = districtSelect.value;                 // honor the dropdown's default selection
+  $("districtName").textContent = districtLabel(district);
+  districtSelect.addEventListener("change", (e) => {
+    district = e.target.value;
+    $("districtName").textContent = districtLabel(district);
+    loadMatrix();                                  // refetch + auto-zoom to the new district
+  });
+}

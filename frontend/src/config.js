@@ -1,9 +1,9 @@
 window.TPM = {
   API_BASE_URL: "http://localhost:8080/api/v1/time-poverty",
-  DISTRICT: "Pazardzhik",
-  // Pilot city center (Pazardzhik town)
-  MAP_CENTER: [42.192, 24.333],
-  MAP_ZOOM: 12,
+  DISTRICT: "all",            // default municipal view: whole country (switchable in the picker)
+  // Bulgaria center (the map auto-fits to the loaded district on entry)
+  MAP_CENTER: [42.73, 25.48],
+  MAP_ZOOM: 7,
   COLORS: {
     kindergarten: "#38bdf8",
     school:       "#818cf8",

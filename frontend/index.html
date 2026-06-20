@@ -19,7 +19,7 @@
     class="fixed inset-0 z-[2000] bg-slate-950 flex flex-col items-center justify-center px-6">
     <div class="text-center mb-12">
       <h1 class="text-4xl font-bold tracking-tight">The Time Poverty Matrix</h1>
-      <p class="text-sm text-muted mt-2">The Geography of Lost Time · Pazardzhik pilot</p>
+      <p class="text-sm text-muted mt-2">The Geography of Lost Time · Bulgaria · 28 provinces</p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-6 max-w-4xl w-full">
@@ -85,8 +85,8 @@
       <header class="flex items-start justify-between gap-3">
         <div>
           <h1 class="text-2xl font-bold">The Time Poverty Matrix</h1>
-          <p class="text-sm text-muted">The Geography of Lost Time · District:
-            <span id="districtName" class="text-accent font-semibold">Pazardzhik</span>
+          <p class="text-sm text-muted">The Geography of Lost Time · Viewing:
+            <span id="districtName" class="text-accent font-semibold">All Bulgaria</span>
           </p>
         </div>
         <button id="goHomeBtn" title="Back to mode selection"
@@ -96,6 +96,43 @@
 
       <!-- ===== MUNICIPAL PANEL ===== -->
       <div id="municipalPanel" class="space-y-5">
+        <!-- Province picker (whole country or a single oblast) -->
+        <div class="metric-card !p-3 flex items-center gap-3">
+          <span class="text-xs text-muted shrink-0">Province</span>
+          <select id="districtSelect"
+            class="flex-1 bg-base border border-edge rounded-lg px-3 py-1.5 text-sm">
+            <option value="all" selected>All Bulgaria</option>
+            <option>Blagoevgrad</option>
+            <option>Burgas</option>
+            <option>Dobrich</option>
+            <option>Gabrovo</option>
+            <option>Haskovo</option>
+            <option>Kardzhali</option>
+            <option>Kyustendil</option>
+            <option>Lovech</option>
+            <option>Montana</option>
+            <option>Pazardzhik</option>
+            <option>Pernik</option>
+            <option>Pleven</option>
+            <option>Plovdiv</option>
+            <option>Razgrad</option>
+            <option>Ruse</option>
+            <option>Shumen</option>
+            <option>Silistra</option>
+            <option>Sliven</option>
+            <option>Smolyan</option>
+            <option>Sofia (Capital)</option>
+            <option>Sofia Province</option>
+            <option>Stara Zagora</option>
+            <option>Targovishte</option>
+            <option>Varna</option>
+            <option>Veliko Tarnovo</option>
+            <option>Vidin</option>
+            <option>Vratsa</option>
+            <option>Yambol</option>
+          </select>
+        </div>
+
         <!-- Baseline systemic loss -->
         <div class="metric-card">
           <div id="systemicHours" class="metric-value text-warn">0</div>
