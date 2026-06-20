@@ -1,0 +1,2773 @@
+osm_id,service_type,amenity_raw,name,lat,lon,district
+30361124,school,school,ЕСПУ Гео Милев,42.836859,22.652351,Pernik
+30361186,hospital,hospital,Общинска болница Др. Стамен Григоров,42.834715,22.65487,Pernik
+30793665,pharmacy,pharmacy,,42.835105,22.650397,Pernik
+166600942,pharmacy,pharmacy,,42.670824,23.395137,Sofia (Capital)
+166601438,pharmacy,pharmacy,,42.664661,23.390172,Sofia (Capital)
+254336319,clinic,clinic,18-ти ДКЦ - филиал металург,42.709896,23.381975,Sofia (Capital)
+254336323,hospital,hospital,Здравен център Лечител,42.700216,23.331046,Sofia (Capital)
+254336328,hospital,hospital,2-ри ДКЦ,42.691366,23.324067,Sofia (Capital)
+254336342,clinic,doctors,Медицински център Д-р Й. С. Грийнберг,42.673835,23.368201,Sofia (Capital)
+254336343,hospital,hospital,Медицински център,42.694409,23.28312,Sofia (Capital)
+254336345,clinic,doctors,Национален център по наркомании,42.696007,23.224368,Sofia (Capital)
+254336346,clinic,doctors,Център за рехабилитация Диел,42.68921,23.307165,Sofia (Capital)
+254336347,hospital,hospital,Национален център по физикално лечение и рехабилитация,42.676759,23.269998,Sofia (Capital)
+254336354,hospital,hospital,"МБАЛ ""Царица Йоанна"" - обслужване на дипломати и чужденци",42.700561,23.338996,Sofia (Capital)
+254336368,clinic,doctors,Медицински център Лора,42.690745,23.31484,Sofia (Capital)
+254336387,clinic,doctors,Областен кожновенерологичен диспансер,42.705671,23.333091,Sofia (Capital)
+254336398,clinic,clinic,I Областен диспансер за пневмофтизиатрични заболявания,42.702772,23.324445,Sofia (Capital)
+254336406,hospital,hospital,"ЦПЗ ""Проф. Н.Шипковенски""",42.70072,23.327229,Sofia (Capital)
+254336408,hospital,hospital,Втора Акушеро - гинекологична болница Шейново,42.692645,23.340056,Sofia (Capital)
+254336416,clinic,doctors,"Институтска СБАЛ по ендокринология, нефрология и геронтология",42.696407,23.313985,Sofia (Capital)
+254336424,clinic,doctors,Център за хемодиализа на диабетно болни,42.696494,23.314214,Sofia (Capital)
+254336433,hospital,hospital,IV Работническа болница,42.660728,23.417155,Sofia (Capital)
+254336434,clinic,doctors,Национален център по хематология и трансфузиология,42.660486,23.35936,Sofia (Capital)
+254336437,clinic,clinic,Клиника по ревматология,42.681348,23.299308,Sofia (Capital)
+254336444,clinic,doctors,Областен диспансер за психични болести,42.705571,23.332999,Sofia (Capital)
+254336447,hospital,hospital,Институтска СБАЛ по ортопедия Проф. Бойчо Бойчев,42.674457,23.247301,Sofia (Capital)
+254336448,clinic,clinic,Медицински център Гургулят,42.687758,23.32269,Sofia (Capital)
+254336452,hospital,hospital,IV МБАЛ,42.693111,23.311373,Sofia (Capital)
+254336454,clinic,clinic,13-ти ДКЦ,42.676827,23.319212,Sofia (Capital)
+254336457,clinic,clinic,18-ти ДКЦ,42.702025,23.369071,Sofia (Capital)
+254336459,clinic,clinic,9-ти ДКЦ,42.721284,23.344485,Sofia (Capital)
+254336462,clinic,clinic,Медицински център Доверие СБТ,42.665244,23.356242,Sofia (Capital)
+254336465,hospital,hospital,17-ти ДКЦ,42.697127,23.347663,Sofia (Capital)
+254336468,clinic,doctors,Bodimed,42.6964,23.317874,Sofia (Capital)
+254336473,hospital,hospital,Републикански център по протезиране и възстановителна хирургия,42.676301,23.24864,Sofia (Capital)
+254336484,clinic,clinic,Торакс 1,42.697851,23.313162,Sofia (Capital)
+254336488,clinic,clinic,Медицински център Лора,42.696092,23.319885,Sofia (Capital)
+254336489,hospital,hospital,Диагностичен център Пансанус,42.702495,23.304831,Sofia (Capital)
+254336493,clinic,doctors,Областен диспансер по белодробни болести,42.705911,23.333494,Sofia (Capital)
+254336499,hospital,hospital,Централна консултативна поликлиника,42.700623,23.339289,Sofia (Capital)
+254336502,hospital,hospital,Областен диспансер за онкологични заболявания със стационар - София област ЕООД,42.712976,23.312742,Sofia (Capital)
+254336503,clinic,clinic,Клиника Торакс-2,42.686832,23.322014,Sofia (Capital)
+254336505,clinic,doctors,Медицински център Гургулят,42.694408,23.311626,Sofia (Capital)
+254336506,clinic,clinic,Частна поликлиника Медива,42.71418,23.254708,Sofia (Capital)
+254336523,clinic,doctors,Биочек,42.700207,23.323032,Sofia (Capital)
+254336547,clinic,clinic,За детето,42.680141,23.328044,Sofia (Capital)
+254336549,clinic,clinic,6-ти ДКЦ,42.706556,23.287667,Sofia (Capital)
+254336552,clinic,doctors,Медицински център Анаста,42.674306,23.370035,Sofia (Capital)
+254336554,hospital,hospital,"МБАЛ ""Вита"" ЕООД",42.696016,23.354393,Sofia (Capital)
+254336555,clinic,doctors,Св. Пантелеймон,42.686737,23.314092,Sofia (Capital)
+254336566,hospital,hospital,Медицинска лаборатория Сана,42.701302,23.306443,Sofia (Capital)
+272865231,pharmacy,pharmacy,Марешки,42.505947,24.708365,Plovdiv
+272866807,pharmacy,pharmacy,,42.505574,24.706379,Plovdiv
+272866809,pharmacy,pharmacy,Панацея,42.504612,24.703094,Plovdiv
+287298542,pharmacy,pharmacy,Медея,41.98948,24.087331,Pazardzhik
+296538160,hospital,hospital,,43.99644,22.877892,Vidin
+296538664,hospital,hospital,,43.997909,22.875694,Vidin
+297298184,pharmacy,pharmacy,,43.983876,22.8764,Vidin
+297488623,pharmacy,pharmacy,,43.999219,22.876887,Vidin
+297488858,pharmacy,pharmacy,,43.985907,22.875797,Vidin
+297488986,pharmacy,pharmacy,,43.986221,22.874941,Vidin
+297489019,pharmacy,pharmacy,,43.991422,22.875166,Vidin
+297489041,pharmacy,pharmacy,,43.998413,22.878171,Vidin
+297489050,pharmacy,pharmacy,,43.998413,22.874944,Vidin
+297489088,pharmacy,pharmacy,,43.996098,22.877845,Vidin
+297489197,pharmacy,pharmacy,,43.995653,22.87763,Vidin
+297489278,pharmacy,pharmacy,,43.992394,22.873947,Vidin
+297489531,pharmacy,pharmacy,,43.99306,22.876626,Vidin
+298252741,pharmacy,pharmacy,,43.023042,25.098756,Gabrovo
+298469072,pharmacy,pharmacy,,43.023078,25.103458,Gabrovo
+298493159,school,school,,43.022664,25.104926,Gabrovo
+298842129,hospital,hospital,МБАЛ Д-р Стойчо Христов,43.028848,25.089415,Gabrovo
+308744848,pharmacy,pharmacy,Боряна Шкутова,42.694772,23.311338,Sofia (Capital)
+309209998,hospital,hospital,,43.030556,25.105186,Gabrovo
+330851783,pharmacy,pharmacy,,42.620963,25.397026,Stara Zagora
+345400132,school,school,,42.752254,27.6929,Burgas
+345549805,pharmacy,pharmacy,,42.694596,27.707182,Burgas
+345712416,pharmacy,pharmacy,,42.688483,27.70299,Burgas
+347545293,pharmacy,pharmacy,Санита,43.21395,27.920009,Varna
+348203948,pharmacy,pharmacy,Галантус,42.66299,23.376722,Sofia (Capital)
+349083030,clinic,clinic,"Поликлиника ""Младост""",42.654073,23.377817,Sofia (Capital)
+353723256,pharmacy,pharmacy,,42.698916,27.712023,Burgas
+356458702,pharmacy,pharmacy,,42.561835,27.523348,Burgas
+364103049,pharmacy,pharmacy,,42.562689,27.638314,Burgas
+366601028,school,school,СОУ Любен Каравелов,42.637368,24.360574,Sofia Province
+392870555,pharmacy,pharmacy,Виталика,42.872204,24.712662,Lovech
+429572266,hospital,hospital,св.Георги,42.558988,27.636992,Burgas
+457718660,pharmacy,pharmacy,,41.398505,23.209014,Blagoevgrad
+462182216,pharmacy,pharmacy,,42.669087,23.302434,Sofia (Capital)
+462194741,pharmacy,pharmacy,SOpharmacy,42.672796,23.293898,Sofia (Capital)
+475064365,pharmacy,pharmacy,Лек,42.716327,23.250818,Sofia (Capital)
+475065908,pharmacy,pharmacy,,42.72679,23.25295,Sofia (Capital)
+475561988,pharmacy,pharmacy,,43.3691,25.635822,Veliko Tarnovo
+484617129,hospital,hospital,Поликлиника,42.267588,27.75355,Burgas
+492916075,pharmacy,pharmacy,,42.506025,27.474884,Burgas
+493873252,kindergarten,kindergarten,Детска градина Звездица филиал,42.493178,27.474539,Burgas
+494933651,pharmacy,pharmacy,Живита,43.211987,27.905278,Varna
+494997696,pharmacy,pharmacy,,43.248242,27.847039,Varna
+494997727,pharmacy,pharmacy,,43.251158,27.849057,Varna
+496634022,school,school,ПМГ Акад. Никола Обрешков,42.500174,27.47166,Burgas
+498672805,hospital,hospital,ДКЦ 1,41.930185,25.557505,Haskovo
+504527255,school,school,"Средно училище ""Любен Каравелов""",42.658336,27.732153,Burgas
+506410857,pharmacy,pharmacy,,42.824191,27.881889,Burgas
+506410931,clinic,doctors,,42.825673,27.88129,Burgas
+516080681,pharmacy,pharmacy,,42.306041,23.859176,Sofia Province
+516080683,pharmacy,pharmacy,Държавна,42.309286,23.856922,Sofia Province
+519713625,pharmacy,pharmacy,,43.219494,27.889214,Varna
+523140321,pharmacy,pharmacy,,43.246585,27.846559,Varna
+523228998,pharmacy,pharmacy,Аптека Марешки,43.230865,27.878815,Varna
+537959368,school,school,,43.033542,25.46705,Gabrovo
+546985068,hospital,hospital,АГ ЕВА,42.692301,26.343327,Sliven
+603760384,pharmacy,pharmacy,,42.50883,24.716107,Plovdiv
+619171666,pharmacy,pharmacy,Здравец,42.47282,26.522105,Yambol
+619171667,pharmacy,pharmacy,Диана,42.474634,26.52619,Yambol
+619174364,pharmacy,pharmacy,Бакалова,42.481094,26.514145,Yambol
+621620408,pharmacy,pharmacy,Божилов,42.481006,26.515495,Yambol
+634155513,pharmacy,pharmacy,Лили 11,42.482755,26.512041,Yambol
+675012547,pharmacy,pharmacy,Корект,42.680913,23.373453,Sofia (Capital)
+675012552,pharmacy,pharmacy,Михаела,42.681239,23.372786,Sofia (Capital)
+676477232,school,school,ОУ Христо Ботев,43.691177,23.813404,Vratsa
+676833309,hospital,hospital,,43.692884,23.811905,Vratsa
+676833991,pharmacy,pharmacy,,43.69253,23.811897,Vratsa
+686250428,pharmacy,pharmacy,Мултифарм,42.482967,26.513197,Yambol
+688823998,pharmacy,pharmacy,Медика,42.712398,23.313013,Sofia (Capital)
+703422211,clinic,clinic,,42.881042,25.317141,Gabrovo
+704463363,pharmacy,pharmacy,SOpharmacy,42.661155,23.373367,Sofia (Capital)
+726669049,pharmacy,pharmacy,"Дрогерия ""Медидом""",42.662875,23.371274,Sofia (Capital)
+731526172,pharmacy,pharmacy,,42.739817,23.343611,Sofia (Capital)
+759944860,hospital,hospital,,41.880256,23.526144,Blagoevgrad
+759945272,pharmacy,pharmacy,,41.882425,23.525514,Blagoevgrad
+760336500,pharmacy,pharmacy,,43.218663,27.916255,Varna
+796787980,school,school,"Частен професионален колеж по спорт ""Био фит""",42.662146,23.28707,Sofia (Capital)
+810482875,pharmacy,pharmacy,Д-р Басанович,43.224191,27.923042,Varna
+833764537,pharmacy,pharmacy,Св. Мина,42.73254,23.296262,Sofia (Capital)
+837320400,school,school,"НЧ ""Димитър Динев"" - музикална школа",42.663513,23.30098,Sofia (Capital)
+837321655,school,school,"НЧ ""Димитър Динев"" - езикова школа",42.665559,23.301499,Sofia (Capital)
+837325659,clinic,clinic,"Медицински център ""Св.Николай Чудотворец""",42.736448,23.293732,Sofia (Capital)
+842494322,pharmacy,pharmacy,Subra,42.682102,23.301239,Sofia (Capital)
+842496915,pharmacy,pharmacy,Марешки,42.684915,23.297569,Sofia (Capital)
+909520055,pharmacy,pharmacy,,42.699111,25.895107,Sliven
+1013273887,pharmacy,pharmacy,,42.719588,23.256539,Sofia (Capital)
+1026806591,school,school,"Колеж по мениджмънт ""Адам Смит""",42.663153,23.252706,Sofia (Capital)
+1026806604,school,school,Департамент за информация и усъвършенстване на учители към СУ,42.662961,23.252626,Sofia (Capital)
+1077982949,clinic,doctors,,42.695293,24.448594,Plovdiv
+1088204536,clinic,doctors,Хелиос,43.214332,27.916156,Varna
+1129942990,pharmacy,pharmacy,,42.137739,24.739517,Plovdiv
+1132538014,school,school,"ОУ ""Константин Костенечки""",42.263884,23.820855,Sofia Province
+1135397111,hospital,hospital,Онкологична болница-Марко Антонов,43.176094,27.901098,Varna
+1154180270,pharmacy,pharmacy,,42.463492,27.416727,Burgas
+1154210276,pharmacy,pharmacy,Лавър 2,42.461848,27.414753,Burgas
+1159995111,pharmacy,pharmacy,,43.214699,27.912864,Varna
+1168832505,pharmacy,pharmacy,Магифарм,42.288122,25.932629,Stara Zagora
+1168832508,pharmacy,pharmacy,,42.292577,25.937358,Stara Zagora
+1168832516,pharmacy,pharmacy,,42.291879,25.937959,Stara Zagora
+1168832518,pharmacy,pharmacy,,42.291827,25.936126,Stara Zagora
+1174857047,pharmacy,pharmacy,Найден 99 ЕООД,42.140725,24.794654,Plovdiv
+1174860418,pharmacy,pharmacy,Millenium,42.139536,24.756381,Plovdiv
+1198294912,school,school,"ОУ ""Г. С. Раковски""",42.065556,24.958056,Plovdiv
+1213631456,pharmacy,pharmacy,,42.198944,25.324452,Stara Zagora
+1213631797,pharmacy,pharmacy,,42.200358,25.329453,Stara Zagora
+1223343311,pharmacy,pharmacy,,41.574229,24.715971,Smolyan
+1224505197,hospital,hospital,Стоматология,41.576609,24.707168,Smolyan
+1227256529,pharmacy,pharmacy,Жийон,42.679453,23.361024,Sofia (Capital)
+1238094135,pharmacy,pharmacy,Санита,43.206867,27.910534,Varna
+1241959399,school,school,,43.530604,23.531581,Montana
+1241959402,hospital,hospital,,43.53082,23.531404,Montana
+1243235753,pharmacy,pharmacy,Марешки,43.199061,27.912773,Varna
+1243236004,pharmacy,pharmacy,К-КРЕС,43.218083,27.91901,Varna
+1248544887,pharmacy,pharmacy,Марешки,42.725202,23.25594,Sofia (Capital)
+1250971649,pharmacy,pharmacy,Betty,42.698296,23.310258,Sofia (Capital)
+1256618393,pharmacy,pharmacy,,41.885938,23.468001,Blagoevgrad
+1256618396,pharmacy,pharmacy,Елза,41.885104,23.467263,Blagoevgrad
+1257746754,kindergarten,kindergarten,ЦДГ 1-ви юни,43.697653,28.028704,Dobrich
+1257746767,hospital,hospital,МБАЛ Бялата лястовица,43.703385,28.040356,Dobrich
+1257746773,kindergarten,kindergarten,ОДЗ Радост,43.704673,28.034444,Dobrich
+1261800403,school,school,ПГ по земеделие Кл. Тимирязев,43.438323,28.340577,Dobrich
+1261800408,school,school,СОУ Стефан Караджа,43.435431,28.334126,Dobrich
+1261800410,kindergarten,kindergarten,ЦДГ Детелина,43.427941,28.352328,Dobrich
+1261800411,school,school,ПУ Л. Каравелов,43.434745,28.344651,Dobrich
+1261800412,kindergarten,kindergarten,ЦДГ Радост,43.436993,28.328824,Dobrich
+1261800416,school,school,ОУ Йордан Йовков,43.434636,28.333837,Dobrich
+1263924816,hospital,hospital,Медицински център,43.673104,24.002342,Vratsa
+1270802012,pharmacy,pharmacy,Марешки,43.214523,27.920033,Varna
+1270803134,kindergarten,kindergarten,,43.216674,27.923831,Varna
+1270803678,clinic,doctors,,43.217284,27.916118,Varna
+1270803682,clinic,doctors,,43.209781,27.916017,Varna
+1280284677,kindergarten,kindergarten,,42.290904,25.940601,Stara Zagora
+1282778735,pharmacy,pharmacy,Asklepii,43.077276,25.611384,Veliko Tarnovo
+1286526345,pharmacy,pharmacy,Ремедиум,42.670274,23.357985,Sofia (Capital)
+1301848374,kindergarten,kindergarten,Център за работа с деца,43.845064,25.979903,Ruse
+1305263040,hospital,hospital,"МБАЛ ""Живот плюс""",41.465473,25.646752,Kardzhali
+1308877892,pharmacy,pharmacy,,42.668004,23.394593,Sofia (Capital)
+1308877997,pharmacy,pharmacy,,42.668479,23.393681,Sofia (Capital)
+1311510077,pharmacy,pharmacy,Фрамар,42.424456,25.634712,Stara Zagora
+1314544996,pharmacy,pharmacy,Санита,41.838643,23.488631,Blagoevgrad
+1314635138,pharmacy,pharmacy,Аптека Тренчева,41.83643,23.491627,Blagoevgrad
+1333933531,hospital,hospital,,42.817091,27.884391,Burgas
+1334698074,school,school,"ПГ по строителство, електротехника и услуги",42.916388,24.272046,Lovech
+1334698092,school,school,ПГ по горско стопанство и дървообработване Сава Младенов,42.916121,24.266919,Lovech
+1343912730,pharmacy,pharmacy,,42.684561,27.708883,Burgas
+1346737176,clinic,doctors,"Медицински център ""Св. Пантелеймон""",42.425069,25.636604,Stara Zagora
+1347020544,pharmacy,pharmacy,Марешки,42.426244,25.637406,Stara Zagora
+1347020572,pharmacy,pharmacy,Марешки,42.426676,25.639963,Stara Zagora
+1347020589,pharmacy,pharmacy,Ивана,42.42844,25.625312,Stara Zagora
+1347020649,pharmacy,pharmacy,Иглика,42.426804,25.640736,Stara Zagora
+1347020674,clinic,doctors,"Очна клиника ""Трошев""",42.430401,25.624419,Stara Zagora
+1347588887,clinic,doctors,"Медицински център ""Ритъм""",42.423762,25.628059,Stara Zagora
+1350036981,pharmacy,pharmacy,,42.817776,27.882498,Burgas
+1350379920,pharmacy,pharmacy,Пълдин,42.140255,24.759784,Plovdiv
+1354594506,pharmacy,pharmacy,,42.71176,27.764554,Burgas
+1355261275,pharmacy,pharmacy,,42.18628,24.56829,Plovdiv
+1359071216,pharmacy,pharmacy,Аптека Марешки,42.191046,24.329118,Pazardzhik
+1359827188,pharmacy,pharmacy,,42.70421,27.792639,Burgas
+1362663186,clinic,doctors,,42.704182,27.793176,Burgas
+1363130833,pharmacy,pharmacy,,42.592895,23.410624,Sofia (Capital)
+1363138327,pharmacy,pharmacy,Фея,42.596389,23.412,Sofia (Capital)
+1364800272,hospital,hospital,Здравна служба,42.26193,25.322567,Stara Zagora
+1366535465,school,school,,42.616279,23.393372,Sofia (Capital)
+1371096608,pharmacy,pharmacy,Галения,42.430098,25.62662,Stara Zagora
+1371096616,pharmacy,pharmacy,Ковачеви,42.431151,25.62273,Stara Zagora
+1371096620,pharmacy,pharmacy,Ремедия,42.429346,25.626787,Stara Zagora
+1378846487,pharmacy,pharmacy,Ариана,42.426327,25.631911,Stara Zagora
+1378846498,pharmacy,pharmacy,Ceiba,42.42575,25.628413,Stara Zagora
+1378846529,pharmacy,pharmacy,Фрамар,42.426252,25.631344,Stara Zagora
+1378846668,pharmacy,pharmacy,Марешки,42.426064,25.632601,Stara Zagora
+1381797563,clinic,doctors,"МБАЛ ""Тримонцуим""",42.140313,24.751514,Plovdiv
+1381797567,pharmacy,pharmacy,Тримона,42.140236,24.751425,Plovdiv
+1389571402,pharmacy,pharmacy,,42.639008,24.357648,Sofia Province
+1389571403,clinic,doctors,,42.639096,24.357636,Sofia Province
+1391113319,pharmacy,pharmacy,Ленинград,42.158273,24.733503,Plovdiv
+1391113320,clinic,doctors,Луксор,42.158498,24.740855,Plovdiv
+1391113325,clinic,doctors,Хипократ-Н,42.158903,24.738588,Plovdiv
+1391113326,pharmacy,pharmacy,36.6 Маджаров,42.158885,24.738272,Plovdiv
+1399305740,pharmacy,pharmacy,Олияна Чорбаджиева ЕТ,42.70144,25.89933,Sliven
+1406557292,pharmacy,pharmacy,,42.566816,23.180572,Pernik
+1406557293,hospital,hospital,Здравен пункт,42.566705,23.180986,Pernik
+1410332883,pharmacy,pharmacy,,43.849956,25.991169,Ruse
+1410374734,pharmacy,pharmacy,"Денонощна аптека ""Оптима""",43.850774,25.990489,Ruse
+1418599640,pharmacy,pharmacy,,43.228468,28.011095,Varna
+1418599641,pharmacy,pharmacy,,43.231347,28.012492,Varna
+1445742534,hospital,hospital,,42.837797,27.575575,Burgas
+1447040187,pharmacy,pharmacy,,43.221032,25.747266,Veliko Tarnovo
+1455172200,clinic,doctors,д-р Румен Накев,43.570593,27.81772,Dobrich
+1487707888,hospital,hospital,2-ро ДКЦ,42.147822,24.732854,Plovdiv
+1492797256,school,school,Езиков център WORDS,42.494172,27.472528,Burgas
+1494401507,pharmacy,pharmacy,Ани Фарма,43.223003,27.929092,Varna
+1495236338,pharmacy,pharmacy,,42.208244,27.807261,Burgas
+1495236855,pharmacy,pharmacy,,42.208403,27.806102,Burgas
+1495236856,pharmacy,pharmacy,,42.209324,27.807379,Burgas
+1495351590,pharmacy,pharmacy,Аптека Манолова,43.221943,27.933911,Varna
+1495351593,pharmacy,pharmacy,,43.220397,27.935009,Varna
+1496406577,pharmacy,pharmacy,36.6,42.144807,24.75591,Plovdiv
+1532805592,pharmacy,pharmacy,Гален,43.569574,27.831973,Dobrich
+1533904936,hospital,hospital,Стоматологична поликлиника,42.426666,25.632326,Stara Zagora
+1533918234,hospital,hospital,Зъболекарски кабинет,42.423864,25.627654,Stara Zagora
+1535579378,kindergarten,kindergarten,Bright Childcare and Development Centre,42.649094,23.288202,Sofia (Capital)
+1540620082,pharmacy,pharmacy,,42.428686,25.638858,Stara Zagora
+1546372522,pharmacy,pharmacy,,43.215162,27.940483,Varna
+1547586382,pharmacy,pharmacy,SOpharmacy,42.126151,24.733533,Plovdiv
+1548499320,pharmacy,pharmacy,,42.124426,24.738759,Plovdiv
+1562644571,kindergarten,kindergarten,,41.46487,25.672453,Kardzhali
+1578474000,pharmacy,pharmacy,,42.029717,24.29863,Pazardzhik
+1590858404,school,school,,41.570284,24.782809,Smolyan
+1610109404,pharmacy,pharmacy,,42.724476,23.304525,Sofia (Capital)
+1610109407,pharmacy,pharmacy,,42.726006,23.303314,Sofia (Capital)
+1615898773,pharmacy,pharmacy,Аптека 36.6 Детски свят,42.12869,24.780317,Plovdiv
+1619368584,hospital,hospital,ДКЦ Свети Георги,42.139432,24.736981,Plovdiv
+1621916737,hospital,hospital,"Очна клиника ""Св.Николай Чудотворец""",43.217871,27.923394,Varna
+1648106621,pharmacy,pharmacy,,43.21519,27.942008,Varna
+1668155102,school,school,,44.134267,22.849514,Vidin
+1697418905,clinic,clinic,Полимед,42.700077,23.30703,Sofia (Capital)
+1698680651,school,school,Prolet,42.159753,24.726214,Plovdiv
+1699374700,school,school,"СОУ ""Васил Левски""",42.015777,23.99006,Pazardzhik
+1699374701,school,school,"ТИТ ""Алеко Константинов""",42.021853,23.988983,Pazardzhik
+1699464850,pharmacy,pharmacy,ПроФарма,42.670032,23.302795,Sofia (Capital)
+1699496539,clinic,doctors,Кожно-венерически заболявания ЕООД,42.664914,23.296706,Sofia (Capital)
+1699496558,hospital,hospital,Институтска СБАЛ по белодробни болести Св. София,42.68158,23.306037,Sofia (Capital)
+1699496559,hospital,hospital,СБАЛГАР - д-р Малинов ООД,42.675219,23.289437,Sofia (Capital)
+1699496570,clinic,doctors,Медастра,42.68004,23.285331,Sofia (Capital)
+1699496581,clinic,doctors,Д-р Чалашканов,42.67966,23.287357,Sofia (Capital)
+1699496646,pharmacy,pharmacy,Вип фарма,42.671949,23.300376,Sofia (Capital)
+1699496649,pharmacy,pharmacy,Ливай,42.672201,23.300044,Sofia (Capital)
+1699498085,pharmacy,pharmacy,Медея,42.672735,23.299318,Sofia (Capital)
+1699498121,pharmacy,pharmacy,,42.677579,23.3001,Sofia (Capital)
+1699498135,clinic,doctors,Д-р Петър Самарев,42.676494,23.301361,Sofia (Capital)
+1699545085,clinic,doctors,Медико-диагностична лаборатория Кандиларов,42.686325,23.316375,Sofia (Capital)
+1699545115,clinic,doctors,Медицински център Панацея,42.68636,23.30727,Sofia (Capital)
+1699545119,clinic,clinic,Медицински център Св. Георги,42.684232,23.303059,Sofia (Capital)
+1699545133,clinic,doctors,Национален център за здравна информация,42.682465,23.302142,Sofia (Capital)
+1699545166,hospital,hospital,УМБАЛ Св. Екатерина,42.684818,23.312586,Sofia (Capital)
+1699849496,clinic,clinic,13-ти ДКЦ - детско отделение,42.671207,23.321535,Sofia (Capital)
+1699935294,pharmacy,pharmacy,Ремедиум,42.69149,23.330126,Sofia (Capital)
+1700083372,clinic,doctors,Детско-юношеска психиатрична клиника,42.660246,23.256405,Sofia (Capital)
+1700085432,clinic,doctors,21-ви ДКЦ,42.682906,23.254791,Sofia (Capital)
+1708836742,hospital,hospital,31 ДКЦ,42.802451,23.341984,Sofia (Capital)
+1714020662,clinic,doctors,Специализирана болница за рехабилитация,42.599772,25.211378,Stara Zagora
+1732006302,hospital,hospital,,42.295359,25.208888,Stara Zagora
+1745952608,pharmacy,pharmacy,Орфей,42.691333,23.311368,Sofia (Capital)
+1787626344,kindergarten,kindergarten,"Детска градина ""Осми март""",42.126655,24.734122,Plovdiv
+1798420765,pharmacy,pharmacy,Марешки,42.131325,24.74487,Plovdiv
+1798420766,kindergarten,kindergarten,Марина Бг,42.140408,24.74798,Plovdiv
+1800366732,hospital,hospital,СБАЛ на деца с онкохематологични заболявания,42.700691,23.33915,Sofia (Capital)
+1800454401,hospital,hospital,СБАЛ Йоан Павел,42.712963,23.312764,Sofia (Capital)
+1800456593,hospital,hospital,СОБАЛ Акад. Пашев,42.701905,23.369551,Sofia (Capital)
+1800471516,hospital,hospital,СБАЛДБ Клинико-рехабилитационни отделения,42.709269,23.150103,Sofia (Capital)
+1800513100,hospital,hospital,3-то ДКЦ,42.699588,23.328442,Sofia (Capital)
+1809386949,pharmacy,pharmacy,,42.711545,27.766244,Burgas
+1820309741,pharmacy,pharmacy,,44.045081,26.615927,Silistra
+1824771598,school,school,ПМГ „Акад. С. А. Корольов“,42.018311,23.085565,Blagoevgrad
+1834036350,pharmacy,pharmacy,,42.819024,27.882466,Burgas
+1835888300,hospital,hospital,Бърза помощ,42.412677,27.697972,Burgas
+1839219155,pharmacy,pharmacy,Валенс,43.233891,27.872788,Varna
+1845692983,pharmacy,pharmacy,Марешки,43.493109,24.07567,Pleven
+1845693149,pharmacy,pharmacy,Марешки,42.272857,24.942967,Plovdiv
+1846724420,hospital,hospital,,43.220313,25.746208,Veliko Tarnovo
+1870326743,clinic,doctors,Медицински Център Св. Николай,42.691099,27.709926,Burgas
+1871094910,hospital,hospital,,43.019853,23.212013,Sofia Province
+1882475184,kindergarten,kindergarten,,41.719992,24.995594,Smolyan
+1886738988,pharmacy,pharmacy,,42.641735,27.678661,Burgas
+1890101261,pharmacy,pharmacy,,42.642867,27.676837,Burgas
+1890529026,pharmacy,pharmacy,,42.68988,27.711478,Burgas
+1896996319,hospital,hospital,,42.062532,25.580645,Haskovo
+1948955074,kindergarten,kindergarten,,43.67481,23.988546,Vratsa
+1973607452,pharmacy,pharmacy,,43.207117,27.897468,Varna
+1977563601,pharmacy,pharmacy,Марешки,43.077284,25.612133,Veliko Tarnovo
+1979595747,pharmacy,pharmacy,Детелина,42.744019,23.279016,Sofia (Capital)
+2013023118,pharmacy,pharmacy,Марешки,42.642828,24.802678,Plovdiv
+2031661421,pharmacy,pharmacy,Денонощен аптечен комплекс,42.159312,24.742693,Plovdiv
+2031661842,pharmacy,pharmacy,Марешки,42.161052,24.74155,Plovdiv
+2051580681,school,school,"ОУ ,,Панайот Волов""",43.246062,27.979951,Varna
+2056679017,kindergarten,kindergarten,,43.343809,25.970224,Ruse
+2093879472,pharmacy,pharmacy,,42.698331,23.310014,Sofia (Capital)
+2108679917,pharmacy,pharmacy,,43.343659,28.055048,Dobrich
+2115928332,hospital,hospital,Олимед,43.210934,27.907071,Varna
+2115928333,hospital,hospital,Хирургическа Болница Проф. Темелков,43.21094,27.907045,Varna
+2136119222,pharmacy,pharmacy,,42.66225,27.719796,Burgas
+2136603751,pharmacy,pharmacy,Олифарм,42.649902,23.332122,Sofia (Capital)
+2147630318,hospital,hospital,Торакс,42.150818,24.743227,Plovdiv
+2149261968,pharmacy,pharmacy,Марешки,42.127786,24.748196,Plovdiv
+2149261980,pharmacy,pharmacy,диа-фарм,42.130455,24.751206,Plovdiv
+2153135657,pharmacy,pharmacy,,42.642283,24.804789,Plovdiv
+2154437140,hospital,hospital,,42.770875,23.404052,Sofia (Capital)
+2154570357,hospital,hospital,ЦСМП,42.706693,23.142207,Sofia (Capital)
+2161080305,hospital,hospital,,42.82225,23.282223,Sofia (Capital)
+2165107208,kindergarten,kindergarten,,42.537489,23.369726,Sofia (Capital)
+2165121314,hospital,hospital,Медицински център,42.599424,23.169844,Sofia (Capital)
+2165262358,kindergarten,kindergarten,ДГ №182 „Пчелица“,42.543258,23.494327,Sofia (Capital)
+2165262638,hospital,hospital,Медицински център,42.543067,23.494166,Sofia (Capital)
+2165315757,hospital,hospital,,42.772676,23.241861,Sofia (Capital)
+2169261143,school,school,ПГ по туризъм сгр.2,42.33508,23.560983,Sofia Province
+2173340082,clinic,doctors,Здравна служба с.Лозен,42.602024,23.486802,Sofia (Capital)
+2178166704,hospital,hospital,МЦ Св. Богородица - Възвестителка,42.632899,23.311854,Sofia (Capital)
+2179925213,pharmacy,pharmacy,Ремедиум,42.683913,23.353744,Sofia (Capital)
+2234176870,kindergarten,kindergarten,,42.731117,23.554433,Sofia (Capital)
+2234739228,hospital,hospital,,42.576602,23.414238,Sofia (Capital)
+2260219791,pharmacy,pharmacy,Марешки,42.679271,26.30971,Sliven
+2260219796,school,school,"ХГ ""Дамян Дамянов""",42.681487,26.318068,Sliven
+2260219807,pharmacy,pharmacy,,42.678674,26.31218,Sliven
+2260219815,pharmacy,pharmacy,,42.679449,26.311125,Sliven
+2268144357,hospital,hospital,,42.681101,23.465956,Sofia (Capital)
+2268215670,hospital,hospital,,42.700169,23.492786,Sofia (Capital)
+2268628990,pharmacy,pharmacy,,42.234623,27.772612,Burgas
+2269051274,pharmacy,pharmacy,АКВА,42.66142,27.716516,Burgas
+2269062022,pharmacy,pharmacy,Тилия,42.660557,27.715403,Burgas
+2279180781,pharmacy,pharmacy,,42.663906,27.716489,Burgas
+2286659155,pharmacy,pharmacy,,42.876795,27.886406,Varna
+2298689350,pharmacy,pharmacy,,42.65845,27.735036,Burgas
+2299880856,pharmacy,pharmacy,,42.561203,27.638823,Burgas
+2313999604,pharmacy,pharmacy,Ceiba,43.080416,25.629952,Veliko Tarnovo
+2314150284,pharmacy,pharmacy,,43.078553,25.631093,Veliko Tarnovo
+2316945896,pharmacy,pharmacy,,43.078291,25.61807,Veliko Tarnovo
+2318912448,pharmacy,pharmacy,,43.071766,25.607219,Veliko Tarnovo
+2320564253,pharmacy,pharmacy,,43.076023,25.650804,Veliko Tarnovo
+2321778285,pharmacy,pharmacy,,43.069403,25.606884,Veliko Tarnovo
+2321806754,pharmacy,pharmacy,Фармвест,43.076142,25.624601,Veliko Tarnovo
+2321876840,pharmacy,pharmacy,,43.079458,25.604057,Veliko Tarnovo
+2331464665,school,school,Спортно училище Ген. Вл. Стойчев,42.673488,23.377534,Sofia (Capital)
+2341134154,pharmacy,pharmacy,Марешки,43.225817,27.933577,Varna
+2343004305,kindergarten,kindergarten,Детска ясла 12,42.679012,26.302481,Sliven
+2343347164,school,school,ЧПК по мениджмънт,42.689152,26.318524,Sliven
+2343347169,school,school,Медицински колеж,42.685166,26.319349,Sliven
+2343347171,school,school,"ПГ по текстил и облекло ""Добри Чинтулов""",42.689724,26.318678,Sliven
+2343485508,school,school,"НХГ ""Димитър Добрович""",42.678765,26.328004,Sliven
+2343485517,hospital,hospital,"МБАЛ Д-р ""Иван Селимински"" - инфекциозно отделение",42.681838,26.331008,Sliven
+2343485536,hospital,hospital,СБАЛ по белодробни болести,42.681798,26.331376,Sliven
+2349214003,clinic,doctors,Очна клиника Света Петка,43.08116,25.625669,Veliko Tarnovo
+2358048870,pharmacy,pharmacy,,42.688458,27.709201,Burgas
+2362564605,pharmacy,pharmacy,SOpharmacy,42.677189,23.292586,Sofia (Capital)
+2375768766,pharmacy,pharmacy,Аптека Белите брези,42.677697,23.291885,Sofia (Capital)
+2378121190,pharmacy,pharmacy,Арония 2001,42.689259,23.307159,Sofia (Capital)
+2378127919,pharmacy,pharmacy,Марешки,42.687201,23.310427,Sofia (Capital)
+2378131732,pharmacy,pharmacy,Мина,42.686721,23.309193,Sofia (Capital)
+2378133018,pharmacy,pharmacy,SOpharmacy,42.686235,23.3074,Sofia (Capital)
+2380757858,pharmacy,pharmacy,,43.278834,28.042383,Varna
+2380757859,clinic,doctors,,43.278949,28.042372,Varna
+2380757863,pharmacy,pharmacy,,43.288776,28.045212,Varna
+2380757865,clinic,clinic,Медицински център,43.28987,28.038898,Varna
+2380757866,pharmacy,pharmacy,,43.289994,28.03887,Varna
+2380757868,pharmacy,pharmacy,,43.293517,28.04607,Varna
+2380757869,clinic,doctors,,43.294873,28.042331,Varna
+2382044463,clinic,clinic,Медицински център,43.274459,28.041149,Varna
+2383951387,hospital,hospital,Спешна медицинска помощ,42.664357,23.600831,Sofia Province
+2383955343,kindergarten,kindergarten,ОДЗ Здравец,42.666274,23.603427,Sofia Province
+2387114181,pharmacy,pharmacy,Марешки,42.136459,24.756008,Plovdiv
+2389552500,pharmacy,pharmacy,Хаджолян,43.203327,27.911763,Varna
+2392507461,kindergarten,kindergarten,ЦДГ с.Кутово,44.031324,22.969296,Vidin
+2392507492,pharmacy,pharmacy,"Аптека ""Плантафарм""",44.030252,22.96634,Vidin
+2392507501,hospital,hospital,Здравна служба Кутово,44.028415,22.952719,Vidin
+2397320862,pharmacy,pharmacy,,42.671204,23.599442,Sofia Province
+2402250403,pharmacy,pharmacy,Марешки,43.210503,27.903074,Varna
+2407682126,hospital,hospital,,43.342423,23.847216,Vratsa
+2408303769,pharmacy,pharmacy,,43.526198,26.521917,Razgrad
+2408303831,pharmacy,pharmacy,,43.525572,26.52491,Razgrad
+2408303839,pharmacy,pharmacy,,43.52523,26.526175,Razgrad
+2413629580,clinic,doctors,VIP Clinic,42.674588,23.292147,Sofia (Capital)
+2414316945,pharmacy,pharmacy,,42.266755,27.758533,Burgas
+2414591690,pharmacy,pharmacy,,42.266987,27.75566,Burgas
+2417964535,pharmacy,pharmacy,Марешки,42.657172,23.349116,Sofia (Capital)
+2423030495,school,school,,42.574351,25.745169,Stara Zagora
+2429063971,pharmacy,pharmacy,Живакова 2,41.932918,25.560785,Haskovo
+2429063972,pharmacy,pharmacy,,41.9315,25.560259,Haskovo
+2429063975,pharmacy,pharmacy,Гален 3,41.932883,25.560905,Haskovo
+2429063976,pharmacy,pharmacy,Гален 1,41.933052,25.560433,Haskovo
+2430288313,pharmacy,pharmacy,Асикон 2000,42.55836,27.63922,Burgas
+2435850570,kindergarten,kindergarten,,42.503658,24.187475,Pazardzhik
+2455680329,hospital,hospital,ДКЦ 2,41.936452,25.554029,Haskovo
+2466673230,pharmacy,pharmacy,,42.648609,23.262194,Sofia (Capital)
+2468490750,pharmacy,pharmacy,,42.707785,27.72328,Burgas
+2472207092,hospital,hospital,Медицински Център за Репродуктивна Медицина,43.402786,24.615323,Pleven
+2473208581,pharmacy,pharmacy,Марешки,42.697124,23.335415,Sofia (Capital)
+2473208582,pharmacy,pharmacy,Ремедиа,42.697496,23.335293,Sofia (Capital)
+2473220793,pharmacy,pharmacy,Галантус,42.412109,27.70013,Burgas
+2496358959,pharmacy,pharmacy,Sopharmacy,42.50327,27.47481,Burgas
+2503345175,hospital,hospital,Здравен пункт,42.637216,23.945253,Sofia Province
+2508693676,pharmacy,pharmacy,,42.597811,25.206158,Stara Zagora
+2530649415,pharmacy,pharmacy,,42.691887,23.356823,Sofia (Capital)
+2531958176,pharmacy,pharmacy,Алба,42.690538,23.358694,Sofia (Capital)
+2541115503,clinic,doctors,Логопед,42.694416,23.360734,Sofia (Capital)
+2561477890,pharmacy,pharmacy,SOpharmacy,42.69082,23.363599,Sofia (Capital)
+2566408730,pharmacy,pharmacy,Галантус,42.690294,23.363664,Sofia (Capital)
+2566502080,kindergarten,kindergarten,,42.445875,27.489193,Burgas
+2571920695,hospital,hospital,,43.164966,27.938298,Varna
+2572950105,school,school,,42.869373,27.890117,Varna
+2573747595,pharmacy,pharmacy,,42.621022,25.397167,Stara Zagora
+2574172062,pharmacy,pharmacy,,43.568994,27.827569,Dobrich
+2575877535,pharmacy,pharmacy,,42.690311,23.36481,Sofia (Capital)
+2576843338,pharmacy,pharmacy,Медея,42.669005,23.285518,Sofia (Capital)
+2578803053,pharmacy,pharmacy,,42.620778,25.396528,Stara Zagora
+2590524867,pharmacy,pharmacy,Си-фарма,42.734326,23.308784,Sofia (Capital)
+2591882542,clinic,doctors,Здравна служба,42.351165,25.965518,Sliven
+2593185432,pharmacy,pharmacy,,43.832058,25.976633,Ruse
+2597211194,pharmacy,pharmacy,,42.236756,27.777679,Burgas
+2607234646,pharmacy,pharmacy,Аптека на УБ Александровска,42.683438,23.308356,Sofia (Capital)
+2611595295,pharmacy,pharmacy,Асклепий,43.079387,25.628482,Veliko Tarnovo
+2611604586,pharmacy,pharmacy,Салвия,43.078671,25.627908,Veliko Tarnovo
+2619503923,school,school,"ПГ ""Христо Ботев""",41.381384,25.098616,Smolyan
+2620855881,pharmacy,pharmacy,Лили,42.689096,23.31417,Sofia (Capital)
+2626019625,kindergarten,kindergarten,Детски кът,43.847443,25.951388,Ruse
+2626936395,school,school,Маестро,43.205564,27.921683,Varna
+2629134489,pharmacy,pharmacy,,42.63963,23.376276,Sofia (Capital)
+2631205419,pharmacy,pharmacy,,43.53023,26.532879,Razgrad
+2633708521,pharmacy,pharmacy,Астра-4,43.845591,25.97513,Ruse
+2637253005,pharmacy,pharmacy,Гален,42.720503,23.243132,Sofia (Capital)
+2640112057,pharmacy,pharmacy,,42.6435,23.375741,Sofia (Capital)
+2640142514,pharmacy,pharmacy,Бултихфарма,42.661008,23.372934,Sofia (Capital)
+2642121572,clinic,doctors,Д-р Попова,42.668111,23.284603,Sofia (Capital)
+2642211456,pharmacy,pharmacy,Нота Бене,42.651823,23.404686,Sofia (Capital)
+2673150610,clinic,clinic,Клиника по хемодиализа към МБАЛ „Св. Марина“,43.228583,27.935583,Varna
+2683339403,clinic,doctors,Медик Консулт,43.854881,25.963811,Ruse
+2683344359,pharmacy,pharmacy,Вива,43.854583,25.964384,Ruse
+2683346379,clinic,doctors,Касърова,43.854429,25.964577,Ruse
+2683350717,pharmacy,pharmacy,М-Фарма,43.854676,25.965242,Ruse
+2683357035,pharmacy,pharmacy,Медика-4,43.855815,25.967823,Ruse
+2683363282,pharmacy,pharmacy,,43.855078,25.969405,Ruse
+2683402244,hospital,hospital,Медикус,43.84991,25.959127,Ruse
+2683406918,pharmacy,pharmacy,Марешки,43.849694,25.956638,Ruse
+2691125675,pharmacy,pharmacy,Ceiba,42.696058,23.319748,Sofia (Capital)
+2699929661,pharmacy,pharmacy,,43.561774,27.819058,Dobrich
+2699939410,pharmacy,pharmacy,Здравен свят,43.566642,27.822801,Dobrich
+2700005511,pharmacy,pharmacy,,43.564916,27.830185,Dobrich
+2700005514,pharmacy,pharmacy,SOpharmacy,43.57121,27.831306,Dobrich
+2700005516,pharmacy,pharmacy,,43.574646,27.842705,Dobrich
+2700005517,pharmacy,pharmacy,Вива 1,43.567282,27.830465,Dobrich
+2700062183,pharmacy,pharmacy,Аптека Райковски,43.577735,27.828826,Dobrich
+2700199370,pharmacy,pharmacy,,43.563123,27.834834,Dobrich
+2700231845,pharmacy,pharmacy,Марешки,43.570305,27.833894,Dobrich
+2700342116,pharmacy,pharmacy,Милева,43.567069,27.832353,Dobrich
+2700507015,pharmacy,pharmacy,,43.562278,27.826432,Dobrich
+2700536650,pharmacy,pharmacy,Ремедия,43.566842,27.821099,Dobrich
+2700536651,pharmacy,pharmacy,Янакиев,43.568093,27.82454,Dobrich
+2700540832,pharmacy,pharmacy,Марешки,43.567081,27.828333,Dobrich
+2700591543,pharmacy,pharmacy,,43.572372,27.83045,Dobrich
+2717241283,pharmacy,pharmacy,SOpharmacy,43.208343,27.919096,Varna
+2742300276,pharmacy,pharmacy,Мега фарма,42.694997,23.321374,Sofia (Capital)
+2799412005,school,school,"ПГ по лека промишленост ""Васил Левски""",42.029255,24.303186,Pazardzhik
+2816055503,hospital,hospital,,42.354323,24.730613,Plovdiv
+2819109241,pharmacy,pharmacy,SOpharmacy,42.676912,23.301719,Sofia (Capital)
+2839488560,hospital,hospital,МБАЛ Св. Иван Рилски,43.116397,25.698779,Veliko Tarnovo
+2842808870,school,school,"Народно основно училище ""Йордже Димитровъ""",41.683835,23.826108,Blagoevgrad
+2842813017,school,school,Килийно училище - лето 1820,41.684251,23.82563,Blagoevgrad
+2868917107,pharmacy,pharmacy,,43.147825,23.92504,Vratsa
+2872765252,pharmacy,pharmacy,,43.148702,23.925064,Vratsa
+2878028387,kindergarten,kindergarten,"Целодневна детска градина ""Калина малина""",42.964925,23.342938,Sofia Province
+2902719305,school,school,"Езикова школа ""Панелиника""",42.691212,23.341456,Sofia (Capital)
+2910162103,pharmacy,pharmacy,Betty,42.694009,23.315285,Sofia (Capital)
+2911940870,school,school,"Езиков център ""Success""",42.689809,23.316902,Sofia (Capital)
+2916121934,kindergarten,kindergarten,ДГ №159 „Олимпийче“,42.691299,23.320301,Sofia (Capital)
+2921502420,pharmacy,pharmacy,Марешки,43.272875,26.938619,Shumen
+2934756729,school,school,Educational Centre,42.691502,23.323203,Sofia (Capital)
+2934789706,pharmacy,pharmacy,Ремедиум,42.692056,23.324513,Sofia (Capital)
+2939265250,pharmacy,pharmacy,АПТЕКА 6,42.668863,26.335248,Sliven
+2939277062,pharmacy,pharmacy,Авицена,42.675571,26.323939,Sliven
+2939277569,clinic,clinic,Център по хемодиализа,42.676207,26.323944,Sliven
+2939292943,clinic,clinic,КЛИНИКА РОСЕН МАНОЛОВ,42.679539,26.318364,Sliven
+2939308404,clinic,clinic,Клиника д-р Котов,42.679101,26.314945,Sliven
+2949129450,hospital,hospital,Св. Анна,42.692508,26.343841,Sliven
+2953703233,pharmacy,pharmacy,Медея,42.68573,23.297083,Sofia (Capital)
+2953703933,clinic,clinic,Невровита,42.686867,23.298455,Sofia (Capital)
+2985993005,pharmacy,pharmacy,Марешки,42.737071,23.301805,Sofia (Capital)
+2989447448,school,school,"НУ ""Отец Паисий""",43.192341,27.706152,Varna
+2994732806,pharmacy,pharmacy,Аптека - 31,42.131861,24.714025,Plovdiv
+2995826150,pharmacy,pharmacy,,42.132305,24.702697,Plovdiv
+2995831769,pharmacy,pharmacy,,42.13112,24.702836,Plovdiv
+3005693384,pharmacy,pharmacy,,42.133329,24.712239,Plovdiv
+3006813564,pharmacy,pharmacy,Медея,42.710578,23.313776,Sofia (Capital)
+3006826529,pharmacy,pharmacy,Медея,42.676585,23.28938,Sofia (Capital)
+3006887966,pharmacy,pharmacy,Медея,42.665618,23.299563,Sofia (Capital)
+3007462536,pharmacy,pharmacy,Медея,42.629178,23.310257,Sofia (Capital)
+3007493570,pharmacy,pharmacy,Медея,42.674958,23.358449,Sofia (Capital)
+3007545814,pharmacy,pharmacy,Медея,42.706689,23.285979,Sofia (Capital)
+3007575580,pharmacy,pharmacy,Медея,42.675882,23.321206,Sofia (Capital)
+3007603161,pharmacy,pharmacy,Benu,42.670609,23.332343,Sofia (Capital)
+3007608851,pharmacy,pharmacy,Медея,42.679468,23.324866,Sofia (Capital)
+3007640263,pharmacy,pharmacy,Медея,42.713705,23.245398,Sofia (Capital)
+3007656405,pharmacy,pharmacy,Медея,42.651258,23.381477,Sofia (Capital)
+3007673039,pharmacy,pharmacy,Медея,42.635034,23.376152,Sofia (Capital)
+3007676784,pharmacy,pharmacy,Медея,42.727462,23.300707,Sofia (Capital)
+3007749197,pharmacy,pharmacy,Медея,42.700901,23.293215,Sofia (Capital)
+3007763593,pharmacy,pharmacy,Медея,42.692945,23.359978,Sofia (Capital)
+3007771000,pharmacy,pharmacy,Медея,42.708292,23.299175,Sofia (Capital)
+3007781842,pharmacy,pharmacy,Медея,42.64962,23.342044,Sofia (Capital)
+3007829262,pharmacy,pharmacy,Медея,42.698198,23.327329,Sofia (Capital)
+3007834576,pharmacy,pharmacy,Медея,42.688101,23.311703,Sofia (Capital)
+3008547070,pharmacy,pharmacy,,43.005189,23.348367,Sofia Province
+3013744302,hospital,hospital,Трета поликлиника,41.93662,25.554029,Haskovo
+3013760311,pharmacy,pharmacy,Найденова,41.936516,25.553977,Haskovo
+3013761038,pharmacy,pharmacy,Живакова,41.935952,25.554012,Haskovo
+3016134989,pharmacy,pharmacy,,43.217205,27.916473,Varna
+3016134990,pharmacy,pharmacy,Европа,43.217448,27.916217,Varna
+3016629518,pharmacy,pharmacy,,42.671926,23.328996,Sofia (Capital)
+3022400397,pharmacy,pharmacy,Весела,42.696411,23.317813,Sofia (Capital)
+3028739968,kindergarten,kindergarten,ДГ №87 „Буката“ - сграда 2,42.691029,23.314653,Sofia (Capital)
+3029811028,pharmacy,pharmacy,Rx,42.689028,23.308119,Sofia (Capital)
+3057601128,pharmacy,pharmacy,,41.580512,24.686911,Smolyan
+3057991847,pharmacy,pharmacy,Ellie's,42.710751,27.764963,Burgas
+3059707828,pharmacy,pharmacy,,43.830749,25.970872,Ruse
+3060676623,pharmacy,pharmacy,SOpharmacy,42.726393,23.303003,Sofia (Capital)
+3060758238,pharmacy,pharmacy,Милениум-77,43.824309,25.975012,Ruse
+3074831969,clinic,clinic,Психологическа Лаборатория,43.847262,25.945743,Ruse
+3103869806,pharmacy,pharmacy,,42.875624,27.886527,Varna
+3109499721,kindergarten,kindergarten,ЧДГ „Джани РоДари“,42.681136,23.382203,Sofia (Capital)
+3109552629,school,school,ЧОУ „Образователни технологии“,42.678013,23.380799,Sofia (Capital)
+3110225023,pharmacy,pharmacy,Ремедиум,42.682741,23.363503,Sofia (Capital)
+3111850431,clinic,clinic,Месембрия,42.687936,23.352011,Sofia (Capital)
+3115233020,clinic,clinic,МЦ Надежда,43.213255,27.919078,Varna
+3115233021,clinic,clinic,РЦ Трансфузионна хематология - Варна,43.214592,27.918054,Varna
+3115293004,clinic,clinic,Русев ЕООД,43.213507,27.916831,Varna
+3130696329,pharmacy,pharmacy,Нота бене,42.672359,23.289212,Sofia (Capital)
+3143360729,pharmacy,pharmacy,Феникс,42.677494,23.296987,Sofia (Capital)
+3158027605,clinic,doctors,,43.841921,25.96007,Ruse
+3158451160,pharmacy,pharmacy,,42.20023,25.327861,Stara Zagora
+3166457156,pharmacy,pharmacy,Фрамар,43.209169,27.919514,Varna
+3171256820,pharmacy,pharmacy,,42.701148,23.308179,Sofia (Capital)
+3178354161,pharmacy,pharmacy,Фарма-Л,42.668913,23.285652,Sofia (Capital)
+3179936605,pharmacy,pharmacy,,42.698282,23.305557,Sofia (Capital)
+3183703831,clinic,clinic,Диагностичен център Сърце,42.680267,23.301907,Sofia (Capital)
+3189862461,pharmacy,pharmacy,Марешки,43.830577,25.970548,Ruse
+3191480877,pharmacy,pharmacy,Art pharma,42.664306,23.284199,Sofia (Capital)
+3191598903,pharmacy,pharmacy,Медея,42.665556,23.272842,Sofia (Capital)
+3193607159,kindergarten,kindergarten,ЧДГ „Мария Магдалена“,42.666629,23.291079,Sofia (Capital)
+3193652545,pharmacy,pharmacy,Марешки,42.665721,23.296393,Sofia (Capital)
+3195283669,pharmacy,pharmacy,,42.664687,23.285812,Sofia (Capital)
+3227705561,clinic,doctors,Д-р Сибирски,42.671701,23.293662,Sofia (Capital)
+3237879195,pharmacy,pharmacy,,42.721925,23.240762,Sofia (Capital)
+3260922598,pharmacy,pharmacy,Корект,42.696485,23.351384,Sofia (Capital)
+3260922599,pharmacy,pharmacy,Орфей,42.69347,23.351113,Sofia (Capital)
+3268738596,school,school,ДОВДЛРГ Велика и Георги Ченчеви,43.025996,25.108031,Gabrovo
+3298587263,pharmacy,pharmacy,,43.471022,23.94498,Vratsa
+3314878870,hospital,hospital,Д-р. Жечкова,42.6847,26.316727,Sliven
+3324604680,pharmacy,pharmacy,,41.565553,23.280616,Blagoevgrad
+3324604857,pharmacy,pharmacy,,41.563851,23.280103,Blagoevgrad
+3327196493,clinic,clinic,Траснпортна Болница,42.491026,27.471018,Burgas
+3341914056,pharmacy,pharmacy,,43.426673,23.95543,Vratsa
+3343760197,school,school,,42.833535,26.456211,Sliven
+3357347872,hospital,hospital,4D Medical Д-р Троянчев Фетална морфология,42.149066,24.750155,Plovdiv
+3359215756,hospital,hospital,Здравна служба,42.147123,25.202569,Plovdiv
+3363019095,pharmacy,pharmacy,Ирис,42.492707,27.464295,Burgas
+3363019097,pharmacy,pharmacy,Кедър,42.493679,27.471457,Burgas
+3374175505,pharmacy,pharmacy,,42.490984,27.470831,Burgas
+3383899541,pharmacy,pharmacy,Алекс,42.502829,27.479058,Burgas
+3399323527,pharmacy,pharmacy,Вира,42.680129,23.371478,Sofia (Capital)
+3406262317,clinic,clinic,Oчна болница Бургас,42.518594,27.457252,Burgas
+3410654961,pharmacy,pharmacy,Агро Аптека,42.504626,27.459785,Burgas
+3413578328,pharmacy,pharmacy,,42.621151,25.387905,Stara Zagora
+3421816081,clinic,doctors,,41.575006,23.283704,Blagoevgrad
+3422743890,pharmacy,pharmacy,,42.522302,27.46118,Burgas
+3457037469,pharmacy,pharmacy,,41.742583,24.398656,Smolyan
+3457039519,pharmacy,pharmacy,Диове фарм,41.74323,24.398091,Smolyan
+3457041856,pharmacy,pharmacy,,41.74292,24.394068,Smolyan
+3457109062,clinic,clinic,МЦ Интермедика,42.676856,23.29294,Sofia (Capital)
+3463659037,pharmacy,pharmacy,,42.694262,24.952246,Plovdiv
+3470945634,pharmacy,pharmacy,,43.525401,26.526937,Razgrad
+3470945636,pharmacy,pharmacy,Сейба,43.53029,26.511487,Razgrad
+3470945637,hospital,hospital,,43.529415,26.519832,Razgrad
+3470945639,pharmacy,pharmacy,,43.529318,26.519681,Razgrad
+3470945642,pharmacy,pharmacy,,43.525463,26.526838,Razgrad
+3473412983,pharmacy,pharmacy,,42.68888,26.340284,Sliven
+3473423002,pharmacy,pharmacy,Марешки,42.684238,26.343547,Sliven
+3473472719,clinic,doctors,Амброаз Паре,42.669008,26.334406,Sliven
+3475159693,clinic,clinic,Пластична хирургия Нефертити,42.675532,23.295596,Sofia (Capital)
+3480871674,hospital,hospital,БОДИЛАБ,42.678147,26.317602,Sliven
+3488087996,clinic,clinic,Ирисова диагностика,43.420385,24.599507,Pleven
+3506051220,pharmacy,pharmacy,ПроФарма,42.652838,23.373149,Sofia (Capital)
+3506958189,pharmacy,pharmacy,,41.611792,23.787589,Blagoevgrad
+3506986110,pharmacy,pharmacy,,41.57158,23.730154,Blagoevgrad
+3511917502,pharmacy,pharmacy,City pharma,42.698196,23.331793,Sofia (Capital)
+3516070029,pharmacy,pharmacy,Бони фарм,42.696506,23.336743,Sofia (Capital)
+3516172401,pharmacy,pharmacy,Реджина,42.696138,23.345261,Sofia (Capital)
+3522598231,pharmacy,pharmacy,SOpharmacy,42.696435,23.348823,Sofia (Capital)
+3522598233,pharmacy,pharmacy,Lilly,42.696325,23.348022,Sofia (Capital)
+3526513401,pharmacy,pharmacy,Св. Лука,43.214281,27.916235,Varna
+3527025904,pharmacy,pharmacy,,42.69279,23.323844,Sofia (Capital)
+3527098803,pharmacy,pharmacy,SOpharmacy,42.689353,23.31889,Sofia (Capital)
+3527597671,kindergarten,kindergarten,ДГ №154 „Сбъдната мечта“ - филиал бл. 73,42.677283,23.376261,Sofia (Capital)
+3531789137,pharmacy,pharmacy,Адонис,42.13549,24.742714,Plovdiv
+3533445911,clinic,clinic,Люлин МЕД,42.715286,23.256967,Sofia (Capital)
+3534231932,pharmacy,pharmacy,Subra,42.69326,23.334317,Sofia (Capital)
+3540098014,pharmacy,pharmacy,SOpharmacy,42.6914,23.325197,Sofia (Capital)
+3540751795,pharmacy,pharmacy,Ремедиум,42.690136,23.326276,Sofia (Capital)
+3552001283,pharmacy,pharmacy,,42.68687,23.317511,Sofia (Capital)
+3555970244,clinic,doctors,Здравна служба,42.864747,23.36859,Sofia Province
+3562936701,pharmacy,pharmacy,36.6,42.13072,24.749556,Plovdiv
+3562936702,pharmacy,pharmacy,Марешки,42.130834,24.750882,Plovdiv
+3563692651,hospital,hospital,МБАЛ Св. Каридад,42.122214,24.746694,Plovdiv
+3583347945,pharmacy,pharmacy,SOpharmacy,42.678013,23.286151,Sofia (Capital)
+3583356481,clinic,clinic,Медицински център Д-р Емил Илиев,42.679616,23.28792,Sofia (Capital)
+3590773792,pharmacy,pharmacy,Марешки,42.684295,23.35447,Sofia (Capital)
+3590787828,pharmacy,pharmacy,Фармина,42.684571,23.353965,Sofia (Capital)
+3605978172,pharmacy,pharmacy,,42.444258,27.63884,Burgas
+3607034647,pharmacy,pharmacy,Марешки,42.557864,27.641196,Burgas
+3607056010,pharmacy,pharmacy,,42.555353,27.642414,Burgas
+3623851997,pharmacy,pharmacy,Здраве,42.598492,26.692008,Yambol
+3624029848,pharmacy,pharmacy,Subra,42.67497,23.308679,Sofia (Capital)
+3633875859,pharmacy,pharmacy,ПроФарма,42.673956,23.355584,Sofia (Capital)
+3635586298,pharmacy,pharmacy,SOpharmacy,42.676252,23.360039,Sofia (Capital)
+3635986115,pharmacy,pharmacy,ПроФарма,42.668716,23.319123,Sofia (Capital)
+3646716163,pharmacy,pharmacy,SOpharmacy,42.670584,23.321037,Sofia (Capital)
+3648709433,school,school,,41.627366,25.074871,Smolyan
+3651249041,pharmacy,pharmacy,,42.700588,27.711992,Burgas
+3656047624,pharmacy,pharmacy,Subra,42.688652,23.414137,Sofia (Capital)
+3656127160,pharmacy,pharmacy,Корект,42.693282,23.354638,Sofia (Capital)
+3663843566,pharmacy,pharmacy,Марешки,42.679167,23.310425,Sofia (Capital)
+3674436525,pharmacy,pharmacy,Марешки,42.693738,23.350642,Sofia (Capital)
+3674484164,pharmacy,pharmacy,,42.732134,23.305451,Sofia (Capital)
+3676255850,pharmacy,pharmacy,Авеню,42.144955,24.750204,Plovdiv
+3678425238,pharmacy,pharmacy,,42.28149,22.695027,Kyustendil
+3679241173,clinic,doctors,Здравпункт,41.505156,24.731338,Smolyan
+3688604134,pharmacy,pharmacy,Мая,42.693427,23.32864,Sofia (Capital)
+3690836305,pharmacy,pharmacy,,42.661717,23.316596,Sofia (Capital)
+3693343946,clinic,clinic,Денас център,43.220819,27.920678,Varna
+3703653347,pharmacy,pharmacy,Авицена,42.689303,23.306058,Sofia (Capital)
+3708514513,school,school,училище Фарос,42.496816,27.474001,Burgas
+3715174257,clinic,doctors,Bodimed,42.664512,23.284997,Sofia (Capital)
+3739711079,pharmacy,pharmacy,Аптека билкария,43.085573,25.648171,Veliko Tarnovo
+3740655375,pharmacy,pharmacy,,43.084087,25.622046,Veliko Tarnovo
+3740665726,pharmacy,pharmacy,Марешки,43.084068,25.623228,Veliko Tarnovo
+3741805415,pharmacy,pharmacy,,43.083916,25.63368,Veliko Tarnovo
+3744652713,pharmacy,pharmacy,Асклепий,43.081371,25.631354,Veliko Tarnovo
+3744653758,pharmacy,pharmacy,Алма,43.081477,25.631467,Veliko Tarnovo
+3745051739,hospital,hospital,Здравен дом,42.479753,26.397013,Yambol
+3745198762,pharmacy,pharmacy,Марешки,42.337489,23.558778,Sofia Province
+3745198775,pharmacy,pharmacy,,42.338209,23.556859,Sofia Province
+3745266525,pharmacy,pharmacy,,42.337729,23.559522,Sofia Province
+3749761500,pharmacy,pharmacy,Релакс,43.079741,25.612344,Veliko Tarnovo
+3749801959,pharmacy,pharmacy,Марешки,43.078303,25.627,Veliko Tarnovo
+3749821545,kindergarten,kindergarten,ЧДЗ Мечо пух,43.077799,25.629636,Veliko Tarnovo
+3750969601,pharmacy,pharmacy,,43.075711,25.651063,Veliko Tarnovo
+3750974054,pharmacy,pharmacy,,43.074849,25.618653,Veliko Tarnovo
+3750980945,pharmacy,pharmacy,,43.076322,25.624186,Veliko Tarnovo
+3761531164,pharmacy,pharmacy,Гален 6,41.933732,25.547362,Haskovo
+3761543756,pharmacy,pharmacy,Гален 4,41.930493,25.552949,Haskovo
+3774196073,pharmacy,pharmacy,Адонис,42.71287,23.314941,Sofia (Capital)
+3774198499,pharmacy,pharmacy,,42.713888,23.305047,Sofia (Capital)
+3799039240,clinic,doctors,,42.664724,23.251188,Sofia (Capital)
+3804827198,school,school,ЕСПА,42.647636,23.295963,Sofia (Capital)
+3815610050,clinic,doctors,Д-р Емилия Кирязова,43.274417,26.920198,Shumen
+3816609218,pharmacy,pharmacy,Delta,42.140748,24.755459,Plovdiv
+3816615541,pharmacy,pharmacy,Гален,42.144491,24.766592,Plovdiv
+3816615559,pharmacy,pharmacy,Фрамар,42.140756,24.762842,Plovdiv
+3816770642,pharmacy,pharmacy,Аптека 36.6 Билла Марица,42.15338,24.762049,Plovdiv
+3817108196,pharmacy,pharmacy,Аптека Мальовица,42.142296,24.733383,Plovdiv
+3821331316,pharmacy,pharmacy,36.6,42.142009,24.756372,Plovdiv
+3829334697,pharmacy,pharmacy,,42.149364,24.756089,Plovdiv
+3829334755,pharmacy,pharmacy,Гален,42.152279,24.756312,Plovdiv
+3830259617,kindergarten,kindergarten,"ДГ ""Майчина грижа""",42.149574,24.752304,Plovdiv
+3830919742,clinic,doctors,Амбулатория за обща медицинска помощ,41.46508,25.646949,Kardzhali
+3835973215,pharmacy,pharmacy,,42.204796,24.135012,Plovdiv
+3837567324,pharmacy,pharmacy,,42.49626,27.467693,Burgas
+3841521109,pharmacy,pharmacy,Аптека 36.6 Център,42.143808,24.749428,Plovdiv
+3844204471,kindergarten,kindergarten,ЧДГ „Елхица“,42.61323,23.332489,Sofia (Capital)
+3848491824,clinic,clinic,Медицински център 3,42.463366,27.421065,Burgas
+3857004157,pharmacy,pharmacy,Прополис,42.672582,23.285234,Sofia (Capital)
+3857076961,pharmacy,pharmacy,Джумаята,42.148057,24.747726,Plovdiv
+3858637183,pharmacy,pharmacy,,42.077933,24.755533,Plovdiv
+3862567681,clinic,doctors,Венелин Викторов,42.698787,23.319378,Sofia (Capital)
+3868822741,pharmacy,pharmacy,,42.074237,24.662547,Plovdiv
+3868822742,pharmacy,pharmacy,Ремира,42.075419,24.664087,Plovdiv
+3881466223,pharmacy,pharmacy,,41.487046,24.848707,Smolyan
+3881544895,pharmacy,pharmacy,ABC+,42.668571,23.279941,Sofia (Capital)
+3882715460,kindergarten,kindergarten,Детска арт градина,42.652333,23.376475,Sofia (Capital)
+3887727687,pharmacy,pharmacy,Дрогерия,42.833435,22.648102,Pernik
+3888077057,clinic,doctors,Д-р Костова и д-р Тодорова,42.833721,22.654859,Pernik
+3901017407,pharmacy,pharmacy,Марви,42.42695,25.634334,Stara Zagora
+3901018116,pharmacy,pharmacy,Народна,42.42503,25.632044,Stara Zagora
+3902117958,clinic,clinic,Medefect,42.675557,23.308942,Sofia (Capital)
+3904996986,school,school,Артистична MuzArto Академия,42.685329,23.297702,Sofia (Capital)
+3917350884,pharmacy,pharmacy,Марешки,41.573133,24.781834,Smolyan
+3928866239,clinic,doctors,Проф. Д-р Милко Сираков,42.693439,23.314121,Sofia (Capital)
+3932298359,clinic,clinic,ДКЦ1,42.67543,26.324504,Sliven
+3932298362,clinic,clinic,МЦ Миркович,42.676308,26.325265,Sliven
+3934116397,pharmacy,pharmacy,Марви 3,42.423648,25.634953,Stara Zagora
+3942981350,pharmacy,pharmacy,Аптека Вега,42.131283,24.789908,Plovdiv
+3943130471,pharmacy,pharmacy,,42.213634,24.127472,Pazardzhik
+3944077913,pharmacy,pharmacy,Обединени аптеки,42.666865,23.364488,Sofia (Capital)
+3945675521,hospital,hospital,,42.692308,23.989325,Sofia Province
+3945675522,pharmacy,pharmacy,,42.692382,23.989285,Sofia Province
+3945675555,school,school,"ОУ ""Георги Бенковски""",42.695271,23.988909,Sofia Province
+3945675556,kindergarten,kindergarten,Дора Габе,42.695161,23.992613,Sofia Province
+3945908879,clinic,doctors,Център за Лечение на Хемороиди и анална фисура Д-р МАТЕВ,42.42648,25.622305,Stara Zagora
+3946474726,pharmacy,pharmacy,Аптека Манолова,43.218072,27.92554,Varna
+3955468959,hospital,hospital,АГ Комплекс-Русе,43.858163,25.962077,Ruse
+3976109068,pharmacy,pharmacy,,42.642752,23.34112,Sofia (Capital)
+3976952573,clinic,clinic,Център за Спешна Медицинска Помощ,43.402678,23.234519,Montana
+3985810892,pharmacy,pharmacy,,42.030152,24.300599,Pazardzhik
+3986313957,pharmacy,pharmacy,,42.668687,23.39433,Sofia (Capital)
+3989463552,clinic,clinic,Център по физикална терапия и естетична медицина Sofsun,42.691859,23.321539,Sofia (Capital)
+3999801457,pharmacy,pharmacy,,43.854771,25.963947,Ruse
+4002684840,pharmacy,pharmacy,Аптека Нова Поморие,42.560621,27.635095,Burgas
+4004491503,pharmacy,pharmacy,Аптеката,42.010645,24.879167,Plovdiv
+4004634918,pharmacy,pharmacy,,42.00557,24.874968,Plovdiv
+4004634919,pharmacy,pharmacy,Марешки,42.008824,24.872918,Plovdiv
+4004634920,pharmacy,pharmacy,,42.009414,24.870637,Plovdiv
+4004634921,pharmacy,pharmacy,,42.009416,24.877967,Plovdiv
+4004634922,pharmacy,pharmacy,,42.011645,24.873127,Plovdiv
+4004634923,pharmacy,pharmacy,,42.011802,24.87281,Plovdiv
+4004634924,pharmacy,pharmacy,Денонощна аптека,42.015066,24.879141,Plovdiv
+4004680265,pharmacy,pharmacy,Марешки,42.641971,24.808234,Plovdiv
+4004702647,pharmacy,pharmacy,SOpharmacy,42.018563,24.861003,Plovdiv
+4006465904,pharmacy,pharmacy,Аптека Запад,42.618169,25.379577,Stara Zagora
+4012636073,kindergarten,kindergarten,ЧДГ и ясла Еко Дара,42.611084,23.363977,Sofia (Capital)
+4012726005,kindergarten,kindergarten,Частна детска занималня Цвети,43.237356,27.873087,Varna
+4013280228,pharmacy,pharmacy,Марешки,42.423062,25.634228,Stara Zagora
+4013598575,pharmacy,pharmacy,,42.621264,25.390066,Stara Zagora
+4016750589,clinic,clinic,Кардио клиника Европейска Здравна Грижа,42.49423,27.461019,Burgas
+4018041538,clinic,clinic,Поликлиника Бургас,42.509792,27.466967,Burgas
+4020095119,school,school,"Професионална гимназия по облекло ""Ана Май""",42.147453,24.746326,Plovdiv
+4023865025,pharmacy,pharmacy,,42.139555,24.736749,Plovdiv
+4023865026,pharmacy,pharmacy,,42.139531,24.737663,Plovdiv
+4023865032,pharmacy,pharmacy,36.6,42.140113,24.736561,Plovdiv
+4023865035,clinic,doctors,Bellissimo Clinic,42.140672,24.735474,Plovdiv
+4023865037,pharmacy,pharmacy,,42.140819,24.741876,Plovdiv
+4023865056,pharmacy,pharmacy,Марешки,42.140322,24.740586,Plovdiv
+4026403357,hospital,hospital,ДКЦ Ел Масри,42.509493,27.469508,Burgas
+4026403365,pharmacy,pharmacy,Newline pharmacy,42.509862,27.4695,Burgas
+4036110364,kindergarten,kindergarten,"Частна Детска Градина ""Family""",42.150479,24.755357,Plovdiv
+4039264565,pharmacy,pharmacy,,42.736076,23.293633,Sofia (Capital)
+4039267274,pharmacy,pharmacy,,42.735682,23.305975,Sofia (Capital)
+4039267275,pharmacy,pharmacy,SOpharmacy,42.736072,23.305426,Sofia (Capital)
+4042036247,pharmacy,pharmacy,SOpharmacy,42.693436,23.35136,Sofia (Capital)
+4047742788,kindergarten,kindergarten,Частна езикова детска градина Джой,42.1603,24.748084,Plovdiv
+4055525630,hospital,hospital,Профилакториум БМБ,42.610103,27.389841,Burgas
+4056835273,pharmacy,pharmacy,Язова,42.143656,24.747525,Plovdiv
+4056835275,pharmacy,pharmacy,Галения,42.145259,24.758504,Plovdiv
+4056835277,clinic,clinic,Св. св. Константин и Елена,42.140866,24.739132,Plovdiv
+4061794638,clinic,doctors,Индивидуална практика за специализирана медицинска помощ по психиатрия / ИПСМП по психиатрия/ Д-р Керстин Кацарска,42.016838,23.095944,Blagoevgrad
+4063679090,hospital,hospital,Здравето,42.681331,23.27076,Sofia (Capital)
+4065225071,pharmacy,pharmacy,,42.700494,27.717031,Burgas
+4073701789,pharmacy,pharmacy,Марешки,42.694756,23.314626,Sofia (Capital)
+4084601106,clinic,clinic,Медицински център Света Анна Стара Загора,42.42891,25.626567,Stara Zagora
+4084607288,clinic,clinic,Медицински център Света Анна 2 Стара Загора,42.428532,25.624466,Stara Zagora
+4098060304,clinic,clinic,ЦМИ.ТПЦ,43.846508,25.955904,Ruse
+4098869428,pharmacy,pharmacy,Ремедиум,42.676418,23.305895,Sofia (Capital)
+4105206593,pharmacy,pharmacy,36.6 Мега Марина,42.165035,24.737709,Plovdiv
+4105206594,pharmacy,pharmacy,Аптека 36.6 Билла Кършияка,42.162181,24.742752,Plovdiv
+4105523114,pharmacy,pharmacy,Avenue,42.150593,24.743382,Plovdiv
+4105536916,pharmacy,pharmacy,SOpharmacy,42.150869,24.745391,Plovdiv
+4105536917,pharmacy,pharmacy,36.6,42.147983,24.733528,Plovdiv
+4105536924,pharmacy,pharmacy,Марешки,42.147121,24.731645,Plovdiv
+4105536925,pharmacy,pharmacy,Марешки,42.150775,24.744995,Plovdiv
+4105536926,pharmacy,pharmacy,Марешки,42.151287,24.745821,Plovdiv
+4105536932,pharmacy,pharmacy,Ренесанс,42.148754,24.736482,Plovdiv
+4105536938,pharmacy,pharmacy,Тримонциум,42.150424,24.743362,Plovdiv
+4126450091,pharmacy,pharmacy,Магазин Билка,42.188309,24.332343,Pazardzhik
+4133663389,pharmacy,pharmacy,SOpharmacy,42.683288,23.287755,Sofia (Capital)
+4133664090,pharmacy,pharmacy,,42.679597,23.284449,Sofia (Capital)
+4144208591,pharmacy,pharmacy,Марешки,41.634421,25.378042,Kardzhali
+4144318879,school,school,ПГТП гр.Попово,43.346578,26.221392,Targovishte
+4144318880,school,school,"ПГСС ""Никола Пушкаров""",43.341178,26.220258,Targovishte
+4149851681,kindergarten,kindergarten,"ЦДГ ""Люляче""",43.352235,26.226284,Targovishte
+4149852299,kindergarten,kindergarten,"ЦДГ ""Пролет""",43.345258,26.224152,Targovishte
+4149880997,school,school,ОУ „Никола Й. Вапцаров“,43.343421,26.221628,Targovishte
+4151610300,kindergarten,kindergarten,Anglia School,42.138605,24.759034,Plovdiv
+4151610316,pharmacy,pharmacy,Изток,42.141764,24.762796,Plovdiv
+4152341793,clinic,doctors,,42.680864,23.286839,Sofia (Capital)
+4153290866,school,school,Основно училище „Димитър Благоев“,41.903424,24.482972,Smolyan
+4155435447,school,school,"ОУ ""Св. Св Кирил и Методий""",43.350195,26.229165,Targovishte
+4156214222,pharmacy,pharmacy,Жийон,42.634967,23.37705,Sofia (Capital)
+4159198233,pharmacy,pharmacy,SOpharmacy,42.422995,25.620249,Stara Zagora
+4163013065,clinic,doctors,Д-р Георги Минков,42.692943,23.321476,Sofia (Capital)
+4176039712,pharmacy,pharmacy,,42.125853,23.131922,Kyustendil
+4180621108,school,school,Езикова Гимназия Христо Ботев,41.648392,25.370131,Kardzhali
+4187461257,pharmacy,pharmacy,Марешки,42.057376,24.546736,Plovdiv
+4193306329,pharmacy,pharmacy,,42.743122,23.346101,Sofia (Capital)
+4193660142,pharmacy,pharmacy,К-КРЕС и Кактус,43.205738,27.912727,Varna
+4193665810,kindergarten,kindergarten,Теменужка,43.204379,27.914376,Varna
+4193667180,kindergarten,kindergarten,Щастливо детсво,43.206747,27.924507,Varna
+4195286157,hospital,hospital,Eurohospital,43.240808,27.981249,Varna
+4204354391,school,school,"Училище за чужди езици ""Биг Бен"" Младост",42.655505,23.375387,Sofia (Capital)
+4209006489,pharmacy,pharmacy,,42.573635,27.294705,Burgas
+4210156490,school,school,"Образователен център ""Слънчева пътека""",43.080213,25.607337,Veliko Tarnovo
+4210321790,school,school,Дружба,42.151618,24.738988,Plovdiv
+4212049889,clinic,clinic,"Медицински център ""Фемина""",42.703376,23.330471,Sofia (Capital)
+4219999394,clinic,clinic,Сърце и мозък,42.680652,23.325737,Sofia (Capital)
+4226637538,clinic,clinic,Спешна помощ,41.646235,25.376064,Kardzhali
+4227084522,pharmacy,pharmacy,Meatsa 2,41.634499,25.355658,Kardzhali
+4227088502,pharmacy,pharmacy,Марешки,41.634795,25.35552,Kardzhali
+4230591335,pharmacy,pharmacy,,41.642407,25.367148,Kardzhali
+4230862796,pharmacy,pharmacy,Meatsa,41.644336,25.373538,Kardzhali
+4230863650,pharmacy,pharmacy,M & L,41.644153,25.373525,Kardzhali
+4230863984,pharmacy,pharmacy,Марешки,41.644708,25.371504,Kardzhali
+4230870233,pharmacy,pharmacy,Supernova,41.644724,25.369552,Kardzhali
+4232129850,pharmacy,pharmacy,Maritsa,41.636958,25.355351,Kardzhali
+4234576615,pharmacy,pharmacy,AMS,41.634575,25.376672,Kardzhali
+4236220708,pharmacy,pharmacy,,41.623419,25.377738,Kardzhali
+4238419879,pharmacy,pharmacy,Марешки,42.703553,23.308977,Sofia (Capital)
+4238425992,pharmacy,pharmacy,SOpharmacy,42.703574,23.308848,Sofia (Capital)
+4246078901,clinic,doctors,Encho Stoyanov Ortoped Travmatology,42.498424,27.474131,Burgas
+4246253679,clinic,doctors,Д-рНелкова,42.522225,27.4557,Burgas
+4248507038,pharmacy,pharmacy,,41.64534,25.372952,Kardzhali
+4254348232,hospital,hospital,Ядрено-магнитен резонанс,43.858446,25.960946,Ruse
+4286425427,school,school,Vapcarov,44.117992,27.270905,Silistra
+4288690359,pharmacy,pharmacy,,42.706804,23.352583,Sofia (Capital)
+4291306289,hospital,hospital,Медик Дент ЕООД,43.214108,27.900347,Varna
+4298950933,pharmacy,pharmacy,Вирена-фарм ЕООД,41.719353,23.161879,Blagoevgrad
+4319202832,hospital,hospital,ФАМИЛИЯ ДЕНТ ЕООД,43.230703,27.87897,Varna
+4319570030,pharmacy,pharmacy,Медика 2,42.712864,23.313378,Sofia (Capital)
+4320875795,hospital,hospital,НАМЛИЕВ - ДЕНТАЛ ЕООД,42.145319,24.765753,Plovdiv
+4325054337,clinic,doctors,д-р Галина Бодичева,43.568405,27.828102,Dobrich
+4325054338,clinic,doctors,д-р Митко Желязков,43.568416,27.828118,Dobrich
+4327209616,pharmacy,pharmacy,Дрогерия ИРИС,42.511663,27.467499,Burgas
+4329364586,pharmacy,pharmacy,Марешки,42.426145,25.613744,Stara Zagora
+4329469732,pharmacy,pharmacy,Марешки,42.667981,23.266537,Sofia (Capital)
+4330453756,pharmacy,pharmacy,,42.426095,25.613536,Stara Zagora
+4330453757,pharmacy,pharmacy,,42.42635,25.615068,Stara Zagora
+4331172873,pharmacy,pharmacy,Здравец,42.142221,24.753604,Plovdiv
+4331172876,pharmacy,pharmacy,Санита,42.14512,24.75276,Plovdiv
+4332033656,pharmacy,pharmacy,Стела,42.658651,23.271996,Sofia (Capital)
+4336774094,pharmacy,pharmacy,Дани Фарма,42.291734,25.93706,Stara Zagora
+4336913548,clinic,doctors,,42.963098,27.876982,Varna
+4340762851,school,school,"Социално-Педагогически Интернат ""Максим Горки""",41.653683,24.635455,Smolyan
+4340768031,pharmacy,pharmacy,Марешки,41.575844,24.706483,Smolyan
+4342537231,clinic,clinic,ДКЦ Св. Врач и Св. Св. Кузма и Дамян,42.67997,23.310534,Sofia (Capital)
+4342630070,pharmacy,pharmacy,,42.694856,23.320093,Sofia (Capital)
+4342713938,pharmacy,pharmacy,Betty,42.692972,23.311233,Sofia (Capital)
+4348728667,pharmacy,pharmacy,Максима,42.433242,25.631998,Stara Zagora
+4348728669,pharmacy,pharmacy,Марешки,42.43439,25.631288,Stara Zagora
+4348728682,pharmacy,pharmacy,Фрамар,42.428484,25.633893,Stara Zagora
+4352366388,pharmacy,pharmacy,Златен рог,42.481257,26.492433,Yambol
+4357096189,hospital,hospital,,42.572773,27.29819,Burgas
+4358935296,pharmacy,pharmacy,,43.205362,27.907428,Varna
+4358936993,pharmacy,pharmacy,,43.367224,28.07889,Dobrich
+4360198638,pharmacy,pharmacy,Astra,41.832477,23.483931,Blagoevgrad
+4363302312,clinic,doctors,Д-р Арабаджиев Кардиолог,43.567036,27.827012,Dobrich
+4367733391,pharmacy,pharmacy,,42.166919,27.845281,Burgas
+4367774489,pharmacy,pharmacy,,42.169897,27.848212,Burgas
+4368955595,pharmacy,pharmacy,аптека,42.17154,27.853503,Burgas
+4373697977,pharmacy,pharmacy,,42.989965,27.798422,Varna
+4378843955,pharmacy,pharmacy,,43.271588,28.034688,Varna
+4381408785,pharmacy,pharmacy,Медея,42.653516,23.372966,Sofia (Capital)
+4383799900,pharmacy,pharmacy,Денонощна аптека,42.281112,22.691892,Kyustendil
+4391360389,pharmacy,pharmacy,Амара,42.671309,23.259108,Sofia (Capital)
+4392514863,pharmacy,pharmacy,,42.554738,27.643625,Burgas
+4392514866,pharmacy,pharmacy,,42.559016,27.645225,Burgas
+4394813791,pharmacy,pharmacy,аптека Марешки,42.188251,24.341261,Pazardzhik
+4397762693,pharmacy,pharmacy,SOpharmacy,42.68893,23.308252,Sofia (Capital)
+4401400589,clinic,doctors,МЦ Мед Консулт,42.496963,27.46405,Burgas
+4404521705,pharmacy,pharmacy,,43.224083,27.914188,Varna
+4407706237,clinic,doctors,Д-р Нина Тодорова,43.068359,25.61219,Veliko Tarnovo
+4416131378,pharmacy,pharmacy,Галения,42.426648,25.641291,Stara Zagora
+4420041021,pharmacy,pharmacy,Централ Фарма,42.138277,24.739483,Plovdiv
+4420074433,clinic,clinic,Вива Феникс,43.569512,27.827177,Dobrich
+4420225391,pharmacy,pharmacy,,42.266518,27.754958,Burgas
+4424212690,clinic,clinic,Физио-Мед,42.668325,23.29942,Sofia (Capital)
+4424914193,hospital,hospital,партизанска мед. землянка-М.Палаузов,42.830933,25.169028,Gabrovo
+4425335099,hospital,hospital,,42.485626,27.379561,Burgas
+4434391036,pharmacy,pharmacy,Аптека Марешки,42.120348,24.732929,Plovdiv
+4437315190,clinic,clinic,Димитров,42.658675,23.377014,Sofia (Capital)
+4441652493,clinic,clinic,,41.64475,24.15931,Smolyan
+4441660889,school,school,"ОУ "" Никола Й. Вапцаров""",41.599792,24.180232,Smolyan
+4441661992,pharmacy,pharmacy,,41.600172,24.180128,Smolyan
+4441702490,pharmacy,pharmacy,,41.645308,24.159806,Smolyan
+4442914390,pharmacy,pharmacy,,41.646396,24.159341,Smolyan
+4456781189,clinic,doctors,Д-р Пащиева (невролог),43.566979,27.820049,Dobrich
+4459295339,pharmacy,pharmacy,Пролет,42.979615,25.476755,Gabrovo
+4460488322,clinic,doctors,АПМП-ИП Д-Р МИЛЕН БОБЧЕВ ЕООД,43.78683,26.95143,Silistra
+4461502048,clinic,clinic,ДКЦ Филипополис,42.137751,24.73961,Plovdiv
+4461502050,pharmacy,pharmacy,Марешки,42.137484,24.744495,Plovdiv
+4464621211,pharmacy,pharmacy,,43.408715,28.165224,Dobrich
+4464638580,pharmacy,pharmacy,,43.406829,28.163593,Dobrich
+4469808768,pharmacy,pharmacy,Сити Фарм,42.139242,24.745481,Plovdiv
+4470330193,pharmacy,pharmacy,Агроаптека,42.136913,24.741385,Plovdiv
+4472223591,school,school,Незабравка,43.522075,26.52768,Razgrad
+4478054578,pharmacy,pharmacy,King pharma,42.689117,23.344514,Sofia (Capital)
+4479756887,pharmacy,pharmacy,Роял,42.689385,23.343137,Sofia (Capital)
+4484025490,pharmacy,pharmacy,Петя,42.686266,23.349658,Sofia (Capital)
+4485483647,pharmacy,pharmacy,,42.963618,23.343093,Sofia Province
+4485754990,pharmacy,pharmacy,Медея,42.689702,23.341984,Sofia (Capital)
+4485755080,pharmacy,pharmacy,Ели,42.68959,23.343118,Sofia (Capital)
+4485755393,pharmacy,pharmacy,Валета,42.692717,23.343977,Sofia (Capital)
+4485755411,pharmacy,pharmacy,Нота бене,42.690042,23.340635,Sofia (Capital)
+4486413791,pharmacy,pharmacy,SOpharmacy,42.685357,23.255539,Sofia (Capital)
+4494600073,pharmacy,pharmacy,,43.015308,23.046058,Sofia Province
+4498546868,pharmacy,pharmacy,,42.707096,23.350424,Sofia (Capital)
+4502169802,clinic,clinic,Медицински център Лора,42.67678,23.288621,Sofia (Capital)
+4503154521,pharmacy,pharmacy,,42.69459,23.321904,Sofia (Capital)
+4504129789,kindergarten,kindergarten,,43.519993,26.525673,Razgrad
+4504224747,pharmacy,pharmacy,,43.01618,23.042828,Sofia Province
+4509066091,pharmacy,pharmacy,Мусагеница,42.66445,23.363806,Sofia (Capital)
+4510444590,pharmacy,pharmacy,Мандрагора,42.660762,23.36667,Sofia (Capital)
+4510477989,pharmacy,pharmacy,Аптека Ива,42.638333,23.369865,Sofia (Capital)
+4510478089,pharmacy,pharmacy,Аптека Денифарм,42.638645,23.365953,Sofia (Capital)
+4511203312,pharmacy,pharmacy,Ремедиум,42.693728,23.321007,Sofia (Capital)
+4514136412,pharmacy,pharmacy,SOpharmacy,42.724365,23.247203,Sofia (Capital)
+4516112447,pharmacy,pharmacy,Ремедиум,42.693434,23.3308,Sofia (Capital)
+4516159933,school,school,Училище за чужди езици БИГ БЕН,42.693191,23.331205,Sofia (Capital)
+4518082461,pharmacy,pharmacy,Медея,42.691784,23.314344,Sofia (Capital)
+4519424967,pharmacy,pharmacy,Фрамар,42.498908,27.470099,Burgas
+4519715192,pharmacy,pharmacy,Предлага,42.691654,23.318669,Sofia (Capital)
+4521149495,pharmacy,pharmacy,SOpharmacy,42.683342,23.297367,Sofia (Capital)
+4521158096,pharmacy,pharmacy,,42.671555,23.259883,Sofia (Capital)
+4521162091,pharmacy,pharmacy,SOpharmacy,42.665411,23.289525,Sofia (Capital)
+4521190690,pharmacy,pharmacy,SOpharmacy,42.67057,23.272994,Sofia (Capital)
+4521491960,pharmacy,pharmacy,Медея,42.671267,23.259,Sofia (Capital)
+4525286902,pharmacy,pharmacy,ФармаСтор,42.707919,23.287964,Sofia (Capital)
+4525316327,pharmacy,pharmacy,SOpharmacy,42.713178,23.298607,Sofia (Capital)
+4525334148,pharmacy,pharmacy,Белба,42.681847,23.331191,Sofia (Capital)
+4525343610,pharmacy,pharmacy,SOpharmacy,42.73567,23.291836,Sofia (Capital)
+4525344447,pharmacy,pharmacy,Ceiba,42.678155,23.360176,Sofia (Capital)
+4526950458,kindergarten,kindergarten,Слънчогледи,42.608626,23.387867,Sofia (Capital)
+4529249053,school,school,Step by Step,42.691668,23.329791,Sofia (Capital)
+4530665291,pharmacy,pharmacy,,42.681829,23.289724,Sofia (Capital)
+4530908868,pharmacy,pharmacy,Афиа,42.481935,26.512379,Yambol
+4531489489,pharmacy,pharmacy,Здраве,42.48228,26.507435,Yambol
+4536358590,pharmacy,pharmacy,Прополис,42.665472,23.28133,Sofia (Capital)
+4538608644,pharmacy,pharmacy,ПроФарма,42.690573,23.323329,Sofia (Capital)
+4539063318,pharmacy,pharmacy,,43.471312,23.943466,Vratsa
+4539841301,pharmacy,pharmacy,Мултифарм,42.486449,26.505154,Yambol
+4539841302,pharmacy,pharmacy,Мултифарм,42.479674,26.500256,Yambol
+4539841303,pharmacy,pharmacy,Мултифарм,42.487997,26.511288,Yambol
+4539842435,pharmacy,pharmacy,Мултифарм,42.483067,26.51601,Yambol
+4539842436,pharmacy,pharmacy,Мултифарм,42.499927,26.527398,Yambol
+4539842437,pharmacy,pharmacy,Мултифарм,42.476432,26.49936,Yambol
+4539857942,pharmacy,pharmacy,Мултифарм,42.171949,26.568534,Yambol
+4543907607,pharmacy,pharmacy,,42.690484,23.329136,Sofia (Capital)
+4545333492,school,school,"СУ ""Св.Св.Кирил и Методий"" корпус 2",43.066988,27.013569,Shumen
+4549984414,pharmacy,pharmacy,ЕТ Фармакийс,42.689498,23.325481,Sofia (Capital)
+4560307777,school,school,Helen Doron Sofia West,42.702126,23.30001,Sofia (Capital)
+4568256343,pharmacy,pharmacy,Доверие,43.014513,23.046235,Sofia Province
+4568874539,clinic,doctors,,41.75463,25.349061,Kardzhali
+4569929592,clinic,doctors,Психотест,42.72085,23.25756,Sofia (Capital)
+4579807805,pharmacy,pharmacy,,42.70645,23.352514,Sofia (Capital)
+4582324098,kindergarten,kindergarten,Моят Свят,42.702224,23.332027,Sofia (Capital)
+4587187994,pharmacy,pharmacy,Нота Бене,42.626843,23.384271,Sofia (Capital)
+4587446889,school,school,,42.700116,23.330631,Sofia (Capital)
+4588188189,pharmacy,pharmacy,SOpharmacy,42.695988,23.287661,Sofia (Capital)
+4588625698,pharmacy,pharmacy,SOpharmacy,42.712603,23.268798,Sofia (Capital)
+4588679893,pharmacy,pharmacy,,42.712965,23.269774,Sofia (Capital)
+4588681491,pharmacy,pharmacy,Pharmalife,42.715518,23.271358,Sofia (Capital)
+4588975189,pharmacy,pharmacy,Анимеа,42.700278,23.315209,Sofia (Capital)
+4591331083,pharmacy,pharmacy,,42.738627,22.907675,Pernik
+4610049618,hospital,hospital,Медицински център „Адара”,43.852872,25.991636,Ruse
+4614051080,school,school,"ОУ ""Васил Левски""",42.716545,23.933003,Sofia Province
+4659408370,school,school,Maximum English School,42.13939,24.750123,Plovdiv
+4666241590,clinic,clinic,Cibalab,42.691253,23.294188,Sofia (Capital)
+4678278542,pharmacy,pharmacy,SOpharmacy,42.493595,27.471011,Burgas
+4691589683,school,school,ГПЧЕ „Алеко Константинов“,42.89358,23.919815,Sofia Province
+4691589684,school,school,"Основно училище ""Васил Левски""",42.893192,23.919655,Sofia Province
+4692393790,clinic,doctors,Медицински център FiHealth,42.650855,23.340501,Sofia (Capital)
+4697969964,pharmacy,pharmacy,Марешки,42.136453,24.763368,Plovdiv
+4697969974,pharmacy,pharmacy,Тракия 22,42.141769,24.786525,Plovdiv
+4707439043,school,school,,42.049848,25.580181,Haskovo
+4710433572,hospital,hospital,Поликлиника,41.988591,24.092271,Pazardzhik
+4712368875,hospital,hospital,ВИТА,42.031363,23.984804,Pazardzhik
+4722286701,pharmacy,pharmacy,Софиямед 2,42.665479,23.370686,Sofia (Capital)
+4730499233,pharmacy,pharmacy,Марешки,42.145134,24.75393,Plovdiv
+4730499236,pharmacy,pharmacy,Р & Н частна аптека,42.144073,24.748207,Plovdiv
+4730896219,pharmacy,pharmacy,СОЦИАЛНА Аптека,41.990428,24.08847,Pazardzhik
+4741963326,pharmacy,pharmacy,Яна,42.579848,26.605357,Yambol
+4742465731,pharmacy,pharmacy,,42.638526,23.371613,Sofia (Capital)
+4742465964,clinic,clinic,AmeriMed,42.635542,23.369301,Sofia (Capital)
+4742485528,kindergarten,kindergarten,,43.243732,26.578258,Targovishte
+4748800556,kindergarten,kindergarten,Слънчевата къща,42.147297,24.745084,Plovdiv
+4753148622,school,school,Европейска академия за обучение и развитие,42.705766,23.278872,Sofia (Capital)
+4770132232,pharmacy,pharmacy,,41.989766,24.09094,Pazardzhik
+4781831943,pharmacy,pharmacy,Аптека Аспида 1,43.280336,26.923816,Shumen
+4782011555,school,school,Обединена школа по изкуства,43.271252,26.925498,Shumen
+4789573022,school,school,СУ Панайот Пипков,43.129331,24.714115,Lovech
+4789610121,school,school,"СУ ""Св. Климент Охридски""",43.139498,24.71746,Lovech
+4790015122,pharmacy,pharmacy,,43.156787,24.716772,Lovech
+4794663823,school,school,,43.160583,24.71917,Lovech
+4794677955,school,school,ОУ Христо Никифоров,43.147165,24.716413,Lovech
+4794834439,kindergarten,kindergarten,,43.132797,24.702953,Lovech
+4794897129,hospital,hospital,Държавна психиатрична болница - Ловеч,43.131521,24.710124,Lovech
+4795170705,pharmacy,pharmacy,Sopharmacy,42.477499,26.517892,Yambol
+4798909579,pharmacy,pharmacy,,43.1987,23.546313,Vratsa
+4800621262,hospital,hospital,Многопрофилна болница за активно лечение Проф. Д-р. Параскев Стоянов - Ловеч,43.132647,24.706314,Lovech
+4800671870,clinic,clinic,,43.157123,24.717234,Lovech
+4801186129,school,school,"Професионална гимназия по кожарство, облекло и химични технологии „Марийка и Маринчо Караконови“",43.140809,24.721639,Lovech
+4801201398,school,school,"Професионална гимназия по ветеринарна медицина ""Професор д-р Димитър Димов""",43.145697,24.718704,Lovech
+4829395258,pharmacy,pharmacy,,41.498519,24.942797,Smolyan
+4833399371,clinic,clinic,Китайски център,43.207699,27.920336,Varna
+4846913196,pharmacy,pharmacy,,42.086591,23.059476,Kyustendil
+4848221695,clinic,doctors,Янчо Делчев,42.674067,23.322267,Sofia (Capital)
+4859061927,pharmacy,pharmacy,SOpharmacy,42.665315,23.356438,Sofia (Capital)
+4860112348,school,school,Езиков център „Ориндж хаус“,43.203344,27.914881,Varna
+4867821001,school,school,"Начално училище ""Любен Каравелов""",42.949043,24.267393,Lovech
+4867935546,pharmacy,pharmacy,Денонощна аптека Орион,42.715609,23.276469,Sofia (Capital)
+4869966716,school,school,Христо Ботев,43.306956,24.349477,Pleven
+4874373451,clinic,clinic,Здравен център,43.572328,24.279862,Pleven
+4874876316,pharmacy,pharmacy,,42.852387,23.038584,Sofia Province
+4879715521,pharmacy,pharmacy,Верде,42.657689,23.376288,Sofia (Capital)
+4879929129,pharmacy,pharmacy,,43.467913,24.521238,Pleven
+4880054592,clinic,doctors,,43.337327,25.82709,Veliko Tarnovo
+4884675821,school,school,"СОУ ""Христо Смирненски""",42.041525,23.875454,Pazardzhik
+4889882706,pharmacy,pharmacy,,43.571226,27.832077,Dobrich
+4892777020,school,school,Бивше училище,42.229411,24.302214,Pazardzhik
+4894405788,pharmacy,pharmacy,,43.209637,27.90251,Varna
+4906376221,kindergarten,kindergarten,Детска градина,42.633002,26.563429,Sliven
+4906681021,kindergarten,kindergarten,Детска ясла,43.826313,25.976315,Ruse
+4913977122,pharmacy,pharmacy,Тилия,42.559319,27.638359,Burgas
+4914006521,pharmacy,pharmacy,,42.563063,27.639122,Burgas
+4915908822,pharmacy,pharmacy,,42.558732,27.638858,Burgas
+4919622610,school,school,"ОУ ""Васил Април""",42.135734,25.136424,Plovdiv
+4919737637,clinic,clinic,ОртоМедика,42.702141,23.321923,Sofia (Capital)
+4919989323,hospital,hospital,,42.561782,27.638139,Burgas
+4920522822,hospital,hospital,,42.562625,27.638041,Burgas
+4922773860,school,school,"ОУ ""Отец Паисий""",43.056138,25.034749,Gabrovo
+4931066108,pharmacy,pharmacy,Медея,42.680746,23.372371,Sofia (Capital)
+4936781524,school,school,,43.257985,28.027425,Varna
+4941463026,pharmacy,pharmacy,,42.746485,23.231426,Sofia (Capital)
+4942567876,pharmacy,pharmacy,,42.17027,27.850417,Burgas
+4942970816,clinic,doctors,,43.111992,27.828136,Varna
+4944691054,pharmacy,pharmacy,Салвия,43.079222,25.628168,Veliko Tarnovo
+4946070490,pharmacy,pharmacy,Medico+,42.663666,23.257159,Sofia (Capital)
+4947500077,pharmacy,pharmacy,Медея,42.702248,23.323273,Sofia (Capital)
+4947500447,pharmacy,pharmacy,Pharma Expert,42.707838,23.322625,Sofia (Capital)
+4956048902,pharmacy,pharmacy,Benu,42.662981,23.316924,Sofia (Capital)
+4959698147,pharmacy,pharmacy,Марешки,42.428412,25.62851,Stara Zagora
+4959698148,pharmacy,pharmacy,Фрамар,42.428414,25.626732,Stara Zagora
+4959698151,pharmacy,pharmacy,Фрамар,42.427181,25.623757,Stara Zagora
+4959698152,pharmacy,pharmacy,Фрамар,42.42446,25.624998,Stara Zagora
+4962755794,pharmacy,pharmacy,Нове фарм,42.675623,23.289537,Sofia (Capital)
+4964736958,pharmacy,pharmacy,Елиа,42.675695,23.299985,Sofia (Capital)
+4967073627,pharmacy,pharmacy,Sigma,42.696283,23.349577,Sofia (Capital)
+4968049581,pharmacy,pharmacy,SOpharmacy,42.152079,24.745908,Plovdiv
+4969197990,kindergarten,kindergarten,Къщата на Мая,42.674503,23.298736,Sofia (Capital)
+4973443624,school,school,"ОУ ""Захари Стоянов""",43.21708,27.939386,Varna
+4978161825,clinic,clinic,Калимат,42.671876,23.285843,Sofia (Capital)
+4979862121,clinic,clinic,Лаборатория Спектър,42.673648,23.34915,Sofia (Capital)
+4991018979,hospital,hospital,МЦ Нова,43.23475,27.890411,Varna
+4991154882,pharmacy,pharmacy,Нота бене,42.69918,23.338314,Sofia (Capital)
+4993377309,pharmacy,pharmacy,Лида,42.670971,23.302057,Sofia (Capital)
+4993926003,pharmacy,pharmacy,Детелина,42.727377,23.300812,Sofia (Capital)
+4993926004,pharmacy,pharmacy,,42.72756,23.300559,Sofia (Capital)
+4994022923,clinic,doctors,local doctor,43.042686,25.89151,Veliko Tarnovo
+4998337077,school,school,Математическа гимназия „Доктор Петър Берон“,43.217073,27.93855,Varna
+4998591218,school,school,Мария-Жанет,42.669805,23.283917,Sofia (Capital)
+5005531544,pharmacy,pharmacy,,42.238273,27.774438,Burgas
+5005533322,pharmacy,pharmacy,,42.236865,27.773381,Burgas
+5005955004,pharmacy,pharmacy,,42.669875,23.295681,Sofia (Capital)
+5008380824,clinic,doctors,МЦ Бадемова гора,42.66905,23.301041,Sofia (Capital)
+5008380834,pharmacy,pharmacy,Ками-КМ,42.669355,23.301764,Sofia (Capital)
+5009502672,pharmacy,pharmacy,,42.423492,27.694413,Burgas
+5011873270,pharmacy,pharmacy,Аптека Хаифарм,42.41901,27.694398,Burgas
+5012859878,pharmacy,pharmacy,Subra,42.668577,23.279174,Sofia (Capital)
+5012885034,school,school,Стефчето,42.668627,23.282994,Sofia (Capital)
+5013394125,clinic,clinic,,42.668399,23.285945,Sofia (Capital)
+5015428725,pharmacy,pharmacy,БГ,42.668934,23.289248,Sofia (Capital)
+5018241104,clinic,doctors,,42.671111,23.321528,Sofia (Capital)
+5020777261,pharmacy,pharmacy,,42.618308,25.389146,Stara Zagora
+5025147789,school,school,МяСтоТо,42.666301,23.294814,Sofia (Capital)
+5026153033,clinic,clinic,Лазерна терапия,42.154739,24.741903,Plovdiv
+5027210502,school,school,Lern,42.666275,23.295538,Sofia (Capital)
+5027261200,kindergarten,kindergarten,Maxi Kids,42.665869,23.296816,Sofia (Capital)
+5027261941,pharmacy,pharmacy,Аптека Триадица,42.66645,23.296915,Sofia (Capital)
+5029585872,pharmacy,pharmacy,Марешки,42.618304,25.390664,Stara Zagora
+5035511521,clinic,clinic,Конвекс,42.664713,23.28454,Sofia (Capital)
+5037702678,kindergarten,kindergarten,Слънчо,42.66452,23.291263,Sofia (Capital)
+5037768487,pharmacy,pharmacy,36.6,42.664357,23.296514,Sofia (Capital)
+5039933767,pharmacy,pharmacy,SOpharmacy,42.664416,23.297991,Sofia (Capital)
+5041453024,clinic,clinic,,44.02867,22.752276,Vidin
+5041468222,hospital,hospital,Общинска поликлиника Шабла,43.536737,28.532498,Dobrich
+5045807806,kindergarten,kindergarten,Clever Cat,42.703287,27.793231,Burgas
+5045807810,kindergarten,kindergarten,Эрудит,42.702831,27.794471,Burgas
+5049458657,pharmacy,pharmacy,Subra,42.659996,23.298946,Sofia (Capital)
+5052121323,pharmacy,pharmacy,SOpharmacy,42.145378,24.749035,Plovdiv
+5061724121,pharmacy,pharmacy,Аптека,44.028897,22.754196,Vidin
+5062640460,pharmacy,pharmacy,,42.646816,26.984561,Burgas
+5076276816,hospital,hospital,,42.411116,27.678266,Burgas
+5081222951,pharmacy,pharmacy,Марешки,42.427597,25.644973,Stara Zagora
+5081222965,pharmacy,pharmacy,Фрамар,42.428774,25.650429,Stara Zagora
+5081263609,pharmacy,pharmacy,Колибри,42.652963,23.361747,Sofia (Capital)
+5096950753,pharmacy,pharmacy,,42.133228,24.939453,Plovdiv
+5096950754,school,school,"ОУ ""Гео Милев""",42.135796,24.939909,Plovdiv
+5108696150,school,school,СУ Христо Ботев,42.288752,23.26606,Kyustendil
+5108698080,kindergarten,kindergarten,Св. Ана,42.291408,23.267348,Kyustendil
+5113176705,clinic,doctors,,43.540315,27.880514,Dobrich
+5115594904,pharmacy,pharmacy,Фрамар 17 (Кършияка),42.158081,24.742702,Plovdiv
+5115594906,pharmacy,pharmacy,SOpharmacy,42.156622,24.743642,Plovdiv
+5115594907,pharmacy,pharmacy,Anteka,42.156483,24.743956,Plovdiv
+5121464422,pharmacy,pharmacy,Медов,42.602532,23.484449,Sofia (Capital)
+5121503725,pharmacy,pharmacy,Фарма Експерт,42.603933,23.494778,Sofia (Capital)
+5128590022,pharmacy,pharmacy,,42.713071,27.760263,Burgas
+5128617821,pharmacy,pharmacy,,42.713721,27.759621,Burgas
+5140593022,school,school,"Училища ""Европа""",42.730656,23.298511,Sofia (Capital)
+5145063321,hospital,hospital,"""Биомед - 99""",43.987313,22.876467,Vidin
+5155507524,clinic,doctors,Д-р Юксел Ахмед,43.827583,27.143046,Silistra
+5157775045,clinic,clinic,Медицински център,42.050978,25.58799,Haskovo
+5203024559,clinic,doctors,Здравна служба,41.38059,25.255399,Kardzhali
+5203024560,clinic,doctors,Доктор,41.380604,25.255079,Kardzhali
+5203059021,pharmacy,pharmacy,Аптека Пулс,42.520007,27.451347,Burgas
+5208108824,clinic,clinic,Първа детска консултативна клиника,42.666609,23.289938,Sofia (Capital)
+5211147824,clinic,doctors,,42.703059,27.705773,Burgas
+5228184727,pharmacy,pharmacy,,43.218947,27.936604,Varna
+5230916645,school,school,"ВСУ ""Захари Стоянов""",42.514569,27.456197,Burgas
+5237160667,pharmacy,pharmacy,Медея,42.698164,23.331464,Sofia (Capital)
+5255780980,clinic,doctors,Поликлиника,42.459099,27.422324,Burgas
+5256341396,hospital,hospital,"Специализирана белодробна клинка ""Цар Фердинанд""",42.985286,23.275654,Sofia Province
+5262327756,kindergarten,kindergarten,,41.609681,25.378496,Kardzhali
+5263817405,school,school,Училище Хр. Ботев,42.439825,23.814043,Sofia Province
+5278572885,hospital,hospital,,42.517806,27.370724,Burgas
+5290617400,pharmacy,pharmacy,,42.618596,25.3933,Stara Zagora
+5303140488,pharmacy,pharmacy,Марешки,42.13944,25.867607,Stara Zagora
+5303140496,pharmacy,pharmacy,,42.138567,25.865537,Stara Zagora
+5313591999,hospital,hospital,,41.72615,24.684569,Smolyan
+5317917849,pharmacy,pharmacy,,42.265253,23.60621,Sofia Province
+5318791326,pharmacy,pharmacy,Корект,42.670743,23.353291,Sofia (Capital)
+5318976840,clinic,clinic,Център Психично здраве,43.194513,23.555888,Vratsa
+5320286896,pharmacy,pharmacy,,43.197819,23.561748,Vratsa
+5320286897,pharmacy,pharmacy,Марешки,43.197673,23.562031,Vratsa
+5320286898,pharmacy,pharmacy,,43.197489,23.561348,Vratsa
+5320286899,pharmacy,pharmacy,Санита,43.198699,23.559092,Vratsa
+5323240924,school,school,"Бивше училище ""Христо Ботев""",44.032603,22.747278,Vidin
+5323246723,school,school,"Бивше училище ""Васил Левски""",44.029356,22.760308,Vidin
+5329555514,pharmacy,pharmacy,SOpharmacy,42.678781,23.322247,Sofia (Capital)
+5331376722,pharmacy,pharmacy,Теа,42.724206,23.304765,Sofia (Capital)
+5332940979,pharmacy,pharmacy,Сейба,42.73013,23.294539,Sofia (Capital)
+5332940980,pharmacy,pharmacy,Vitalis Pharma,42.730065,23.294551,Sofia (Capital)
+5337412135,pharmacy,pharmacy,,42.596518,26.691497,Yambol
+5348798611,pharmacy,pharmacy,,42.171768,26.569083,Yambol
+5351018989,pharmacy,pharmacy,,42.17668,26.579813,Yambol
+5351925180,pharmacy,pharmacy,,42.343827,27.179798,Burgas
+5351925185,pharmacy,pharmacy,Вирджиния,42.345056,27.180543,Burgas
+5359696889,pharmacy,pharmacy,,43.208023,27.923004,Varna
+5387849007,pharmacy,pharmacy,Тони,42.61861,25.395,Stara Zagora
+5389944221,pharmacy,pharmacy,ПроФарма,42.711524,23.311608,Sofia (Capital)
+5392695137,pharmacy,pharmacy,Марешки,42.710297,23.313655,Sofia (Capital)
+5396238927,clinic,doctors,Орбидент,42.700054,23.312105,Sofia (Capital)
+5414497320,school,school,,42.292688,25.641331,Stara Zagora
+5414972552,pharmacy,pharmacy,Салвия,43.075551,25.622262,Veliko Tarnovo
+5417880123,school,school,,41.64351,24.689714,Smolyan
+5428899726,pharmacy,pharmacy,Санита,43.214674,27.916755,Varna
+5430953773,clinic,doctors,Невролог Д-р Юлияна Данаилова,42.42671,25.621409,Stara Zagora
+5442540283,pharmacy,pharmacy,West Pharmacy,42.116801,24.736323,Plovdiv
+5442593033,pharmacy,pharmacy,Pharmacy 1,42.12022,24.733224,Plovdiv
+5442593035,pharmacy,pharmacy,Hubenova,42.120549,24.732409,Plovdiv
+5444150887,pharmacy,pharmacy,Аптека Аква Р,42.499161,27.478923,Burgas
+5444176562,pharmacy,pharmacy,Аптека Линк+,42.500674,27.473828,Burgas
+5464950107,pharmacy,pharmacy,"Аптека ""Стефанови-2000""",43.807369,26.101667,Ruse
+5480102070,clinic,doctors,Ринопластика Д-р Кулов,42.131104,24.720903,Plovdiv
+5515641230,hospital,hospital,,42.370539,23.002284,Kyustendil
+5516526704,pharmacy,pharmacy,,42.895199,23.916787,Sofia Province
+5520455664,clinic,doctors,,42.150126,23.002227,Kyustendil
+5522072225,pharmacy,pharmacy,Део воленте,42.70756,23.317821,Sofia (Capital)
+5530208944,pharmacy,pharmacy,Марешки,42.906351,23.791548,Sofia Province
+5533101731,pharmacy,pharmacy,Механджиеви,43.84214,25.960098,Ruse
+5543306398,pharmacy,pharmacy,,42.728592,23.299111,Sofia (Capital)
+5586818876,school,school,"Русенската Частна Английска гимназия ""Джордж Байрон""",43.859198,25.972097,Ruse
+5594326589,pharmacy,pharmacy,Първа частна аптека,43.210138,27.920895,Varna
+5598834067,hospital,hospital,ЦСМП,42.25525,22.853562,Kyustendil
+5604912305,hospital,hospital,Д-р Димитър А. Йончев,42.136631,24.742726,Plovdiv
+5620521589,hospital,hospital,,42.893196,23.91677,Sofia Province
+5624309792,pharmacy,pharmacy,,41.934795,24.269534,Pazardzhik
+5634387747,clinic,doctors,Ертоп Хюсеин,43.820152,27.144917,Silistra
+5635089592,pharmacy,pharmacy,S.T.A.K.I,43.822015,27.139793,Silistra
+5635089596,pharmacy,pharmacy,Аптека 2,43.823633,27.141017,Silistra
+5635143886,pharmacy,pharmacy,Марешки,43.825114,27.14165,Silistra
+5639794940,pharmacy,pharmacy,,43.135149,24.71644,Lovech
+5646001549,pharmacy,pharmacy,Subra,42.148956,24.747461,Plovdiv
+5648238478,hospital,hospital,СБАЛТОСМ - проф. д-р Димитър Шойлев,42.664439,23.344287,Sofia (Capital)
+5651393534,pharmacy,pharmacy,,43.134501,24.71144,Lovech
+5653470531,pharmacy,pharmacy,,43.140029,24.718069,Lovech
+5653479415,pharmacy,pharmacy,,43.141752,24.71856,Lovech
+5653568418,pharmacy,pharmacy,Феникс,43.143866,24.717519,Lovech
+5653640897,school,school,Роботика,42.661796,23.362963,Sofia (Capital)
+5658958157,hospital,hospital,,42.24278,27.77422,Burgas
+5660586828,pharmacy,pharmacy,,42.149128,26.811241,Yambol
+5661173995,clinic,clinic,Поликлиника,43.357307,24.145326,Pleven
+5666338729,clinic,doctors,Медицински Център Балканмед,42.701779,23.323937,Sofia (Capital)
+5672182022,pharmacy,pharmacy,,42.81902,27.881208,Burgas
+5685407068,pharmacy,pharmacy,Амара,42.698666,23.340274,Sofia (Capital)
+5690929224,pharmacy,pharmacy,Тилия,42.561047,27.638809,Burgas
+5691202142,pharmacy,pharmacy,12 часа,42.673796,23.359139,Sofia (Capital)
+5693024831,pharmacy,pharmacy,Марешки,42.659385,27.720363,Burgas
+5701902529,clinic,doctors,,42.704954,27.712881,Burgas
+5710458385,clinic,doctors,,43.179187,27.896862,Varna
+5713562322,pharmacy,pharmacy,Медея,42.679414,23.361361,Sofia (Capital)
+5714198512,pharmacy,pharmacy,,42.143791,24.728899,Plovdiv
+5715805822,clinic,clinic,Клиника Медидерма,42.151637,24.73564,Plovdiv
+5728624882,hospital,hospital,Поликлиника,43.305426,25.05577,Lovech
+5730436832,pharmacy,pharmacy,Ирка,43.407042,23.223287,Montana
+5730663282,pharmacy,pharmacy,,43.889606,22.523064,Vidin
+5741219415,pharmacy,pharmacy,,43.283281,28.041036,Varna
+5755899591,clinic,clinic,Велаклиник,42.678905,23.324074,Sofia (Capital)
+5755952124,clinic,clinic,Хоспис Дар,42.728987,23.301614,Sofia (Capital)
+5790382704,hospital,hospital,Медицински център,43.63801,24.693068,Pleven
+5794082331,pharmacy,pharmacy,Мишел,42.287595,23.254253,Kyustendil
+5803960353,school,school,Езиков Център ИНТЕРЛЕТЕРА,42.643478,24.807663,Plovdiv
+5818859671,hospital,hospital,,43.236494,23.131674,Montana
+5834578166,hospital,hospital,Бърза помощ,43.016293,23.042658,Sofia Province
+5834578167,hospital,hospital,Поликлиника,43.016087,23.042955,Sofia Province
+5851467551,pharmacy,pharmacy,,42.411158,27.678228,Burgas
+5851597705,pharmacy,pharmacy,SOpharmacy,42.70284,23.301362,Sofia (Capital)
+5853248049,pharmacy,pharmacy,,44.152161,22.638252,Vidin
+5864099786,hospital,hospital,,42.137551,24.534326,Plovdiv
+5881565230,hospital,hospital,Ортодонт Д-р Стоянка Ангелова,42.186718,24.324284,Pazardzhik
+5884733767,clinic,doctors,Специалист вътрешни болести Д-р Бедросян,43.215271,27.916255,Varna
+5896345403,clinic,clinic,Дженерали Закрила Медико-дентален център,42.699163,23.337237,Sofia (Capital)
+5901697020,pharmacy,pharmacy,Оптима 8,43.844324,25.953948,Ruse
+5904063409,clinic,doctors,Д-р Вилиан Марков,42.100425,27.939218,Burgas
+5913781926,pharmacy,pharmacy,Фарма-Л,42.710619,23.300079,Sofia (Capital)
+5918705717,hospital,hospital,Дежурен кабинет | Д-р Митко Желязков,42.430172,25.626608,Stara Zagora
+5923559016,clinic,clinic,,43.201894,23.567011,Vratsa
+5925984741,hospital,hospital,1-ви ДКЦ филиал,43.211559,23.558128,Vratsa
+5935752122,hospital,hospital,Многопрофилна Болница за Активно Лечение,43.747385,27.416568,Dobrich
+5938892447,pharmacy,pharmacy,,42.809651,23.216153,Sofia Province
+5940102946,hospital,hospital,Психолог Даниела Кръстева,43.400657,24.608874,Pleven
+5941930831,pharmacy,pharmacy,Subra,42.017672,23.096129,Blagoevgrad
+5941930851,pharmacy,pharmacy,,42.018913,23.092574,Blagoevgrad
+5941930854,pharmacy,pharmacy,SOpharmacy,42.017791,23.097112,Blagoevgrad
+5968940018,pharmacy,pharmacy,,42.261015,23.107009,Kyustendil
+5972499607,pharmacy,pharmacy,Tetra med,42.685526,23.312479,Sofia (Capital)
+5972499608,pharmacy,pharmacy,,42.685916,23.312002,Sofia (Capital)
+5972499610,pharmacy,pharmacy,,42.685967,23.311941,Sofia (Capital)
+5981918611,pharmacy,pharmacy,Марешки,43.214574,27.917068,Varna
+5987137400,hospital,hospital,ДКЦ,43.160838,25.737835,Veliko Tarnovo
+6011120992,pharmacy,pharmacy,,42.682613,23.30111,Sofia (Capital)
+6011835066,hospital,hospital,Педиатър - Златинка Радева,42.515186,27.465439,Burgas
+6030280464,pharmacy,pharmacy,,41.394822,23.216781,Blagoevgrad
+6038659592,pharmacy,pharmacy,,41.581984,25.1347,Kardzhali
+6043441003,hospital,hospital,"СБАЛ Св,Анна",42.120134,24.730987,Plovdiv
+6043445641,school,school,Учебен Център Елвис Пресли,42.690466,23.311516,Sofia (Capital)
+6054196892,pharmacy,pharmacy,SOpharmacy,42.695086,23.315714,Sofia (Capital)
+6054196993,pharmacy,pharmacy,Св Никола,42.701931,23.319083,Sofia (Capital)
+6054196994,pharmacy,pharmacy,Марешки,42.705151,23.325457,Sofia (Capital)
+6054197002,pharmacy,pharmacy,Карагьозян,42.700162,23.323059,Sofia (Capital)
+6054199087,pharmacy,pharmacy,Велина,42.702711,23.324385,Sofia (Capital)
+6054199101,pharmacy,pharmacy,Виа,42.70023,23.316602,Sofia (Capital)
+6064316771,clinic,clinic,Еквита,43.207017,27.924491,Varna
+6077113601,hospital,hospital,"Очна клиника ""Св. Петка""",43.226285,27.933336,Varna
+6121148695,hospital,hospital,Болница,43.384991,22.874608,Montana
+6124100083,clinic,doctors,Медицински Център Тара,43.080262,25.631185,Veliko Tarnovo
+6138137675,pharmacy,pharmacy,Subra,42.658916,23.347406,Sofia (Capital)
+6146772365,school,school,,41.993532,25.233315,Plovdiv
+6161366544,pharmacy,pharmacy,Фрамар,42.139362,25.870815,Stara Zagora
+6176296339,pharmacy,pharmacy,Марешки,42.41277,25.591076,Stara Zagora
+6176296340,pharmacy,pharmacy,Фрамар,42.412799,25.59095,Stara Zagora
+6181345239,pharmacy,pharmacy,Фрамар,42.437293,25.630929,Stara Zagora
+6181345242,pharmacy,pharmacy,,42.132599,24.716407,Plovdiv
+6201595124,pharmacy,pharmacy,36.6,42.138133,24.723487,Plovdiv
+6205364637,pharmacy,pharmacy,SOpharmacy,42.141836,24.754005,Plovdiv
+6205364646,pharmacy,pharmacy,Farmavision,42.146663,24.760544,Plovdiv
+6230516485,hospital,hospital,Служба по трудова медицина - ВАЛЖАН,42.423393,25.622743,Stara Zagora
+6254495581,pharmacy,pharmacy,Еделвайс,42.669282,23.316894,Sofia (Capital)
+6255958289,kindergarten,kindergarten,Аладин,42.669319,23.316732,Sofia (Capital)
+6259170986,clinic,doctors,ПТБ-МЕД,42.71095,23.272809,Sofia (Capital)
+6264745466,hospital,hospital,,43.371749,23.481851,Vratsa
+6268614275,clinic,clinic,Medic One,42.668084,23.313076,Sofia (Capital)
+6293188370,hospital,hospital,Раредис,42.129942,24.781122,Plovdiv
+6294180496,pharmacy,pharmacy,Ремедиа,42.704083,23.328656,Sofia (Capital)
+6294559219,pharmacy,pharmacy,,42.664632,23.405881,Sofia (Capital)
+6294559220,pharmacy,pharmacy,SOpharmacy,42.665269,23.406141,Sofia (Capital)
+6295029456,pharmacy,pharmacy,Прополис,42.687882,23.329415,Sofia (Capital)
+6296275985,pharmacy,pharmacy,Нове Фарм,42.69917,23.306814,Sofia (Capital)
+6296301891,pharmacy,pharmacy,,42.666572,23.387824,Sofia (Capital)
+6296499649,pharmacy,pharmacy,Аптека Зора,42.662381,23.380139,Sofia (Capital)
+6296516065,pharmacy,pharmacy,ЛЛ-Фарма,42.687794,23.330256,Sofia (Capital)
+6301930768,pharmacy,pharmacy,Декс,42.694975,23.299103,Sofia (Capital)
+6302395051,pharmacy,pharmacy,Медея,42.699768,23.300766,Sofia (Capital)
+6304365744,pharmacy,pharmacy,Светлана,42.697343,23.315442,Sofia (Capital)
+6304406194,pharmacy,pharmacy,SOpharmacy,42.697368,23.318489,Sofia (Capital)
+6304424059,clinic,clinic,Гея Мед,42.686949,23.302549,Sofia (Capital)
+6306503478,clinic,clinic,,42.722071,23.306088,Sofia (Capital)
+6306525202,pharmacy,pharmacy,SOpharmacy,42.684795,23.301802,Sofia (Capital)
+6307154796,pharmacy,pharmacy,,42.730673,23.293621,Sofia (Capital)
+6308577339,pharmacy,pharmacy,,42.709524,23.378814,Sofia (Capital)
+6308882733,pharmacy,pharmacy,,42.734253,23.290286,Sofia (Capital)
+6311134560,pharmacy,pharmacy,Куин сити,42.708395,23.299247,Sofia (Capital)
+6311829414,pharmacy,pharmacy,Богея,42.733291,23.302411,Sofia (Capital)
+6315711780,pharmacy,pharmacy,Класика Нео,43.142786,24.711428,Lovech
+6318710935,pharmacy,pharmacy,,42.719912,23.274119,Sofia (Capital)
+6322010353,pharmacy,pharmacy,Royal Pharmacy,42.718819,23.268142,Sofia (Capital)
+6337078985,pharmacy,pharmacy,,42.574235,27.295607,Burgas
+6349973756,kindergarten,kindergarten,"18 ОДЗ ""Детски свят"" (клон)",42.688155,23.34545,Sofia (Capital)
+6362887629,pharmacy,pharmacy,Гален 5,41.932096,25.566551,Haskovo
+6362887630,pharmacy,pharmacy,Селен,41.933775,25.55307,Haskovo
+6362887633,pharmacy,pharmacy,Гален,41.930185,25.55746,Haskovo
+6362887634,pharmacy,pharmacy,"Аптека ""Живакова""",41.931093,25.55711,Haskovo
+6376903238,pharmacy,pharmacy,,43.227172,27.918829,Varna
+6376903239,pharmacy,pharmacy,,43.223807,27.914395,Varna
+6381991173,pharmacy,pharmacy,Медея,42.67663,23.309961,Sofia (Capital)
+6388236585,clinic,clinic,Лаборатория Синево,42.426094,25.613382,Stara Zagora
+6392836500,clinic,clinic,,43.913543,22.813416,Vidin
+6393269569,clinic,clinic,,43.957582,22.532295,Vidin
+6402590372,pharmacy,pharmacy,Херц,42.130579,24.777596,Plovdiv
+6402592091,hospital,hospital,"МЦ ""Димед""",42.134372,24.792511,Plovdiv
+6404105350,hospital,hospital,"Therapeutic community ""Phoenix""",43.060267,23.156758,Sofia Province
+6407220595,pharmacy,pharmacy,SOpharmacy,43.276291,26.942718,Shumen
+6412380439,clinic,clinic,"Медико-дентален център ""Орион""",42.717806,23.276466,Sofia (Capital)
+6414108092,clinic,clinic,,43.237102,27.825915,Varna
+6422462178,clinic,doctors,Метаморфоза,42.693711,23.313813,Sofia (Capital)
+6426691699,pharmacy,pharmacy,Невена,42.692463,23.31355,Sofia (Capital)
+6433687452,kindergarten,kindergarten,Нарцис ПМ,42.690668,23.313805,Sofia (Capital)
+6433775054,school,school,Mental Arithmetic of Europe,42.689754,23.309408,Sofia (Capital)
+6437045724,kindergarten,kindergarten,Серендипити,42.689898,23.310676,Sofia (Capital)
+6440305891,pharmacy,pharmacy,Celba,42.695087,23.284105,Sofia (Capital)
+6442273991,pharmacy,pharmacy,Санита,43.625655,22.685658,Vidin
+6442273997,pharmacy,pharmacy,Хития,43.625719,22.68513,Vidin
+6443975041,clinic,doctors,Bodimed,42.689338,23.312939,Sofia (Capital)
+6444000452,pharmacy,pharmacy,,42.689227,23.314018,Sofia (Capital)
+6445737367,pharmacy,pharmacy,Марешки,43.999994,22.870679,Vidin
+6448099287,kindergarten,kindergarten,,42.676996,23.310141,Sofia (Capital)
+6468198562,pharmacy,pharmacy,,43.411323,23.226809,Montana
+6475207929,pharmacy,pharmacy,Аптека ВИТАЛ,43.21515,27.909369,Varna
+6476576110,clinic,doctors,Д-р Атова Д-р Тонкин,42.687359,23.32664,Sofia (Capital)
+6479089486,clinic,doctors,Д-р Мечкарови,42.160984,24.735808,Plovdiv
+6481583536,kindergarten,kindergarten,ДГ №87 „Буката“ - филиал ул. Тунджа,42.686397,23.312987,Sofia (Capital)
+6481610299,clinic,doctors,Медицински център Гина,42.686344,23.313963,Sofia (Capital)
+6483371795,clinic,clinic,НЕО Клиник,42.677189,23.302653,Sofia (Capital)
+6487242867,clinic,clinic,Медицински център Фокус 5,42.685973,23.312392,Sofia (Capital)
+6492815319,clinic,doctors,Лаборатория Кандиларов,42.686045,23.312491,Sofia (Capital)
+6504688851,pharmacy,pharmacy,Новиа,42.684949,23.321277,Sofia (Capital)
+6509674568,pharmacy,pharmacy,аптека Ерудита,42.707018,23.316505,Sofia (Capital)
+6512228089,pharmacy,pharmacy,,42.703546,27.716916,Burgas
+6512699198,pharmacy,pharmacy,Амара,42.687166,23.317134,Sofia (Capital)
+6512699213,pharmacy,pharmacy,Галатея,42.675722,23.288194,Sofia (Capital)
+6512748810,pharmacy,pharmacy,,42.700934,23.316506,Sofia (Capital)
+6516430220,pharmacy,pharmacy,Аптека 36.6 Военна Болница,42.136106,24.75743,Plovdiv
+6516433490,pharmacy,pharmacy,Фрамар,42.136352,24.757809,Plovdiv
+6528403311,pharmacy,pharmacy,,42.704189,27.809573,Burgas
+6528403326,pharmacy,pharmacy,,42.703359,27.809369,Burgas
+6534443195,clinic,doctors,,42.707736,27.723307,Burgas
+6535992728,clinic,doctors,,42.708732,27.748235,Burgas
+6538809480,pharmacy,pharmacy,ParaPharmacy,42.695091,23.318177,Sofia (Capital)
+6544511441,pharmacy,pharmacy,Надежда,42.660198,23.282107,Sofia (Capital)
+6545993026,school,school,Театрален колеж Любен Гройс,42.695184,23.346214,Sofia (Capital)
+6548931275,kindergarten,kindergarten,ЦДГ 100,42.693893,23.340162,Sofia (Capital)
+6549207934,pharmacy,pharmacy,,42.707173,27.720542,Burgas
+6549207965,clinic,doctors,Doctor,42.707132,27.720472,Burgas
+6553719201,clinic,clinic,Ibn-i sina,43.226123,27.94931,Varna
+6554762228,clinic,clinic,Вежен Медикал,42.6757,23.32057,Sofia (Capital)
+6567012012,school,school,Каменоделско училище,43.186276,24.007512,Vratsa
+6567538343,pharmacy,pharmacy,Биола,42.710363,23.292292,Sofia (Capital)
+6576018347,hospital,hospital,МБАЛ Сердика,42.681875,23.245394,Sofia (Capital)
+6578712387,school,school,ОУ Христо Ботев,42.401462,23.078344,Pernik
+6578717387,kindergarten,kindergarten,Обединен детски комплекс,42.60747,23.026322,Pernik
+6580391633,pharmacy,pharmacy,Марешки,42.686895,23.255139,Sofia (Capital)
+6588421626,pharmacy,pharmacy,SOpharmacy,42.71134,23.302207,Sofia (Capital)
+6593179137,pharmacy,pharmacy,,42.699974,24.179161,Sofia Province
+6594571667,pharmacy,pharmacy,Сигма,42.148487,24.731437,Plovdiv
+6594571669,pharmacy,pharmacy,SOpharmacy,42.147571,24.730741,Plovdiv
+6594571672,pharmacy,pharmacy,,42.147481,24.729695,Plovdiv
+6594571680,clinic,doctors,Medical Center DermaVision,42.14672,24.726339,Plovdiv
+6594581796,pharmacy,pharmacy,Avenue,42.146082,24.721341,Plovdiv
+6598109017,pharmacy,pharmacy,Pharmacie Principale,43.224716,27.901884,Varna
+6611904443,pharmacy,pharmacy,Calenic,42.698304,23.326,Sofia (Capital)
+6615722707,clinic,doctors,Д-р Васил Ангелов,42.137947,24.740054,Plovdiv
+6615742030,hospital,hospital,Д-р Юрий Асенов - Пластичен Хирург,42.150767,24.74325,Plovdiv
+6615748407,school,school,Детска занималня Ян Бибиян,42.143897,24.746242,Plovdiv
+6630952375,pharmacy,pharmacy,Mirabel,42.099554,27.941645,Burgas
+6633286834,clinic,doctors,,42.453426,27.547916,Burgas
+6634635224,pharmacy,pharmacy,Ceiba,42.463345,27.410153,Burgas
+6636656640,clinic,doctors,Юлия Тасевска,43.212922,27.90211,Varna
+6641461307,pharmacy,pharmacy,,42.703557,23.306138,Sofia (Capital)
+6660695894,pharmacy,pharmacy,К-Крес,43.571196,27.834359,Dobrich
+6661383964,clinic,doctors,,42.698529,27.714554,Burgas
+6669995690,hospital,hospital,ДКЦ “Д-р Грийнберг”,42.651133,23.404948,Sofia (Capital)
+6678664898,pharmacy,pharmacy,Марешки,43.237924,23.12625,Montana
+6680794286,clinic,clinic,Рехабилитация,42.685076,23.307228,Sofia (Capital)
+6690778409,clinic,doctors,,43.570332,27.825206,Dobrich
+6691686858,school,school,High School Otets Paisii,41.505557,24.937191,Smolyan
+6707496931,pharmacy,pharmacy,SOpharmacy,43.223335,27.924946,Varna
+6708683364,clinic,doctors,,43.290313,28.046336,Varna
+6723071486,pharmacy,pharmacy,Аптека Матрикариа,43.212237,27.916971,Varna
+6723108785,pharmacy,pharmacy,Денонощна аптека Валя Дечева,43.212859,27.916103,Varna
+6723108885,pharmacy,pharmacy,Аптека Diva,43.213156,27.915655,Varna
+6731504001,pharmacy,pharmacy,Стария Добрич,43.570323,27.831616,Dobrich
+6768615911,pharmacy,pharmacy,ПроФарма,42.63942,23.383753,Sofia (Capital)
+6768615918,clinic,doctors,Bodimed,42.639536,23.384351,Sofia (Capital)
+6781235238,pharmacy,pharmacy,,43.281393,28.040336,Varna
+6790699635,pharmacy,pharmacy,SOpharmacy,42.69853,23.308092,Sofia (Capital)
+6797448676,pharmacy,pharmacy,Фарма Л,42.689644,23.249951,Sofia (Capital)
+6799173427,pharmacy,pharmacy,Св. Мина,42.71869,23.268939,Sofia (Capital)
+6801336885,pharmacy,pharmacy,Панорама,42.572581,27.295816,Burgas
+6804071135,pharmacy,pharmacy,Медея,42.689557,23.254966,Sofia (Capital)
+6807225026,clinic,doctors,Уролог Д-р Василев,42.426155,25.611241,Stara Zagora
+6813516692,pharmacy,pharmacy,Прополис,42.672191,23.396238,Sofia (Capital)
+6814682723,school,school,Първа частна търговска гимназия,43.203016,27.9192,Varna
+6814682724,pharmacy,pharmacy,Аптека Попова,43.204334,27.918474,Varna
+6818302636,pharmacy,pharmacy,Betty,42.683168,23.268322,Sofia (Capital)
+6833815718,hospital,hospital,ТИЙМКОД,42.63941,23.398605,Sofia (Capital)
+6835136658,school,school,,41.997451,23.747537,Blagoevgrad
+6842824721,clinic,clinic,Кабинет по хомеопатия,42.70786,23.309022,Sofia (Capital)
+6850753580,pharmacy,pharmacy,SOPharmacy,43.569453,27.828919,Dobrich
+6906532791,pharmacy,pharmacy,,42.705069,23.344759,Sofia (Capital)
+6908377585,pharmacy,pharmacy,Ремедия,42.699722,23.336117,Sofia (Capital)
+6909348186,pharmacy,pharmacy,Влахов,42.701143,23.337342,Sofia (Capital)
+6909781685,pharmacy,pharmacy,,42.706384,23.348513,Sofia (Capital)
+6915839885,pharmacy,pharmacy,Аптека Royal Pharmacy,42.608492,23.108033,Pernik
+6916793394,pharmacy,pharmacy,Жийон,42.703342,23.333529,Sofia (Capital)
+6918809623,pharmacy,pharmacy,Дрогерия,41.881487,23.525852,Blagoevgrad
+6926372601,pharmacy,pharmacy,,42.138143,24.723553,Plovdiv
+6926372885,clinic,doctors,,42.147756,24.735843,Plovdiv
+6926514285,pharmacy,pharmacy,,41.820749,23.56195,Blagoevgrad
+6927303086,pharmacy,pharmacy,,42.139551,24.728582,Plovdiv
+6927327588,pharmacy,pharmacy,"36,6",42.150506,24.749924,Plovdiv
+6929874691,kindergarten,kindergarten,,42.152708,24.746451,Plovdiv
+6929874692,kindergarten,kindergarten,,42.153021,24.745184,Plovdiv
+6932081685,pharmacy,pharmacy,Фрамар,42.14457,24.732101,Plovdiv
+6939046158,clinic,doctors,АПМП - Д-р Ирина Антонова,43.827326,26.925594,Silistra
+6943828915,clinic,clinic,,43.197051,23.562575,Vratsa
+6943828916,pharmacy,pharmacy,Pharmacie Principale,43.197035,23.562597,Vratsa
+6944973784,hospital,hospital,ЗФ Свети Георги - ОХХ Груп АД,42.671463,23.386933,Sofia (Capital)
+6944985747,clinic,doctors,Д-р Таня Калинова,42.673971,23.282873,Sofia (Capital)
+6945916659,hospital,hospital,Първа частна МБАЛ - Враца,43.193714,23.570062,Vratsa
+6949337949,pharmacy,pharmacy,,42.359273,24.731874,Plovdiv
+6960711083,pharmacy,pharmacy,Новедес,42.669498,23.276554,Sofia (Capital)
+6968252734,clinic,doctors,Д-р Димитър Брънков,42.479969,26.50018,Yambol
+6978959061,clinic,doctors,Д-р Мирена Гугуткова,42.495531,27.474806,Burgas
+6991746245,hospital,hospital,Д-р Тотка Чукалова,42.621553,25.387537,Stara Zagora
+6992088249,clinic,clinic,Очна клиника Ден,42.700581,23.333764,Sofia (Capital)
+7007611870,clinic,doctors,Д-р Мария Велева-Якова,41.397858,23.201972,Blagoevgrad
+7007668511,clinic,doctors,Л-мед,42.670911,23.333637,Sofia (Capital)
+7041343757,pharmacy,pharmacy,Сава Бояджиев,42.697842,23.313225,Sofia (Capital)
+7052502260,school,school,"Валдорфско училище ""Проф. Николай Райнов""",42.678527,23.356955,Sofia (Capital)
+7066418753,clinic,clinic,Да Винчи,42.707978,23.308311,Sofia (Capital)
+7071962732,hospital,hospital,Здравна служба,42.059213,25.263757,Plovdiv
+7079417534,hospital,hospital,Медицински Център Хармония,42.663022,23.375311,Sofia (Capital)
+7090373347,pharmacy,pharmacy,Здраве,42.908175,23.797997,Sofia Province
+7092873003,hospital,hospital,Спешни кабинети при ОПЛ,42.422857,25.616354,Stara Zagora
+7134965222,pharmacy,pharmacy,Марешки,42.71491,23.259555,Sofia (Capital)
+7138464460,pharmacy,pharmacy,Keimart,42.715255,23.260814,Sofia (Capital)
+7154844045,pharmacy,pharmacy,,42.730528,23.252699,Sofia (Capital)
+7162395732,pharmacy,pharmacy,Прима,42.725716,23.254953,Sofia (Capital)
+7167823196,pharmacy,pharmacy,Верита,42.70311,23.299786,Sofia (Capital)
+7169687569,pharmacy,pharmacy,,42.990154,27.717977,Varna
+7169763502,pharmacy,pharmacy,Ремедиум,42.6469,23.368262,Sofia (Capital)
+7176761731,clinic,doctors,,42.725721,23.254144,Sofia (Capital)
+7179870249,clinic,clinic,ДКЦ - 12,42.725279,23.25476,Sofia (Capital)
+7194786687,kindergarten,kindergarten,Детска езикова занималня,42.723456,23.247004,Sofia (Capital)
+7208716486,pharmacy,pharmacy,,41.828091,23.479545,Blagoevgrad
+7208736385,pharmacy,pharmacy,,41.829001,23.479555,Blagoevgrad
+7212909142,pharmacy,pharmacy,,42.266223,23.605236,Sofia Province
+7236472856,pharmacy,pharmacy,Фрамар,42.139211,24.767873,Plovdiv
+7241768805,pharmacy,pharmacy,Тодорови фарма,42.719545,23.252006,Sofia (Capital)
+7252292079,pharmacy,pharmacy,Адонис,42.717587,23.252431,Sofia (Capital)
+7261225368,school,school,Занималня Лукчо,42.701117,23.283284,Sofia (Capital)
+7273802785,hospital,hospital,медика кор3 ет.,43.849871,25.991155,Ruse
+7281713934,pharmacy,pharmacy,SOpharmacy,42.911175,23.803974,Sofia Province
+7294281960,pharmacy,pharmacy,Нота Бене,42.709869,23.308496,Sofia (Capital)
+7300261386,clinic,clinic,Отделение по лъчетерапия,43.197945,23.559685,Vratsa
+7300261387,clinic,clinic,МЦ Алпико,43.198258,23.559551,Vratsa
+7340317096,clinic,clinic,ХИРОН,41.933058,25.559336,Haskovo
+7342957532,clinic,clinic,Дарина Терапи,42.703173,23.30435,Sofia (Capital)
+7394137439,pharmacy,pharmacy,Д-р Спасов,42.504925,24.188479,Pazardzhik
+7399745143,pharmacy,pharmacy,,42.718361,23.239455,Sofia (Capital)
+7401928432,pharmacy,pharmacy,SOpharmacy,42.651629,23.405075,Sofia (Capital)
+7453567008,pharmacy,pharmacy,Алтея,42.711573,23.297428,Sofia (Capital)
+7476001162,clinic,doctors,д-р Петър Руев,42.429155,25.633256,Stara Zagora
+7523087507,pharmacy,pharmacy,Медея,42.65556,23.39833,Sofia (Capital)
+7604590246,pharmacy,pharmacy,"Билколечение, ЕТ ""Здравец-Билка""",43.213017,27.906051,Varna
+7617671140,pharmacy,pharmacy,Фрамар,42.427531,25.644356,Stara Zagora
+7631723646,pharmacy,pharmacy,Нове Фарм,42.683769,23.330752,Sofia (Capital)
+7638070351,pharmacy,pharmacy,Subra,42.438292,25.632036,Stara Zagora
+7647174868,pharmacy,pharmacy,Марешки,42.130566,24.749406,Plovdiv
+7647174870,pharmacy,pharmacy,PharmaPolis,42.130292,24.748355,Plovdiv
+7647174871,pharmacy,pharmacy,SOpharmacy,42.129461,24.74817,Plovdiv
+7668935885,pharmacy,pharmacy,,42.700241,23.32447,Sofia (Capital)
+7694319945,clinic,doctors,Синапс плюс,42.672431,23.332299,Sofia (Capital)
+7702026052,clinic,doctors,Ира Маркова,42.666508,23.319762,Sofia (Capital)
+7704988888,pharmacy,pharmacy,Subra,42.424223,25.627349,Stara Zagora
+7704988897,pharmacy,pharmacy,Ceiba,42.423867,25.632661,Stara Zagora
+7728090741,pharmacy,pharmacy,Алфа,42.425179,25.640105,Stara Zagora
+7728090769,pharmacy,pharmacy,Марешки,42.421098,25.623947,Stara Zagora
+7728116396,pharmacy,pharmacy,,42.421958,25.614447,Stara Zagora
+7728116407,pharmacy,pharmacy,Медея,42.422731,25.618669,Stara Zagora
+7728116408,pharmacy,pharmacy,Дария,42.422819,25.619209,Stara Zagora
+7728116428,pharmacy,pharmacy,Еова-Ира,42.426024,25.635639,Stara Zagora
+7731566520,pharmacy,pharmacy,,42.729044,23.302668,Sofia (Capital)
+7732311685,clinic,clinic,Synexus,42.655578,23.372889,Sofia (Capital)
+7733966226,pharmacy,pharmacy,Марешки,43.2065,27.92103,Varna
+7741088527,clinic,doctors,Д-р Драгнев,43.210896,27.917762,Varna
+7741801810,pharmacy,pharmacy,К-Крес,43.213814,27.933757,Varna
+7743628171,hospital,hospital,Д-р Румяна Анастасова,42.717954,23.270731,Sofia (Capital)
+7762313448,pharmacy,pharmacy,Аптека 1,42.139277,24.767877,Plovdiv
+7824408931,pharmacy,pharmacy,,42.49747,24.187355,Pazardzhik
+7825143697,clinic,doctors,Др. Колева,43.075897,25.623107,Veliko Tarnovo
+7825143698,clinic,clinic,"Медицински Център ""Дозис""",43.075682,25.623388,Veliko Tarnovo
+7857647483,clinic,clinic,,43.220217,27.93109,Varna
+7873774601,clinic,doctors,Алерголог Педиатър д-р Йордан Мирчев,42.705145,23.345973,Sofia (Capital)
+7887748411,pharmacy,pharmacy,,43.27236,26.926479,Shumen
+7887748412,pharmacy,pharmacy,Аптека Марешки,43.271938,26.925998,Shumen
+7887748413,pharmacy,pharmacy,Аптека Феникс,43.272328,26.925911,Shumen
+7889937183,pharmacy,pharmacy,Silk,43.70601,24.894858,Pleven
+7889937184,pharmacy,pharmacy,,43.706525,24.896097,Pleven
+7892175085,school,school,Музикална школа,43.524704,26.526387,Razgrad
+7904356516,clinic,doctors,Д-р Сюзан Арифова,43.636703,24.851737,Pleven
+7923589517,pharmacy,pharmacy,,42.426112,25.612642,Stara Zagora
+7923589519,pharmacy,pharmacy,,42.426143,25.611336,Stara Zagora
+7925653066,pharmacy,pharmacy,Марешки,42.423772,25.62275,Stara Zagora
+7925784702,pharmacy,pharmacy,,42.339107,23.559546,Sofia Province
+7926079072,pharmacy,pharmacy,Аптека 36.6 Иван Вазов,42.136616,24.74327,Plovdiv
+7972695602,kindergarten,kindergarten,Забавачнуца Babyland,42.68782,23.353774,Sofia (Capital)
+8038106189,clinic,clinic,Медицински център Алфамедикс,42.686741,23.25516,Sofia (Capital)
+8045197845,pharmacy,pharmacy,SOpharmacy,42.659213,23.29946,Sofia (Capital)
+8068420393,pharmacy,pharmacy,Маринела,42.427525,25.644079,Stara Zagora
+8094052732,pharmacy,pharmacy,,42.725445,23.292227,Sofia (Capital)
+8098099006,pharmacy,pharmacy,Поли,43.214011,27.906069,Varna
+8112698218,pharmacy,pharmacy,Panatseia,43.215543,27.9021,Varna
+8118760119,pharmacy,pharmacy,Омниа,42.670683,23.314059,Sofia (Capital)
+8173094968,pharmacy,pharmacy,Europharm Mega Mall,42.710487,23.271024,Sofia (Capital)
+8174661487,pharmacy,pharmacy,,42.716291,23.236571,Sofia (Capital)
+8198823728,pharmacy,pharmacy,SOpharmacy,42.681634,23.331246,Sofia (Capital)
+8198926344,pharmacy,pharmacy,Цвети,42.020915,23.989515,Pazardzhik
+8198926349,pharmacy,pharmacy,Марешки,42.020641,23.990069,Pazardzhik
+8198926358,pharmacy,pharmacy,Надежда,42.025726,23.99098,Pazardzhik
+8204685330,pharmacy,pharmacy,,42.657903,27.71581,Burgas
+8223128892,clinic,clinic,,42.535146,23.609701,Sofia Province
+8228250289,clinic,clinic,Excelsior,42.670249,23.314875,Sofia (Capital)
+8236999093,pharmacy,pharmacy,Аптека 36.6 Прослав,42.125608,24.687695,Plovdiv
+8236999094,pharmacy,pharmacy,Аптека 36.6 Билла Родопи,42.133089,24.74414,Plovdiv
+8236999095,pharmacy,pharmacy,Аптека 36.6 Ленинград,42.158119,24.733441,Plovdiv
+8236999096,pharmacy,pharmacy,Аптека 36.6 Стряма,42.259341,24.881669,Plovdiv
+8236999097,pharmacy,pharmacy,Аптека 36.6 Раковски,42.270909,24.931587,Plovdiv
+8236999098,pharmacy,pharmacy,Аптека 36.6 Баня,42.541519,24.835767,Plovdiv
+8236999099,pharmacy,pharmacy,Аптека 36.6 Карлово,42.641339,24.805902,Plovdiv
+8236999100,pharmacy,pharmacy,Аптека 36.6 България,42.009314,24.870729,Plovdiv
+8236999102,pharmacy,pharmacy,Аптека 36.6,42.138507,24.721907,Plovdiv
+8236999103,pharmacy,pharmacy,36.6 Тракия,42.129544,24.786594,Plovdiv
+8236999105,pharmacy,pharmacy,Аптека 36.6 Победа,42.157331,24.738692,Plovdiv
+8236999106,pharmacy,pharmacy,Аптека 36.6 Панаира,42.159441,24.747759,Plovdiv
+8236999107,pharmacy,pharmacy,Аптека 36.6 Тонус,42.147342,24.729646,Plovdiv
+8237036125,pharmacy,pharmacy,Адонис,42.673867,23.333494,Sofia (Capital)
+8284237110,clinic,doctors,,41.739061,26.085679,Haskovo
+8286102591,pharmacy,pharmacy,Фрамар,42.417718,25.605652,Stara Zagora
+8301110068,clinic,doctors,,42.670302,23.652049,Sofia Province
+8337351354,pharmacy,pharmacy,,41.672571,23.662003,Blagoevgrad
+8357437846,kindergarten,kindergarten,Слънце,43.854479,25.966088,Ruse
+8381033328,kindergarten,kindergarten,Снежанка,41.93594,25.347894,Haskovo
+8402195811,pharmacy,pharmacy,SOpharmacy,42.671624,23.295198,Sofia (Capital)
+8408724082,school,school,Светлина,42.649053,23.336658,Sofia (Capital)
+8409348817,pharmacy,pharmacy,Субра,42.71653,23.169826,Sofia (Capital)
+8434889535,pharmacy,pharmacy,Аптека 36.6 Събота Пазара,42.13124,24.74482,Plovdiv
+8467755373,pharmacy,pharmacy,,41.52856,25.411156,Kardzhali
+8489932043,pharmacy,pharmacy,,42.907948,23.789126,Sofia Province
+8489932044,pharmacy,pharmacy,,42.908013,23.80081,Sofia Province
+8503947152,pharmacy,pharmacy,Марешки,43.212945,27.924089,Varna
+8543543357,kindergarten,kindergarten,ДГ №99 „Брезичка“ - филиал бл. 6,42.676322,23.295818,Sofia (Capital)
+8543543358,kindergarten,kindergarten,ДГ №99 „Брезичка“ - филиал бл. 4,42.67665,23.296242,Sofia (Capital)
+8543543359,kindergarten,kindergarten,ДГ №99 „Брезичка“ - филиал бл. 1,42.67682,23.296753,Sofia (Capital)
+8557113647,pharmacy,pharmacy,Профарма,42.679522,23.324307,Sofia (Capital)
+8566831312,pharmacy,pharmacy,,43.359531,25.141479,Pleven
+8566831313,pharmacy,pharmacy,,43.360677,25.143063,Pleven
+8572590173,pharmacy,pharmacy,,42.085023,26.333434,Haskovo
+8574140825,clinic,doctors,Д-р Сашка Йорданова,42.676385,23.292476,Sofia (Capital)
+8575637662,kindergarten,kindergarten,Смърфовете,42.655462,23.34409,Sofia (Capital)
+8581549117,clinic,doctors,Д-р Мирослав Спасов,42.631835,23.312338,Sofia (Capital)
+8591297793,pharmacy,pharmacy,Марешки,42.672322,23.283944,Sofia (Capital)
+8591297820,pharmacy,pharmacy,Ceiba,42.672467,23.283598,Sofia (Capital)
+8591297821,clinic,clinic,Гален 21,42.6726,23.283272,Sofia (Capital)
+8591297830,clinic,doctors,ТЕЛК - IV МБАЛ,42.672294,23.283891,Sofia (Capital)
+8591297833,clinic,clinic,Царица Елеонора,42.673877,23.282841,Sofia (Capital)
+8611192501,clinic,clinic,Европа,42.689487,23.30686,Sofia (Capital)
+8628650217,clinic,clinic,"""Диамедикъл"" медицински център",42.053358,25.5882,Haskovo
+8635749588,clinic,clinic,Аджъбадем клиник,43.212382,27.904096,Varna
+8655710129,pharmacy,pharmacy,Лили,42.493355,27.465488,Burgas
+8671003379,pharmacy,pharmacy,SOpharmacy,43.206083,27.910818,Varna
+8688664297,pharmacy,pharmacy,Галантус,43.207149,27.921859,Varna
+8717057739,pharmacy,pharmacy,,43.20917,27.913943,Varna
+8718792791,school,school,Св. Св. Кирил и Методий,41.62349,23.933456,Blagoevgrad
+8733710525,clinic,clinic,МЦ Аргомедика,42.700147,23.335174,Sofia (Capital)
+8779692927,hospital,hospital,Солна къща,42.657651,23.276491,Sofia (Capital)
+8814439106,kindergarten,kindergarten,,43.955461,22.532279,Vidin
+8814981248,clinic,clinic,Частна клиника Европа,43.21025,27.908871,Varna
+8814981265,pharmacy,pharmacy,Поли Валенс,43.20961,27.908923,Varna
+8818234154,pharmacy,pharmacy,Фрамар,43.209804,27.912098,Varna
+8818234191,pharmacy,pharmacy,Крес,43.212272,27.905636,Varna
+8837778266,pharmacy,pharmacy,,42.026294,23.995258,Pazardzhik
+8837787137,pharmacy,pharmacy,Здраве,42.100529,24.702185,Plovdiv
+8837791566,pharmacy,pharmacy,,42.100467,24.702633,Plovdiv
+8861170417,pharmacy,pharmacy,Media 3,43.850156,25.97891,Ruse
+8865999217,hospital,hospital,Лина,42.496613,27.464855,Burgas
+8866164306,clinic,clinic,ЦСМП Полски Тръмбеш,43.370321,25.635121,Veliko Tarnovo
+8867800802,pharmacy,pharmacy,Фрамар,42.527355,27.467458,Burgas
+8899244230,pharmacy,pharmacy,,43.233645,28.010653,Varna
+8899244231,pharmacy,pharmacy,,43.23281,28.011501,Varna
+9022966687,pharmacy,pharmacy,Богея,42.661566,23.37458,Sofia (Capital)
+9023069987,school,school,СОУ ПАИСИЙ ХИЛЕНДАРСКИ,41.461547,25.184124,Kardzhali
+9023069988,kindergarten,kindergarten,"ДГ ""Песнопой""",41.461124,25.182729,Kardzhali
+9024579017,pharmacy,pharmacy,Д-р Спасов,42.027538,23.992261,Pazardzhik
+9062426272,pharmacy,pharmacy,Фарма медисин,42.700479,23.338283,Sofia (Capital)
+9063660522,pharmacy,pharmacy,Любо-2012,42.847763,22.989996,Sofia Province
+9066421128,pharmacy,pharmacy,,42.700603,23.337471,Sofia (Capital)
+9073121068,clinic,doctors,д-р Галина Христова (педиатър),43.211192,27.924602,Varna
+9073371717,pharmacy,pharmacy,Дрогерия,41.821376,23.564904,Blagoevgrad
+9084459683,pharmacy,pharmacy,Лазур,42.56669,27.614173,Burgas
+9084459684,pharmacy,pharmacy,Сана,42.56649,27.614637,Burgas
+9084476354,pharmacy,pharmacy,Тилия,42.566426,27.613044,Burgas
+9088135696,kindergarten,kindergarten,20 Логопедична ЦДГ,43.21283,27.947946,Varna
+9096920634,pharmacy,pharmacy,Гален,42.158557,24.73229,Plovdiv
+9103868632,pharmacy,pharmacy,,42.662931,27.694213,Burgas
+9104044373,pharmacy,pharmacy,,41.615265,25.004935,Smolyan
+9111338246,pharmacy,pharmacy,Фрамар,42.530982,27.457209,Burgas
+9129905581,clinic,doctors,Медихоуп,42.160159,24.731634,Plovdiv
+9129905582,pharmacy,pharmacy,Медихоуп фарм,42.160185,24.731668,Plovdiv
+9136940934,pharmacy,pharmacy,,42.142079,24.799345,Plovdiv
+9139715776,pharmacy,pharmacy,Vital,42.086669,23.059738,Kyustendil
+9142599643,pharmacy,pharmacy,Фекона,42.917717,22.927923,Sofia Province
+9172120971,school,school,"ОУ ""П. Р. Славейков""",43.211724,27.907666,Varna
+9172120972,school,school,"ПМГ ""Акад. Методи Попов""",43.211819,27.907794,Varna
+9183443395,pharmacy,pharmacy,,42.721101,23.265104,Sofia (Capital)
+9192305769,pharmacy,pharmacy,Фрамар,42.155714,24.73228,Plovdiv
+9192305773,kindergarten,kindergarten,Занималня Вера,42.155166,24.735948,Plovdiv
+9192456486,pharmacy,pharmacy,Ахат,42.122596,24.74801,Plovdiv
+9195865853,school,school,,42.105505,24.32994,Pazardzhik
+9197844965,pharmacy,pharmacy,Трахизан,42.921107,22.929038,Sofia Province
+9201751907,pharmacy,pharmacy,Аптека Калина,42.14088,24.789437,Plovdiv
+9201751911,pharmacy,pharmacy,B6,42.141463,24.790122,Plovdiv
+9201821368,kindergarten,kindergarten,Кремена,42.140795,24.792956,Plovdiv
+9238859768,school,school,Denis Diderot,42.703186,23.135923,Sofia (Capital)
+9240314450,pharmacy,pharmacy,,41.931803,25.556377,Haskovo
+9241151655,pharmacy,pharmacy,Dara,42.148497,24.729163,Plovdiv
+9243065860,pharmacy,pharmacy,Life,42.135883,24.789802,Plovdiv
+9278172280,clinic,doctors,,42.542606,25.571019,Stara Zagora
+9278172281,clinic,doctors,,42.542604,25.570921,Stara Zagora
+9278172288,pharmacy,pharmacy,Еова,42.541649,25.572905,Stara Zagora
+9280548938,clinic,doctors,Д-р Златев,42.159856,24.728681,Plovdiv
+9280548939,pharmacy,pharmacy,Телесфор-Т,42.159796,24.728689,Plovdiv
+9331487867,pharmacy,pharmacy,miniSOpharmacy,42.66466,23.296654,Sofia (Capital)
+9342976437,school,school,"ОУ ""Никола Вапцаров""",42.620707,25.376918,Stara Zagora
+9342976438,school,school,"ПГ ""акад. Петко Стайнов""",42.621501,25.376713,Stara Zagora
+9343137708,pharmacy,pharmacy,Марешки,42.152438,24.788581,Plovdiv
+9350173802,school,school,ОУ «Св. Св. Кирил и Методий»,43.04637,27.670233,Varna
+9363597493,pharmacy,pharmacy,SOpharmacy,42.689669,23.302076,Sofia (Capital)
+9365176445,school,school,"ОУ ""Драган Манчов""",42.130098,24.705822,Plovdiv
+9365176446,school,school,"ОМГ ""Акад. Кирил Попов""",42.129739,24.706253,Plovdiv
+9384579523,pharmacy,pharmacy,SOpharmacy,42.494408,27.472266,Burgas
+9393193018,pharmacy,pharmacy,Матрикария,43.228526,27.884519,Varna
+9399119270,pharmacy,pharmacy,Ветфарм Комерс,42.410458,25.591546,Stara Zagora
+9404548920,school,school,Smarty Kids,42.138743,24.757428,Plovdiv
+9404548921,school,school,Smarty Kids,42.124265,24.722409,Plovdiv
+9404548922,school,school,Smarty Kids,42.132415,24.795232,Plovdiv
+9404548927,school,school,Smarty Kids,42.140583,24.718101,Plovdiv
+9404548928,school,school,Smarty Kids,42.160032,24.740422,Plovdiv
+9419140954,school,school,"Частна профилирана гимназия ""Антонан дьо Сент-Екзюпери""",43.212544,27.931822,Varna
+9424609558,pharmacy,pharmacy,Бел Ком Фарма,43.192097,27.70826,Varna
+9430979807,pharmacy,pharmacy,Витания,42.710583,23.258209,Sofia (Capital)
+9431108341,clinic,clinic,Вита Нова,43.219382,27.927348,Varna
+9433272333,hospital,hospital,Сапфир Лазер България,42.672308,23.275207,Sofia (Capital)
+9447841220,clinic,doctors,Bodimed,42.158772,24.739736,Plovdiv
+9447852102,clinic,clinic,"Очна Клиника ""Луксор""",42.158727,24.739594,Plovdiv
+9460727335,pharmacy,pharmacy,Герови,43.267545,26.929814,Shumen
+9481761769,pharmacy,pharmacy,Виталити,42.671501,23.290512,Sofia (Capital)
+9499870767,hospital,hospital,IV ДКЦ,43.227831,27.934477,Varna
+9499870771,hospital,hospital,"Психиатрична клиника и стационар към УМБАЛ ""Св. Марина""",43.228995,27.934134,Varna
+9502991335,hospital,hospital,,43.272894,26.926585,Shumen
+9534092303,pharmacy,pharmacy,,42.137751,24.718122,Plovdiv
+9536841503,pharmacy,pharmacy,НовеФарм,42.67698,23.287115,Sofia (Capital)
+9540152193,pharmacy,pharmacy,,43.23263,27.873452,Varna
+9550768217,clinic,doctors,д-р Нецов,42.677368,23.306463,Sofia (Capital)
+9558246544,pharmacy,pharmacy,SOpharmacy,42.166253,24.748981,Plovdiv
+9559794572,school,school,"Учебни работилници към ПГ по облекло ""Ана Май""",42.159838,24.738152,Plovdiv
+9562673943,hospital,hospital,Д-р Мария Саздова,42.709573,23.351582,Sofia (Capital)
+9568203717,clinic,doctors,Д-р Симона Пантелеева,42.680727,23.326593,Sofia (Capital)
+9606109438,school,school,"СОУ ""Отец Паисий""",42.327944,23.555855,Sofia Province
+9606109439,school,school,"Спортно училище ""Никола Велчев""",42.328562,23.556011,Sofia Province
+9609028081,hospital,hospital,МЦ Оксигена,43.18088,27.89605,Varna
+9612261575,hospital,hospital,II ДКЦ Св. Иван Рилски,43.181329,27.895675,Varna
+9620289384,pharmacy,pharmacy,Ceiba,42.712384,23.315392,Sofia (Capital)
+9652922189,pharmacy,pharmacy,,43.215345,27.913409,Varna
+9652922191,hospital,hospital,"СБАГАЛ ""Проф. д-р Д. Стаматов""",43.215582,27.914115,Varna
+9652922202,hospital,hospital,СБОБАЛ Варна,43.21659,27.913557,Varna
+9653212995,hospital,hospital,МЦ Пирогов,42.689556,23.307471,Sofia (Capital)
+9658235281,pharmacy,pharmacy,Феникс,42.89612,25.30895,Gabrovo
+9664206416,hospital,hospital,"V ДКЦ ""Св. Екатерина""",43.208838,27.895334,Varna
+9664925196,kindergarten,kindergarten,занималня към ОУ «Г. С. Раковски»,43.215694,27.947198,Varna
+9668273598,pharmacy,pharmacy,SOpharmacy,42.646861,23.393424,Sofia (Capital)
+9669508687,pharmacy,pharmacy,,42.633763,23.310543,Sofia (Capital)
+9671557386,hospital,hospital,ДКЦ Чайка – Курортна поликлиника,43.212936,27.935315,Varna
+9679699300,school,school,ПГ по земеделие «Земя»,43.204268,27.442842,Varna
+9683382649,pharmacy,pharmacy,,42.702396,23.359492,Sofia (Capital)
+9689041381,hospital,hospital,МЦ ПроваМед,43.177956,27.443933,Varna
+9689924307,pharmacy,pharmacy,Аптека Йорданова,43.179333,27.444013,Varna
+9690317243,kindergarten,kindergarten,ДГ Пролет - Ален мак,43.171338,27.444123,Varna
+9690317472,school,school,ПГХРТ «Цар Симеон Велики»,43.169792,27.443539,Varna
+9690704215,kindergarten,kindergarten,Слънце,42.266636,22.706741,Kyustendil
+9691049665,school,school,ОУ «Христо Смирненски»,43.169769,27.443164,Varna
+9694768210,school,school,"СУ ""Димитър Благоев""",43.177182,27.44173,Varna
+9699578854,kindergarten,kindergarten,ДГ Снежанка,43.175026,27.438948,Varna
+9699611822,hospital,hospital,ДКЦ Провадия,43.17529,27.437159,Varna
+9699611855,hospital,hospital,ЦСМП Провадия,43.174205,27.437193,Varna
+9702068678,pharmacy,pharmacy,Лаванда,42.653075,27.704255,Burgas
+9702935888,pharmacy,pharmacy,Амизи,42.147188,24.728035,Plovdiv
+9702935890,clinic,doctors,Bodimed,42.147556,24.730599,Plovdiv
+9713708496,clinic,doctors,Bodimed,42.737084,23.301734,Sofia (Capital)
+9724588896,pharmacy,pharmacy,Равиа,43.180298,27.444348,Varna
+9725330139,school,school,ОУ Христо Ботев,42.467732,24.483732,Plovdiv
+9738580497,clinic,doctors,,42.737811,23.301834,Sofia (Capital)
+9744129623,school,school,Професионална Гимназия по телекомуникации,42.655348,23.347853,Sofia (Capital)
+9745010774,pharmacy,pharmacy,Марешки,42.129788,24.715396,Plovdiv
+9790751549,hospital,hospital,Здравна служба,42.016633,25.295521,Plovdiv
+9796147478,pharmacy,pharmacy,Аптека ЕОС,42.333872,23.552445,Sofia Province
+9804940917,clinic,doctors,Физиотерапия,42.674161,23.292485,Sofia (Capital)
+9821188579,pharmacy,pharmacy,SOpharmacy,42.657657,23.31515,Sofia (Capital)
+9830855217,kindergarten,kindergarten,,42.022649,25.427242,Haskovo
+9859124093,pharmacy,pharmacy,Феникс,42.265766,23.117002,Kyustendil
+9859131168,pharmacy,pharmacy,Аптека Рила 1 ЕООД,42.126463,23.132735,Kyustendil
+9861256917,school,school,школа,43.023219,27.876252,Varna
+9871791041,pharmacy,pharmacy,Нота Бене,42.493205,27.463757,Burgas
+9872610911,clinic,doctors,Medical Arts - Медико-Дентален център,42.674965,23.262308,Sofia (Capital)
+9879114786,clinic,doctors,,42.673358,27.71121,Burgas
+9884005167,pharmacy,pharmacy,МиР Фармексперт,42.704473,27.711667,Burgas
+9896130409,pharmacy,pharmacy,,42.259819,23.825833,Sofia Province
+9904670144,clinic,doctors,,42.75186,27.888136,Burgas
+9909366382,pharmacy,pharmacy,Марешки,42.214585,24.017757,Pazardzhik
+9917387882,pharmacy,pharmacy,SOpharmacy,42.161264,24.756321,Plovdiv
+9917387883,pharmacy,pharmacy,Аптека Запад,42.161447,24.756332,Plovdiv
+9917428941,pharmacy,pharmacy,Фармакон,42.164367,24.746959,Plovdiv
+9952140148,clinic,clinic,,42.034501,25.830893,Haskovo
+9952667332,hospital,hospital,,43.409992,24.607888,Pleven
+9963142473,pharmacy,pharmacy,,43.128294,25.682962,Veliko Tarnovo
+9976710214,school,school,,42.002899,23.106329,Blagoevgrad
+9978375868,pharmacy,pharmacy,Медика,43.243132,26.561808,Targovishte
+9987704487,pharmacy,pharmacy,,42.656892,27.704474,Burgas
+9990810839,pharmacy,pharmacy,,42.058752,25.587353,Haskovo
+10001989738,hospital,hospital,"МБАЛ ""Св. Иван Рилски""",42.268757,22.676369,Kyustendil
+10015115056,pharmacy,pharmacy,Ремедиум,42.688775,23.327879,Sofia (Capital)
+10018087332,kindergarten,kindergarten,,43.999547,22.867742,Vidin
+10018087333,kindergarten,kindergarten,,43.999075,22.872155,Vidin
+10027861485,pharmacy,pharmacy,Nixi,42.715936,23.268634,Sofia (Capital)
+10032361488,kindergarten,kindergarten,ДГ №99 „Брезичка“ - филиал бл. 31,42.674416,23.29279,Sofia (Capital)
+10032361490,kindergarten,kindergarten,ДГ №99 „Брезичка“ - филиал бл. 23,42.674983,23.294273,Sofia (Capital)
+10038221115,school,school,ОУ «Доктор Петър Берон»,43.110499,27.828123,Varna
+10067701474,pharmacy,pharmacy,SOpharmacy,42.728424,23.286021,Sofia (Capital)
+10074201475,kindergarten,kindergarten,,43.112902,27.827963,Varna
+10086106859,pharmacy,pharmacy,Фрамар,43.214212,27.901344,Varna
+10093882422,school,school,ОУ Отец Паисий,43.213391,27.885634,Varna
+10107135284,clinic,doctors,Петинка Цветкова,43.208148,27.889903,Varna
+10112001760,pharmacy,pharmacy,Медея,42.653548,23.343365,Sofia (Capital)
+10116720194,pharmacy,pharmacy,Витания,42.652332,23.347192,Sofia (Capital)
+10117306717,pharmacy,pharmacy,Ремедиум,42.676387,23.306044,Sofia (Capital)
+10119696184,pharmacy,pharmacy,,42.734626,23.310122,Sofia (Capital)
+10119786603,pharmacy,pharmacy,Марешки,42.056318,25.590622,Haskovo
+10127222505,kindergarten,kindergarten,Частна детска градина Мелита,43.207941,27.898379,Varna
+10136128113,pharmacy,pharmacy,Здраве,42.743759,23.27724,Sofia (Capital)
+10140133166,pharmacy,pharmacy,SOpharmacy,42.124624,24.720648,Plovdiv
+10140179208,hospital,hospital,Еврохоспитал,42.111024,24.70947,Plovdiv
+10140187731,pharmacy,pharmacy,Фрамар,42.125881,24.720627,Plovdiv
+10149294316,pharmacy,pharmacy,,42.634545,23.379873,Sofia (Capital)
+10154537264,pharmacy,pharmacy,Афиа,42.522998,27.462253,Burgas
+10154537274,pharmacy,pharmacy,Аптека Астра,42.528123,27.4634,Burgas
+10157385983,pharmacy,pharmacy,,42.494078,27.477984,Burgas
+10157385998,pharmacy,pharmacy,,42.493857,27.475792,Burgas
+10157390121,pharmacy,pharmacy,Subra,42.496377,27.470867,Burgas
+10159552939,hospital,hospital,Работническа поликлиника,41.833185,24.826161,Plovdiv
+10159552944,school,school,"СОУ ""Христо Ботев""",41.834531,24.82983,Plovdiv
+10162238991,pharmacy,pharmacy,,42.076108,24.664928,Plovdiv
+10162880583,clinic,clinic,,42.177886,24.624718,Plovdiv
+10170853029,pharmacy,pharmacy,Марешки,42.871237,24.711243,Lovech
+10171990258,clinic,clinic,Crystal Skin Clinic,42.643129,23.334106,Sofia (Capital)
+10177393137,school,school,Професионална Техническа Гимназия,43.220802,27.901205,Varna
+10177393138,school,school,Професионална Техническа Гимназия,43.220912,27.900267,Varna
+10177458552,kindergarten,kindergarten,27 ДГ Успех,43.225628,27.898291,Varna
+10177787829,pharmacy,pharmacy,Амброзия,42.873058,25.315058,Gabrovo
+10180682544,school,school,ОУ Св. Св. Кирил и Методии,43.230779,24.394351,Lovech
+10180682545,pharmacy,pharmacy,SOpharmacy,42.765149,23.567249,Sofia (Capital)
+10180698281,pharmacy,pharmacy,Sopharmacy,43.409069,24.444132,Pleven
+10180709065,pharmacy,pharmacy,Марешки,43.281392,24.086438,Pleven
+10180715196,kindergarten,kindergarten,"Вяра, Надежда и Любов",42.691912,23.703641,Sofia Province
+10180727832,school,school,ОУ Христо Ботев,43.328305,24.067408,Pleven
+10180735299,school,school,ОУ Любен Каравелов,43.199904,24.31919,Lovech
+10180747476,pharmacy,pharmacy,,43.347852,24.414303,Pleven
+10180750421,kindergarten,kindergarten,,43.328692,24.067367,Pleven
+10180755024,kindergarten,kindergarten,,43.151196,24.281331,Lovech
+10180756019,kindergarten,kindergarten,Щастливо детство,43.325695,24.477997,Pleven
+10184381031,pharmacy,pharmacy,Subra,42.494452,24.187729,Pazardzhik
+10186680827,pharmacy,pharmacy,Марешки,42.976808,25.475416,Gabrovo
+10198893968,kindergarten,kindergarten,ЦДГ „Иглика“,43.837426,25.956345,Ruse
+10198893973,school,school,"ОУ ""Любен Каравелов""",43.84923,25.949017,Ruse
+10200401590,pharmacy,pharmacy,Оптима,42.974647,25.473332,Gabrovo
+10201904169,pharmacy,pharmacy,Ремедиум,42.662915,23.355601,Sofia (Capital)
+10204022623,school,school,"Средно училище ""Христо Ботев""",41.833979,25.33074,Haskovo
+10204022624,school,school,"Средно училище ""Христо Ботев""",41.837158,25.33109,Haskovo
+10204045962,school,school,"ОУ ""Максим Горки""",41.688158,25.499697,Kardzhali
+10212445512,pharmacy,pharmacy,Нота Бене,42.614978,23.338833,Sofia (Capital)
+10212453426,pharmacy,pharmacy,Медея,42.615627,23.337897,Sofia (Capital)
+10212453509,pharmacy,pharmacy,SOpharmacy,42.642023,23.334381,Sofia (Capital)
+10215117759,clinic,doctors,Д-р Павлина Джамбазова,42.631927,23.312291,Sofia (Capital)
+10216508373,kindergarten,kindergarten,ДГ Великанче,42.099197,27.940256,Burgas
+10219177017,hospital,hospital,Очна Болница “Зора”,42.662482,23.380351,Sofia (Capital)
+10221045704,hospital,hospital,Вита Мед,42.640945,24.804762,Plovdiv
+10221053202,pharmacy,pharmacy,,42.888221,24.712708,Lovech
+10221067730,kindergarten,kindergarten,ЦДГ Русалка,42.849341,24.890481,Lovech
+10221079448,pharmacy,pharmacy,Марешки,42.891124,24.713007,Lovech
+10222012564,pharmacy,pharmacy,,42.09971,27.94181,Burgas
+10222616724,clinic,doctors,Център за зрение д-р Групчеви,43.220791,27.920984,Varna
+10232755101,school,school,СУ „Йордан Йовков“,42.527199,27.46166,Burgas
+10232755102,school,school,СУ „Добри Чинтулов“,42.527488,27.461483,Burgas
+10232770719,pharmacy,pharmacy,Марешки,42.527245,27.467046,Burgas
+10234241363,pharmacy,pharmacy,Нове фарм,42.669344,23.276432,Sofia (Capital)
+10238248121,school,school,Спортно училище Юрий Гагарин,42.513897,27.468489,Burgas
+10238811645,kindergarten,kindergarten,Стойков хан,43.311378,27.980008,Varna
+10240045943,school,school,Детски образователен център „SUNNY“,42.522058,27.46287,Burgas
+10246109174,pharmacy,pharmacy,,42.65398,27.696492,Burgas
+10246259707,pharmacy,pharmacy,Subra,42.627651,23.374447,Sofia (Capital)
+10249380529,pharmacy,pharmacy,Subra,42.660737,23.382153,Sofia (Capital)
+10249381121,pharmacy,pharmacy,Санита,42.660226,23.383208,Sofia (Capital)
+10258964637,clinic,clinic,"Медицински център""Св. Димитър""",42.646831,23.271114,Sofia (Capital)
+10258972761,pharmacy,pharmacy,Subra,42.649823,23.260637,Sofia (Capital)
+10267707121,pharmacy,pharmacy,SOpharmacy,42.682789,23.267507,Sofia (Capital)
+10270080266,pharmacy,pharmacy,SOpharmacy,41.564465,23.279588,Blagoevgrad
+10275490710,clinic,clinic,Оксилайф,42.65965,23.28783,Sofia (Capital)
+10277770579,clinic,doctors,д-р Малева,42.42356,25.614588,Stara Zagora
+10291445455,clinic,doctors,Д-р Крушарски,42.669157,23.274699,Sofia (Capital)
+10293063603,pharmacy,pharmacy,Марешки,43.046072,25.890666,Veliko Tarnovo
+10293121186,pharmacy,pharmacy,,42.929784,25.877448,Veliko Tarnovo
+10293134412,pharmacy,pharmacy,Бендида,43.045671,25.891083,Veliko Tarnovo
+10293139092,pharmacy,pharmacy,Марешки,42.929897,25.880361,Veliko Tarnovo
+10293147910,pharmacy,pharmacy,SOpharmacy,42.929416,25.880623,Veliko Tarnovo
+10293149593,pharmacy,pharmacy,Марешки,42.344444,27.181325,Burgas
+10295133391,pharmacy,pharmacy,Гален,41.767882,26.20657,Haskovo
+10296568584,pharmacy,pharmacy,Попов,42.662745,23.397464,Sofia (Capital)
+10297302468,pharmacy,pharmacy,Ремедиум,42.651925,23.345468,Sofia (Capital)
+10297336103,pharmacy,pharmacy,SOpharmacy,42.663642,23.344524,Sofia (Capital)
+10298112560,school,school,33 Езикова гимназия „Света София“,42.711644,23.295728,Sofia (Capital)
+10298112561,school,school,45 ОУ „Константин Величков“,42.711349,23.296438,Sofia (Capital)
+10298175676,kindergarten,kindergarten,,43.137036,24.699045,Lovech
+10300864452,pharmacy,pharmacy,SOpharmacy,42.432943,25.638423,Stara Zagora
+10311308364,pharmacy,pharmacy,Хрисимар,42.61012,25.543045,Stara Zagora
+10311340463,clinic,clinic,,42.609833,25.543803,Stara Zagora
+10313290622,clinic,clinic,Физиомед,43.416104,24.615014,Pleven
+10314686803,kindergarten,kindergarten,"ДГ ""Кокиче""",42.147172,24.777523,Plovdiv
+10314705929,clinic,doctors,Pro Art,42.146087,24.780454,Plovdiv
+10316940680,pharmacy,pharmacy,Хеликс,42.500716,27.46151,Burgas
+10556625475,pharmacy,pharmacy,Медея,42.717299,23.278167,Sofia (Capital)
+10599811951,clinic,doctors,д-р Йовко Нанев,42.419385,25.626092,Stara Zagora
+10603016575,pharmacy,pharmacy,,42.339606,24.8116,Plovdiv
+10605513213,pharmacy,pharmacy,,42.014768,24.884376,Plovdiv
+10610709364,hospital,hospital,,42.240775,27.770532,Burgas
+10651632405,pharmacy,pharmacy,Софарма,43.221172,27.918035,Varna
+10671874029,pharmacy,pharmacy,Ceiba,42.258803,23.10351,Kyustendil
+10671878319,pharmacy,pharmacy,Св. Иван Рилски,42.264526,23.116122,Kyustendil
+10678549896,pharmacy,pharmacy,Витания,42.671481,23.350729,Sofia (Capital)
+10682700984,pharmacy,pharmacy,,41.842949,26.080876,Haskovo
+10683569006,pharmacy,pharmacy,Прайм,43.222828,27.920803,Varna
+10688294958,pharmacy,pharmacy,FabNetPharmacy,41.720477,23.160685,Blagoevgrad
+10688508943,pharmacy,pharmacy,Павлова,42.436175,25.631067,Stara Zagora
+10695196881,kindergarten,kindergarten,ДГ №93 „Чуден свят“ - филиал бл. 195,42.674351,23.28392,Sofia (Capital)
+10695206444,clinic,doctors,Клиника Вистамед,42.672371,23.284926,Sofia (Capital)
+10696372624,school,school,Зелена класна стая,42.633763,23.225956,Sofia (Capital)
+10702023706,clinic,clinic,ОЗОК,42.673427,23.358987,Sofia (Capital)
+10736378005,school,school,Езиково училище Уилям Шекспир,42.151892,24.749453,Plovdiv
+10737763031,pharmacy,pharmacy,Запад,42.136445,24.715813,Plovdiv
+10737763053,pharmacy,pharmacy,SOpharmacy,42.13622,24.718505,Plovdiv
+10747755730,pharmacy,pharmacy,SOpharmacy,42.173492,24.741336,Plovdiv
+10748671150,clinic,doctors,Bodimed,42.677868,23.360104,Sofia (Capital)
+10748671788,clinic,doctors,Excelsior,42.677861,23.360208,Sofia (Capital)
+10748727998,hospital,hospital,МБАЛ”Д-р Ат.Дафовски”АД,41.64575,25.37533,Kardzhali
+10750429573,pharmacy,pharmacy,Sigma,41.843756,23.487126,Blagoevgrad
+10759745459,pharmacy,pharmacy,,42.260461,23.106404,Kyustendil
+10761710187,pharmacy,pharmacy,Рони,42.160849,24.755036,Plovdiv
+10776551688,pharmacy,pharmacy,,42.013655,23.090561,Blagoevgrad
+10776551690,pharmacy,pharmacy,,42.013272,23.090685,Blagoevgrad
+10788184861,pharmacy,pharmacy,Матрикариа,43.21769,27.924474,Varna
+10788352322,pharmacy,pharmacy,,41.63855,23.1997,Blagoevgrad
+10792470405,pharmacy,pharmacy,Марешки,43.742708,27.415075,Dobrich
+10792832483,pharmacy,pharmacy,,41.560486,23.276845,Blagoevgrad
+10792903890,pharmacy,pharmacy,,41.562968,23.277006,Blagoevgrad
+10792903936,pharmacy,pharmacy,,41.560863,23.277791,Blagoevgrad
+10794834327,clinic,clinic,Санус 2000,42.684571,23.300565,Sofia (Capital)
+10798908252,clinic,clinic,Клиника по професионални заболявания,42.681442,23.299539,Sofia (Capital)
+10799998741,kindergarten,kindergarten,,42.830514,23.993607,Sofia Province
+10806881056,pharmacy,pharmacy,Хелиос-фарм,42.264398,23.118664,Kyustendil
+10806881057,pharmacy,pharmacy,Хелиос-фарм,42.265526,23.117516,Kyustendil
+10806881058,pharmacy,pharmacy,Марешки,42.264193,23.117153,Kyustendil
+10814014461,pharmacy,pharmacy,Кактус,43.220361,27.930418,Varna
+10814380203,pharmacy,pharmacy,Санте,43.223332,27.9296,Varna
+10816052748,kindergarten,kindergarten,ДГ Дружба,43.274401,26.951613,Shumen
+10816052827,school,school,"СУ ""Васил Левски""",43.274061,26.956578,Shumen
+10819563070,pharmacy,pharmacy,,42.032466,23.990279,Pazardzhik
+10824371941,pharmacy,pharmacy,,42.021291,23.090803,Blagoevgrad
+10825915704,kindergarten,kindergarten,ЦДГ Веселите делфинчета,43.339814,28.05547,Dobrich
+10829948997,pharmacy,pharmacy,,42.68883,23.274859,Sofia (Capital)
+10839542573,pharmacy,pharmacy,Дина мед,42.659712,23.359295,Sofia (Capital)
+10842083055,kindergarten,kindergarten,,42.872221,26.803199,Burgas
+10842097319,pharmacy,pharmacy,Марешки,42.886753,26.44968,Sliven
+10842100583,school,school,Христо Ботев,42.739396,26.631087,Sliven
+10842108589,kindergarten,kindergarten,Сладкопойна чучулига,43.13488,25.902624,Veliko Tarnovo
+10845306973,pharmacy,pharmacy,Д-р Басанович,43.223941,27.925346,Varna
+10852000156,pharmacy,pharmacy,Имунофарм,42.660671,23.364842,Sofia (Capital)
+10852743677,pharmacy,pharmacy,Subra,42.640059,23.311451,Sofia (Capital)
+10892530919,kindergarten,kindergarten,Детска градина,42.709455,27.251699,Burgas
+10893767307,pharmacy,pharmacy,,42.663853,23.300969,Sofia (Capital)
+10895516483,pharmacy,pharmacy,Витания,41.549966,23.26986,Blagoevgrad
+10900655319,pharmacy,pharmacy,,43.608247,26.238238,Razgrad
+10904407212,hospital,hospital,МЦ Афродита,42.658991,23.315418,Sofia (Capital)
+10918014537,pharmacy,pharmacy,Subra,42.64118,23.335157,Sofia (Capital)
+10930813947,pharmacy,pharmacy,Марешки,42.122289,24.737671,Plovdiv
+10932537015,school,school,Deutsch korrekt,42.671025,23.289994,Sofia (Capital)
+10934149155,pharmacy,pharmacy,,42.643975,23.411644,Sofia (Capital)
+10939395410,pharmacy,pharmacy,Димма,42.625322,23.381146,Sofia (Capital)
+10939797500,clinic,clinic,Градска кардиология,42.675372,23.316854,Sofia (Capital)
+10945835434,clinic,doctors,Д-р Величка Терзиева,42.650835,23.340761,Sofia (Capital)
+10962627396,pharmacy,pharmacy,,42.693448,27.710675,Burgas
+10963045991,clinic,doctors,Неврологичен кабинет д-р Бързински,42.160852,24.741098,Plovdiv
+10965222649,pharmacy,pharmacy,Аптека,41.377979,25.255681,Kardzhali
+10965688634,hospital,hospital,Спешна Медицинска Помощ  - Филиал Бенковски,41.376644,25.256363,Kardzhali
+10965747015,clinic,doctors,Очен доктор,41.380762,25.2553,Kardzhali
+10965747016,pharmacy,pharmacy,Аптека,41.380786,25.255305,Kardzhali
+10967317133,hospital,hospital,ДКЦ Каспичан,43.312754,27.157804,Shumen
+10967317134,pharmacy,pharmacy,Марешки,43.313863,27.157555,Shumen
+10967355184,school,school,СУ Христо Ботев,41.495711,25.299909,Kardzhali
+10967360148,school,school,,41.497335,25.299443,Kardzhali
+10969080205,pharmacy,pharmacy,Марешки,43.221579,23.546595,Vratsa
+10969164905,pharmacy,pharmacy,Феникс,43.222059,23.54603,Vratsa
+10969642463,clinic,doctors,Д-р Радев,42.673982,23.284761,Sofia (Capital)
+10969764177,clinic,doctors,,42.668154,27.706555,Burgas
+10969764182,pharmacy,pharmacy,Diana,42.669549,27.706513,Burgas
+10970468805,pharmacy,pharmacy,Ремедиа,43.204795,23.555107,Vratsa
+10979756968,pharmacy,pharmacy,Първа частна аптека,43.347478,27.195484,Shumen
+10981468791,hospital,hospital,ДКЦ Нови Пазар,43.347119,27.202227,Shumen
+10981468792,hospital,hospital,ЦСМП,43.347375,27.203646,Shumen
+10981468795,school,school,"СУ ""Хан Исперих""",43.342296,27.191374,Shumen
+10981468796,school,school,"ПГ по Химични Технологии и Дизайн ""проф. д-р Асен Златаров""",43.342605,27.191862,Shumen
+10982942146,pharmacy,pharmacy,SOpharmacy,42.602219,23.047208,Pernik
+10982993809,pharmacy,pharmacy,SOpharmacy,42.182865,24.345035,Pazardzhik
+10983673765,pharmacy,pharmacy,Аптека 37.7,42.194103,24.331724,Pazardzhik
+10984702588,pharmacy,pharmacy,,42.705032,27.722451,Burgas
+10990164705,pharmacy,pharmacy,Фармакон-96,43.205061,23.548662,Vratsa
+10993259226,pharmacy,pharmacy,,42.606418,27.386994,Burgas
+11007184333,kindergarten,kindergarten,,42.238616,24.689131,Plovdiv
+11010170228,kindergarten,kindergarten,Детско селце,43.328206,27.732753,Varna
+11013804961,clinic,clinic,Саздановски Медика Нова,42.686822,23.330824,Sofia (Capital)
+11014188804,school,school,Мари Жанет,42.670142,23.284176,Sofia (Capital)
+11015012395,pharmacy,pharmacy,,42.695372,27.708417,Burgas
+11015030190,pharmacy,pharmacy,,42.695389,27.710647,Burgas
+11015030197,pharmacy,pharmacy,,42.695174,27.711577,Burgas
+11023710548,school,school,Откривател,42.673841,23.313132,Sofia (Capital)
+11024168729,pharmacy,pharmacy,св. Екатерина,42.076478,24.596571,Plovdiv
+11025877409,pharmacy,pharmacy,,43.212946,27.925098,Varna
+11030599381,clinic,clinic,Sana medic,43.199049,27.913538,Varna
+11032315314,school,school,ЧУ Артис,42.648192,23.374672,Sofia (Capital)
+11042190238,pharmacy,pharmacy,Sigma,42.672642,23.283521,Sofia (Capital)
+11042230519,clinic,clinic,Рентген,42.672852,23.283765,Sofia (Capital)
+11044588375,school,school,"ПГ по Компютърно Моделиране и Компютърни Системи ""Акад. Благовест Сендов""",43.224056,27.938117,Varna
+11047025045,hospital,hospital,ЦСМП Айтос,42.696786,27.248712,Burgas
+11049198345,pharmacy,pharmacy,SOpharmacy,43.845657,25.966191,Ruse
+11059897722,pharmacy,pharmacy,Аптека МЕСАМЕР с.Розино,42.712245,24.547615,Plovdiv
+11059897757,pharmacy,pharmacy,,42.712529,24.549155,Plovdiv
+11062143976,pharmacy,pharmacy,Subra,42.908054,23.785662,Sofia Province
+11080357381,clinic,doctors,Лилия Методиева,42.673446,23.318627,Sofia (Capital)
+11080818051,pharmacy,pharmacy,Nature's way,42.684903,23.302103,Sofia (Capital)
+11085634467,pharmacy,pharmacy,SOpharmacy,42.425485,25.631065,Stara Zagora
+11096603275,pharmacy,pharmacy,Марешки,42.601109,23.026358,Pernik
+11098987392,pharmacy,pharmacy,Марешки,42.133016,24.795272,Plovdiv
+11098987402,pharmacy,pharmacy,,42.129096,24.785188,Plovdiv
+11108217919,pharmacy,pharmacy,,42.714284,24.139251,Sofia Province
+11112294055,kindergarten,kindergarten,116 ДГ Мусала - сграда Гърдова глава,42.657679,23.267411,Sofia (Capital)
+11116262161,clinic,clinic,Каса медикал,42.686608,23.301197,Sofia (Capital)
+11120044662,pharmacy,pharmacy,Марешки,42.421606,25.627008,Stara Zagora
+11120858527,pharmacy,pharmacy,Аптека МАРВИ 4,42.424857,25.686104,Stara Zagora
+11120858532,clinic,doctors,Ippmp D-R Nina Georgieva,42.425904,25.68825,Stara Zagora
+11120858533,clinic,doctors,Ippmp - D-R Marieta Dimitrova,42.427429,25.686838,Stara Zagora
+11120858534,pharmacy,pharmacy,,42.426461,25.686771,Stara Zagora
+11124599968,school,school,,43.046231,24.590556,Lovech
+11134668807,clinic,clinic,Mclinic,42.665025,23.274579,Sofia (Capital)
+11135897654,clinic,doctors,,42.387342,27.70216,Burgas
+11139567191,pharmacy,pharmacy,Данифарм,42.659167,23.241847,Sofia (Capital)
+11146290097,pharmacy,pharmacy,,42.663546,27.716446,Burgas
+11146290100,pharmacy,pharmacy,Aqua,42.663171,27.715323,Burgas
+11158907760,pharmacy,pharmacy,Камена,42.700773,23.322426,Sofia (Capital)
+11166662659,pharmacy,pharmacy,SOpharmacy,42.42718,25.621199,Stara Zagora
+11167603639,pharmacy,pharmacy,Прополис,42.651317,23.359337,Sofia (Capital)
+11167614469,pharmacy,pharmacy,Прополис,42.664381,23.36203,Sofia (Capital)
+11167641959,pharmacy,pharmacy,Прополис,42.666846,23.350157,Sofia (Capital)
+11167798142,pharmacy,pharmacy,Прополис,42.8092,23.212841,Sofia Province
+11176139453,clinic,doctors,,42.680697,23.286079,Sofia (Capital)
+11176166566,clinic,clinic,АГ Надежда,42.680235,23.285599,Sofia (Capital)
+11176192218,pharmacy,pharmacy,,42.679477,23.285513,Sofia (Capital)
+11185447100,pharmacy,pharmacy,,42.676067,23.283814,Sofia (Capital)
+11186547435,clinic,doctors,"Кабинет ""Детско развитие""",42.66438,23.298331,Sofia (Capital)
+11187752483,pharmacy,pharmacy,Тилия,42.895559,25.309538,Gabrovo
+11193078873,clinic,clinic,Doc,42.67202,23.288832,Sofia (Capital)
+11197919629,clinic,doctors,Д-р Юли Цветков,43.384602,22.882795,Montana
+11201818800,pharmacy,pharmacy,Марешки,42.67664,23.31934,Sofia (Capital)
+11204423645,clinic,doctors,Bodimed,42.145013,24.722863,Plovdiv
+11205067956,school,school,Мари-Жанет,42.670055,23.284236,Sofia (Capital)
+11205507089,school,school,Милеа,42.675161,23.288363,Sofia (Capital)
+11209925957,pharmacy,pharmacy,Марешки,42.662588,23.316707,Sofia (Capital)
+11212091734,clinic,doctors,Д-р Илиян Савов,42.674321,23.284525,Sofia (Capital)
+11212091736,clinic,doctors,Проф. Румен Пандев д.м.,42.67436,23.284467,Sofia (Capital)
+11215655099,clinic,clinic,Д-р Желязков,42.665653,23.292144,Sofia (Capital)
+11217878023,pharmacy,pharmacy,Sigma,42.015627,23.096147,Blagoevgrad
+11217878024,pharmacy,pharmacy,,42.015913,23.096174,Blagoevgrad
+11220948622,pharmacy,pharmacy,Ориндж,42.482461,26.494072,Yambol
+11226473795,clinic,clinic,Adella Clinic,42.666839,23.349984,Sofia (Capital)
+11229849300,pharmacy,pharmacy,,42.700367,23.325801,Sofia (Capital)
+11233091842,pharmacy,pharmacy,SOpharmacy,41.970677,25.558973,Haskovo
+11239364428,pharmacy,pharmacy,,41.83282,23.483981,Blagoevgrad
+11242940124,pharmacy,pharmacy,36.6,42.131985,24.703209,Plovdiv
+11242940125,pharmacy,pharmacy,Galen,42.132106,24.70317,Plovdiv
+11242940127,pharmacy,pharmacy,,42.132208,24.702713,Plovdiv
+11242951751,clinic,clinic,Медицински център Прослав,42.125567,24.685744,Plovdiv
+11253061341,pharmacy,pharmacy,SOpharmacy,42.565968,27.621798,Burgas
+11254727599,pharmacy,pharmacy,Subra,42.658938,23.264074,Sofia (Capital)
+11255827676,pharmacy,pharmacy,,42.418796,27.694789,Burgas
+11257871932,clinic,clinic,Contour Clinic,42.668088,23.312921,Sofia (Capital)
+11257967886,pharmacy,pharmacy,,42.418026,27.701084,Burgas
+11257978346,clinic,doctors,,42.416111,27.6982,Burgas
+11267196505,hospital,hospital,АГ Център Стима,43.267153,26.92498,Shumen
+11272143147,clinic,doctors,Ивайло Динков,42.660428,23.299368,Sofia (Capital)
+11290580120,pharmacy,pharmacy,Benu,42.725696,23.24189,Sofia (Capital)
+11291552030,clinic,clinic,Клиника по детски болести,42.676372,26.324413,Sliven
+11291552050,clinic,clinic,Център по кардиология ИНАКОР,42.67635,26.323775,Sliven
+11291552054,clinic,clinic,Отделение по кожни болести,42.674604,26.32645,Sliven
+11294176560,pharmacy,pharmacy,Нове,42.656995,23.321094,Sofia (Capital)
+11295325780,kindergarten,kindergarten,SmartyKids,43.273495,26.92565,Shumen
+11302308986,clinic,clinic,МЦ Медикус,42.681525,26.323386,Sliven
+11302992680,clinic,doctors,Д-р. Иван Кючуков,42.686592,23.301169,Sofia (Capital)
+11302992681,clinic,clinic,CMD Perfect,42.686628,23.301233,Sofia (Capital)
+11307733358,clinic,doctors,Skin & Scalpel,42.685494,23.299435,Sofia (Capital)
+11307836726,school,school,,42.685619,23.299238,Sofia (Capital)
+11314006146,clinic,doctors,Марина Панева,42.664148,23.315781,Sofia (Capital)
+11329605534,clinic,clinic,,42.758935,23.426419,Sofia (Capital)
+11345715268,pharmacy,pharmacy,Редута,42.689657,23.364073,Sofia (Capital)
+11348288654,clinic,clinic,Balance Clinic,42.655071,23.288854,Sofia (Capital)
+11348288657,pharmacy,pharmacy,Benu,42.655164,23.287702,Sofia (Capital)
+11349321736,pharmacy,pharmacy,SOpharmacy,42.674735,23.358798,Sofia (Capital)
+11359039018,pharmacy,pharmacy,,42.152307,24.792931,Plovdiv
+11359039020,pharmacy,pharmacy,Аптеки Запад,42.152212,24.792926,Plovdiv
+11369400601,school,school,ОУ „ Княз Александър I “,42.152676,24.748693,Plovdiv
+11369400603,school,school,ГХП Св.Св. Кирил и Методий,42.152641,24.748291,Plovdiv
+11373342053,pharmacy,pharmacy,,43.701207,28.038786,Dobrich
+11375673087,pharmacy,pharmacy,Марешки,43.206216,27.909346,Varna
+11383544275,clinic,doctors,Малчовците,42.657866,23.282576,Sofia (Capital)
+11396116533,pharmacy,pharmacy,Маринела,43.367942,25.635589,Veliko Tarnovo
+11400040425,clinic,clinic,Спортмед център,42.679572,23.288022,Sofia (Capital)
+11404997392,clinic,clinic,Апекс Център,43.421434,23.221271,Montana
+11405459522,pharmacy,pharmacy,Aптека Витоша,42.623968,23.583185,Sofia Province
+11415535198,pharmacy,pharmacy,SOpharmacy,43.280642,26.927385,Shumen
+11429081017,pharmacy,pharmacy,,42.579506,26.606364,Yambol
+11437811547,school,school,Професионалната гимназия по компютърно моделиране и компютърни системи „акд. Благовест Сендов“,43.222892,27.937087,Varna
+11439345969,clinic,clinic,,42.128654,24.733411,Plovdiv
+11442899039,clinic,doctors,Д-р Виолета Николаева,42.671951,23.281031,Sofia (Capital)
+11444404390,clinic,clinic,МЦ Дългопол,43.049494,27.346156,Varna
+11466021166,pharmacy,pharmacy,Зелени,42.648993,23.379656,Sofia (Capital)
+11483497828,hospital,hospital,Мама и аз,43.410579,24.607913,Pleven
+11483500095,clinic,clinic,"МЦ ""Европейска здравна грижа""",42.486877,26.515973,Yambol
+11483518371,clinic,clinic,Кардиологичен медицински център,43.079667,25.617497,Veliko Tarnovo
+11493860582,clinic,clinic,МЦ Сигмамед,42.667106,23.354527,Sofia (Capital)
+11493988004,clinic,clinic,МЦ Епика,42.708702,23.287735,Sofia (Capital)
+11494057887,pharmacy,pharmacy,Аптека Абифарма,42.708723,23.287691,Sofia (Capital)
+11494057888,clinic,clinic,МЦ Сърдечно-съдови заболявания,42.708697,23.287751,Sofia (Capital)
+11497147602,pharmacy,pharmacy,Св. Елена,43.214447,27.916481,Varna
+11497183045,pharmacy,pharmacy,,43.214648,27.91715,Varna
+11502544601,pharmacy,pharmacy,Фрамар,43.213093,27.93491,Varna
+11506092733,clinic,doctors,VDerm,42.655313,23.315401,Sofia (Capital)
+11506229352,school,school,ОУ Св. Св. Кирил и Методий,43.863363,26.101619,Ruse
+11509493363,pharmacy,pharmacy,,42.703609,24.163167,Sofia Province
+11510833840,clinic,doctors,Д-р Никола Поптодоров,42.680599,23.325642,Sofia (Capital)
+11513510196,clinic,doctors,Сърдечно-съдов Център “Кардиопревент”,42.662573,23.380397,Sofia (Capital)
+11515777882,pharmacy,pharmacy,Курило,42.823686,23.353893,Sofia (Capital)
+11524972667,pharmacy,pharmacy,Тера,43.216959,27.930521,Varna
+11528611964,hospital,hospital,"УМБАЛ ""Свети Иван Рилски""",42.682418,23.302159,Sofia (Capital)
+11537706806,clinic,doctors,Д-р Максим Митев,42.661343,23.278277,Sofia (Capital)
+11537933468,pharmacy,pharmacy,,42.696016,23.286692,Sofia (Capital)
+11549982148,clinic,doctors,Д-р Илиев,42.680993,23.327875,Sofia (Capital)
+11550146878,pharmacy,pharmacy,Subra,42.657356,23.315517,Sofia (Capital)
+11550147175,pharmacy,pharmacy,Subra,42.658252,23.315137,Sofia (Capital)
+11556335024,pharmacy,pharmacy,Тъжа,42.649836,25.084382,Stara Zagora
+11559520718,clinic,clinic,Д-р Станов,42.666825,23.280587,Sofia (Capital)
+11559711396,pharmacy,pharmacy,Ceiba,42.678856,23.311785,Sofia (Capital)
+11585207881,pharmacy,pharmacy,Hope,42.018648,23.091496,Blagoevgrad
+11603484798,school,school,5 Вечерно СУ „Пеньо Пенев“,42.702827,23.321704,Sofia (Capital)
+11634333265,clinic,clinic,МЦ Артромедика,42.672965,23.282415,Sofia (Capital)
+11641024626,clinic,doctors,ТЕЛК - УМБАЛ Св. Анна,42.659605,23.373594,Sofia (Capital)
+11646014052,clinic,clinic,Поликлиника ВВМИ,42.684631,23.304612,Sofia (Capital)
+11654085401,clinic,doctors,,42.664949,23.285035,Sofia (Capital)
+11654664680,clinic,clinic,Medicare+,42.66662,23.28112,Sofia (Capital)
+11662340665,clinic,clinic,Advance,42.672635,23.329562,Sofia (Capital)
+11672623795,clinic,clinic,Anadolu здравен информационен център,42.6602,23.348602,Sofia (Capital)
+11672630906,pharmacy,pharmacy,Benu,42.664892,23.35424,Sofia (Capital)
+11682594403,clinic,clinic,Академия,42.680838,23.301408,Sofia (Capital)
+11687441652,pharmacy,pharmacy,Нота бене,42.664004,23.343689,Sofia (Capital)
+11700376769,clinic,clinic,Resbiomed,42.698963,23.301945,Sofia (Capital)
+11705077396,pharmacy,pharmacy,Зонафарм,42.699857,23.316156,Sofia (Capital)
+11708714807,clinic,doctors,Bodimed,42.664063,23.343641,Sofia (Capital)
+11717023475,pharmacy,pharmacy,Добрев,42.663704,23.374281,Sofia (Capital)
+11723449714,pharmacy,pharmacy,SOpharmacy,42.656359,23.590924,Sofia Province
+11724251764,clinic,clinic,bahçeci fertility,42.659774,23.317909,Sofia (Capital)
+11728283978,pharmacy,pharmacy,Профарма,42.677178,23.285922,Sofia (Capital)
+11728383750,pharmacy,pharmacy,Subra,42.145381,24.781909,Plovdiv
+11733513621,clinic,doctors,Bodimed,42.490442,26.01459,Sliven
+11733513622,clinic,doctors,Bodimed,42.718877,23.257984,Sofia (Capital)
+11733513623,clinic,doctors,Bodimed,42.188514,24.324169,Pazardzhik
+11733513624,clinic,doctors,Bodimed,42.684767,23.248127,Sofia (Capital)
+11733513625,clinic,doctors,Bodimed,42.813859,23.221176,Sofia Province
+11733513626,clinic,doctors,Bodimed,43.418827,24.625248,Pleven
+11733513627,clinic,doctors,Bodimed,42.692987,23.314305,Sofia (Capital)
+11733513628,clinic,doctors,Bodimed,42.683157,23.312852,Sofia (Capital)
+11733513629,clinic,doctors,Bodimed,42.701251,23.369052,Sofia (Capital)
+11733513631,clinic,doctors,Bodimed,42.658001,23.395477,Sofia (Capital)
+11733513632,clinic,doctors,Bodimed,42.433419,25.64371,Stara Zagora
+11733513633,clinic,doctors,Bodimed,42.652378,23.346581,Sofia (Capital)
+11733513634,clinic,doctors,Bodimed,42.125724,24.719224,Plovdiv
+11733513635,clinic,doctors,Bodimed,42.140086,24.737813,Plovdiv
+11733513636,clinic,doctors,Bodimed,42.128717,24.743641,Plovdiv
+11733513637,clinic,doctors,Bodimed,43.409705,24.616901,Pleven
+11733513638,hospital,hospital,МБАЛ Св. Св. Козма и Дамян,42.130324,24.779094,Plovdiv
+11733513639,clinic,doctors,Bodimed,41.560338,23.27748,Blagoevgrad
+11733513640,clinic,doctors,Bodimed,42.134613,24.797494,Plovdiv
+11733513641,clinic,doctors,Bodimed,42.429751,25.628757,Stara Zagora
+11733513642,clinic,doctors,Bodimed,42.505369,27.469007,Burgas
+11733513643,clinic,doctors,Bodimed,42.523447,27.452028,Burgas
+11733513644,clinic,doctors,Bodimed,42.009725,24.870418,Plovdiv
+11733513645,clinic,doctors,Bodimed,42.425227,25.643452,Stara Zagora
+11733513647,clinic,doctors,Bodimed,42.662833,23.380097,Sofia (Capital)
+11739167184,school,school,Stemy,42.670297,23.333005,Sofia (Capital)
+11739167185,clinic,clinic,Cornea dry eye center,42.670305,23.328807,Sofia (Capital)
+11743576140,kindergarten,kindergarten,Детска къща,42.678547,23.333167,Sofia (Capital)
+11743576141,kindergarten,kindergarten,abc,42.679266,23.332148,Sofia (Capital)
+11748814773,pharmacy,pharmacy,SOpharmacy,42.133111,24.795306,Plovdiv
+11750655017,clinic,doctors,Д-р Милева,42.666013,23.292215,Sofia (Capital)
+11753284220,pharmacy,pharmacy,Sami pharm,42.897859,23.911143,Sofia Province
+11765625096,pharmacy,pharmacy,Марешки,42.683894,23.353836,Sofia (Capital)
+11769270624,school,school,ОУ Васил Левски,43.247762,24.482048,Pleven
+11769388686,pharmacy,pharmacy,Зелени аптеки,42.657691,23.341048,Sofia (Capital)
+11769505356,school,school,"СУ ""Васил Априлов""",43.469703,24.530374,Pleven
+11769880893,school,school,"ОУ ""Христо Смирненски""",42.129243,24.539955,Plovdiv
+11782511467,clinic,clinic,"Амбулатория ""Авет""",42.638846,23.385485,Sofia (Capital)
+11786496880,school,school,Свети Кирил и Методи,42.83809,27.313464,Burgas
+11792549423,pharmacy,pharmacy,Арника,42.504297,27.468576,Burgas
+11801512046,pharmacy,pharmacy,Марешки,43.702298,28.03989,Dobrich
+11809207619,pharmacy,pharmacy,,43.524378,27.44628,Varna
+11809669006,pharmacy,pharmacy,Марешки,42.737743,23.270985,Sofia (Capital)
+11822243588,clinic,clinic,Zdravna Slusjba,41.630917,25.431485,Kardzhali
+11828432503,pharmacy,pharmacy,Hera,42.656234,23.37599,Sofia (Capital)
+11830546021,pharmacy,pharmacy,,42.656168,23.372111,Sofia (Capital)
+11830554080,clinic,doctors,Bodimed,42.65606,23.372328,Sofia (Capital)
+11830562173,clinic,doctors,Д-р Богдан Руйчев,42.656189,23.372073,Sofia (Capital)
+11844258283,school,school,Светилник,42.652374,23.376426,Sofia (Capital)
+11845296804,clinic,doctors,Д-р Опаранови,42.687114,23.305046,Sofia (Capital)
+11845769576,pharmacy,pharmacy,,42.723931,23.306325,Sofia (Capital)
+11847381994,clinic,doctors,Diomed,42.673687,23.334832,Sofia (Capital)
+11854199003,clinic,doctors,Bodimed,42.265577,23.117718,Kyustendil
+11862104196,kindergarten,kindergarten,,42.625874,23.332902,Sofia (Capital)
+11862288873,clinic,doctors,Иво Близнашки,42.698999,23.302474,Sofia (Capital)
+11870720856,pharmacy,pharmacy,Express Pharma,43.517984,26.520878,Razgrad
+11874329469,clinic,clinic,Blocks,42.658317,23.316523,Sofia (Capital)
+11874807951,pharmacy,pharmacy,SOpharmacy,42.652732,27.672246,Burgas
+11883462670,pharmacy,pharmacy,Sopharmacy,42.638389,23.383548,Sofia (Capital)
+11889264662,school,school,ПМГ „К. Величков“,42.188282,24.329134,Pazardzhik
+11889264663,school,school,ПГ „И. С. Аксаков“,42.188176,24.328985,Pazardzhik
+11898330734,clinic,doctors,Д-р Пламен Стефанов Попов,42.653918,23.330015,Sofia (Capital)
+11898337001,clinic,doctors,Dr. Sorucheva,42.654324,23.329536,Sofia (Capital)
+11898347558,pharmacy,pharmacy,Arfa,42.646592,23.328204,Sofia (Capital)
+11900583619,clinic,doctors,Body & mind,42.672366,23.331034,Sofia (Capital)
+11901106453,pharmacy,pharmacy,SOpharmacy,42.642181,23.336068,Sofia (Capital)
+11909916045,clinic,clinic,NAD+ Center,42.688926,23.318011,Sofia (Capital)
+11917964789,pharmacy,pharmacy,Марешки,41.742995,24.397365,Smolyan
+11925846752,pharmacy,pharmacy,Марешки,42.696591,23.287492,Sofia (Capital)
+11945188513,school,school,,42.768755,27.600699,Burgas
+11950421113,pharmacy,pharmacy,Subra,42.032608,24.303224,Pazardzhik
+11961083964,pharmacy,pharmacy,Марешки,43.207445,24.163476,Lovech
+11990150175,school,school,,43.991622,27.506581,Silistra
+11991812603,school,school,,43.997504,27.162264,Silistra
+12004003404,clinic,clinic,Диалмед,42.665595,23.270132,Sofia (Capital)
+12006221496,kindergarten,kindergarten,ЧДГ Детска Академия,42.668871,23.366761,Sofia (Capital)
+12007536907,pharmacy,pharmacy,,42.707514,27.723007,Burgas
+12020223200,pharmacy,pharmacy,SunPharma,42.703524,27.718009,Burgas
+12028794141,pharmacy,pharmacy,Нота Бене,42.658893,23.264927,Sofia (Capital)
+12028817877,clinic,doctors,Д-р Хайтови,42.132876,24.78772,Plovdiv
+12035909963,pharmacy,pharmacy,,42.145115,24.799659,Plovdiv
+12041233485,clinic,doctors,Whole again,42.684199,23.329533,Sofia (Capital)
+12041426040,clinic,clinic,ДКЦ Пълмед,42.137554,24.716861,Plovdiv
+12048111202,pharmacy,pharmacy,,43.035811,24.286485,Lovech
+12048900634,hospital,hospital,Beta clinic,42.676086,23.321305,Sofia (Capital)
+12048919968,pharmacy,pharmacy,SOpharmacy,42.677567,23.320812,Sofia (Capital)
+12058818812,pharmacy,pharmacy,Ремедиум,42.667089,23.283542,Sofia (Capital)
+12060188305,clinic,doctors,,42.661943,23.265116,Sofia (Capital)
+12062767791,pharmacy,pharmacy,Узунов 1,43.701465,28.038605,Dobrich
+12064319125,hospital,hospital,ДКЦ-II,43.406583,24.619945,Pleven
+12069373109,clinic,doctors,Д-р М. Маркова,42.690262,23.31518,Sofia (Capital)
+12070175466,clinic,doctors,Д-р Ангелов,43.701654,28.306091,Dobrich
+12073833946,pharmacy,pharmacy,Иглика,42.349013,25.07712,Plovdiv
+12083796041,school,school,ОУ „Христо Ботев“,42.011179,23.854339,Pazardzhik
+12091450298,pharmacy,pharmacy,,42.712748,27.74504,Burgas
+12091472201,pharmacy,pharmacy,Subra,42.713253,27.745325,Burgas
+12091489668,pharmacy,pharmacy,,42.71173,27.751476,Burgas
+12092054257,clinic,clinic,Preventica,42.622278,23.374323,Sofia (Capital)
+12092072855,pharmacy,pharmacy,Sopharmacy,42.622683,23.370929,Sofia (Capital)
+12094707760,clinic,doctors,Д-р Талева,42.666491,23.319777,Sofia (Capital)
+12094731563,clinic,doctors,Д-р Александрова,42.666488,23.319749,Sofia (Capital)
+12100126801,pharmacy,pharmacy,Нове,42.661874,23.345735,Sofia (Capital)
+12100562320,pharmacy,pharmacy,Марешки,43.212091,27.906192,Varna
+12100562322,pharmacy,pharmacy,К-Крес,43.212192,27.906014,Varna
+12101168233,clinic,doctors,,41.846606,23.106203,Blagoevgrad
+12101332795,pharmacy,pharmacy,,42.674607,23.259674,Sofia (Capital)
+12101352111,pharmacy,pharmacy,Home Pharma,42.674689,23.260371,Sofia (Capital)
+12101753345,pharmacy,pharmacy,TSM Pharma,42.495688,27.464832,Burgas
+12101837915,clinic,doctors,VO dent,42.677402,23.320543,Sofia (Capital)
+12102600756,kindergarten,kindergarten,Пролет,43.402871,24.609377,Pleven
+12107632647,pharmacy,pharmacy,SOpharmacy,42.670162,23.352857,Sofia (Capital)
+12108385645,pharmacy,pharmacy,Марешки,42.043701,24.46663,Plovdiv
+12110550239,kindergarten,kindergarten,Цветни песъчинки,43.213572,27.906385,Varna
+12112254667,school,school,"ОУ ""Георги Бенковски""",42.286949,24.129947,Pazardzhik
+12120031154,pharmacy,pharmacy,АРТЕКА,42.866094,25.489885,Gabrovo
+12120340346,pharmacy,pharmacy,,42.866897,25.492487,Gabrovo
+12124080242,hospital,hospital,Медицински комплекс Зорница,42.515155,27.465327,Burgas
+12124080243,pharmacy,pharmacy,,42.514706,27.464938,Burgas
+12126013338,pharmacy,pharmacy,Омния,42.677196,23.3028,Sofia (Capital)
+12128396314,kindergarten,kindergarten,Drita's Babies,42.676221,23.297844,Sofia (Capital)
+12140159413,pharmacy,pharmacy,,42.659028,23.242234,Sofia (Capital)
+12143956689,pharmacy,pharmacy,SOpharmacy,43.212581,27.912583,Varna
+12143990048,pharmacy,pharmacy,SOpharmacy,43.214772,27.917392,Varna
+12143990049,pharmacy,pharmacy,SOpharmacy,43.202047,27.901029,Varna
+12144028138,pharmacy,pharmacy,SOpharmacy,43.214907,27.941191,Varna
+12144060052,pharmacy,pharmacy,SOpharmacy,43.215232,27.955117,Varna
+12144154784,pharmacy,pharmacy,SOpharmacy,43.232533,27.86102,Varna
+12144156159,pharmacy,pharmacy,SOpharmacy,43.220908,27.89036,Varna
+12144156160,pharmacy,pharmacy,SOpharmacy,43.227284,27.875544,Varna
+12144156533,pharmacy,pharmacy,SOpharmacy,43.2226,27.940124,Varna
+12144198444,pharmacy,pharmacy,SOpharmacy,43.235175,27.880844,Varna
+12144212808,pharmacy,pharmacy,SOpharmacy,43.241639,27.85018,Varna
+12151329419,clinic,doctors,Jewel Skin,42.671985,23.309512,Sofia (Capital)
+12151348845,clinic,doctors,Детски кабинет Южен Парк,42.672048,23.310436,Sofia (Capital)
+12151356355,clinic,clinic,Хоризонт,42.674003,23.313403,Sofia (Capital)
+12157298381,clinic,doctors,Д-р Демерджиева,42.67278,23.316725,Sofia (Capital)
+12157382242,clinic,doctors,Д-р Райна Томова,42.670884,23.314231,Sofia (Capital)
+12157390325,clinic,doctors,Ваня Дункова Виолета Спирова,42.672802,23.316804,Sofia (Capital)
+12157391515,clinic,doctors,Д-р Чалманов,42.67281,23.316771,Sofia (Capital)
+12157391517,clinic,doctors,Д-р А. Начева,42.671323,23.314623,Sofia (Capital)
+12157391518,clinic,clinic,Allure,42.670997,23.314408,Sofia (Capital)
+12157391906,clinic,clinic,Флоренция,42.672548,23.320122,Sofia (Capital)
+12157395926,clinic,clinic,Vogue,42.673493,23.320384,Sofia (Capital)
+12159717459,clinic,doctors,Проф. д-р Георги Чернев,42.690052,23.313616,Sofia (Capital)
+12159720590,pharmacy,pharmacy,,42.690012,23.313559,Sofia (Capital)
+12161979260,pharmacy,pharmacy,,41.647124,24.159109,Smolyan
+12165020033,pharmacy,pharmacy,Subra,42.664131,23.289352,Sofia (Capital)
+12167578276,clinic,doctors,Dr. Vaneska,42.673713,23.317735,Sofia (Capital)
+12169810349,clinic,doctors,,42.709356,27.744015,Burgas
+12170009178,clinic,doctors,Яна Аврамова Атанасова,42.642751,23.368966,Sofia (Capital)
+12170014443,pharmacy,pharmacy,Вира,42.642336,23.370146,Sofia (Capital)
+12173043973,clinic,doctors,Д-р Божидар Славчев,42.668921,23.302014,Sofia (Capital)
+12174905115,pharmacy,pharmacy,Рома,42.691947,23.324801,Sofia (Capital)
+12194153103,pharmacy,pharmacy,Sigma,41.884842,23.465053,Blagoevgrad
+12194830582,school,school,82 ОУ Васил Априлов,42.630164,23.411774,Sofia (Capital)
+12196583035,pharmacy,pharmacy,Катюша,42.656221,23.31524,Sofia (Capital)
+12200051869,pharmacy,pharmacy,,42.710115,23.383108,Sofia (Capital)
+12218310316,pharmacy,pharmacy,Emerald Pharama,42.655525,23.288759,Sofia (Capital)
+12218800496,clinic,doctors,Angelic Glow,42.662238,23.291078,Sofia (Capital)
+12222700499,clinic,doctors,,42.687944,23.308852,Sofia (Capital)
+12224107358,clinic,doctors,Д-р Димитров,42.675526,23.31993,Sofia (Capital)
+12228103244,pharmacy,pharmacy,SOpharmacy,43.424032,24.598681,Pleven
+12229694718,pharmacy,pharmacy,SOpharmacy,43.410512,24.617043,Pleven
+12234889809,clinic,clinic,Лоземед,42.671796,23.313011,Sofia (Capital)
+12234889810,clinic,doctors,Dermaclinic south park,42.670263,23.312556,Sofia (Capital)
+12234895447,clinic,clinic,Health & Safety,42.671816,23.313025,Sofia (Capital)
+12235064020,clinic,doctors,Доц. Николай Белев,42.143427,24.757103,Plovdiv
+12237553637,pharmacy,pharmacy,,43.348265,24.799691,Pleven
+12238431195,pharmacy,pharmacy,Виржиния,42.698319,23.332726,Sofia (Capital)
+12245977753,clinic,doctors,д-р Антония Бакалова,42.699712,23.315696,Sofia (Capital)
+12247076640,pharmacy,pharmacy,,42.12102,24.729885,Plovdiv
+12249335221,pharmacy,pharmacy,Вива фарма,42.127068,24.742026,Plovdiv
+12255764592,clinic,clinic,Spectro,42.666994,23.347017,Sofia (Capital)
+12258403730,clinic,doctors,Д-р Диана Христова,42.696383,23.3394,Sofia (Capital)
+12258437004,clinic,clinic,Аюрведа център,42.696338,23.339548,Sofia (Capital)
+12261146296,clinic,clinic,Dr. Somi,42.694411,23.318706,Sofia (Capital)
+12265666405,pharmacy,pharmacy,,43.849988,25.993465,Ruse
+12270729796,pharmacy,pharmacy,,42.413727,27.697467,Burgas
+12282091896,pharmacy,pharmacy,Панацея,43.203313,27.912213,Varna
+12285976129,clinic,doctors,Албена Аракчиева,42.676987,23.286478,Sofia (Capital)
+12285976130,clinic,doctors,Т. Монов,42.67698,23.286491,Sofia (Capital)
+12288207790,clinic,doctors,Д-р Дойчева,42.66245,23.277194,Sofia (Capital)
+12297717282,clinic,doctors,Д-р Ямболиева,42.675944,23.299464,Sofia (Capital)
+12299555216,pharmacy,pharmacy,the Corner of health,42.655846,23.334075,Sofia (Capital)
+12300283516,clinic,doctors,Амбулатория по детски болести,42.677619,23.288639,Sofia (Capital)
+12304901305,clinic,doctors,Мамолог - Д-р Иван Инков,42.622282,23.374756,Sofia (Capital)
+12307299540,clinic,clinic,ТЕЛК,43.215282,27.917301,Varna
+12307319907,pharmacy,pharmacy,Еврофарма,43.217436,27.921095,Varna
+12308868658,pharmacy,pharmacy,Валенс,43.224186,27.912367,Varna
+12309331065,clinic,clinic,,42.072222,24.659336,Plovdiv
+12311570759,clinic,clinic,Младост-мед,42.654985,23.372234,Sofia (Capital)
+12311573650,clinic,clinic,Здраве за всеки,42.654924,23.372145,Sofia (Capital)
+12311576277,clinic,doctors,,42.654918,23.372772,Sofia (Capital)
+12311594892,clinic,doctors,Д-р Божкова,42.654903,23.372754,Sofia (Capital)
+12311844066,clinic,doctors,Д-р Павлова,42.654906,23.372741,Sofia (Capital)
+12311844067,clinic,doctors,Д-р Клечоров,42.654914,23.37275,Sofia (Capital)
+12312946200,clinic,clinic,Евита,42.679489,23.285546,Sofia (Capital)
+12337620562,pharmacy,pharmacy,,42.652812,23.373957,Sofia (Capital)
+12344072261,pharmacy,pharmacy,Афиа,42.498129,27.465253,Burgas
+12345574221,pharmacy,pharmacy,ВИА,42.65635,23.320945,Sofia (Capital)
+12345995790,pharmacy,pharmacy,Марешки,43.410376,24.616592,Pleven
+12365342841,pharmacy,pharmacy,Subra,42.679485,23.3675,Sofia (Capital)
+12368527439,clinic,doctors,Мамолог - Д-р Иван Инков,42.662429,23.380284,Sofia (Capital)
+12372357567,clinic,doctors,,42.68856,23.311155,Sofia (Capital)
+12378624521,pharmacy,pharmacy,Феникс,43.420347,24.599447,Pleven
+12381894860,pharmacy,pharmacy,Марешки,43.421076,24.60008,Pleven
+12382044777,clinic,doctors,Авокадо,43.42136,24.59707,Pleven
+12384004288,clinic,doctors,"Yanko Yankov, MD, PhD",43.215802,27.943178,Varna
+12388506941,pharmacy,pharmacy,Афиа,42.50165,27.467138,Burgas
+12394209980,clinic,clinic,Кинов,42.699735,23.342661,Sofia (Capital)
+12395737335,clinic,clinic,Медицински център Св. Пантелеймон,42.696746,23.320266,Sofia (Capital)
+12395864527,clinic,doctors,Люлин мед,42.685062,23.315355,Sofia (Capital)
+12400103768,hospital,hospital,Medical Center Salvebis,42.677068,23.332559,Sofia (Capital)
+12400234489,pharmacy,pharmacy,,42.698646,23.332698,Sofia (Capital)
+12420873157,clinic,clinic,МЦ Люлин мед,42.685605,23.30479,Sofia (Capital)
+12425913446,pharmacy,pharmacy,SOpharmacy,42.659456,23.316242,Sofia (Capital)
+12431874135,pharmacy,pharmacy,Захариева,42.280976,22.691691,Kyustendil
+12434185536,clinic,clinic,Хемус,42.678738,23.322476,Sofia (Capital)
+12436970966,clinic,clinic,Медкрос,42.699001,23.33251,Sofia (Capital)
+12436980273,clinic,doctors,Д-р Веселина Грозева,42.700782,23.333016,Sofia (Capital)
+12438544341,pharmacy,pharmacy,SOpharmacy,42.667495,23.365189,Sofia (Capital)
+12452871954,pharmacy,pharmacy,META,43.410263,24.63075,Pleven
+12472629889,pharmacy,pharmacy,Стела,42.708685,23.458815,Sofia (Capital)
+12480254836,pharmacy,pharmacy,Дема,42.147279,24.725811,Plovdiv
+12488592776,school,school,Darbi College,42.701094,23.328469,Sofia (Capital)
+12488674378,clinic,clinic,Alexandra Health,42.698872,23.327194,Sofia (Capital)
+12504618280,clinic,doctors,Д-р А. Здравкова,42.654841,23.311576,Sofia (Capital)
+12504659175,clinic,doctors,Just Look,42.659191,23.314217,Sofia (Capital)
+12504660832,clinic,doctors,Д-р А. Носиков,42.654815,23.311571,Sofia (Capital)
+12520729235,clinic,clinic,FutureMeds,42.7023,23.326065,Sofia (Capital)
+12520744826,clinic,clinic,Лейзър Мед,42.700669,23.326585,Sofia (Capital)
+12522335415,pharmacy,pharmacy,Ветеринарна аптека,42.504434,27.473615,Burgas
+12526228821,clinic,doctors,Bodimed,42.142252,24.755909,Plovdiv
+12529154158,school,school,ЧОУ Фюжън,42.639098,23.314916,Sofia (Capital)
+12532388291,clinic,clinic,"МЦ ""Екзакта Медика""",43.415304,24.626407,Pleven
+12535081583,kindergarten,kindergarten,Морско Конче,42.508752,27.466204,Burgas
+12537047226,pharmacy,pharmacy,Subra,43.212015,27.917373,Varna
+12538901742,pharmacy,pharmacy,Subra,42.635575,23.377499,Sofia (Capital)
+12538923434,pharmacy,pharmacy,SOpharmacy,42.635596,23.377803,Sofia (Capital)
+12539156833,clinic,clinic,,43.199407,27.911834,Varna
+12541499968,pharmacy,pharmacy,SOpharmacy,42.641538,23.373727,Sofia (Capital)
+12543895581,pharmacy,pharmacy,Subra,42.697712,23.321589,Sofia (Capital)
+12544197177,pharmacy,pharmacy,Валера Фарм,42.677477,23.257504,Sofia (Capital)
+12546552771,pharmacy,pharmacy,Женхим,42.701236,23.322305,Sofia (Capital)
+12546568282,clinic,doctors,Д-р Валентина Николова,42.698693,23.321182,Sofia (Capital)
+12565755745,clinic,doctors,Smartdiet,42.676928,23.333053,Sofia (Capital)
+12573516189,pharmacy,pharmacy,Ветеринарна аптека,42.499267,27.466859,Burgas
+12582002873,pharmacy,pharmacy,,41.485734,24.848315,Smolyan
+12583238331,pharmacy,pharmacy,Хелени,43.342436,27.775282,Varna
+12587144009,pharmacy,pharmacy,Фрамар,42.503596,27.472729,Burgas
+12598758779,clinic,clinic,AmeriMed,42.626205,23.373997,Sofia (Capital)
+12606329343,clinic,doctors,Bodimed,42.337474,23.55322,Sofia Province
+12607572838,pharmacy,pharmacy,SOpharmacy,43.419002,24.626939,Pleven
+12612640506,clinic,clinic,МЦ Леонардо Да Винчи,43.412501,24.629969,Pleven
+12612817484,pharmacy,pharmacy,Надежда,42.664702,23.267306,Sofia (Capital)
+12612822174,pharmacy,pharmacy,Ведра,42.671146,23.318018,Sofia (Capital)
+12615524086,hospital,hospital,2ра поликлиника,42.430213,25.626591,Stara Zagora
+12628459394,pharmacy,pharmacy,,41.839999,23.486261,Blagoevgrad
+12641299530,pharmacy,pharmacy,Subra,42.712016,23.338339,Sofia (Capital)
+12645287745,pharmacy,pharmacy,Фрамар,42.424892,25.621387,Stara Zagora
+12646524993,kindergarten,kindergarten,"Детска градина № 33 ""Люляк""",42.429788,25.685031,Stara Zagora
+12646682243,pharmacy,pharmacy,Subra,41.879437,23.472575,Blagoevgrad
+12647036302,clinic,clinic,ФИЗИО-МЕД,42.676324,23.28575,Sofia (Capital)
+12650570692,pharmacy,pharmacy,Аптека 1,42.906109,23.790512,Sofia Province
+12660920653,pharmacy,pharmacy,Сималекс,42.675704,23.283422,Sofia (Capital)
+12662860212,clinic,clinic,Хирон,42.697694,23.317359,Sofia (Capital)
+12673355985,clinic,doctors,Медикаконсулторто,42.687672,23.304496,Sofia (Capital)
+12673465713,clinic,doctors,,42.686027,23.300131,Sofia (Capital)
+12686172871,clinic,clinic,Vivid,42.656009,23.294522,Sofia (Capital)
+12691462157,clinic,doctors,Д-р Анастас Стойков,42.679181,23.360261,Sofia (Capital)
+12714474001,pharmacy,pharmacy,Субра,42.629797,23.373939,Sofia (Capital)
+12733265001,pharmacy,pharmacy,Аптека Митков,42.629623,23.381101,Sofia (Capital)
+12736129377,clinic,clinic,Трета поликлиника,42.423835,25.635455,Stara Zagora
+12748105562,clinic,doctors,Perfect Smile,42.653404,23.345029,Sofia (Capital)
+12752064905,pharmacy,pharmacy,Фармавижън,42.104328,24.48356,Plovdiv
+12752124901,clinic,clinic,Здравна служба Ново село,42.104842,24.480295,Plovdiv
+12762209827,pharmacy,pharmacy,Петя Ефтимова,42.500485,24.187631,Pazardzhik
+12774699407,pharmacy,pharmacy,,43.2361,27.860813,Varna
+12774699408,clinic,doctors,,43.236192,27.860814,Varna
+12782202423,clinic,doctors,Aestheline,42.65342,23.346745,Sofia (Capital)
+12791487397,school,school,"Музикално училище ""Христина Морфова""",42.421623,25.608676,Stara Zagora
+12794681157,clinic,doctors,Моето здраве,42.670879,23.288186,Sofia (Capital)
+12795516517,clinic,doctors,,42.674001,23.263163,Sofia (Capital)
+12798216151,pharmacy,pharmacy,,43.410286,24.608362,Pleven
+12802520468,pharmacy,pharmacy,Домис,42.687076,23.328566,Sofia (Capital)
+12803624466,clinic,clinic,Уромед,43.411432,24.615091,Pleven
+12811196175,pharmacy,pharmacy,SOpharmacy,43.420163,24.60816,Pleven
+12811536186,school,school,ПГССХВТ “Ан.Кънчев”,43.531828,26.500073,Razgrad
+12815033198,clinic,clinic,Art clinic,42.675467,23.291622,Sofia (Capital)
+12817417817,pharmacy,pharmacy,,43.984079,22.87604,Vidin
+12818900461,pharmacy,pharmacy,Аптека,41.444167,23.43138,Blagoevgrad
+12828477702,pharmacy,pharmacy,Ани фарма,41.895737,23.113844,Blagoevgrad
+12833791728,pharmacy,pharmacy,Joya,42.66321,23.344245,Sofia (Capital)
+12849186923,clinic,doctors,Д-р Венислава Александрова,42.691862,23.307465,Sofia (Capital)
+12854793917,clinic,clinic,Zarev Clinic,42.63036,23.333739,Sofia (Capital)
+12871222970,pharmacy,pharmacy,Беллафарма,42.696507,23.314313,Sofia (Capital)
+12871227886,kindergarten,kindergarten,,41.554302,23.745428,Blagoevgrad
+12871237170,hospital,hospital,СБАЛББ Св. Панталеймон,42.583775,23.020866,Pernik
+12871247184,pharmacy,pharmacy,SOpharmacy,41.571301,23.729491,Blagoevgrad
+12871516805,pharmacy,pharmacy,SOpharmacy,42.702496,23.284084,Sofia (Capital)
+12873360136,clinic,doctors,,42.680343,23.30051,Sofia (Capital)
+12875815596,clinic,clinic,Кристал,42.701007,23.292559,Sofia (Capital)
+12877636324,clinic,doctors,Dr. Hachik Magardichqn,43.561527,26.314546,Razgrad
+12882768201,school,school,"ПЕГ""Д-р Иван Богоров '",42.051342,25.579113,Haskovo
+12893504927,pharmacy,pharmacy,Hera 3,42.643964,23.412936,Sofia (Capital)
+12899889617,pharmacy,pharmacy,Амая,42.663627,23.266631,Sofia (Capital)
+12906086418,pharmacy,pharmacy,Subra,42.710348,23.378359,Sofia (Capital)
+12906090808,pharmacy,pharmacy,,42.713206,23.377319,Sofia (Capital)
+12919471741,clinic,doctors,Диана Василева,42.687481,23.303595,Sofia (Capital)
+12927130358,pharmacy,pharmacy,SOpharmacy,42.518449,27.457302,Burgas
+12951767161,pharmacy,pharmacy,Марешки,42.678641,26.324548,Sliven
+12951926137,pharmacy,pharmacy,,42.696072,23.299543,Sofia (Capital)
+12966385110,pharmacy,pharmacy,Subra,42.642027,23.375272,Sofia (Capital)
+12973048977,clinic,clinic,Надежда клиникал,42.657791,23.313753,Sofia (Capital)
+12973060023,clinic,clinic,Биогенерация,42.657857,23.313901,Sofia (Capital)
+12976898371,clinic,clinic,Beta Clinic + Mediko,42.698807,23.313717,Sofia (Capital)
+12976917024,clinic,doctors,Д-р Патрикова,42.699227,23.310724,Sofia (Capital)
+12981835127,clinic,clinic,Пиротска,42.70107,23.312566,Sofia (Capital)
+12991093376,pharmacy,pharmacy,SOpharmacy,42.607519,23.048922,Pernik
+12995518540,pharmacy,pharmacy,SOpharmacy,43.39518,24.620721,Pleven
+13009381150,pharmacy,pharmacy,Framar,42.678456,26.32737,Sliven
+13012105548,clinic,doctors,ORTOPED.BG,42.662453,23.283192,Sofia (Capital)
+13012127643,pharmacy,pharmacy,SOpharmacy,42.906864,23.791954,Sofia Province
+13012127656,pharmacy,pharmacy,,42.907055,23.792219,Sofia Province
+13019694949,pharmacy,pharmacy,Фарма ВИМ,43.247819,26.557336,Targovishte
+13027188420,clinic,clinic,neo vitro,42.662728,23.286822,Sofia (Capital)
+13033889899,clinic,clinic,Сърце и здраве,42.669475,23.316384,Sofia (Capital)
+13035180872,pharmacy,pharmacy,,42.237893,24.824819,Plovdiv
+13041803146,clinic,clinic,Афродита,42.156519,24.746591,Plovdiv
+13042460548,pharmacy,pharmacy,,42.156477,24.743518,Plovdiv
+13049686379,clinic,clinic,Сара,42.703544,23.312202,Sofia (Capital)
+13052132293,clinic,clinic,,43.204932,27.917862,Varna
+13052157339,clinic,clinic,Д-р Крайчева,43.204671,27.917296,Varna
+13053367001,pharmacy,pharmacy,,42.65287,27.694396,Burgas
+13056274156,clinic,doctors,Лекарска къща Възраждане,42.497442,27.461585,Burgas
+13057558486,pharmacy,pharmacy,,42.711321,23.318512,Sofia (Capital)
+13057566499,pharmacy,pharmacy,Зелен кръст,42.706688,23.318094,Sofia (Capital)
+13062243685,pharmacy,pharmacy,Нове,42.855459,23.038701,Sofia Province
+13066982471,pharmacy,pharmacy,,43.243585,26.562872,Targovishte
+13068606882,pharmacy,pharmacy,Subra,43.419797,24.612618,Pleven
+13070414170,pharmacy,pharmacy,Лалева,43.435033,28.33745,Dobrich
+13071964992,pharmacy,pharmacy,Агрион,42.851873,23.039341,Sofia Province
+13075617516,pharmacy,pharmacy,Фрамар,42.689548,26.339366,Sliven
+13075617521,pharmacy,pharmacy,Марешки,42.67943,26.322577,Sliven
+13075639501,pharmacy,pharmacy,Pharmavision,42.137006,24.543488,Plovdiv
+13084077565,clinic,doctors,Очна оптика и корекция АД,42.708169,23.32057,Sofia (Capital)
+13084126006,clinic,doctors,Д-р Домусчиев,42.70678,23.319672,Sofia (Capital)
+13092708612,clinic,clinic,Плазмамед Клиник,43.202406,27.905196,Varna
+13103204279,pharmacy,pharmacy,,43.141866,23.707933,Vratsa
+13103862273,pharmacy,pharmacy,Subra,42.689157,23.278299,Sofia (Capital)
+13108954118,pharmacy,pharmacy,,42.58618,23.360656,Sofia (Capital)
+13112235979,pharmacy,pharmacy,,42.706908,23.324665,Sofia (Capital)
+13112455555,pharmacy,pharmacy,Фрамар,43.216066,27.917323,Varna
+13125279451,pharmacy,pharmacy,Subra,43.406677,24.620123,Pleven
+13136703437,pharmacy,pharmacy,,42.683825,23.241705,Sofia (Capital)
+13137219153,clinic,clinic,,42.889509,24.713085,Lovech
+13141878393,pharmacy,pharmacy,,43.211354,27.92925,Varna
+13143960684,pharmacy,pharmacy,Фрамар,42.645943,23.342287,Sofia (Capital)
+13144693030,pharmacy,pharmacy,,43.521381,24.472185,Pleven
+13153122119,school,school,Джани РоДари,42.67864,23.380488,Sofia (Capital)
+13157740374,clinic,clinic,,42.315512,23.538216,Sofia Province
+13192384226,pharmacy,pharmacy,Иримар,42.712636,23.262094,Sofia (Capital)
+13196642699,clinic,clinic,K Dent Clinic,43.217045,27.919014,Varna
+13231566201,pharmacy,pharmacy,Аптека ИВА,42.184868,24.340827,Pazardzhik
+13251604998,pharmacy,pharmacy,,42.728724,23.250355,Sofia (Capital)
+13255966980,pharmacy,pharmacy,Subra,42.669878,23.364153,Sofia (Capital)
+13256593053,clinic,doctors,Д-р Георги Георгиев,43.216375,27.916366,Varna
+13265221931,kindergarten,kindergarten,"131 ДГ ""Щурче""",42.583228,23.35659,Sofia (Capital)
+13287697924,pharmacy,pharmacy,,42.684797,23.240663,Sofia (Capital)
+13294693323,clinic,clinic,O.S.C.A.R,42.648013,23.314631,Sofia (Capital)
+13294707005,clinic,clinic,VIP Health,42.648612,23.314738,Sofia (Capital)
+13294717802,clinic,clinic,Света Петка,42.648012,23.314586,Sofia (Capital)
+13306110911,clinic,doctors,doctors gonovski,42.134029,24.798707,Plovdiv
+13306291742,pharmacy,pharmacy,Subra,42.136242,24.796398,Plovdiv
+13306298977,pharmacy,pharmacy,Денонощна Аптека,42.141698,24.78843,Plovdiv
+13306301094,pharmacy,pharmacy,Аптека Медина,42.13605,24.761038,Plovdiv
+13310424189,kindergarten,kindergarten,дъга от мечти,42.130909,24.748569,Plovdiv
+13310461879,pharmacy,pharmacy,36.6,42.130052,24.748495,Plovdiv
+13311676605,school,school,Science - Smart School of Sofia,42.66736,23.374953,Sofia (Capital)
+13319323217,pharmacy,pharmacy,Фрамар,42.142664,24.744444,Plovdiv
+13324372755,pharmacy,pharmacy,Silk,43.402268,24.611422,Pleven
+13325878601,pharmacy,pharmacy,Калина,42.132855,24.779726,Plovdiv
+13329931462,pharmacy,pharmacy,Аптека Галантус,43.444769,26.165761,Targovishte
+13374906728,pharmacy,pharmacy,Аптека ЕЛИ,43.782451,23.72203,Vratsa
+13374986743,school,school,,43.778618,23.725959,Vratsa
+13381294814,clinic,doctors,Д-р Аргир Аргиров,42.65287,23.317605,Sofia (Capital)
+13381338964,clinic,clinic,Rehab Lab,42.652925,23.31784,Sofia (Capital)
+13382822234,hospital,hospital,Д-р Михаил Иринков УНГ Амбулатория,43.080562,25.630028,Veliko Tarnovo
+13385796787,pharmacy,pharmacy,SOpharmacy,42.645453,23.379191,Sofia (Capital)
+13392773944,pharmacy,pharmacy,Далия,42.652053,23.333092,Sofia (Capital)
+13392774770,pharmacy,pharmacy,,42.653662,23.332258,Sofia (Capital)
+13393821061,pharmacy,pharmacy,SOpharmacy,42.710779,23.309924,Sofia (Capital)
+13423376228,pharmacy,pharmacy,SOpharmacy,42.698877,23.347634,Sofia (Capital)
+13426215342,clinic,doctors,,42.711085,23.259959,Sofia (Capital)
+13428287501,pharmacy,pharmacy,Аптека Мерджанов,43.444616,26.165737,Targovishte
+13437711508,clinic,clinic,Диализен Център “Дружба”,42.668629,23.402205,Sofia (Capital)
+13442408143,clinic,clinic,Зрение и слух,42.657194,23.313192,Sofia (Capital)
+13446153510,pharmacy,pharmacy,Рубия,42.708074,23.143555,Sofia (Capital)
+13451474776,clinic,doctors,Д-р Маруся Катева,43.207508,27.900754,Varna
+13456182327,pharmacy,pharmacy,Вита 3,43.834858,25.957733,Ruse
+13460604229,pharmacy,pharmacy,Corner,42.645392,23.333176,Sofia (Capital)
+13461877680,kindergarten,kindergarten,,43.549487,23.194324,Montana
+13462540539,hospital,hospital,ДКЦ Софиямед - Люлин,42.714318,23.257084,Sofia (Capital)
+13466142141,pharmacy,pharmacy,,43.069587,25.618704,Veliko Tarnovo
+13470786902,pharmacy,pharmacy,Вива,42.71513,23.248888,Sofia (Capital)
+13478878915,pharmacy,pharmacy,SOpharmacy,42.512009,27.455759,Burgas
+13480251786,pharmacy,pharmacy,,41.943608,24.218576,Pazardzhik
+13481398902,pharmacy,pharmacy,Медея,42.608639,23.031472,Pernik
+13495293384,pharmacy,pharmacy,,43.648451,25.12805,Pleven
+13504495277,clinic,clinic,ДКЦ Черни връх,42.672756,23.320909,Sofia (Capital)
+13512264176,clinic,clinic,Д-р Калчев,42.653948,23.338563,Sofia (Capital)
+13514435094,pharmacy,pharmacy,,42.655388,23.341272,Sofia (Capital)
+13519518582,clinic,clinic,Muse,42.667997,23.313349,Sofia (Capital)
+13524456739,pharmacy,pharmacy,,42.696006,23.354254,Sofia (Capital)
+13531867378,clinic,clinic,Рамус,42.663852,23.343759,Sofia (Capital)
+13535170715,pharmacy,pharmacy,Ремедиум,42.656379,23.396485,Sofia (Capital)
+13535171142,clinic,clinic,Марковс,42.668824,23.299944,Sofia (Capital)
+13564144395,clinic,clinic,МЦ “Света Марина”,43.409922,24.620892,Pleven
+13564210719,pharmacy,pharmacy,Санте,42.656817,23.344601,Sofia (Capital)
+13564275899,clinic,doctors,ArtMedica,43.409623,24.62058,Pleven
+13564354889,clinic,clinic,Лайв 4 лайв,42.657147,23.346237,Sofia (Capital)
+13570318997,pharmacy,pharmacy,,42.670497,23.294582,Sofia (Capital)
+13580034375,pharmacy,pharmacy,SOpharmacy,42.798907,23.230261,Sofia Province
+13592051688,pharmacy,pharmacy,,42.699696,23.370484,Sofia (Capital)
+13594924896,pharmacy,pharmacy,,42.65248,23.346589,Sofia (Capital)
+13594953919,clinic,clinic,Сана ООД,42.652405,23.346948,Sofia (Capital)
+13598242250,clinic,clinic,Vein Center,42.684848,23.328678,Sofia (Capital)
+13598259770,pharmacy,pharmacy,SOpharmacy,42.678448,23.320211,Sofia (Capital)
+13602438635,clinic,clinic,Градска поликлиника,42.661405,25.791806,Stara Zagora
+13603096430,clinic,doctors,Derma-Act,42.642837,23.313321,Sofia (Capital)
+13604778493,clinic,doctors,M Esthetic,42.664311,23.263789,Sofia (Capital)
+13605940001,pharmacy,pharmacy,Здраве,42.482879,26.504823,Yambol
+13622306668,pharmacy,pharmacy,SOpharmacy,42.601796,23.049349,Pernik
+13622306669,pharmacy,pharmacy,SOpharmacy,42.909567,23.790961,Sofia Province
+13622306670,pharmacy,pharmacy,SOpharmacy,42.883231,25.320844,Gabrovo
+13622306671,pharmacy,pharmacy,SOpharmacy,42.055815,25.596243,Haskovo
+13622306672,pharmacy,pharmacy,SOpharmacy,41.634923,25.379699,Kardzhali
+13622306673,pharmacy,pharmacy,SOpharmacy,43.122783,25.683897,Veliko Tarnovo
+13622306674,pharmacy,pharmacy,SOpharmacy,42.54605,22.965181,Pernik
+13622306675,pharmacy,pharmacy,SOpharmacy,41.394779,23.207296,Blagoevgrad
+13622306676,pharmacy,pharmacy,SOpharmacy,42.634641,23.407595,Sofia (Capital)
+13622306677,pharmacy,pharmacy,SOpharmacy,42.124653,24.728653,Plovdiv
+13622306678,pharmacy,pharmacy,SOpharmacy,42.196024,24.334615,Pazardzhik
+13622306679,pharmacy,pharmacy,SOpharmacy,42.653039,23.377538,Sofia (Capital)
+13622306680,pharmacy,pharmacy,SOpharmacy,42.50244,27.466805,Burgas
+13622306681,pharmacy,pharmacy,SOpharmacy,42.28353,22.700466,Kyustendil
+13622306682,pharmacy,pharmacy,SOpharmacy,42.730995,23.287172,Sofia (Capital)
+13622306683,pharmacy,pharmacy,SOpharmacy,42.664028,23.596728,Sofia Province
+13622306684,pharmacy,pharmacy,SOpharmacy,42.520091,27.466566,Burgas
+13622306685,pharmacy,pharmacy,SOpharmacy,42.463265,27.419448,Burgas
+13622306686,pharmacy,pharmacy,SOpharmacy,42.522329,27.449815,Burgas
+13622306687,pharmacy,pharmacy,SOpharmacy,42.651746,23.373278,Sofia (Capital)
+13622306688,pharmacy,pharmacy,SOpharmacy,43.421694,23.227333,Montana
+13622306689,pharmacy,pharmacy,SOpharmacy,42.708236,23.287719,Sofia (Capital)
+13622306690,pharmacy,pharmacy,SOpharmacy,42.713444,23.354056,Sofia (Capital)
+13622306691,pharmacy,pharmacy,SOpharmacy,42.633402,24.818091,Plovdiv
+13622306692,pharmacy,pharmacy,SOpharmacy,43.219816,27.882823,Varna
+13622306693,pharmacy,pharmacy,SOpharmacy,43.853231,25.977491,Ruse
+13622306694,pharmacy,pharmacy,SOpharmacy,42.18651,24.34607,Pazardzhik
+13622306695,pharmacy,pharmacy,SOpharmacy,42.193296,24.332654,Pazardzhik
+13622306696,pharmacy,pharmacy,SOpharmacy,42.012923,24.871621,Plovdiv
+13622306697,pharmacy,pharmacy,SOpharmacy,43.83245,25.96866,Ruse
+13622306698,pharmacy,pharmacy,SOpharmacy,42.14742,24.78472,Plovdiv
+13622306699,pharmacy,pharmacy,SOpharmacy,43.530188,26.511587,Razgrad
+13622306700,pharmacy,pharmacy,SOpharmacy,43.078764,25.630473,Veliko Tarnovo
+13622312601,pharmacy,pharmacy,SOpharmacy,43.080328,25.629883,Veliko Tarnovo
+13622312602,pharmacy,pharmacy,SOpharmacy,42.701657,23.369454,Sofia (Capital)
+13622312603,pharmacy,pharmacy,SOpharmacy,42.01065,23.0939,Blagoevgrad
+13622312604,pharmacy,pharmacy,SOpharmacy,42.682526,26.34211,Sliven
+13622312605,pharmacy,pharmacy,SOpharmacy,42.730232,23.294406,Sofia (Capital)
+13622312606,pharmacy,pharmacy,SOpharmacy,43.021567,25.095579,Gabrovo
+13622312607,pharmacy,pharmacy,SOpharmacy,42.606105,23.115672,Pernik
+13622312608,pharmacy,pharmacy,SOpharmacy,42.132808,24.789821,Plovdiv
+13622312609,pharmacy,pharmacy,SOpharmacy,43.207041,23.544718,Vratsa
+13622312610,pharmacy,pharmacy,SOpharmacy,43.247324,26.572972,Targovishte
+13622312611,pharmacy,pharmacy,SOpharmacy,43.348828,26.224703,Targovishte
+13622312612,pharmacy,pharmacy,SOpharmacy,43.614141,25.346121,Veliko Tarnovo
+13622312613,pharmacy,pharmacy,SOpharmacy,42.70652,23.288089,Sofia (Capital)
+13622312614,pharmacy,pharmacy,SOpharmacy,43.271374,26.932358,Shumen
+13622312615,pharmacy,pharmacy,SOpharmacy,42.706287,23.294095,Sofia (Capital)
+13622312616,pharmacy,pharmacy,SOpharmacy,42.660711,23.382028,Sofia (Capital)
+13622312617,pharmacy,pharmacy,SOpharmacy,42.153307,24.76192,Plovdiv
+13622312618,pharmacy,pharmacy,SOpharmacy,43.988345,22.875069,Vidin
+13622312619,pharmacy,pharmacy,SOpharmacy,42.640808,23.382656,Sofia (Capital)
+13622312620,pharmacy,pharmacy,SOpharmacy,42.88082,25.320024,Gabrovo
+13622312621,pharmacy,pharmacy,SOpharmacy,42.73182,23.315912,Sofia (Capital)
+13622312622,pharmacy,pharmacy,SOpharmacy,41.57708,24.70044,Smolyan
+13622312623,pharmacy,pharmacy,SOpharmacy,42.656367,23.399699,Sofia (Capital)
+13622312624,pharmacy,pharmacy,SOpharmacy,42.531962,27.461198,Burgas
+13622312625,pharmacy,pharmacy,SOpharmacy,42.019258,23.0931,Blagoevgrad
+13622312626,pharmacy,pharmacy,SOpharmacy,42.33718,23.559789,Sofia Province
+13622312627,pharmacy,pharmacy,SOpharmacy,42.423874,25.632796,Stara Zagora
+13622312628,pharmacy,pharmacy,SOpharmacy,42.28312,22.68105,Kyustendil
+13622312629,pharmacy,pharmacy,SOpharmacy,42.258766,23.103602,Kyustendil
+13622312630,pharmacy,pharmacy,SOpharmacy,44.111928,27.252263,Silistra
+13622312631,pharmacy,pharmacy,SOpharmacy,42.673761,26.323942,Sliven
+13622312632,pharmacy,pharmacy,SOpharmacy,43.851032,25.955943,Ruse
+13622312633,pharmacy,pharmacy,SOpharmacy,43.847597,25.962068,Ruse
+13622312634,pharmacy,pharmacy,SOpharmacy,42.712454,23.315413,Sofia (Capital)
+13622312635,pharmacy,pharmacy,SOpharmacy,41.93069,25.56567,Haskovo
+13622312636,pharmacy,pharmacy,SOpharmacy,41.838682,23.488678,Blagoevgrad
+13622312637,pharmacy,pharmacy,SOpharmacy,42.70947,23.455481,Sofia (Capital)
+13622312638,pharmacy,pharmacy,SOpharmacy,42.011377,24.878623,Plovdiv
+13622312639,pharmacy,pharmacy,SOpharmacy,42.1397,24.724318,Plovdiv
+13622312640,pharmacy,pharmacy,SOpharmacy,43.528622,26.524239,Razgrad
+13622312641,pharmacy,pharmacy,SOpharmacy,43.138471,24.718104,Lovech
+13622312642,pharmacy,pharmacy,SOpharmacy,42.67416,23.38281,Sofia (Capital)
+13622312643,pharmacy,pharmacy,SOpharmacy,41.57228,23.727497,Blagoevgrad
+13622312644,pharmacy,pharmacy,SOpharmacy,42.13407,24.794072,Plovdiv
+13622312645,pharmacy,pharmacy,SOpharmacy,42.6177,25.36901,Stara Zagora
+13622312646,pharmacy,pharmacy,SOpharmacy,42.696138,23.319624,Sofia (Capital)
+13622312647,pharmacy,pharmacy,SOpharmacy,42.122449,24.741026,Plovdiv
+13622312648,pharmacy,pharmacy,SOpharmacy,42.607999,23.036474,Pernik
+13622312649,pharmacy,pharmacy,SOpharmacy,42.186335,24.320321,Pazardzhik
+13622312650,pharmacy,pharmacy,SOpharmacy,42.89257,24.71581,Lovech
+13622312651,pharmacy,pharmacy,SOpharmacy,44.000299,22.869458,Vidin
+13622312652,pharmacy,pharmacy,SOpharmacy,42.143443,24.782774,Plovdiv
+13622312653,pharmacy,pharmacy,SOpharmacy,42.684892,23.245802,Sofia (Capital)
+13622312654,pharmacy,pharmacy,SOpharmacy,42.463534,27.410022,Burgas
+13622312655,pharmacy,pharmacy,SOpharmacy,42.695099,23.284029,Sofia (Capital)
+13622312656,pharmacy,pharmacy,SOpharmacy,43.075473,25.612535,Veliko Tarnovo
+13622312657,pharmacy,pharmacy,SOpharmacy,43.180983,27.896193,Varna
+13622312658,pharmacy,pharmacy,SOpharmacy,42.51519,27.450528,Burgas
+13622312659,pharmacy,pharmacy,SOpharmacy,42.41571,25.620342,Stara Zagora
+13622312660,pharmacy,pharmacy,SOpharmacy,42.717534,23.249272,Sofia (Capital)
+13622312661,pharmacy,pharmacy,SOpharmacy,42.424678,25.616432,Stara Zagora
+13622312662,pharmacy,pharmacy,SOpharmacy,43.566749,27.839699,Dobrich
+13622312663,pharmacy,pharmacy,SOpharmacy,43.414188,24.61629,Pleven
+13622312664,pharmacy,pharmacy,SOpharmacy,42.023154,23.090558,Blagoevgrad
+13622312665,pharmacy,pharmacy,SOpharmacy,43.078902,25.59999,Veliko Tarnovo
+13622312667,pharmacy,pharmacy,SOpharmacy,43.40625,23.22458,Montana
+13622312668,pharmacy,pharmacy,SOpharmacy,43.19861,23.559253,Vratsa
+13622312669,pharmacy,pharmacy,SOpharmacy,43.278449,26.914267,Shumen
+13622312671,pharmacy,pharmacy,SOpharmacy,42.71478,23.25507,Sofia (Capital)
+13622312672,pharmacy,pharmacy,SOpharmacy,42.158759,24.739344,Plovdiv
+13622312673,pharmacy,pharmacy,SOpharmacy,42.481798,26.511751,Yambol
+13622312674,pharmacy,pharmacy,SOpharmacy,42.702231,23.353653,Sofia (Capital)
+13622312675,pharmacy,pharmacy,SOpharmacy,42.607345,23.111209,Pernik
+13622312676,pharmacy,pharmacy,SOpharmacy,43.270981,26.934928,Shumen
+13622312677,pharmacy,pharmacy,SOpharmacy,42.608672,23.10703,Pernik
+13622312678,pharmacy,pharmacy,SOpharmacy,42.264015,23.111613,Kyustendil
+13622312679,pharmacy,pharmacy,SOpharmacy,42.606013,23.105536,Pernik
+13622312680,pharmacy,pharmacy,SOpharmacy,42.710408,23.271192,Sofia (Capital)
+13622312681,pharmacy,pharmacy,SOpharmacy,42.678876,23.311722,Sofia (Capital)
+13652330144,pharmacy,pharmacy,,42.004875,23.105399,Blagoevgrad
+13653320957,pharmacy,pharmacy,,42.003772,23.108175,Blagoevgrad
+13662659597,pharmacy,pharmacy,,42.011902,23.08939,Blagoevgrad
+13662989843,pharmacy,pharmacy,,42.021981,23.086984,Blagoevgrad
+13662989858,pharmacy,pharmacy,,42.020182,23.086254,Blagoevgrad
+13664035046,clinic,doctors,Д-р Зоя Попова,42.02103,23.083381,Blagoevgrad
+13665544795,pharmacy,pharmacy,Марешки,42.022904,23.088804,Blagoevgrad
+13665589105,pharmacy,pharmacy,Марешки,42.016466,23.088595,Blagoevgrad
+13666194366,pharmacy,pharmacy,Панацея,42.016139,23.085234,Blagoevgrad
+13668699715,clinic,clinic,МЦ Доктор Шах,42.523344,27.441626,Burgas
+13668724394,clinic,clinic,New Life,42.531988,27.45467,Burgas
+13668782201,pharmacy,pharmacy,SOpharmacy,42.62801,23.383639,Sofia (Capital)
+13681313563,clinic,doctors,Reverse Dr. Dencheva,42.671681,23.347216,Sofia (Capital)
+13682193865,clinic,clinic,Oxymed,42.656072,23.344555,Sofia (Capital)
+13682201446,clinic,doctors,Dr. Charbel Tawk,42.65701,23.346676,Sofia (Capital)
+13685088849,kindergarten,kindergarten,Минзухарче,43.778613,25.952449,Ruse
+13685490487,pharmacy,pharmacy,,42.657531,23.352806,Sofia (Capital)
+13685513460,pharmacy,pharmacy,,42.700062,23.353106,Sofia (Capital)
+13692009117,pharmacy,pharmacy,Нота Бене,42.687393,23.352658,Sofia (Capital)
+13708367546,clinic,doctors,,42.643714,23.336296,Sofia (Capital)
+13711661101,pharmacy,pharmacy,,42.14655,25.206005,Plovdiv
+13711872402,pharmacy,pharmacy,,42.147273,25.207631,Plovdiv
+13712504550,clinic,doctors,Д-р Панайотов,43.216722,27.917303,Varna
+13713458918,hospital,hospital,Спешна медицинска помощ,41.943666,24.221384,Pazardzhik
+13713464203,hospital,hospital,Медицински център,42.216967,24.008316,Pazardzhik
+13713946056,pharmacy,pharmacy,Огафарм,42.638129,23.338489,Sofia (Capital)
+13714005142,pharmacy,pharmacy,Vista,42.640386,23.344026,Sofia (Capital)
+13715593347,pharmacy,pharmacy,SOpharmacy,43.186264,23.581637,Vratsa
+13715633649,clinic,doctors,Д-р Милен Кацаров,42.688038,23.313333,Sofia (Capital)
+13717922484,kindergarten,kindergarten,,42.672678,23.318031,Sofia (Capital)
+13717922485,kindergarten,kindergarten,,42.672949,23.318458,Sofia (Capital)
+13721962998,pharmacy,pharmacy,Марешки,43.417406,24.610134,Pleven
+13737430360,clinic,doctors,Детско здраве,42.687371,23.303116,Sofia (Capital)
+13737972189,pharmacy,pharmacy,Subra,42.655802,23.374146,Sofia (Capital)
+13738151560,clinic,clinic,Levitas,42.659478,23.316196,Sofia (Capital)
+13740905301,kindergarten,kindergarten,Детски център Щурчета,42.6621,23.289648,Sofia (Capital)
+13742541217,pharmacy,pharmacy,,42.214411,24.018108,Pazardzhik
+13742560388,pharmacy,pharmacy,,42.077283,25.19358,Plovdiv
+13753651919,pharmacy,pharmacy,,43.860761,25.97756,Ruse
+13754701215,clinic,clinic,,42.030087,23.993958,Pazardzhik
+13761795769,pharmacy,pharmacy,,43.15637,25.738728,Veliko Tarnovo
+13763988223,pharmacy,pharmacy,,43.24647,27.853461,Varna
+13764009749,pharmacy,pharmacy,,43.23731,27.87294,Varna
+13764435295,pharmacy,pharmacy,Марешки,42.137083,24.717317,Plovdiv
+13765565812,kindergarten,kindergarten,,42.714371,23.852043,Sofia Province
+13787362635,pharmacy,pharmacy,Subra,42.158954,24.749273,Plovdiv
+13787809725,pharmacy,pharmacy,,43.796145,26.498625,Razgrad
+13798389815,school,school,Езикова Гимназия Акад. Людмил Стоянов,42.018436,23.085123,Blagoevgrad
+13808272609,pharmacy,pharmacy,Прополис,43.578091,27.829808,Dobrich
+13817064558,pharmacy,pharmacy,Аптека,42.199064,24.331626,Pazardzhik
+13817064559,pharmacy,pharmacy,Аптека,42.198829,24.330738,Pazardzhik
+13830600722,clinic,doctors,Д-р Димова,42.640803,23.348927,Sofia (Capital)
+13834903872,school,school,ПМГ Хр.Смирненски,42.60744,23.033357,Pernik
+13834903873,school,school,ОУ Св. Иван Рилски,42.607112,23.032584,Pernik
+13848597999,kindergarten,kindergarten,Никатор,42.641162,23.339057,Sofia (Capital)
+13856207935,school,school,ОУ Виктория и Крикор Тютюнджан,42.150359,24.751771,Plovdiv
+13857548862,pharmacy,pharmacy,SOpharmacy,42.034431,24.30944,Pazardzhik
+13857548863,pharmacy,pharmacy,SOpharmacy,42.624595,23.352181,Sofia (Capital)
+13857548864,pharmacy,pharmacy,SOpharmacy,42.634622,24.800836,Plovdiv
+13857548865,pharmacy,pharmacy,SOpharmacy,44.116673,27.25863,Silistra
+13857548866,pharmacy,pharmacy,SOpharmacy,43.82753,23.240799,Montana
+13857548867,pharmacy,pharmacy,SOpharmacy,42.719133,23.34003,Sofia (Capital)
+13857548868,pharmacy,pharmacy,SOpharmacy,42.611327,23.035248,Pernik
+13857548869,pharmacy,pharmacy,SOpharmacy,42.677892,23.359965,Sofia (Capital)
+13867194736,kindergarten,kindergarten,,42.615551,23.442105,Sofia (Capital)
+13867194737,school,school,,42.615636,23.44267,Sofia (Capital)
+13871555123,school,school,АМТИИ централна сграда и ректорат,42.147639,24.751082,Plovdiv
+13875361222,pharmacy,pharmacy,,42.693992,23.283894,Sofia (Capital)
+13897449101,kindergarten,kindergarten,Детска Ясла Приказка,42.128806,24.775696,Plovdiv
+13903899509,pharmacy,pharmacy,So Pharmacy,42.20537,24.137961,Plovdiv
+13909392481,clinic,clinic,29-ти ДКЦ,42.664705,23.296835,Sofia (Capital)
+13911537501,clinic,clinic,Детски очен кабинет,42.685488,23.311231,Sofia (Capital)
+13912122301,pharmacy,pharmacy,,41.530504,24.362872,Smolyan
+13917398055,clinic,clinic,,42.678916,23.327526,Sofia (Capital)
+13931470533,pharmacy,pharmacy,Apteka,43.2417,26.57264,Targovishte
+13938856897,school,school,ЧПГ „Образователни технологии“,42.680847,23.381532,Sofia (Capital)
+13938856898,school,school,Основно прогресивно учиилще 3,42.678723,23.380961,Sofia (Capital)
+13939024906,school,school,203. ПЕГ „Св. Методий“,42.672953,23.280864,Sofia (Capital)
+13941762205,kindergarten,kindergarten,ЧДГ „Д-р Петър Берон“,42.650357,23.31936,Sofia (Capital)
+13941762206,school,school,ЧОУ „Д-р Петър Берон“,42.650724,23.318759,Sofia (Capital)
+13941843350,kindergarten,kindergarten,ДГ №127 „Слънце“ - филиал бл. 91,42.674661,23.299257,Sofia (Capital)
+13941843351,kindergarten,kindergarten,ДГ №127 „Слънце“ - филиал бл. 97,42.671817,23.301128,Sofia (Capital)
+13941843352,kindergarten,kindergarten,ДГ №127 „Слънце“ - филиал бл. 95,42.673186,23.299322,Sofia (Capital)
+13941843353,kindergarten,kindergarten,ДГ №127 „Слънце“ - филиал бл. 93,42.674318,23.298584,Sofia (Capital)
+13942534108,school,school,112. ОУ „Стоян Заимов“,42.69845,23.337508,Sofia (Capital)
+13943348270,kindergarten,kindergarten,ДГ №37 „Вълшебство“ - филиал 2,42.665644,23.283614,Sofia (Capital)
+13943348271,school,school,204. ОУ,42.665896,23.283494,Sofia (Capital)
+13943710705,school,school,ПГЕЕ „Константин Фотинов“,42.498199,27.467793,Burgas
+13943710706,school,school,СУ „Иван Вазов“,42.498277,27.468138,Burgas
+13944509648,kindergarten,kindergarten,ДГ №125 „Усмивка“,42.68076,23.251737,Sofia (Capital)
+13944509649,hospital,hospital,"Болница за рехабилитация ""Сердика""",42.680513,23.251481,Sofia (Capital)
+13946205487,school,school,13. СУ „Св. Св. Кирил и Методий“,42.70294,23.321033,Sofia (Capital)
+13950697302,kindergarten,kindergarten,ДГ №159 „Олимпийче“ - сграда 2,42.693335,23.321556,Sofia (Capital)
+13950697303,kindergarten,kindergarten,ДГ №159 „Олимпийче“ - сграда 3,42.6909,23.320623,Sofia (Capital)
+13950719671,kindergarten,kindergarten,ДГ №113 „Преспа“ - филиал ул. Хан Аспарух,42.689158,23.323815,Sofia (Capital)
+13950759857,kindergarten,kindergarten,ДГ №161 „Ласка“ - сграда 3,42.675981,23.261243,Sofia (Capital)

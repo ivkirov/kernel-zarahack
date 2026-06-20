@@ -10,6 +10,9 @@ node_modules/
 data-engine/raw/*.pbf
 data-engine/raw/*.xlsx
 data-engine/out/*.csv
+# ...except the seed CSVs the deployment loads via 03_seed_postgres.py
+!data-engine/out/infrastructure_nodes.csv
+!data-engine/out/demographic_weights.csv
 
 # Secrets
 .env
