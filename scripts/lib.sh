@@ -73,16 +73,24 @@ free_port() {
   done
 }
 
-# Launch a service fully detached. The exec'd PID is the service itself, so the
-# PID file is accurate for health checks and later stops.
+# Launch a service fully detached. Two subtleties this guards against:
+#  1) The PID file must hold the *service's own* PID. We `exec` the service from
+#     inside the new session so the recorded $$ becomes the server itself, never
+#     a short-lived parent that would zombie under our non-reaping PID 1.
+#  2) GitHub Actions' self-hosted runner kills every process still carrying the
+#     RUNNER_TRACKING_ID env var when the job ends — even setsid/disowned ones.
+#     `env -u RUNNER_TRACKING_ID` makes the service invisible to that sweep so it
+#     survives the CI job that launched it.
 #   start_service <name> <workdir> <cmd> [args...]
 start_service() {
   local name="$1" wd="$2"; shift 2
+  local pidfile="$RUN_DIR/$name.pid"
   mkdir -p "$RUN_DIR" "$LOG_DIR"
-  ( cd "$wd" && setsid nohup "$@" </dev/null >"$LOG_DIR/$name.log" 2>&1 &
-    echo $! >"$RUN_DIR/$name.pid" )
+  setsid bash -c 'echo $$ >"$1"; cd "$2" || exit 1; shift 2; exec env -u RUNNER_TRACKING_ID "$@"' \
+    _ "$pidfile" "$wd" "$@" </dev/null >"$LOG_DIR/$name.log" 2>&1 &
   disown 2>/dev/null || true
-  log "started $name (pid $(cat "$RUN_DIR/$name.pid" 2>/dev/null)) -> $LOG_DIR/$name.log"
+  for _ in $(seq 1 20); do [[ -s "$pidfile" ]] && break; sleep 0.1; done
+  log "started $name (pid $(cat "$pidfile" 2>/dev/null)) -> $LOG_DIR/$name.log"
 }
 
 # Poll a localhost URL until it answers (curl direct to 127.0.0.1, bypassing the
