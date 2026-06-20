@@ -39,8 +39,11 @@ Requires the raw files in `datasets/` (see [datasets.md](datasets.md)).
 cd data-engine
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
-python run_pipeline.py        # 00 schema → 01 OSM → 02 NSI → 03 seed  (all 28 provinces, ~1.5 min)
+python run_pipeline.py        # 00 schema → 00b auth schema → 01 OSM → 02 NSI → 03 seed  (~1.5 min)
 ```
+
+This also creates the `app_users` table (auth). The backend seeds the one admin account on
+first start — **`admin@gmail.com` / `P4$$w0rd!`**.
 
 Seed a single province instead of all 28:
 
@@ -81,7 +84,17 @@ npm run build:css            # compile Tailwind → dist/output.css
 npm run serve                # live-server on http://localhost:5500
 ```
 
-Open **http://localhost:5500** → pick a mode.
+Open **http://localhost:5500** → sign in, then pick a mode.
+
+## 6. (optional) Accountability Radar data — the AOP scraper
+
+The Radar (reporter lens) reads `planned_municipal_projects`, populated by the scraper. Run
+it once to fill the table (it then refreshes every 2 weeks); needs network access to aop.bg.
+
+```bash
+cd data-engine && source venv/bin/activate
+python aop_scraper_service.py        # immediate scrape, then bi-weekly; Ctrl-C to stop
+```
 
 ## Quick start (TL;DR)
 
@@ -99,7 +112,14 @@ set -a; source .env; set +a
 
 ## Using the app
 
-**Municipal mode**
+**Sign in / accounts.** First open shows a login/register gate. Sign up as an *individual*
+(free, usable now), *reporter*, or *municipality* (paid roles — land locked until an admin
+activates them). The seeded **admin** (`admin@gmail.com` / `P4$$w0rd!`) sees every lens, a
+**Manage users** panel (grant paid access / change roles), and an above-the-legend
+**paid/free demo toggle** to preview the free experience. Each role sees only its own card;
+free accounts get 3 relocation checks and a limited filter set.
+
+**Municipal mode** *(municipality / admin)*
 1. Choose a province (or *All Bulgaria*) and an amenity (kindergarten / school / clinic / hospital).
 2. **Click the map** → simulates placing that facility; the HUD animates *Annual Hours
    Saved*, people impacted, neighborhoods improved.
@@ -107,17 +127,25 @@ set -a; source .env; set +a
    locations as ranked green markers (works even if the backend DB isn't seeded — served by
    `ml-service`).
 
-**Personal mode**
+**Personal mode** *(free / paid / admin)*
 1. Drop **Current** (red) and **Prospective** (green) pins.
-2. Toggle household needs (children / senior care, or fine-grained per-amenity needs).
-3. See your weekly time-tax for each home and the efficiency shift between them.
+2. Toggle household needs (free accounts: only school/clinic/hospital/pharmacy; others
+   locked behind the paywall).
+3. See your weekly time-tax for each home and the efficiency shift between them. Paid
+   accounts also get the AI explanation and **Suggest best areas**.
+
+**Radar mode** *(reporter / admin)* — planned civic builds scraped from AOP, audited against
+the ML-optimal sites (needs step 6 + the ML service running).
 
 ## Troubleshooting
 
 | Symptom | Fix |
 | :--- | :--- |
 | Backend `UnknownHostException` / auth failed | `set -a; source .env; set +a` in that terminal, restart |
-| `Schema-validation: missing table` | run `data-engine/run_pipeline.py` before the backend |
+| `Schema-validation: missing table` | run `data-engine/run_pipeline.py` before the backend (incl. `app_users`) |
+| Can't log in / forgot which admin | seeded admin is `admin@gmail.com` / `P4$$w0rd!` (hardcoded in `AdminSeeder`) |
+| `401`/empty landing after login | token expired or backend restarted with a new JWT secret — log in again |
+| Radar says "Scraper table empty" | run step 6 (`aop_scraper_service.py`) to populate `planned_municipal_projects` |
 | "AI: Recommend" button errors | is `ml-service` up on `:8000`? `curl localhost:8000/health` |
 | Frontend CORS error | backend allows `:5500` (CorsConfig); ML service allows `:5500` too |
 | Map loads but counters stay 0 | check `frontend/src/config.js` URLs; curl the matrix endpoint |

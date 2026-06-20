@@ -20,11 +20,11 @@ code-generation playground only and are never deployed.
 
 | Component | Tech | Port | Role |
 | :--- | :--- | :--- | :--- |
-| `backend-api/` | Java 25 · Spring Boot 4.1.0 · JPA | **8080** | matrix / simulate / personal-compare REST API |
+| `backend-api/` | Java 25 · Spring Boot 4.1.0 · JPA | **8080** | matrix / simulate / personal REST API + accounts/roles/JWT auth |
 | `ml-service/` | Python 3 · FastAPI · scikit-learn / XGBoost | **8000** | trained AI bots: placement recommender + travel-time model |
-| `frontend/` | Tailwind CSS · Leaflet.js | **5500** | dark dashboard + interactive map, two-mode UI |
-| `data-engine/` | Python · pyosmium · pandas | — | one-time ETL that seeds PostgreSQL from `datasets/` |
-| PostgreSQL | local | **5432** | `infrastructure_nodes` + `demographic_weights` |
+| `frontend/` | Tailwind CSS · Leaflet.js | **5500** | dark dashboard + map; login gate + role-aware lenses |
+| `data-engine/` | Python · pyosmium · pandas | — | one-time ETL that seeds PostgreSQL from `datasets/` (+ AOP scraper) |
+| PostgreSQL | local | **5432** | `infrastructure_nodes` · `demographic_weights` · `app_users` · `planned_municipal_projects` |
 
 Java package root: `com.zarahack.timepoverty`.
 
@@ -58,10 +58,20 @@ and are intentionally decoupled: they ship as a committed `.pkl` bundle and serv
 recommendations even when the database has not been seeded — useful for demos and for
 distributing the models between machines (see [ml-service.md](ml-service.md)).
 
+## Auth, roles & tiers
+
+Every `/api/v1/time-poverty/*` and `/api/v1/admin/*` call requires a JWT
+(`Authorization: Bearer`). Auth is dependency-free (PBKDF2 + hand-rolled HS256 JWT + a
+servlet filter — no Spring Security). Five roles map to the paid tiers — `PAID_USER` (t1),
+`REPORTER` (t2), `MUNICIPALITY` (t3) — with `FREE_USER` (limited) and one hardcoded `ADMIN`.
+Reporter/municipality sign-ups are locked until an admin grants access (payments are
+admin-assigned). Details: [backend-api.md](backend-api.md) · [api-reference.md](api-reference.md).
+
 ## Cross-cutting config
 
 - **CORS** — both services explicitly allow `http://localhost:5500` and
-  `http://127.0.0.1:5500`. The backend `CorsConfig` permits GET/POST/OPTIONS on `/api/**`.
+  `http://127.0.0.1:5500`. The backend `CorsConfig` permits GET/POST/PUT/PATCH/DELETE/OPTIONS
+  and all headers (for the `Authorization` bearer) on `/api/**`.
 - **Connection** — the backend reads `PG*` environment variables (Hikari pool, max 5
   connections) and runs JPA with `ddl-auto: validate`, so the schema must already exist
   (seeded by `data-engine`).

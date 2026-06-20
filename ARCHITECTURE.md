@@ -279,7 +279,9 @@ from here."
 
 ## 7. The three pillars (API surface)
 
-backend-api base: `http://localhost:8080/api/v1/time-poverty`.
+backend-api base: `http://localhost:8080/api/v1/time-poverty`. **Every endpoint below
+requires a JWT** (`Authorization: Bearer`, from `/api/v1/auth/login|register`) and is gated
+by role — see §7.4. Each pillar maps to a paid tier.
 
 ### Pillar 1 — Municipal mode
 
@@ -343,6 +345,29 @@ This fixed a real false positive where a Plovdiv kindergarten 65 km from the
 province-wide optimum was being labelled "misaligned" — it now correctly reads as
 *the optimum is in a different part of the province*, not a misallocation.
 
+### 7.4. Accounts, roles & paid tiers
+
+The app is fronted by accounts and usage-based gating. Auth is **dependency-free** (no
+Spring Security / JWT libraries, so the build stays offline on Spring Boot 4.1 / Java 25):
+PBKDF2-HMAC-SHA256 password hashing, a hand-rolled HS256 JWT (`JwtUtil`), and a servlet
+`AuthFilter` that loads the caller into a per-request `CurrentUser`. The whole policy lives
+in `security/Features`.
+
+| Role | Tier | Gets |
+| --- | --- | --- |
+| `FREE_USER` | free | Personal mode, **3** relocation checks, filters limited to school/clinic/hospital/pharmacy; no AI explanation |
+| `PAID_USER` | 1 | Personal mode unlimited + AI explanation (`/personal-compare`) + area suggestions (`/personal-suggest`) + all filters |
+| `REPORTER` | 2 | Accountability Radar (`/planned-projects`) |
+| `MUNICIPALITY` | 3 | Municipal mode (`/matrix`, `/simulate`) |
+| `ADMIN` | — | every lens + user management; one hardcoded account |
+
+At signup a persona picks the role; reporter/municipality land **locked** until an admin
+sets `accessGranted` (payments are admin-assigned — no self-serve upgrade). Endpoints return
+`{code, message}` on auth/quota failures (`UNAUTHENTICATED`, `ACCESS_*`, `PAYWALL_*`) which
+the frontend turns into login/paywall modals. New tables: `app_users` (auth) and admin
+endpoints `GET/PATCH /api/v1/admin/users`. The AI explanation is currently a templated
+`ExplanationService` (a deterministic narrative) with a clean seam to swap in an LLM call.
+
 ---
 
 ## 8. Frontend
@@ -362,8 +387,12 @@ province-wide optimum was being labelled "misaligned" — it now correctly reads
   - **Geofence:** a ray-casting point-in-country test against the country outline
     blocks clicks outside Bulgaria ("We currently only have data for Bulgaria"),
     and `maxBounds` + viscosity + `minZoom` clamp panning back to the country.
-- **Config** (`frontend/src/config.js`): API/ML base URLs, per-service colours and
-  metadata, personal needs, Bulgaria bounds, cache TTL.
+- **Auth & role-aware UI** (`frontend/src/auth.js`): a login/register gate, `Auth.apiFetch`
+  (adds the bearer header, centralises 401/paywall handling), the paywall modal and the
+  admin user-management panel. `app.js` shows only the lens cards the role allows and an
+  admin-only demo paid/free toggle to preview the free experience.
+- **Config** (`frontend/src/config.js`): API/ML/auth/admin base URLs, per-service colours
+  and metadata, personal needs, free-allowed amenities, Bulgaria bounds, cache TTL.
 
 ---
 
@@ -396,6 +425,10 @@ cd ../frontend && npm run build:css && npx live-server --port=5500
 cd ../data-engine && set -a; source ../.env; set +a
 ./venv/bin/python aop_scraper_service.py
 ```
+
+Open `:5500` and **sign in**. The backend seeds one admin on first start —
+`admin@gmail.com` / `P4$$w0rd!` (hardcoded in `config/AdminSeeder`) — who can use every lens
+and grant paid access to other accounts from the user-management panel.
 
 ---
 

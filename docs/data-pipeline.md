@@ -1,14 +1,18 @@
 # Data Pipeline & Database Schema
 
 The `data-engine/` is a one-time Python ETL that turns the raw `datasets/` files into two
-PostgreSQL tables the backend reads. It is orchestrated by `run_pipeline.py`, which runs
-four numbered steps in order (`00 → 01 → 02 → 03`, ~1.5 min, the OSM scan dominates).
+PostgreSQL tables the backend reads. It is orchestrated by `run_pipeline.py`, which runs the
+steps in order (`00 → 00b → 01 → 02 → 03`, ~1.5 min, the OSM scan dominates).
 
 ## Pipeline steps
 
 ### `00_create_schema.py` — DDL
 Creates `infrastructure_nodes` (supply) and `demographic_weights` (demand) with their
 indexes and constraints. Idempotent (`CREATE TABLE IF NOT EXISTS`).
+
+### `00b_create_auth_schema.py` — auth DDL
+Creates the `app_users` table (accounts/roles/quota) the backend's auth layer needs.
+Idempotent; kept separate from the geospatial schema since it's an app concern, not ETL.
 
 ### `01_extract_osm.py` — supply
 Scans the `.pbf` nationwide with `pyosmium` for the amenities in `AMENITY_MAP`, keeping
@@ -106,12 +110,38 @@ The `UNIQUE (cell_id, group_key)` constraint means each settlement contributes a
 row per cohort. The `(district, group_key)` index backs the backend's per-district,
 per-group queries (`findByDistrict`).
 
+### `app_users` (accounts)
+
+Created by `00b_create_auth_schema.py` (also run by `run_pipeline.py`). The backend runs
+`ddl-auto: validate`, so this table must exist before it boots; it then seeds the one admin.
+
+```sql
+CREATE TABLE app_users (
+    id                BIGSERIAL PRIMARY KEY,
+    email             VARCHAR(256) NOT NULL UNIQUE,
+    password_hash     VARCHAR(512) NOT NULL,     -- pbkdf2$<iter>$<salt>$<hash>
+    display_name      VARCHAR(128),
+    role              VARCHAR(32)  NOT NULL,      -- ADMIN|FREE_USER|PAID_USER|REPORTER|MUNICIPALITY
+    access_granted    BOOLEAN      NOT NULL DEFAULT FALSE,  -- paid access activated by an admin
+    free_guesses_used INTEGER      NOT NULL DEFAULT 0,      -- free-tier usage counter
+    created_at        TIMESTAMPTZ  NOT NULL DEFAULT now()
+);
+```
+
+### `planned_municipal_projects` (Accountability Radar)
+
+Owned by the AOP scraper (`aop_scraper_service.py`), not `run_pipeline.py`. The backend
+reads it via JDBC and tolerates its absence (`available:false`) until the scraper's first
+write. Key columns: `procurement_number` (UNIQUE dedup key), `buyer_name`, `project_name`,
+`amenity_type`, `lat`, `lon`, `district`, `scraped_at`.
+
 ## How the backend consumes it
 
 - `/matrix?district=X` → `nodeRepo.findByDistrict(X)` + `weightRepo.findByDistrict(X)`
   (or `findAll()` for the nationwide "all" view).
 - `/simulate` → same district scope, restricted to the affected group.
-- `/personal-compare` → `nodeRepo.findAll()` (the personal payload carries no district).
+- `/personal-compare` and `/personal-suggest` → `nodeRepo.findAll()` (no district in the payload).
+- `/planned-projects` → JDBC read of `planned_municipal_projects` (Radar).
 
 Data provenance and the fusion rationale: [datasets.md](datasets.md). The exact scoring
 formulas: [methodology.md](methodology.md).

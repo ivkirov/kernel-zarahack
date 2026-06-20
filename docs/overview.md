@@ -36,20 +36,25 @@ Summed over a province (or the whole country) this gives a single, headline numb
 the **annual wasted hours** a population loses to infrastructure distance. For the pilot
 province Pazardzhik that figure is roughly **9.2 million hours/year**.
 
-## The two modes plus an AI recommender
+## The three lenses plus an AI recommender
 
-The app presents a landing portal with two distinct journeys:
+The app presents a login gate, then a **role-aware** landing portal — each account sees
+only the lens(es) its role/tier allows:
 
-- **🏛 Municipal Infrastructure Optimization** — see systemic time-loss across a province,
-  **click the map** to simulate building a facility and watch the annual "wasted hours
-  saved", or press **AI: Recommend best sites** to have a trained model propose the
-  highest-impact locations.
-- **🏠 Personal Relocation Planner** — drop two pins (current vs. prospective home) and
-  compare your personal weekly commute time-tax between them, broken down by the services
-  your household actually uses.
+- **🏛 Municipal Infrastructure Optimization** *(municipality tier)* — see systemic time-loss
+  across a province, **click the map** to simulate building a facility and watch the annual
+  "wasted hours saved", or press **AI: Recommend best sites** to have a trained model propose
+  the highest-impact locations.
+- **🏠 Personal Relocation Planner** *(free / paid tier)* — drop two pins (current vs.
+  prospective home) and compare your weekly commute time-tax, broken down by the services
+  your household uses. Free accounts are limited (3 checks, a fixed filter set); the paid
+  tier adds an AI explanation and area suggestions.
+- **📡 Accountability Radar** *(reporter tier)* — planned civic builds scraped from the AOP
+  procurement registry, audited against the model's optimal sites.
 
-The **AI recommender** is a separate Python service hosting models trained on the
-project's own real data — it suggests where new facilities would return the most hours.
+Accounts, roles and paid tiers gate all of this; paid access is **admin-assigned**. The
+**AI recommender** is a separate Python service hosting models trained on the project's own
+real data — it suggests where new facilities would return the most hours.
 
 ## Built on real open data
 
@@ -64,9 +69,9 @@ settlement's coordinates). The pipeline covers **all 28 Bulgarian provinces** �
 | Subsystem | Role | Deep dive |
 | :--- | :--- | :--- |
 | `data-engine/` | one-time ETL that fuses the datasets and seeds PostgreSQL | [data-pipeline.md](data-pipeline.md) · [datasets.md](datasets.md) |
-| `backend-api/` | Java/Spring REST API: matrix, simulate, personal-compare | [backend-api.md](backend-api.md) |
+| `backend-api/` | Java/Spring REST API: matrix, simulate, personal, Radar + accounts/roles/JWT auth | [backend-api.md](backend-api.md) |
 | `ml-service/` | Python/FastAPI AI sidecar: placement + travel-time models | [ml-service.md](ml-service.md) |
-| `frontend/` | Tailwind + Leaflet dashboard and the two-mode UI | [frontend.md](frontend.md) |
+| `frontend/` | Tailwind + Leaflet dashboard, login gate + role-aware lenses | [frontend.md](frontend.md) |
 
 The math behind every number lives in [methodology.md](methodology.md); the system
 shape is in [architecture.md](architecture.md); how to run it is in

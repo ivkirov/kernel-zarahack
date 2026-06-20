@@ -8,7 +8,7 @@ and 14,476 demand cells.
 
 For every settlement and cohort it computes the one-way travel time to the nearest serving
 facility, turns that into **annual wasted hours** (≈ 9.2M/year for the pilot province
-Pazardzhik), and lets you act on it through two modes plus an AI recommender:
+Pazardzhik), and lets you act on it through three role-gated lenses plus an AI recommender:
 
 - **🏛 Municipal Infrastructure Optimization** — see systemic time-loss across a province,
   **click the map** to simulate building a facility and watch the annual "wasted hours
@@ -17,6 +17,14 @@ Pazardzhik), and lets you act on it through two modes plus an AI recommender:
 - **🏠 Personal Relocation Planner** — drop two pins (current vs. prospective home) and
   compare your weekly commute time-tax between them, broken down by the services your
   household actually uses.
+- **📡 Accountability Radar** — planned civic builds scraped from the public-procurement
+  registry (AOP), audited against the model's optimal sites.
+
+**Accounts, roles & paid tiers.** A login gate fronts the app; each account sees only the
+lens its role allows — `FREE_USER` (limited relocation planner) plus the paid tiers
+`PAID_USER` (t1, + AI explanation & area suggestions), `REPORTER` (t2, Radar) and
+`MUNICIPALITY` (t3, municipal planner). Paid access is **admin-assigned**. The seeded admin
+(`admin@gmail.com` / `P4$$w0rd!`) sees every lens plus a user-management panel.
 
 Everything runs **locally**: a Java/Spring API (`:8080`), a Python/FastAPI ML sidecar
 (`:8000`), a Tailwind + Leaflet frontend (`:5500`), a Python ETL, and local PostgreSQL.

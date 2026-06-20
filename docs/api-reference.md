@@ -1,11 +1,78 @@
 # API Reference
 
-Two local services. The **backend** (`:8080`) owns the DB-backed matrix math; the
-**ml-service** (`:8000`) serves the trained AI models. Both allow CORS from
-`http://localhost:5500` and `http://127.0.0.1:5500`.
+Two local services. The **backend** (`:8080`) owns the DB-backed matrix math plus
+accounts/roles; the **ml-service** (`:8000`) serves the trained AI models. Both allow CORS
+from `http://localhost:5500` and `http://127.0.0.1:5500`.
 
 - Backend base: `http://localhost:8080/api/v1/time-poverty`
+- Auth base: `http://localhost:8080/api/v1/auth`
+- Admin base: `http://localhost:8080/api/v1/admin`
 - ML base: `http://localhost:8000`
+
+> **Every `/time-poverty/*` and `/admin/*` endpoint requires authentication** — send the
+> JWT from login/register as `Authorization: Bearer <token>`. The ML service (`:8000`) is
+> not authenticated. Auth/role failures return a JSON body `{ "code", "message" }` the
+> frontend keys paywall/login UX on (codes: `UNAUTHENTICATED` 401; `ACCESS_MUNICIPAL` /
+> `ACCESS_REPORTER` / `ACCESS_PERSONAL` 403; `PAYWALL_FILTER` / `PAYWALL_QUOTA` /
+> `PAYWALL_UPGRADE` 402).
+
+---
+
+## Auth — `POST /auth/register`, `POST /auth/login`
+
+Register a new account or sign in. Both return a JWT + the account view. On register the
+`persona` picks the role: `individual` → `FREE_USER` (usable immediately); `reporter` /
+`municipality` → that role but **locked** until an admin grants access. Payments are
+admin-assigned — there is no self-serve upgrade.
+
+```bash
+curl -X POST http://localhost:8080/api/v1/auth/register \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"me@example.com","password":"secret1","displayName":"Me","persona":"individual"}'
+
+curl -X POST http://localhost:8080/api/v1/auth/login \
+  -H 'Content-Type: application/json' \
+  -d '{"email":"me@example.com","password":"secret1"}'
+```
+
+**Response** (`AuthResponse`)
+
+```jsonc
+{
+  "token": "<JWT>",
+  "user": {
+    "id": 2, "email": "me@example.com", "displayName": "Me",
+    "role": "FREE_USER",          // ADMIN|FREE_USER|PAID_USER|REPORTER|MUNICIPALITY
+    "accessGranted": true,        // paid access activated by an admin
+    "active": true,               // usable now (free/admin, or a granted paid tier)
+    "freeGuessesUsed": 0, "freeGuessLimit": 3,
+    "freeGuessesRemaining": 3     // null = unlimited (paid/admin)
+  }
+}
+```
+
+## Auth — `GET /auth/me`
+
+Returns the current `UserView` (above). Used by the frontend to bootstrap role-aware UI.
+
+```bash
+curl http://localhost:8080/api/v1/auth/me -H "Authorization: Bearer $TOKEN"
+```
+
+---
+
+## Admin — `GET /admin/users`, `PATCH /admin/users/{id}` *(ADMIN only)*
+
+List accounts, or change an account's role / grant paid access. `ADMIN` cannot be assigned
+(there is exactly one, hardcoded, immutable admin).
+
+```bash
+curl http://localhost:8080/api/v1/admin/users -H "Authorization: Bearer $ADMIN_TOKEN"
+
+curl -X PATCH http://localhost:8080/api/v1/admin/users/3 \
+  -H "Authorization: Bearer $ADMIN_TOKEN" -H 'Content-Type: application/json' \
+  -d '{"role":"REPORTER","accessGranted":true}'   # both fields optional
+```
 
 ---
 
@@ -88,7 +155,10 @@ curl -X POST http://localhost:8080/api/v1/time-poverty/simulate \
 ## Backend — `POST /personal-compare`
 
 Compare weekly commute time-tax between a current and a prospective home. Evaluated against
-all nodes nationwide (no district in the payload).
+all nodes nationwide (no district in the payload). **Role-gated:** `FREE_USER` /
+`PAID_USER` / `ADMIN`. Free accounts are limited to **3 checks** (`PAYWALL_QUOTA`) and may
+only request the allowed amenities `school`, `clinic`, `hospital`, `pharmacy`
+(`PAYWALL_FILTER` otherwise); paid/admin also receive the `aiExplanation`.
 
 **Body** (`PersonalCompareRequest`). `householdProfile.needs` (fine-grained, preferred)
 takes precedence over the legacy `hasChildren` / `needsSeniorCare` flags.
@@ -122,12 +192,71 @@ curl -X POST http://localhost:8080/api/v1/time-poverty/personal-compare \
     { "group": "kindergarten", "label": "Kindergarten",
       "nearestMinutes": 18.0, "weeklyHours": 4.4 }
   ],
-  "prospectiveBreakdown": [ /* same shape */ ]
+  "prospectiveBreakdown": [ /* same shape */ ],
+  "aiExplanation": "Moving to the prospective home would return …",  // paid/admin only; null for free
+  "freeGuessesRemaining": 2          // free accounts only; null = unlimited (paid/admin)
 }
 ```
 
 In fine-grained mode each breakdown entry's `group` carries the **service type** (so the UI
 can colour it); in legacy mode it carries the cohort group (`children_0_6` / `seniors_65p`).
+
+---
+
+## Backend — `POST /personal-suggest` *(tier-1 paid)*
+
+Rank candidate settlements by the lowest weekly travel time for the household's needs.
+**Role-gated:** `PAID_USER` (granted) / `ADMIN`; others get `402 PAYWALL_UPGRADE`.
+
+**Body** — same `PersonalCompareRequest` shape; only `currentLat`/`currentLon` and
+`householdProfile.needs` are used. `?top=N` (default 5) caps the results.
+
+```bash
+curl -X POST "http://localhost:8080/api/v1/time-poverty/personal-suggest?top=5" \
+  -H "Authorization: Bearer $TOKEN" -H 'Content-Type: application/json' \
+  -d '{"currentLat":42.10,"currentLon":24.70,"householdProfile":{"needs":["school","clinic"]}}'
+```
+
+**Response** (`PersonalSuggestResponse`)
+
+```jsonc
+{
+  "currentWeeklyHours": 11.1,
+  "suggestions": [
+    { "settlement": "Priseltsi", "district": "Varna", "lat": 43.11, "lon": 27.83,
+      "weeklyHours": 0.21, "hoursSavedVsCurrent": 10.88 }
+  ]
+}
+```
+
+---
+
+## Backend — `GET /planned-projects` *(tier-2 reporter)*
+
+Accountability Radar feed: planned civic builds scraped from the public-procurement
+registry (AOP), cached in `planned_municipal_projects`. **Role-gated:** `REPORTER`
+(granted) / `ADMIN`; others get `403 ACCESS_REPORTER`. Optional `?amenity=` filter
+(`kindergarten`/`school`/`clinic`/`hospital`).
+
+```bash
+curl "http://localhost:8080/api/v1/time-poverty/planned-projects?amenity=school" \
+  -H "Authorization: Bearer $REPORTER_TOKEN"
+```
+
+```jsonc
+{
+  "available": true, "total": 11,
+  "byAmenity": { "kindergarten": 4, "school": 4, "clinic": 3 },
+  "projects": [
+    { "procurementNumber": "983090", "buyerName": "Община Пловдив",
+      "projectName": "…", "amenityType": "kindergarten",
+      "lat": 42.13, "lon": 24.79, "district": "Plovdiv", "scrapedAt": "2026-06-20 …" }
+  ]
+}
+```
+
+`available: false` means the scraper table doesn't exist yet (run the scraper — see
+[data-pipeline.md](data-pipeline.md)).
 
 ---
 
