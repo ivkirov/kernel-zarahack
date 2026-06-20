@@ -143,6 +143,97 @@
       "oob.msg": "We currently only have data for Bulgaria.",
       "common.all": "all",
 
+      // ----- Auth / accounts -----
+      "auth.welcomeTitle": "Welcome back",
+      "auth.createTitle": "Create your account",
+      "auth.signIn": "Sign in",
+      "auth.signUp": "Sign up",
+      "auth.name": "Display name",
+      "auth.email": "Email",
+      "auth.password": "Password",
+      "auth.persona": "I'm signing up as…",
+      "auth.persona.individual": "Individual — relocation planner",
+      "auth.persona.reporter": "Reporter — accountability radar (paid)",
+      "auth.persona.municipality": "Municipality — civic planner (paid)",
+      "auth.paidNote": "Paid roles are activated by an administrator after signup.",
+      "auth.noAccount": "No account yet?",
+      "auth.haveAccount": "Already have an account?",
+      "auth.failed": "Could not sign you in.",
+      "auth.network": "Network error. Is the backend running?",
+      "auth.expired": "Your session expired — please sign in again.",
+      "auth.logout": "Log out",
+
+      // Roles
+      "role.ADMIN": "Admin",
+      "role.FREE_USER": "Free user",
+      "role.PAID_USER": "Paid user",
+      "role.REPORTER": "Reporter",
+      "role.MUNICIPALITY": "Municipality",
+      "role.pending": "pending activation",
+
+      // Free-tier quota
+      "quota.label": "Free relocation checks",
+      "quota.upgrade": "Upgrade",
+
+      // Personal — paid extras
+      "personal.aiTitle": "AI explanation",
+      "personal.aiLocked": "Unlock the AI explanation",
+      "personal.aiLockedNote": "A paid (tier 1) feature — get a written read on what the numbers mean.",
+      "suggest.button": "Suggest the best areas to live",
+      "suggest.subtitle": "Ranked by lowest weekly travel time for your needs",
+      "suggest.asking": "Finding the best-fit areas…",
+      "suggest.result": "Top {n} areas for your needs.",
+      "suggest.none": "No suggestions found.",
+      "suggest.failed": "Suggestion failed: {err}",
+      "suggest.saved": "h/wk saved",
+      "suggest.popup": "Suggested area",
+      "suggest.needPin": "Drop your current-home pin first.",
+      "personal.toggleHint": "Filters updated — drop a pin to run a new check.",
+
+      // Future personal filters (no data yet)
+      "need.gym": "Gym",
+      "need.barber": "Barber",
+      "needHint.gym": "weekly",
+      "needHint.barber": "monthly",
+
+      // Paywall modal
+      "paywall.ok": "Got it",
+      "paywall.title.DEFAULT": "Paid feature",
+      "paywall.body.DEFAULT": "This feature requires a paid account.",
+      "paywall.title.PAYWALL_QUOTA": "You're out of free checks",
+      "paywall.body.PAYWALL_QUOTA": "Free accounts get 3 relocation checks. Upgrade to a paid account for unlimited checks plus AI explanations and area suggestions.",
+      "paywall.title.PAYWALL_FILTER": "Locked filter",
+      "paywall.body.PAYWALL_FILTER": "Free accounts can filter by schools, clinics, hospitals and pharmacies. Other filters are a paid feature.",
+      "paywall.title.PAYWALL_UPGRADE": "Paid feature",
+      "paywall.body.PAYWALL_UPGRADE": "Area suggestions are a paid (tier 1) feature. Ask an administrator to upgrade your account.",
+      "paywall.title.ACCESS_MUNICIPAL": "Municipality account needed",
+      "paywall.body.ACCESS_MUNICIPAL": "The municipal planner is a tier-3 feature for municipality accounts, activated by an administrator.",
+      "paywall.title.ACCESS_REPORTER": "Reporter account needed",
+      "paywall.body.ACCESS_REPORTER": "The Accountability Radar is a tier-2 feature for reporter accounts, activated by an administrator.",
+      "paywall.title.ACCESS_PERSONAL": "Not available",
+      "paywall.body.ACCESS_PERSONAL": "The relocation planner is for individual accounts.",
+      "paywall.title.ACCESS_PENDING": "Pending activation",
+      "paywall.body.ACCESS_PENDING": "Your account is awaiting administrator activation. You'll get access to this lens once it's approved.",
+
+      // Admin
+      "admin.manage": "Manage users",
+      "admin.title": "User management",
+      "admin.subtitle": "Grant paid access and assign roles.",
+      "admin.col.account": "Account",
+      "admin.col.role": "Role",
+      "admin.col.access": "Access",
+      "admin.save": "Save",
+      "admin.saving": "Saving…",
+      "admin.saved": "Saved ✓",
+      "admin.loading": "Loading users…",
+      "admin.failed": "Failed to load users.",
+      "admin.empty": "No users yet.",
+      "admin.locked": "locked",
+
+      // Demo paid toggle (admin)
+      "paidToggle.label": "Paid user",
+      "paidToggle.hint": "demo · toggles locked features",
+
       // ----- Accountability Radar (Pillar 3) -----
       "landing.radar.title": "Accountability Radar",
       "landing.radar.badge": "New",
@@ -336,6 +427,97 @@
       "oob.msg": "В момента разполагаме с данни само за България.",
       "common.all": "всички",
 
+      // ----- Вход / акаунти -----
+      "auth.welcomeTitle": "Добре дошъл отново",
+      "auth.createTitle": "Създай акаунт",
+      "auth.signIn": "Вход",
+      "auth.signUp": "Регистрация",
+      "auth.name": "Име за показване",
+      "auth.email": "Имейл",
+      "auth.password": "Парола",
+      "auth.persona": "Регистрирам се като…",
+      "auth.persona.individual": "Частно лице — планер за преместване",
+      "auth.persona.reporter": "Репортер — радар за отчетност (платено)",
+      "auth.persona.municipality": "Община — общинско планиране (платено)",
+      "auth.paidNote": "Платените роли се активират от администратор след регистрация.",
+      "auth.noAccount": "Нямаш акаунт?",
+      "auth.haveAccount": "Вече имаш акаунт?",
+      "auth.failed": "Входът не бе успешен.",
+      "auth.network": "Мрежова грешка. Работи ли бекендът?",
+      "auth.expired": "Сесията изтече — влез отново.",
+      "auth.logout": "Изход",
+
+      // Роли
+      "role.ADMIN": "Администратор",
+      "role.FREE_USER": "Безплатен потребител",
+      "role.PAID_USER": "Платен потребител",
+      "role.REPORTER": "Репортер",
+      "role.MUNICIPALITY": "Община",
+      "role.pending": "очаква активиране",
+
+      // Безплатен лимит
+      "quota.label": "Безплатни проверки за преместване",
+      "quota.upgrade": "Надгради",
+
+      // Лични — платени екстри
+      "personal.aiTitle": "ИИ обяснение",
+      "personal.aiLocked": "Отключи ИИ обяснението",
+      "personal.aiLockedNote": "Платена функция (ниво 1) — получи писмен прочит на числата.",
+      "suggest.button": "Предложи най-добрите райони за живеене",
+      "suggest.subtitle": "Подредени по най-малко седмично време за пътуване според нуждите ти",
+      "suggest.asking": "Търсене на най-подходящите райони…",
+      "suggest.result": "Топ {n} района за твоите нужди.",
+      "suggest.none": "Няма намерени предложения.",
+      "suggest.failed": "Неуспешно предложение: {err}",
+      "suggest.saved": "ч/седм. спестени",
+      "suggest.popup": "Предложен район",
+      "suggest.needPin": "Първо постави точка за настоящия дом.",
+      "personal.toggleHint": "Филтрите са обновени — постави точка за нова проверка.",
+
+      // Бъдещи лични филтри (още без данни)
+      "need.gym": "Фитнес",
+      "need.barber": "Бръснар",
+      "needHint.gym": "седмично",
+      "needHint.barber": "месечно",
+
+      // Модал за плащане
+      "paywall.ok": "Разбрах",
+      "paywall.title.DEFAULT": "Платена функция",
+      "paywall.body.DEFAULT": "Тази функция изисква платен акаунт.",
+      "paywall.title.PAYWALL_QUOTA": "Изчерпа безплатните проверки",
+      "paywall.body.PAYWALL_QUOTA": "Безплатните акаунти имат 3 проверки за преместване. Надгради до платен акаунт за неограничени проверки, ИИ обяснения и предложения за райони.",
+      "paywall.title.PAYWALL_FILTER": "Заключен филтър",
+      "paywall.body.PAYWALL_FILTER": "Безплатните акаунти могат да филтрират по училища, поликлиники, болници и аптеки. Другите филтри са платена функция.",
+      "paywall.title.PAYWALL_UPGRADE": "Платена функция",
+      "paywall.body.PAYWALL_UPGRADE": "Предложенията за райони са платена функция (ниво 1). Помоли администратор да надгради акаунта ти.",
+      "paywall.title.ACCESS_MUNICIPAL": "Нужен е общински акаунт",
+      "paywall.body.ACCESS_MUNICIPAL": "Общинското планиране е функция от ниво 3 за общински акаунти, активирана от администратор.",
+      "paywall.title.ACCESS_REPORTER": "Нужен е репортерски акаунт",
+      "paywall.body.ACCESS_REPORTER": "Радарът за отчетност е функция от ниво 2 за репортерски акаунти, активирана от администратор.",
+      "paywall.title.ACCESS_PERSONAL": "Недостъпно",
+      "paywall.body.ACCESS_PERSONAL": "Планерът за преместване е за частни акаунти.",
+      "paywall.title.ACCESS_PENDING": "Очаква активиране",
+      "paywall.body.ACCESS_PENDING": "Акаунтът ти очаква активиране от администратор. Ще получиш достъп до тази гледна точка след одобрение.",
+
+      // Администрация
+      "admin.manage": "Управление на потребители",
+      "admin.title": "Управление на потребители",
+      "admin.subtitle": "Дай платен достъп и задай роли.",
+      "admin.col.account": "Акаунт",
+      "admin.col.role": "Роля",
+      "admin.col.access": "Достъп",
+      "admin.save": "Запази",
+      "admin.saving": "Запазване…",
+      "admin.saved": "Запазено ✓",
+      "admin.loading": "Зареждане на потребители…",
+      "admin.failed": "Неуспешно зареждане на потребители.",
+      "admin.empty": "Все още няма потребители.",
+      "admin.locked": "заключен",
+
+      // Демо превключвател за платен достъп (админ)
+      "paidToggle.label": "Платен потребител",
+      "paidToggle.hint": "демо · превключва заключените функции",
+
       // ----- Радар за гражданска отчетност (Стълб 3) -----
       "landing.radar.title": "Радар за отчетност",
       "landing.radar.badge": "Ново",
@@ -446,6 +628,9 @@
     });
     root.querySelectorAll("[data-i18n-title]").forEach((el) => {
       el.setAttribute("title", t(el.getAttribute("data-i18n-title")));
+    });
+    root.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+      el.setAttribute("placeholder", t(el.getAttribute("data-i18n-placeholder")));
     });
     root.querySelectorAll("[data-i18n-aria-label]").forEach((el) => {
       el.setAttribute("aria-label", t(el.getAttribute("data-i18n-aria-label")));
