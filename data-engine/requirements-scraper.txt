@@ -1,0 +1,12 @@
+# Runtime dependencies for the AOP procurement scraper service
+# (aop_scraper_service.py + config.py) — the script the backend's "force scrape"
+# shells out to. Kept SEPARATE from requirements.txt on purpose: that file pins
+# the one-time ETL pipeline's heavy geo stack (osmium, pandas, openpyxl), and
+# osmium has no prebuilt aarch64 wheel — it needs cmake/build-essential to compile
+# from source, which the production VM lacks. The scraper needs none of that, so
+# deploy installs only this minimal, wheel-only set.
+requests==2.32.3
+beautifulsoup4==4.12.3
+apscheduler==3.10.4
+psycopg2-binary==2.9.9
+python-dotenv==1.0.1

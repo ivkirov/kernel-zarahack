@@ -36,16 +36,19 @@ check_ml()       { [[ -x "$DEPLOY_DIR/ml-service/venv/bin/uvicorn" ]] || die "ml
 
 # Provision the data-engine venv the backend's "force scrape" shells out to
 # (../data-engine/venv/bin/python). git checkout --force preserves this untracked
-# venv across deploys, so its packages won't track requirements.txt on their own —
-# we must (re)install on every deploy or a new scraper dep (e.g. requests) silently
-# goes missing in prod. Create the venv if absent, then sync deps idempotently.
+# venv across deploys, so its packages won't track requirements on their own — we
+# must (re)install on every deploy or a new scraper dep (e.g. requests) silently
+# goes missing in prod. We install requirements-scraper.txt, NOT requirements.txt:
+# the latter pins osmium for the one-time ETL, which has no aarch64 wheel and needs
+# cmake to compile — absent on this VM, it would abort the whole install and fail
+# the deploy. The scraper needs only the wheel-only set. Sync deps idempotently.
 build_dataengine() {
   local v="$DEPLOY_DIR/data-engine/venv"
   [[ -x "$v/bin/python" ]] || python3 -m venv "$v"
   "$v/bin/python" -m pip install -q --upgrade pip
-  "$v/bin/python" -m pip install -q -r "$DEPLOY_DIR/data-engine/requirements.txt" \
+  "$v/bin/python" -m pip install -q -r "$DEPLOY_DIR/data-engine/requirements-scraper.txt" \
     || die "data-engine pip install failed"
-  "$v/bin/python" -c 'import requests, bs4, apscheduler' \
+  "$v/bin/python" -c 'import requests, bs4, apscheduler, psycopg2, dotenv' \
     || die "data-engine venv missing scraper deps after install"
 }
 
