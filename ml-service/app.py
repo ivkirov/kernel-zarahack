@@ -104,7 +104,9 @@ def traveltime(r: TravelReq):
 @app.get("/api/ml/recommend")
 def recommend(amenity: str = "kindergarten", district: str = None,
               top: int = 3, grid: int = 40, min_separation_km: float = 8.0,
-              lat: float = None, lon: float = None, radius_km: float = 25.0):
+              lat: float = None, lon: float = None, radius_km: float = 25.0,
+              min_lat: float = None, min_lon: float = None,
+              max_lat: float = None, max_lon: float = None):
     group = sim.AMENITY_GROUP.get(amenity)
     if group is None or group not in PLACEMENT:
         return {"error": f"no model for amenity '{amenity}'",
@@ -115,11 +117,26 @@ def recommend(amenity: str = "kindergarten", district: str = None,
     n_lat, n_lon = NODES.lat.values, NODES.lon.values
 
     # Candidate grid bbox. Priority:
-    #   1. a point (selected city) -> a radius_km box centred on it
-    #   2. a district (selected region) -> that province's extent
-    #   3. nothing -> the whole country
+    #   1. an explicit viewport bbox (min/max lat/lon) -> exactly what the user sees
+    #   2. a point (selected city) -> a radius_km box centred on it
+    #   3. a district (selected region) -> that province's extent
+    #   4. nothing -> the whole country
     cyr = _resolve_district(district)
-    if lat is not None and lon is not None:
+    have_bbox = None not in (min_lat, min_lon, max_lat, max_lon)
+    if have_bbox:
+        # Clamp the viewport to Bulgaria so the grid isn't spent on sea/abroad.
+        b_min_lon, b_min_lat = max(min_lon, BG_BBOX[0]), max(min_lat, BG_BBOX[1])
+        b_max_lon, b_max_lat = min(max_lon, BG_BBOX[2]), min(max_lat, BG_BBOX[3])
+        if b_min_lat >= b_max_lat or b_min_lon >= b_max_lon:   # viewport off Bulgaria
+            return {"district": district or "Bulgaria", "amenity": amenity,
+                    "group": group, "recommendations": []}
+        bbox = (b_min_lon, b_min_lat, b_max_lon, b_max_lat)
+        # Nearest-town labels / clustering come from settlements *inside* the view
+        # (fall back to all cells only if the view holds none).
+        in_box = cells[(cells.lat >= b_min_lat) & (cells.lat <= b_max_lat)
+                       & (cells.lon >= b_min_lon) & (cells.lon <= b_max_lon)]
+        towns = (in_box if not in_box.empty else cells).drop_duplicates("settlement")
+    elif lat is not None and lon is not None:
         dlat = radius_km / 111.0
         dlon = radius_km / (111.0 * max(0.1, np.cos(np.radians(lat))))
         bbox = (lon - dlon, lat - dlat, lon + dlon, lat + dlat)

@@ -70,5 +70,6 @@ window.TPM = {
   // Geofencing: we only have Bulgarian data. Clamp panning + gate clicks to here.
   BG_BOUNDS: [[41.0, 22.0], [44.4, 28.9]],   // [[south,west],[north,east]] (padded)
   BG_OUTLINE_URL: "./data/bulgaria.json",     // outer rings for outline + point-in-country test
+  REGION_BOUNDS_URL: "./data/provinces.json", // ADM1 province (област) borders — drawn thick to read region boundaries
   OUT_OF_BOUNDS_MSG: "We currently only have data for Bulgaria.",
 };

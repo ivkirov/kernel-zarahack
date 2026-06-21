@@ -1,7 +1,7 @@
 const {
   API_BASE_URL, ML_BASE_URL, DISTRICT, MAP_CENTER, MAP_ZOOM,
   COLORS, SERVICE_META, PERSONAL_NEEDS, MATRIX_CACHE_TTL,
-  BG_BOUNDS, BG_OUTLINE_URL, OUT_OF_BOUNDS_MSG,
+  BG_BOUNDS, BG_OUTLINE_URL, REGION_BOUNDS_URL, OUT_OF_BOUNDS_MSG,
   FREE_ALLOWED_AMENITIES, FUTURE_NEEDS,
 } = window.TPM;
 
@@ -73,6 +73,12 @@ function setBasemap(theme) {
 // ---------- Global theme switcher (dark ↔ Google-Maps light) ----------
 const THEME_KEY = "tpm-theme";
 let bgOutline = null;   // country outline polygon, recolored per theme
+let regionBorders = null; // ADM1 province (област) borders layer, recolored per theme
+// Thick, no-fill province boundaries so it's clear where each област ends.
+const regionStyle = (maps) => ({
+  color: maps ? "#334155" : "#cbd5e1", weight: 2.5, opacity: maps ? 0.75 : 0.55,
+  fill: false, interactive: false,
+});
 function currentTheme() { return localStorage.getItem(THEME_KEY) === "maps" ? "maps" : "dark"; }
 function applyTheme(theme) {
   const maps = theme === "maps";
@@ -83,6 +89,7 @@ function applyTheme(theme) {
   if (meta) meta.setAttribute("content", maps ? "#ffffff" : "#0a0f1e");
   setBasemap(theme);
   if (bgOutline) bgOutline.setStyle({ color: maps ? "#1a73e8" : "#38bdf8" });
+  if (regionBorders) regionBorders.setStyle(regionStyle(maps));
   document.querySelectorAll("[data-theme-opt]").forEach((b) => {
     const on = b.dataset.themeOpt === theme;
     b.classList.toggle("is-active", on);
@@ -113,6 +120,25 @@ async function loadBulgariaOutline() {
   }
 }
 loadBulgariaOutline();
+
+// ---------- Province (област / ADM1) borders ----------
+// Drawn under the markers/choropleth and never intercepts clicks.
+async function loadRegionBorders() {
+  if (!REGION_BOUNDS_URL) return;
+  try {
+    const res = await fetch(REGION_BOUNDS_URL);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    regionBorders = L.geoJSON(await res.json(), {
+      style: () => regionStyle(currentTheme() === "maps"),
+      interactive: false,
+    }).addTo(map);
+    regionBorders.bringToBack();
+    if (bgOutline) bgOutline.bringToFront();   // keep the country edge above the region grid
+  } catch (err) {
+    console.warn("Province borders failed to load:", err);
+  }
+}
+loadRegionBorders();
 
 // Ray-casting point-in-polygon over the outer rings (true if inside any province).
 function inBulgaria(lat, lng) {
@@ -305,9 +331,19 @@ function drawNodes(nodes) {
   });
   applyLayerVisibility();
 }
+// Every settlement carries TWO demand cells — children 0–6 and seniors 65+ —
+// stacked at the same point, each coloured by ITS cohort's travel time. Drawing
+// both made green (one age group well-served) and red (the other poorly served)
+// overlap at one place. In municipal mode we therefore show only the cohort of
+// the picked service, so each settlement reads as a single, unambiguous dot.
+let lastCells = [];
 function drawCells(cells) {
+  lastCells = cells;
   cellLayer.clearLayers();
-  cells.forEach((c) => {
+  const group = mode === "municipal"
+    ? (SERVICE_META[$("amenitySelect").value] || {}).group : null;
+  const shown = group ? cells.filter((c) => c.groupKey === group) : cells;
+  shown.forEach((c) => {
     L.circle([c.lat, c.lon], {
       radius: 120 + Math.sqrt(c.population) * 25,
       color: povertyColor(c.nearestMinutes),
@@ -375,6 +411,11 @@ setModeLayerDefaults("municipal");
 buildLayerToggles("municipal");
 
 $("toggleCells").addEventListener("change", (e) => { cellsOn = e.target.checked; applyLayerVisibility(); });
+
+// Switching the service re-paints the heatmap to that service's cohort (no refetch).
+$("amenitySelect").addEventListener("change", () => {
+  if (mode === "municipal") drawCells(lastCells);
+});
 
 // Collapsible panels (legend + layers) save space on small viewports.
 function wireCollapse(btnId, bodyId) {
@@ -520,16 +561,22 @@ async function recommendSites() {
   recoLayer.clearLayers();
 
   try {
-    // Town scope with a picked city → centre the search on it; otherwise use the
-    // selected region (province), or the whole country for "All Bulgaria".
-    let url = `${ML_BASE_URL}/recommend?amenity=${encodeURIComponent(amenity)}&top=3`;
-    if (scope === "town" && selectedCity) {
-      // Keep sites within the town's vicinity (not the whole municipality) and let
-      // them cluster near it rather than spreading to the far edges.
-      url += `&lat=${selectedCity.lat}&lon=${selectedCity.lon}&radius_km=10&min_separation_km=3`;
-    } else {
-      url += `&district=${encodeURIComponent(district)}`;
-    }
+    // Always recommend within what the user is actually looking at: the current
+    // map viewport. Picking a city (flyTo), a province (fitBounds), or just
+    // panning all move the viewport, so this one rule covers "whole
+    // municipality", "a single city", and "the half of the map I've scrolled to".
+    const b = map.getBounds();
+    const sw = b.getSouthWest(), ne = b.getNorthEast();
+    // Spread the 3 sites across the view: separation ≈ 1/6 of its width, clamped
+    // so a tight city view still yields distinct points and a country-wide view
+    // doesn't bunch them at one town.
+    const widthKm = map.distance(b.getNorthWest(), b.getNorthEast()) / 1000;
+    const sep = Math.max(0.8, Math.min(8, widthKm / 6));
+    let url = `${ML_BASE_URL}/recommend?amenity=${encodeURIComponent(amenity)}&top=3`
+      + `&min_lat=${sw.lat.toFixed(5)}&min_lon=${sw.lng.toFixed(5)}`
+      + `&max_lat=${ne.lat.toFixed(5)}&max_lon=${ne.lng.toFixed(5)}`
+      + `&min_separation_km=${sep.toFixed(2)}`;
+    if (district && district !== "all") url += `&district=${encodeURIComponent(district)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
@@ -568,7 +615,8 @@ async function recommendSites() {
     revealStagger("#recoResults li", { y: 8, duration: 0.4, stagger: 0.08 });
 
     if (pts.length) {
-      map.fitBounds(L.latLngBounds(pts), { padding: [60, 60], maxZoom: 11 });
+      // Sites are inside the current view by construction — keep the user's
+      // framing instead of re-fitting (which would narrow the next search).
       setStatus("reco.result", { n: pts.length, amenity: svcLabel(amenity) });
     } else {
       setStatus("reco.none");
