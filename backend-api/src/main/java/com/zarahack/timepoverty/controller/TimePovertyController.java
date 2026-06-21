@@ -6,6 +6,7 @@ import com.zarahack.timepoverty.repository.AppUserRepository;
 import com.zarahack.timepoverty.security.AuthException;
 import com.zarahack.timepoverty.security.CurrentUser;
 import com.zarahack.timepoverty.security.Features;
+import com.zarahack.timepoverty.service.AreaExplanationService;
 import com.zarahack.timepoverty.service.ExplanationService;
 import com.zarahack.timepoverty.service.RadarService;
 import com.zarahack.timepoverty.service.TimePovertyService;
@@ -20,13 +21,17 @@ public class TimePovertyController {
     private final TimePovertyService service;
     private final RadarService radarService;
     private final ExplanationService explanationService;
+    private final AreaExplanationService areaExplanationService;
     private final AppUserRepository users;
 
     public TimePovertyController(TimePovertyService service, RadarService radarService,
-                                ExplanationService explanationService, AppUserRepository users) {
+                                ExplanationService explanationService,
+                                AreaExplanationService areaExplanationService,
+                                AppUserRepository users) {
         this.service = service;
         this.radarService = radarService;
         this.explanationService = explanationService;
+        this.areaExplanationService = areaExplanationService;
         this.users = users;
     }
 
@@ -99,13 +104,25 @@ public class TimePovertyController {
     /** Suggest the best areas to live for the household's needs — tier-1 paid only. */
     @PostMapping("/personal-suggest")
     public PersonalSuggestResponse personalSuggest(@RequestBody PersonalCompareRequest request,
-                                                   @RequestParam(defaultValue = "5") int top) {
+                                                   @RequestParam(defaultValue = "5") int top,
+                                                   @RequestParam(required = false) Double minLat,
+                                                   @RequestParam(required = false) Double minLon,
+                                                   @RequestParam(required = false) Double maxLat,
+                                                   @RequestParam(required = false) Double maxLon) {
         AppUser u = CurrentUser.require();
         if (!Features.hasPaidPersonal(u)) {
             throw new AuthException(402, "PAYWALL_UPGRADE",
                     "Area suggestions are a paid (tier 1) feature.");
         }
-        return service.suggestAreas(request, top);
+        PersonalSuggestResponse resp = service.suggestAreas(request, top, minLat, minLon, maxLat, maxLon);
+
+        // Attach a cached AI write-up to each suggested area. Keyed on spot + the
+        // household's filters, so it's generated once and reused for everyone.
+        List<String> needs = (request.householdProfile != null && request.householdProfile.needs != null)
+                ? request.householdProfile.needs : List.of();
+        boolean hasCar = request.householdProfile == null || request.householdProfile.hasCar;
+        areaExplanationService.attachExplanations(resp, needs, hasCar, request.language);
+        return resp;
     }
 
     /** Civic Accountability Radar — reporter (tier 2) only. */

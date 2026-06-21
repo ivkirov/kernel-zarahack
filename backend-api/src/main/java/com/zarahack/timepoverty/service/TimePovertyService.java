@@ -323,6 +323,18 @@ public class TimePovertyService {
      * household's selected needs, returning the best `topN` against the current pin.
      */
     public PersonalSuggestResponse suggestAreas(PersonalCompareRequest req, int topN) {
+        return suggestAreas(req, topN, null, null, null, null);
+    }
+
+    /**
+     * Suggest the best areas to live. When a viewport bbox (min/max lat+lon) is
+     * given, candidates are restricted to what the user currently sees on the map,
+     * so we never propose a town that's off-screen. With no bbox we fall back to
+     * anchoring on the household's province.
+     */
+    public PersonalSuggestResponse suggestAreas(PersonalCompareRequest req, int topN,
+                                                Double minLat, Double minLon,
+                                                Double maxLat, Double maxLon) {
         List<InfrastructureNode> nodes = nodeRepo.findAll();
 
         List<String> needs = (req.householdProfile != null && req.householdProfile.needs != null)
@@ -345,14 +357,29 @@ public class TimePovertyService {
             if (cur == null || w.getPopulation() > cur.getPopulation()) bySettlement.put(w.getSettlement(), w);
         }
 
-        // Anchor suggestions to the province the household is actually in, so we
-        // recommend nearby towns — not the single best settlement in the country.
         Collection<DemographicWeight> candidates = bySettlement.values();
-        String anchorDistrict = nearestDistrict(req.currentLat, req.currentLon, candidates);
-        if (anchorDistrict != null) {
-            List<DemographicWeight> inProvince = candidates.stream()
-                .filter(w -> anchorDistrict.equals(w.getDistrict())).toList();
-            if (!inProvince.isEmpty()) candidates = inProvince;
+
+        // Prefer the current map viewport: only suggest places the user can see.
+        boolean haveBbox = minLat != null && minLon != null && maxLat != null && maxLon != null;
+        List<DemographicWeight> inView = List.of();
+        if (haveBbox) {
+            double aLat = minLat, bLat = maxLat, aLon = minLon, bLon = maxLon;
+            inView = candidates.stream()
+                .filter(w -> w.getLat() >= aLat && w.getLat() <= bLat
+                          && w.getLon() >= aLon && w.getLon() <= bLon)
+                .toList();
+        }
+        if (!inView.isEmpty()) {
+            candidates = inView;                       // viewport is the explicit scope
+        } else {
+            // No viewport (or nothing visible) → anchor to the household's province,
+            // so we recommend nearby towns, not the single best settlement nationwide.
+            String anchorDistrict = nearestDistrict(req.currentLat, req.currentLon, candidates);
+            if (anchorDistrict != null) {
+                List<DemographicWeight> inProvince = candidates.stream()
+                    .filter(w -> anchorDistrict.equals(w.getDistrict())).toList();
+                if (!inProvince.isEmpty()) candidates = inProvince;
+            }
         }
 
         List<PersonalSuggestResponse.Suggestion> ranked = new ArrayList<>();

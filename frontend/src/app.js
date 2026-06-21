@@ -693,7 +693,7 @@ async function dropPersonalPin(e) {
 }
 
 // ---------- Personal needs UI ----------
-const NEED_DEFAULT = new Set(["kindergarten", "school", "clinic", "pharmacy"]);
+const NEED_DEFAULT = new Set(["kindergarten", "school", "clinic", "hospital", "pharmacy"]);
 
 // Render one need row. `locked` rows pop a paywall on click; `future` rows have
 // no dataset yet and just explain that (no paywall — they can't be unlocked).
@@ -1381,9 +1381,16 @@ async function suggestAreas() {
   setPersonalStatus("suggest.asking");
   try {
     const c = pins.current.getLatLng();
-    const res = await Auth.apiFetch(`${API_BASE_URL}/personal-suggest?top=5`, {
+    // Constrain suggestions to what the user is actually looking at — no proposing
+    // a town that's off-screen. (Backend falls back to the province if nothing's in view.)
+    const b = map.getBounds();
+    const sw = b.getSouthWest(), ne = b.getNorthEast();
+    const bbox = `&minLat=${sw.lat.toFixed(5)}&minLon=${sw.lng.toFixed(5)}`
+               + `&maxLat=${ne.lat.toFixed(5)}&maxLon=${ne.lng.toFixed(5)}`;
+    const res = await Auth.apiFetch(`${API_BASE_URL}/personal-suggest?top=5${bbox}`, {
       method: "POST", headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ currentLat: c.lat, currentLon: c.lng, householdProfile: { needs: selectedNeeds(), hasCar: ownsCar() } }),
+      body: JSON.stringify({ currentLat: c.lat, currentLon: c.lng, language: uiLang(),
+        householdProfile: { needs: selectedNeeds(), hasCar: ownsCar() } }),
     });
     const data = await res.json();
     const pts = [];
@@ -1394,19 +1401,33 @@ async function suggestAreas() {
         .addTo(recoLayer)
         .bindPopup(`<b>${t("suggest.popup")} #${rank}</b><br>${s.settlement}` +
                    `<br>${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk`);
+      const saved = s.hoursSavedVsCurrent > 0.05
+        ? `<span class="text-emerald-400"> (−${s.hoursSavedVsCurrent.toFixed(1)} ${t("suggest.saved")})</span>` : "";
       const li = document.createElement("li");
-      li.className = "flex items-start gap-2";
+      li.className = "rounded-lg border border-edge/70 bg-panel2/40 overflow-hidden";
+      // The AI write-up ships with the response (cached per spot+filters server-side),
+      // so the expander just shows/hides it — no extra request.
       li.innerHTML =
-        `<span class="mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>` +
-        `<span><b>${s.settlement}</b> — ${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk` +
-        (s.hoursSavedVsCurrent > 0.05
-          ? `<span class="text-emerald-400"> (−${s.hoursSavedVsCurrent.toFixed(1)} ${t("suggest.saved")})</span>` : "") +
-        `</span>`;
+        `<button type="button" class="reco-head w-full flex items-start gap-2 px-2.5 py-2 text-left hover:bg-panel2 transition">
+           <span class="mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full shrink-0 bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>
+           <span class="flex-1 min-w-0"><b>${s.settlement}</b> — ${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk${saved}</span>
+           <svg class="reco-caret w-4 h-4 text-faint shrink-0 mt-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+         </button>
+         <div class="reco-body hidden px-3 pb-3 pt-0.5 text-[13px] text-slate-300 leading-relaxed"></div>`;
+      const head = li.querySelector(".reco-head");
+      const body = li.querySelector(".reco-body");
+      const caret = li.querySelector(".reco-caret");
+      body.textContent = s.aiExplanation || t("suggest.aiNone");
+      head.addEventListener("click", () => {
+        const open = body.classList.toggle("hidden") === false;
+        caret.style.transform = open ? "rotate(180deg)" : "";
+      });
       list.appendChild(li);
     });
     revealStagger("#suggestResults li", { y: 8, duration: 0.4, stagger: 0.06 });
     if (pts.length) {
-      map.fitBounds(L.latLngBounds(pts.concat([[pins.current.getLatLng().lat, pins.current.getLatLng().lng]])), { padding: [50, 50], maxZoom: 11 });
+      // Suggestions are inside the current view by construction — keep the user's
+      // framing instead of re-fitting (which would zoom out to fit them).
       setPersonalStatus("suggest.result", { n: pts.length });
     } else {
       setPersonalStatus("suggest.none");

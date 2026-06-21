@@ -180,6 +180,117 @@ public class ExplanationService {
         return sb.toString();
     }
 
+    // ---- Personal: per-area suggestion explanation ----
+
+    /**
+     * Explains why a suggested area suits a household with the given needs. Grounded
+     * ONLY on the area's own weekly travel time for those needs (deterministic from
+     * spot + filters) — never on the user's current home — so the result is identical
+     * for every requester and safe to cache. {@code language} is the UI locale.
+     */
+    public String explainArea(String settlement, String district, double weeklyHours,
+                              List<String> needs, boolean hasCar, String language) {
+        boolean bg = !"en".equalsIgnoreCase(language == null ? "" : language.trim());
+        if (geminiKey != null && !geminiKey.isBlank()) {
+            try {
+                String text = geminiExplainArea(settlement, district, weeklyHours, needs, hasCar, bg);
+                if (text != null && !text.isBlank()) return text.trim();
+            } catch (Exception e) {
+                // fall through to deterministic
+            }
+        }
+        return deterministicArea(settlement, district, weeklyHours, needs, hasCar, bg);
+    }
+
+    private String geminiExplainArea(String settlement, String district, double weeklyHours,
+                                     List<String> needs, boolean hasCar, boolean bg) throws Exception {
+        String body = "{\"contents\":[{\"parts\":[{\"text\":\""
+                + jsonEscape(buildAreaPrompt(settlement, district, weeklyHours, needs, hasCar, bg))
+                + "\"}]}],\"generationConfig\":{\"temperature\":0.4,\"maxOutputTokens\":400}}";
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/"
+                + geminiModel + ":generateContent?key=" + geminiKey;
+        HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+                .timeout(Duration.ofSeconds(12))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+        HttpResponse<String> res = http.send(request, HttpResponse.BodyHandlers.ofString());
+        if (res.statusCode() / 100 != 2) throw new RuntimeException("Gemini HTTP " + res.statusCode());
+        String text = extractFirstText(res.body());
+        if (text == null) throw new RuntimeException("Gemini: no text field in response");
+        return text;
+    }
+
+    private String buildAreaPrompt(String settlement, String district, double weeklyHours,
+                                   List<String> needs, boolean hasCar, boolean bg) {
+        String where = (settlement == null || settlement.isBlank())
+                ? (bg ? "този район" : "this area") : settlement;
+        String needList = joinNeeds(needs, bg);
+        StringBuilder f = new StringBuilder();
+        if (bg) {
+            f.append("Ти си съветник по преместване. Обясни на ясен, приятелски български защо този район ")
+             .append("е подходящ за домакинство, което редовно ползва изброените услуги. ")
+             .append("Използвай САМО фактите по-долу; не измисляй. Не споменавай текущото жилище на потребителя. ")
+             .append("Напиши 2-3 кратки изречения, без markdown, без списъци. Отговори на български.\n\n");
+            f.append(String.format(Locale.US, "Район: %s (област %s).%n", where, district == null ? "?" : district));
+            f.append(String.format(Locale.US,
+                "Седмично време за пътуване до услугите (%s): около %.1f часа общо. Домакинството %s кола.%n",
+                needList, weeklyHours, hasCar ? "има" : "няма"));
+        } else {
+            f.append("You are a relocation advisor. Explain in plain, friendly English why this area suits ")
+             .append("a household that regularly uses the services listed. Use ONLY the facts below; do not invent. ")
+             .append("Do not mention the user's current home. Write 2-3 short sentences, no markdown, no lists.\n\n");
+            f.append(String.format(Locale.US, "Area: %s (%s province).%n", where, district == null ? "?" : district));
+            f.append(String.format(Locale.US,
+                "Weekly travel to its services (%s): about %.1f hours total. The household %s a car.%n",
+                needList, weeklyHours, hasCar ? "has" : "does not have"));
+        }
+        return f.toString();
+    }
+
+    private String deterministicArea(String settlement, String district, double weeklyHours,
+                                     List<String> needs, boolean hasCar, boolean bg) {
+        String where = (settlement == null || settlement.isBlank())
+                ? (bg ? "този район" : "this area") : settlement;
+        String needList = joinNeeds(needs, bg);
+        String hStr = String.format(Locale.US, "%.1f", weeklyHours);
+        // Low absolute weekly travel = a well-connected area for these needs.
+        boolean good = weeklyHours <= 3.0;
+        boolean ok = weeklyHours <= 6.0;
+        StringBuilder sb = new StringBuilder();
+        if (bg) {
+            String strength = good ? "Силен" : ok ? "Приличен" : "По-слаб";
+            sb.append(strength).append(" избор: от ").append(where)
+              .append(" домакинство, което ползва ").append(needList)
+              .append(", би пътувало около ").append(hStr).append(" часа седмично до тези услуги. ")
+              .append(good ? "Услугите са близо — малко изгубено време."
+                          : ok ? "Достъпът е приемлив за повечето нужди."
+                               : "Някои услуги са по-далеч — очаквай повече време в път.");
+            if (!hasCar) sb.append(" Без кола далечните пътувания тежат повече.");
+        } else {
+            String strength = good ? "Strong" : ok ? "Decent" : "Weaker";
+            sb.append(strength).append(" choice: from ").append(where)
+              .append(", a household needing ").append(needList)
+              .append(" would travel about ").append(hStr).append(" hours a week to those services. ")
+              .append(good ? "Services sit close by — little time lost."
+                          : ok ? "Access is reasonable for most needs."
+                               : "Some services are farther out — expect more time on the road.");
+            if (!hasCar) sb.append(" Without a car, the longer trips weigh more.");
+        }
+        return sb.toString();
+    }
+
+    /** Localized, comma-joined list of need labels for the prompt/fallback. */
+    private String joinNeeds(List<String> needs, boolean bg) {
+        if (needs == null || needs.isEmpty()) return bg ? "услуги" : "services";
+        StringBuilder b = new StringBuilder();
+        for (int i = 0; i < needs.size(); i++) {
+            if (i > 0) b.append(i == needs.size() - 1 ? (bg ? " и " : " and ") : ", ");
+            b.append(amenityLabel(needs.get(i), bg));
+        }
+        return b.toString();
+    }
+
     // ---- Gemini ----
 
     private String geminiExplain(PersonalCompareResponse r, boolean bg) throws Exception {

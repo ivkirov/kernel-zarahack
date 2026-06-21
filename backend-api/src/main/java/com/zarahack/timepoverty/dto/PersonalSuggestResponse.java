@@ -18,5 +18,8 @@ public class PersonalSuggestResponse {
         public double lon;
         public double weeklyHours;        // weekly time-tax if living here
         public double hoursSavedVsCurrent;// currentWeeklyHours − weeklyHours
+        // Short AI write-up for THIS area, grounded only on the spot + the
+        // household's filters (so it's cacheable + identical for every requester).
+        public String aiExplanation;
     }
 }
