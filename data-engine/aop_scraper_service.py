@@ -153,10 +153,20 @@ def _load_gazetteer():
 
 
 def geocode(*candidates):
-    """First candidate town/text that matches the gazetteer → (lat, lon, district)."""
+    """First candidate town/text that matches the gazetteer → (lat, lon, district).
+
+    Geocoding is best-effort enrichment: if the GeoNames gazetteer is missing or
+    unreadable (e.g. ../datasets/BG.zip wasn't deployed — datasets/ is gitignored),
+    we degrade to (None, None, None) so records are still cached without map coords,
+    instead of letting the failure bubble up and discard the entire scraped batch.
+    """
     global _GAZETTEER
     if _GAZETTEER is None:
-        _GAZETTEER = _load_gazetteer()
+        try:
+            _GAZETTEER = _load_gazetteer()
+        except Exception as exc:
+            log.warning("gazetteer unavailable (%s) — caching records without coords", exc)
+            _GAZETTEER = {}          # cache the failure: don't retry per record
     for cand in candidates:
         hit = _GAZETTEER.get(_norm_town(cand))
         if hit:
