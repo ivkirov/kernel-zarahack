@@ -103,7 +103,8 @@ def traveltime(r: TravelReq):
 
 @app.get("/api/ml/recommend")
 def recommend(amenity: str = "kindergarten", district: str = None,
-              top: int = 3, grid: int = 40, min_separation_km: float = 8.0):
+              top: int = 3, grid: int = 40, min_separation_km: float = 8.0,
+              lat: float = None, lon: float = None, radius_km: float = 25.0):
     group = sim.AMENITY_GROUP.get(amenity)
     if group is None or group not in PLACEMENT:
         return {"error": f"no model for amenity '{amenity}'",
@@ -113,10 +114,18 @@ def recommend(amenity: str = "kindergarten", district: str = None,
     cells = PREP[group]                            # full national cells (for features)
     n_lat, n_lon = NODES.lat.values, NODES.lon.values
 
-    # candidate grid bbox: national, or restricted to the requested district.
-    # Frontend sends Latin names / "all"; resolve to the cache's Cyrillic name.
+    # Candidate grid bbox. Priority:
+    #   1. a point (selected city) -> a radius_km box centred on it
+    #   2. a district (selected region) -> that province's extent
+    #   3. nothing -> the whole country
     cyr = _resolve_district(district)
-    if cyr:
+    if lat is not None and lon is not None:
+        dlat = radius_km / 111.0
+        dlon = radius_km / (111.0 * max(0.1, np.cos(np.radians(lat))))
+        bbox = (lon - dlon, lat - dlat, lon + dlon, lat + dlat)
+        near = cells[_haversine_vec(lat, lon, cells.lat.values, cells.lon.values) <= radius_km]
+        towns = (near if not near.empty else cells).drop_duplicates("settlement")
+    elif cyr:
         dcells = cells[cells.district == cyr]      # exact (София vs София (столица))
         if dcells.empty:
             return {"error": f"unknown district '{district}'"}

@@ -1,6 +1,7 @@
 package com.zarahack.timepoverty.service;
 
 import com.zarahack.timepoverty.dto.PersonalCompareResponse;
+import com.zarahack.timepoverty.dto.SimulationResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,133 @@ public class ExplanationService {
             }
         }
         return deterministicExplain(r, bg);
+    }
+
+    // ---- Municipal: good/bad-site explanation for a simulated placement ----
+
+    /**
+     * Reads a municipal placement (one simulated facility) and explains whether the
+     * spot is a good or poor site and why. {@code amenityLabel}/{@code town} are
+     * free-text context; {@code language} is the UI locale ("bg" | "en").
+     */
+    public String explainSite(SimulationResponse sim, String amenityType, String town, String language) {
+        boolean bg = !"en".equalsIgnoreCase(language == null ? "" : language.trim());
+        String amenityLabel = amenityLabel(amenityType, bg);
+        if (geminiKey != null && !geminiKey.isBlank()) {
+            try {
+                String text = geminiExplainSite(sim, amenityLabel, town, bg);
+                if (text != null && !text.isBlank()) return text.trim();
+            } catch (Exception e) {
+                // fall through to deterministic
+            }
+        }
+        return deterministicSite(sim, amenityLabel, town, bg);
+    }
+
+    /** Localized facility label for the write-up (input is the raw amenity type). */
+    private static String amenityLabel(String amenityType, boolean bg) {
+        String a = amenityType == null ? "" : amenityType.trim().toLowerCase(Locale.ROOT);
+        if (bg) {
+            switch (a) {
+                case "kindergarten": return "детска градина";
+                case "school":       return "училище";
+                case "clinic":       return "поликлиника";
+                case "hospital":     return "болница";
+                case "pharmacy":     return "аптека";
+                default:             return a.isEmpty() ? "обект" : a;
+            }
+        }
+        switch (a) {
+            case "kindergarten": return "kindergarten";
+            case "school":       return "school";
+            case "clinic":       return "clinic";
+            case "hospital":     return "hospital";
+            case "pharmacy":     return "pharmacy";
+            default:             return a.isEmpty() ? "facility" : a;
+        }
+    }
+
+    private String geminiExplainSite(SimulationResponse sim, String amenityLabel, String town, boolean bg)
+            throws Exception {
+        String body = "{\"contents\":[{\"parts\":[{\"text\":\"" + jsonEscape(buildSitePrompt(sim, amenityLabel, town, bg))
+                + "\"}]}],\"generationConfig\":{\"temperature\":0.4,\"maxOutputTokens\":400}}";
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/"
+                + geminiModel + ":generateContent?key=" + geminiKey;
+        HttpRequest request = HttpRequest.newBuilder(URI.create(url))
+                .timeout(Duration.ofSeconds(12))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(body))
+                .build();
+        HttpResponse<String> res = http.send(request, HttpResponse.BodyHandlers.ofString());
+        if (res.statusCode() / 100 != 2) throw new RuntimeException("Gemini HTTP " + res.statusCode());
+        String text = extractFirstText(res.body());
+        if (text == null) throw new RuntimeException("Gemini: no text field in response");
+        return text;
+    }
+
+    private String buildSitePrompt(SimulationResponse sim, String amenityLabel, String town, boolean bg) {
+        String where = (town == null || town.isBlank()) ? (bg ? "избраната точка" : "this location") : town;
+        StringBuilder f = new StringBuilder();
+        if (bg) {
+            f.append("Ти си съветник по градско планиране. Обясни на ясен български дали ТОВА е добро ")
+             .append("или лошо място за нов обект и защо. Използвай САМО фактите по-долу; не измисляй. ")
+             .append("Напиши 2-3 кратки изречения, без markdown, без списъци. Отговори на български.\n\n");
+        } else {
+            f.append("You are an urban-planning advisor. Explain in plain English whether THIS is a good ")
+             .append("or poor site for a new facility and why. Use ONLY the facts below; do not invent. ")
+             .append("Write 2-3 short sentences, no markdown, no lists.\n\n");
+        }
+        f.append(String.format(Locale.US, "New facility: %s near %s.%n", amenityLabel, where));
+        f.append(String.format(Locale.US,
+            "If built here it would save about %.0f wasted hours/year, helping %d people across %d neighborhoods, "
+            + "cutting roughly %.1f minutes off each one-way trip for those affected.%n",
+            sim.annualWastedHoursSaved, sim.peopleImpacted, sim.affectedCells, sim.minutesSavedPerTripAvg));
+        if (sim.affectedCells == 0) {
+            f.append(bg
+                ? "Никое домакинство не печели — наблизо вече има по-близък подобен обект.\n"
+                : "No household benefits — a similar facility is already closer nearby.\n");
+        }
+        return f.toString();
+    }
+
+    private String deterministicSite(SimulationResponse sim, String amenityLabel, String town, boolean bg) {
+        String where = (town == null || town.isBlank()) ? (bg ? "тази точка" : "this spot") : town;
+        double hrs = sim.annualWastedHoursSaved;
+        String hStr = String.format(Locale.US, "%.0f", hrs);
+        String mStr = String.format(Locale.US, "%.1f", sim.minutesSavedPerTripAvg);
+        StringBuilder sb = new StringBuilder();
+        if (bg) {
+            if (sim.affectedCells == 0 || hrs < 1) {
+                sb.append("Слаба локация за ").append(amenityLabel.toLowerCase(Locale.ROOT))
+                  .append(" — наблизо вече има по-близък обект, така че ").append(where)
+                  .append(" не връща почти никакво време. Опитай по-отдалечен, по-зле обслужван район.");
+            } else {
+                String strength = hrs >= 200_000 ? "Отлична" : hrs >= 40_000 ? "Добра" : "Прилична";
+                sb.append(strength).append(" локация: нов ").append(amenityLabel.toLowerCase(Locale.ROOT))
+                  .append(" при ").append(where).append(" би спестил около ").append(hStr)
+                  .append(" часа годишно за ").append(sim.peopleImpacted)
+                  .append(" души, съкращавайки ~").append(mStr).append(" мин. на пътуване в едната посока. ")
+                  .append(hrs >= 40_000
+                      ? "Високо въздействие — приоритетен кандидат за строеж."
+                      : "Умерено въздействие — полезно, но има и по-силни места.");
+            }
+        } else {
+            if (sim.affectedCells == 0 || hrs < 1) {
+                sb.append("Weak site for a ").append(amenityLabel.toLowerCase(Locale.ROOT))
+                  .append(" — a closer facility already serves the area, so ").append(where)
+                  .append(" returns almost no time. Try a more remote, under-served area.");
+            } else {
+                String strength = hrs >= 200_000 ? "Excellent" : hrs >= 40_000 ? "Strong" : "Decent";
+                sb.append(strength).append(" site: a new ").append(amenityLabel.toLowerCase(Locale.ROOT))
+                  .append(" near ").append(where).append(" would save about ").append(hStr)
+                  .append(" hours/year for ").append(sim.peopleImpacted)
+                  .append(" people, cutting ~").append(mStr).append(" min off each one-way trip. ")
+                  .append(hrs >= 40_000
+                      ? "High impact — a priority build candidate."
+                      : "Moderate impact — useful, though stronger spots exist.");
+            }
+        }
+        return sb.toString();
     }
 
     // ---- Gemini ----

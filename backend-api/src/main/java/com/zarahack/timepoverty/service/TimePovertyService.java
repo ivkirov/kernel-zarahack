@@ -77,12 +77,23 @@ public class TimePovertyService {
         return isNationwide(d) ? weightRepo.findAll() : weightRepo.findByDistrict(d);
     }
 
-    /** Minimum one-way travel time (minutes) from a cell to the nearest serving node. */
+    /**
+     * Minimum one-way travel time (minutes) from a cell to the nearest serving node.
+     * Municipal lens now uses the same realistic mode-aware model as the personal
+     * planner — walk up to {@code walk-threshold-km} (the 2 km rule), drive beyond —
+     * so headline hours reflect how people actually reach a far facility (car), not a
+     * 30 km walk.
+     */
     private double nearestMinutes(double lat, double lon, List<InfrastructureNode> serviceNodes) {
+        return municipalMinutes(lat, lon, serviceNodes);
+    }
+
+    /** Mode-aware (walk-then-drive) one-way minutes to the nearest serving node. */
+    private double municipalMinutes(double lat, double lon, List<InfrastructureNode> serviceNodes) {
         double best = Double.MAX_VALUE;
         for (InfrastructureNode node : serviceNodes) {
             double km = GeoUtil.haversineKm(lat, lon, node.getLat(), node.getLon());
-            double min = GeoUtil.travelMinutes(km, speedKmh);
+            double min = GeoUtil.travelMinutes(km, pWalkKmh, pDriveKmh, pWalkThresholdKm);
             if (min < best) best = min;
         }
         return best == Double.MAX_VALUE ? 0.0 : best;
@@ -184,9 +195,9 @@ public class TimePovertyService {
         for (DemographicWeight w : weights) {
             double before = nearestMinutes(w.getLat(), w.getLon(), serving);
 
-            // distance to the NEW simulated node
+            // distance to the NEW simulated node (same walk-then-drive 2 km model)
             double kmNew = GeoUtil.haversineKm(w.getLat(), w.getLon(), req.lat, req.lon);
-            double minNew = GeoUtil.travelMinutes(kmNew, speedKmh);
+            double minNew = GeoUtil.travelMinutes(kmNew, pWalkKmh, pDriveKmh, pWalkThresholdKm);
             double after = Math.min(before, minNew);
 
             if (after < before - 1e-6) {        // this cell genuinely improved

@@ -426,16 +426,45 @@ async function loadPersonalStructures() {
   }
 }
 
+// ---------- Municipal: AI site-explanation card ----------
+const uiLang = () => (window.I18n && window.I18n.locale) || "bg";
+function showSiteAi(text) {
+  const card = $("siteAiCard"), el = $("siteAiText");
+  if (!card || !el) return;
+  el.textContent = text;
+  show(card, true);
+}
+function hideSiteAi() { show($("siteAiCard"), false); }
+
+// Nearest known settlement name to a point — labels the AI write-up ("…near X").
+async function nearestTownName(lat, lon) {
+  try {
+    const towns = await ensureTownData();
+    let best = null, bd = Infinity;
+    for (const tw of towns) {
+      const dx = tw.lat - lat, dy = (tw.lon - lon) * Math.cos(lat * Math.PI / 180);
+      const d = dx * dx + dy * dy;
+      if (d < bd) { bd = d; best = tw; }
+    }
+    return best ? best.settlement : null;
+  } catch { return null; }
+}
+
 // ---------- Municipal: click → simulate ----------
 async function simulateAt(e) {
   const amenityType = $("amenitySelect").value;
-  const payload = { district, lat: e.latlng.lat, lon: e.latlng.lng, amenityType };
+  const townName = await nearestTownName(e.latlng.lat, e.latlng.lng);
+  const payload = {
+    district, lat: e.latlng.lat, lon: e.latlng.lng, amenityType,
+    explain: true, language: uiLang(), townName,
+  };
 
   simLayer.clearLayers();
   L.marker([payload.lat, payload.lon]).addTo(simLayer)
     .bindPopup(t("sim.popup", { amenity: svcLabel(amenityType) })).openPopup();
 
   setStatus("status.simulating");
+  showSiteAi(t("site.aiThinking"));
 
   const res = await Auth.apiFetch(`${API_BASE_URL}/simulate`, {
     method: "POST",
@@ -456,6 +485,9 @@ async function simulateAt(e) {
       fillOpacity: 0.35, weight: 1, interactive: false,
     }).addTo(simLayer);
   });
+
+  if (sim.aiExplanation) showSiteAi(sim.aiExplanation);
+  else hideSiteAi();
 
   // Zero improvement means the spot is already covered — say so instead of bare 0s.
   if (sim.affectedCells > 0) {
@@ -488,8 +520,16 @@ async function recommendSites() {
   recoLayer.clearLayers();
 
   try {
-    const url = `${ML_BASE_URL}/recommend?amenity=${encodeURIComponent(amenity)}`
-              + `&district=${encodeURIComponent(district)}&top=3`;
+    // Town scope with a picked city → centre the search on it; otherwise use the
+    // selected region (province), or the whole country for "All Bulgaria".
+    let url = `${ML_BASE_URL}/recommend?amenity=${encodeURIComponent(amenity)}&top=3`;
+    if (scope === "town" && selectedCity) {
+      // Keep sites within the town's vicinity (not the whole municipality) and let
+      // them cluster near it rather than spreading to the far edges.
+      url += `&lat=${selectedCity.lat}&lon=${selectedCity.lon}&radius_km=10&min_separation_km=3`;
+    } else {
+      url += `&district=${encodeURIComponent(district)}`;
+    }
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const data = await res.json();
@@ -508,12 +548,21 @@ async function recommendSites() {
                    `${t("reco.popupPred", { hours: `<b>${r.predictedHoursSaved.toLocaleString()}</b>` })}`);
 
       const li = document.createElement("li");
-      li.className = "flex items-start gap-2";
+      li.className = "rounded-lg border border-edge/70 bg-panel2/40 overflow-hidden";
       li.innerHTML =
-        `<span class="mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full
-          bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>` +
-        `<span><b>${r.nearestTown}</b> — ${r.predictedHoursSaved.toLocaleString()} ${t("unit.h").trim()}` +
-        `<span class="text-muted"> ${t("reco.saved")}</span></span>`;
+        `<button type="button" class="reco-head w-full flex items-center gap-2 px-2.5 py-2 text-left hover:bg-panel2 transition">
+           <span class="inline-flex items-center justify-center w-5 h-5 rounded-full shrink-0
+             bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>
+           <span class="flex-1 min-w-0"><b>${r.nearestTown}</b> — ${r.predictedHoursSaved.toLocaleString()} ${t("unit.h").trim()}<span class="text-muted"> ${t("reco.saved")}</span></span>
+           <svg class="reco-caret w-4 h-4 text-faint shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+         </button>
+         <div class="reco-body hidden px-3 pb-3 pt-0.5 text-[13px] text-slate-300 leading-relaxed"></div>`;
+      const head = li.querySelector(".reco-head");
+      const body = li.querySelector(".reco-body");
+      const caret = li.querySelector(".reco-caret");
+      const siteDistrict = (scope === "town" && selectedCity) ? selectedCity.district : district;
+      head.addEventListener("click", () => toggleRecoBody(body, caret,
+        { lat: r.lat, lon: r.lon, amenity, town: r.nearestTown, district: siteDistrict }));
       list.appendChild(li);
     });
     revealStagger("#recoResults li", { y: 8, duration: 0.4, stagger: 0.08 });
@@ -529,6 +578,28 @@ async function recommendSites() {
     console.error("recommendSites failed:", err);
   } finally {
     btn.disabled = false;
+  }
+}
+
+// Expand/collapse one recommendation's AI explanation (lazy-loaded on first open).
+async function toggleRecoBody(body, caret, site) {
+  const open = body.classList.toggle("hidden") === false;
+  caret.style.transform = open ? "rotate(180deg)" : "";
+  if (!open || body.dataset.loaded) return;
+  body.textContent = t("site.aiThinking");
+  try {
+    const res = await Auth.apiFetch(`${API_BASE_URL}/simulate`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        district: site.district || district, lat: site.lat, lon: site.lon, amenityType: site.amenity,
+        explain: true, language: uiLang(), townName: site.town,
+      }),
+    });
+    const sim = await res.json();
+    body.textContent = sim.aiExplanation || t("site.aiNone");
+    body.dataset.loaded = "1";
+  } catch (err) {
+    body.textContent = t("site.aiFailed");
   }
 }
 
@@ -1012,6 +1083,8 @@ function enterMunicipal() {
     setModeLayerDefaults("municipal");
     buildLayerToggles("municipal");
     showLegend("municipal");
+    simLayer.clearLayers();
+    hideSiteAi();
     personalLayer.clearLayers();
     radarLayer.clearLayers();
     map.invalidateSize();
@@ -1298,25 +1371,119 @@ async function suggestAreas() {
 }
 
 // ---------- Scope picker: provinces vs towns ----------
-const districtLabel = (d) => (!d || d === "all") ? t("prov.all") : tOr(`prov.${d}`, d);
-const districtSelect = $("districtSelect");
-const townSelect = $("townSelect");
+// Latin labels everywhere so the region + city pickers read in one script.
+const districtLabel = (d) => (!d || d === "all") ? "All Bulgaria" : d;
 
-if (districtSelect) {
-  district = districtSelect.value;
-  $("districtName").textContent = districtLabel(district);
-  districtSelect.addEventListener("change", (e) => {
-    district = e.target.value;
-    $("districtName").textContent = districtLabel(district);
+// The 28 provinces (Latin, matching the DB) + the nationwide option.
+const REGIONS = ["all", "Blagoevgrad", "Burgas", "Dobrich", "Gabrovo", "Haskovo", "Kardzhali",
+  "Kyustendil", "Lovech", "Montana", "Pazardzhik", "Pernik", "Pleven", "Plovdiv", "Razgrad",
+  "Ruse", "Shumen", "Silistra", "Sliven", "Smolyan", "Sofia (Capital)", "Sofia Province",
+  "Stara Zagora", "Targovishte", "Varna", "Veliko Tarnovo", "Vidin", "Vratsa", "Yambol"];
+
+const regionInput = $("regionInput");
+const cityInput = $("cityInput");
+let selectedCity = null;   // town-scope: the picked city, so Recommend centres on it
+
+// Generic search combobox: text input + suggestion list, Cyrillic/Latin aware.
+function makeCombo({ input, list, minChars, allOnFocus, getItems, onPick }) {
+  if (!input || !list) return;
+  let matches = [], active = -1;
+  const close = () => { list.classList.add("hidden"); list.innerHTML = ""; active = -1; };
+  const paint = () => [...list.children].forEach((li, i) =>
+    li.firstElementChild.classList.toggle("bg-panel2", i === active));
+  const render = () => {
+    if (!matches.length) { close(); return; }
+    list.innerHTML = matches.map((m, i) =>
+      `<li><button type="button" data-i="${i}"
+         class="w-full text-left px-3 py-1.5 text-sm text-slate-100 hover:bg-panel2 transition flex items-baseline gap-2">
+         <span>${m.label}</span>${m.right ? `<span class="text-[11px] text-faint">${m.right}</span>` : ""}
+       </button></li>`).join("");
+    active = -1;
+    list.classList.remove("hidden");
+  };
+  const run = async (showAll) => {
+    const raw = input.value.trim();
+    if (!showAll && raw.length < minChars) { close(); return; }
+    let items;
+    try { items = await getItems(); } catch { return; }
+    if (showAll || !raw) { matches = items.slice(0, 60); render(); return; }
+    if (raw.length < minChars) { close(); return; }   // value changed during await
+    const q = searchKey(raw);
+    const pre = [], sub = [];
+    for (const it of items) {
+      if (it.key.startsWith(q)) pre.push(it);
+      else if (it.key.includes(q)) sub.push(it);
+    }
+    matches = pre.concat(sub).slice(0, 8);
+    render();
+  };
+  const choose = (i) => { const it = matches[i]; if (!it) return; close(); onPick(it); };
+  input.addEventListener("input", () => run(false));
+  input.addEventListener("focus", () => {
+    if (allOnFocus && !input.value.trim()) run(true);
+    else if (input.value.trim().length >= minChars) run(false);
+  });
+  input.addEventListener("keydown", (e) => {
+    if (list.classList.contains("hidden")) return;
+    if (e.key === "ArrowDown") { e.preventDefault(); active = Math.min(active + 1, matches.length - 1); paint(); }
+    else if (e.key === "ArrowUp") { e.preventDefault(); active = Math.max(active - 1, 0); paint(); }
+    else if (e.key === "Enter") { e.preventDefault(); choose(active < 0 ? 0 : active); }
+    else if (e.key === "Escape") { close(); }
+  });
+  // mousedown (not click) so the pick registers before the input's blur closes the list.
+  list.addEventListener("mousedown", (e) => {
+    const btn = e.target.closest("button[data-i]");
+    if (btn) { e.preventDefault(); choose(+btn.dataset.i); }
+  });
+  input.addEventListener("blur", () => setTimeout(close, 120));
+}
+
+function setDistrict(d) {
+  district = d;
+  selectedCity = null;   // region picked → recommend over the whole province
+  $("districtName").textContent = districtLabel(d);
+  recoLayer.clearLayers();
+  $("recoResults").innerHTML = "";
+  hideSiteAi();
+  loadMatrix();
+}
+
+// Region combobox — shows all provinces on focus; search in Cyrillic or Latin.
+makeCombo({
+  input: regionInput, list: $("regionSuggest"), minChars: 0, allOnFocus: true,
+  getItems: () => REGIONS.map((d) => ({ label: districtLabel(d), key: searchKey(districtLabel(d)), value: d })),
+  onPick: (it) => { regionInput.value = it.label; setDistrict(it.value); },
+});
+
+// City combobox — type 3+ letters (Cyrillic or Latin); flies the map to the town.
+makeCombo({
+  input: cityInput, list: $("citySuggest"), minChars: 3, allOnFocus: false,
+  getItems: async () => (await ensureTownData()).map((tw) => ({
+    label: tw.settlement, key: tw._key,
+    right: (tw.district && tw.district !== tw.settlement) ? tw.district : "", data: tw,
+  })),
+  onPick: (it) => {
+    const tw = it.data;
+    cityInput.value = tw.settlement;
+    selectedCity = { lat: tw.lat, lon: tw.lon, district: tw.district, name: tw.settlement };
+    $("districtName").textContent = tw.settlement;
+    // New focus → stale recommendations no longer apply.
     recoLayer.clearLayers();
     $("recoResults").innerHTML = "";
-    loadMatrix();
-  });
-}
+    hideSiteAi();
+    map.flyTo([tw.lat, tw.lon], 12, { duration: 0.8 });
+    L.popup().setLatLng([tw.lat, tw.lon]).setContent(`<b>${tw.settlement}</b>`).openOn(map);
+  },
+});
+
+// Default to the nationwide view, like the old <select>'s "All Bulgaria".
+district = "all";
+if (regionInput) regionInput.value = districtLabel("all");
 
 let scope = "province";
 function setScope(s) {
   scope = s;
+  selectedCity = null;   // fresh scope → no city centred yet
   const prov = s === "province";
   for (const [btn, active] of [["scopeProvince", prov], ["scopeTown", !prov]]) {
     const el = $(btn);
@@ -1324,15 +1491,16 @@ function setScope(s) {
     el.classList.toggle("text-accent", active);
     el.classList.toggle("text-muted", !active);
   }
-  show(districtSelect, prov);
-  show(townSelect, !prov);
+  show($("regionCombo"), prov);
+  show($("cityCombo"), !prov);
   if (prov) {
-    $("districtName").textContent = districtLabel(districtSelect.value);
+    if (regionInput) regionInput.value = districtLabel(district);
+    $("districtName").textContent = districtLabel(district);
   } else {
-    ensureTownList();
-    if (district !== "all") {              // towns are nationwide — widen the matrix
+    ensureTownData().catch(() => {});     // warm the city-search index
+    if (cityInput) cityInput.value = "";
+    if (district !== "all") {             // towns are nationwide — widen the matrix
       district = "all";
-      districtSelect.value = "all";
       recoLayer.clearLayers();
       $("recoResults").innerHTML = "";
       loadMatrix();
@@ -1374,34 +1542,6 @@ async function ensureTownData() {
     .map((c) => ({ settlement: c.settlement, lat: c.lat, lon: c.lon, district: c.district, _key: searchKey(c.settlement) }))
     .sort((a, b) => a.settlement.localeCompare(b.settlement));
   return townData;
-}
-
-let townListBuilt = false;
-let townCount = 0;   // remembered so the placeholder can be re-localized live
-async function ensureTownList() {
-  if (townListBuilt || !townSelect) return;
-  try {
-    const towns = await ensureTownData();
-    townCount = towns.length;
-    townSelect.innerHTML = `<option value="">${t("town.select", { n: townCount })}</option>` +
-      towns.map((tw) => `<option value="${tw.lat},${tw.lon}">${tw.settlement}</option>`).join("");
-    townListBuilt = true;
-  } catch (err) {
-    townSelect.innerHTML = `<option value="">${t("town.failed")}</option>`;
-    console.error("ensureTownList failed:", err);
-  }
-}
-
-if (townSelect) {
-  townSelect.addEventListener("change", (e) => {
-    const v = e.target.value;
-    if (!v) return;
-    const [lat, lon] = v.split(",").map(Number);
-    const name = e.target.selectedOptions[0].textContent;
-    $("districtName").textContent = name;
-    map.flyTo([lat, lon], 12, { duration: 0.8 });
-    L.popup().setLatLng([lat, lon]).setContent(`<b>${name}</b>`).openOn(map);
-  });
 }
 
 $("scopeProvince").addEventListener("click", () => setScope("province"));
@@ -1487,8 +1627,8 @@ I18n.onChange(() => {
   // District readout is set dynamically, not via data-i18n.
   if (mode === "radar") {
     $("districtName").textContent = t("radar.districtName");
-  } else if (scope === "province" && districtSelect) {
-    $("districtName").textContent = districtLabel(districtSelect.value);
+  } else if (scope === "province") {
+    $("districtName").textContent = districtLabel(district);
   }
   // Radar feed + markers embed localized labels; re-render in place (audits cached).
   if (mode === "radar" && radarData) {
@@ -1511,11 +1651,6 @@ I18n.onChange(() => {
     if (hint) hint.textContent = t("needHint." + key);
     if (soon) soon.textContent = t("need.soon");
   });
-
-  // Town picker placeholder (the town names themselves are locale-independent).
-  if (townListBuilt && townSelect && townSelect.options.length) {
-    townSelect.options[0].textContent = t("town.select", { n: townCount });
-  }
 
   // Re-render the last transient lines + the efficiency badge in the new language.
   if (lastStatus) setStatus(lastStatus.key, lastStatus.params);

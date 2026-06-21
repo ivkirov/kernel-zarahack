@@ -445,44 +445,23 @@
               Towns</button>
           </div>
 
-          <select id="districtSelect"
-            class="w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
-            <option value="all" selected data-i18n="prov.all">All Bulgaria</option>
-            <option value="Blagoevgrad" data-i18n="prov.Blagoevgrad">Blagoevgrad</option>
-            <option value="Burgas" data-i18n="prov.Burgas">Burgas</option>
-            <option value="Dobrich" data-i18n="prov.Dobrich">Dobrich</option>
-            <option value="Gabrovo" data-i18n="prov.Gabrovo">Gabrovo</option>
-            <option value="Haskovo" data-i18n="prov.Haskovo">Haskovo</option>
-            <option value="Kardzhali" data-i18n="prov.Kardzhali">Kardzhali</option>
-            <option value="Kyustendil" data-i18n="prov.Kyustendil">Kyustendil</option>
-            <option value="Lovech" data-i18n="prov.Lovech">Lovech</option>
-            <option value="Montana" data-i18n="prov.Montana">Montana</option>
-            <option value="Pazardzhik" data-i18n="prov.Pazardzhik">Pazardzhik</option>
-            <option value="Pernik" data-i18n="prov.Pernik">Pernik</option>
-            <option value="Pleven" data-i18n="prov.Pleven">Pleven</option>
-            <option value="Plovdiv" data-i18n="prov.Plovdiv">Plovdiv</option>
-            <option value="Razgrad" data-i18n="prov.Razgrad">Razgrad</option>
-            <option value="Ruse" data-i18n="prov.Ruse">Ruse</option>
-            <option value="Shumen" data-i18n="prov.Shumen">Shumen</option>
-            <option value="Silistra" data-i18n="prov.Silistra">Silistra</option>
-            <option value="Sliven" data-i18n="prov.Sliven">Sliven</option>
-            <option value="Smolyan" data-i18n="prov.Smolyan">Smolyan</option>
-            <option value="Sofia (Capital)" data-i18n="prov.Sofia (Capital)">Sofia (Capital)</option>
-            <option value="Sofia Province" data-i18n="prov.Sofia Province">Sofia Province</option>
-            <option value="Stara Zagora" data-i18n="prov.Stara Zagora">Stara Zagora</option>
-            <option value="Targovishte" data-i18n="prov.Targovishte">Targovishte</option>
-            <option value="Varna" data-i18n="prov.Varna">Varna</option>
-            <option value="Veliko Tarnovo" data-i18n="prov.Veliko Tarnovo">Veliko Tarnovo</option>
-            <option value="Vidin" data-i18n="prov.Vidin">Vidin</option>
-            <option value="Vratsa" data-i18n="prov.Vratsa">Vratsa</option>
-            <option value="Yambol" data-i18n="prov.Yambol">Yambol</option>
-          </select>
+          <!-- Region search (province). Searchable in Cyrillic or Latin; Latin labels. -->
+          <div id="regionCombo" class="relative">
+            <input id="regionInput" type="text" autocomplete="off" spellcheck="false"
+              data-i18n-placeholder="region.search" placeholder="Search a region…"
+              class="w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent" />
+            <ul id="regionSuggest"
+              class="hidden absolute z-[1200] left-0 right-0 mt-1 max-h-60 overflow-y-auto rounded-lg border border-edge bg-panel shadow-xl"></ul>
+          </div>
 
-          <!-- Town list (populated from data); jumps the map to the chosen settlement -->
-          <select id="townSelect"
-            class="hidden w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent">
-            <option value="" data-i18n="town.loading">Loading towns…</option>
-          </select>
+          <!-- Town search (populated from data). Type 3+ letters; Cyrillic or Latin. -->
+          <div id="cityCombo" class="relative hidden">
+            <input id="cityInput" type="text" autocomplete="off" spellcheck="false"
+              data-i18n-placeholder="city.search" placeholder="Type 3 letters to search a town…"
+              class="w-full bg-panel2 border border-edge rounded-lg px-3 py-1.5 text-sm text-slate-100 focus:border-accent" />
+            <ul id="citySuggest"
+              class="hidden absolute z-[1200] left-0 right-0 mt-1 max-h-60 overflow-y-auto rounded-lg border border-edge bg-panel shadow-xl"></ul>
+          </div>
         </div>
 
         <!-- Baseline systemic loss -->
@@ -511,6 +490,15 @@
         <div class="metric-card">
           <div id="avgMinutes" class="metric-value">0<span class="text-base text-muted" data-i18n="unit.min"> min</span></div>
           <div class="metric-label" data-i18n="metric.avgMin">Avg one-way time saved / trip</div>
+        </div>
+
+        <!-- AI good/bad-site read for the dropped facility -->
+        <div id="siteAiCard" class="metric-card border-accent/40 hidden">
+          <div class="flex items-center gap-2 mb-1.5">
+            <span class="text-accent text-base">✦</span>
+            <span class="metric-label !mb-0" data-i18n="site.aiTitle">AI · is this a good site?</span>
+          </div>
+          <p id="siteAiText" class="text-sm text-slate-200 leading-relaxed"></p>
         </div>
 
         <!-- ===== AI placement recommender (Option 3b model) ===== -->

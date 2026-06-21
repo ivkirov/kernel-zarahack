@@ -49,7 +49,12 @@ public class TimePovertyController {
             throw new AuthException(403, "ACCESS_MUNICIPAL",
                     "The municipal planner requires an activated municipality account.");
         }
-        return service.simulate(request);
+        SimulationResponse resp = service.simulate(request);
+        if (request.explain) {   // AI good/bad-site write-up (drop pin + each AI suggestion)
+            resp.aiExplanation = explanationService.explainSite(
+                    resp, request.amenityType, request.townName, request.language);
+        }
+        return resp;
     }
 
     /** Compare personal weekly commute time-tax — free (limited) or paid (tier 1). */

@@ -9,6 +9,7 @@ public class SimulationResponse {
     public int peopleImpacted;            // sum of population in improved cells
     public double minutesSavedPerTripAvg; // mean one-way minutes reduced
     public double annualWastedHoursSaved; // headline ROI metric
+    public String aiExplanation;          // optional natural-language good/bad-site read
     public List<CellDelta> deltas;        // per-cell breakdown for map shading
 
     public static class CellDelta {
