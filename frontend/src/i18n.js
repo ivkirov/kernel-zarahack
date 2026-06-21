@@ -63,6 +63,7 @@
       // Map overlays
       "map.loading.matrix": "Loading Reclaim…",
       "map.loading.services": "Loading nearby services…",
+      "map.loading.simulating": "Calculating impact…",
       "layers.title": "Layers",
       "layers.collapse": "Collapse layers",
       "layers.timePoverty": "Time-poverty",
@@ -154,6 +155,7 @@
       "status.simulating": "Simulating intervention…",
       "status.simSaved": "Intervention would save {hours} hours/year.",
       "status.simWellServed": "This spot is already well-served for {amenity} — no time saved. Try a more remote area, or use “Recommend best sites”.",
+      "status.simFailed": "Couldn’t calculate this site. Please try again.",
       "sim.popup": "Simulated {amenity}",
       "reco.asking": "Asking the AI model for the best build sites…",
       "reco.popupTitle": "★ Recommended site #{rank}",
@@ -405,6 +407,7 @@
       // Map overlays
       "map.loading.matrix": "Зареждане на Reclaim…",
       "map.loading.services": "Зареждане на близките услуги…",
+      "map.loading.simulating": "Изчисляване на ефекта…",
       "layers.title": "Слоеве",
       "layers.collapse": "Свий слоевете",
       "layers.timePoverty": "Изгубено време",
@@ -496,6 +499,7 @@
       "status.simulating": "Симулиране на намеса…",
       "status.simSaved": "Намесата би спестила {hours} часа/година.",
       "status.simWellServed": "Това място вече е добре обслужено за {amenity} — няма спестено време. Опитай по-отдалечен район или „Препоръчай най-добрите места“.",
+      "status.simFailed": "Неуспешно изчисление за това място. Опитай отново.",
       "sim.popup": "Симулиран обект: {amenity}",
       "reco.asking": "Питам ИИ модела за най-добрите места за строеж…",
       "reco.popupTitle": "★ Препоръчано място №{rank}",

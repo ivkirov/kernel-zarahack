@@ -504,47 +504,62 @@ async function nearestTownName(lat, lon) {
 // ---------- Municipal: click → simulate ----------
 async function simulateAt(e) {
   const amenityType = $("amenitySelect").value;
-  const townName = await nearestTownName(e.latlng.lat, e.latlng.lng);
-  const payload = {
-    district, lat: e.latlng.lat, lon: e.latlng.lng, amenityType,
-    explain: true, language: uiLang(), townName,
-  };
 
   simLayer.clearLayers();
-  L.marker([payload.lat, payload.lon]).addTo(simLayer)
+  L.marker([e.latlng.lat, e.latlng.lng]).addTo(simLayer)
     .bindPopup(t("sim.popup", { amenity: svcLabel(amenityType) })).openPopup();
 
+  // The /simulate round-trip (geocode + matrix delta + AI explanation) can take
+  // several seconds on prod. Cover the map with the spinner overlay so the click
+  // clearly reads as "calculating", not "stuck" — it also blocks further clicks,
+  // preventing duplicate in-flight simulations. Guaranteed cleared in finally.
+  showLoading(t("map.loading.simulating"));
   setStatus("status.simulating");
   showSiteAi(t("site.aiThinking"));
 
-  const res = await Auth.apiFetch(`${API_BASE_URL}/simulate`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(payload),
-  });
-  const sim = await res.json();
+  try {
+    const townName = await nearestTownName(e.latlng.lat, e.latlng.lng);
+    const payload = {
+      district, lat: e.latlng.lat, lon: e.latlng.lng, amenityType,
+      explain: true, language: uiLang(), townName,
+    };
 
-  setText("hoursSaved", sim.annualWastedHoursSaved, { decimals: 0 });
-  setText("peopleImpacted", sim.peopleImpacted, { decimals: 0 });
-  setText("cellsImproved", sim.affectedCells, { decimals: 0 });
-  setText("avgMinutes", sim.minutesSavedPerTripAvg, { decimals: 1 });
+    const res = await Auth.apiFetch(`${API_BASE_URL}/simulate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    const sim = await res.json();
 
-  sim.deltas.forEach((d) => {
-    L.circle([d.lat, d.lon], {
-      radius: 120 + Math.sqrt(d.population) * 25,
-      color: COLORS.simulated, fillColor: COLORS.simulated,
-      fillOpacity: 0.35, weight: 1, interactive: false,
-    }).addTo(simLayer);
-  });
+    setText("hoursSaved", sim.annualWastedHoursSaved, { decimals: 0 });
+    setText("peopleImpacted", sim.peopleImpacted, { decimals: 0 });
+    setText("cellsImproved", sim.affectedCells, { decimals: 0 });
+    setText("avgMinutes", sim.minutesSavedPerTripAvg, { decimals: 1 });
 
-  if (sim.aiExplanation) showSiteAi(sim.aiExplanation);
-  else hideSiteAi();
+    sim.deltas.forEach((d) => {
+      L.circle([d.lat, d.lon], {
+        radius: 120 + Math.sqrt(d.population) * 25,
+        color: COLORS.simulated, fillColor: COLORS.simulated,
+        fillOpacity: 0.35, weight: 1, interactive: false,
+      }).addTo(simLayer);
+    });
 
-  // Zero improvement means the spot is already covered — say so instead of bare 0s.
-  if (sim.affectedCells > 0) {
-    setStatus("status.simSaved", { hours: sim.annualWastedHoursSaved.toLocaleString() });
-  } else {
-    setStatus("status.simWellServed", { amenity: svcLabel(amenityType).toLowerCase() });
+    if (sim.aiExplanation) showSiteAi(sim.aiExplanation);
+    else hideSiteAi();
+
+    // Zero improvement means the spot is already covered — say so instead of bare 0s.
+    if (sim.affectedCells > 0) {
+      setStatus("status.simSaved", { hours: sim.annualWastedHoursSaved.toLocaleString() });
+    } else {
+      setStatus("status.simWellServed", { amenity: svcLabel(amenityType).toLowerCase() });
+    }
+  } catch (err) {
+    // apiFetch already surfaced the paywall/auth modal; clear the transient AI card
+    // and reset the status so the UI doesn't look frozen mid-simulation.
+    hideSiteAi();
+    setStatus("status.simFailed");
+  } finally {
+    hideLoading();
   }
 }
 
