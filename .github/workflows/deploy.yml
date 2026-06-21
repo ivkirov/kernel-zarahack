@@ -15,6 +15,11 @@ concurrency:
 jobs:
   deploy:
     runs-on: [self-hosted, linux]
+    # Records a GitHub Deployment on every run so the live commit + URL show up
+    # in the repo's Environments sidebar (the panel Vercel-style hosts populate).
+    environment:
+      name: production
+      url: https://7001-p-32aa65e3db37.vs2.openkbs.com/
     steps:
       - uses: actions/checkout@v4
       # Run the just-pushed script from the runner checkout, but it operates on
