@@ -34,6 +34,21 @@ build_frontend() { ( cd "$DEPLOY_DIR/frontend" && npm run build:css ); }
 build_backend()  { mvn -f "$DEPLOY_DIR/backend-api" -q -DskipTests clean package; }
 check_ml()       { [[ -x "$DEPLOY_DIR/ml-service/venv/bin/uvicorn" ]] || die "ml-service/venv/bin/uvicorn missing"; }
 
+# Provision the data-engine venv the backend's "force scrape" shells out to
+# (../data-engine/venv/bin/python). git checkout --force preserves this untracked
+# venv across deploys, so its packages won't track requirements.txt on their own —
+# we must (re)install on every deploy or a new scraper dep (e.g. requests) silently
+# goes missing in prod. Create the venv if absent, then sync deps idempotently.
+build_dataengine() {
+  local v="$DEPLOY_DIR/data-engine/venv"
+  [[ -x "$v/bin/python" ]] || python3 -m venv "$v"
+  "$v/bin/python" -m pip install -q --upgrade pip
+  "$v/bin/python" -m pip install -q -r "$DEPLOY_DIR/data-engine/requirements.txt" \
+    || die "data-engine pip install failed"
+  "$v/bin/python" -c 'import requests, bs4, apscheduler' \
+    || die "data-engine venv missing scraper deps after install"
+}
+
 restart_all() {
   export DEPLOY_STAMP_PATH="$STAMP"
 
@@ -65,6 +80,7 @@ main() {
   log "building (fail-fast before any restart)…"
   build_frontend
   build_backend
+  build_dataengine
   check_ml
   # Ensure the DB schema (idempotent) before restarting — the backend boots with
   # ddl-auto=validate, so every mapped table must already exist. Runs after the
