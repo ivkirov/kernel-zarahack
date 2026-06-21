@@ -3,6 +3,7 @@ name: deploy
 # Self-hosted runner ON the deployment VM. On every push to master it rebuilds
 # and restarts the three tiers and stamps the live commit. There is no cloud
 # host — the runner is the deploy mechanism. See scripts/deploy.sh.
+# Each run is recorded as a GitHub deployment to the `production` environment.
 on:
   push:
     branches: [master]
