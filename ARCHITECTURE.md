@@ -359,10 +359,15 @@ in `security/Features`.
 | `PAID_USER` | 1 | Personal mode unlimited + AI explanation (`/personal-compare`) + area suggestions (`/personal-suggest`) + all filters |
 | `REPORTER` | 2 | Accountability Radar (`/planned-projects`) |
 | `MUNICIPALITY` | 3 | Municipal mode (`/matrix`, `/simulate`) |
-| `ADMIN` | — | every lens + user management; one hardcoded account |
+| `ADMIN` | — | every lens + user management; one account, seeded from config |
 
-At signup a persona picks the role; reporter/municipality land **locked** until an admin
-sets `accessGranted` (payments are admin-assigned — no self-serve upgrade). Endpoints return
+At signup a persona picks the role (which can **only** be a non-admin role — promotion to
+`ADMIN` is rejected by the admin API, not just hidden in the UI). Reporter/municipality land
+**locked** until access is activated — either an admin grants it, or the account self-serves
+via `POST /api/v1/auth/activate` (a stand-in for a real checkout: it activates the caller's
+own paid access but can never reach `ADMIN`). Admin email/password and the JWT key come from
+the environment (`APP_ADMIN_*`, `APP_AUTH_JWT_SECRET`) — never hardcoded; see
+[SECURITY.md](SECURITY.md). Endpoints return
 `{code, message}` on auth/quota failures (`UNAUTHENTICATED`, `ACCESS_*`, `PAYWALL_*`) which
 the frontend turns into login/paywall modals. New tables: `app_users` (auth) and admin
 endpoints `GET/PATCH /api/v1/admin/users`. The AI explanation is currently a templated
@@ -426,9 +431,12 @@ cd ../data-engine && set -a; source ../.env; set +a
 ./venv/bin/python aop_scraper_service.py
 ```
 
-Open `:5500` and **sign in**. The backend seeds one admin on first start —
-`admin@gmail.com` / `P4$$w0rd!` (hardcoded in `config/AdminSeeder`) — who can use every lens
-and grant paid access to other accounts from the user-management panel.
+Open `:5500` and **sign in**. The backend seeds one admin on first start, using
+`APP_ADMIN_EMAIL` / `APP_ADMIN_PASSWORD` from the environment (the local `.env` ships
+`admin@gmail.com` / `P4$$w0rd!` for dev convenience; if the password is unset the backend
+generates a random one and logs it once). That admin can use every lens and grant paid
+access from the user-management panel. **Production must set its own** `APP_ADMIN_PASSWORD`
+and a strong `APP_AUTH_JWT_SECRET` — see [SECURITY.md](SECURITY.md).
 
 ---
 

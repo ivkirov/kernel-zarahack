@@ -14,7 +14,10 @@ import java.util.Base64;
 @Component
 public class PasswordHasher {
 
-    private static final int ITERATIONS = 120_000;
+    // OWASP Password Storage Cheat Sheet (2023): >= 600k iterations for
+    // PBKDF2-HMAC-SHA256. matches() reads the iteration count from each stored
+    // hash, so older 120k hashes still verify and get this cost on next change.
+    private static final int ITERATIONS = 600_000;
     private static final int KEY_BITS = 256;
     private static final int SALT_BYTES = 16;
     private static final SecureRandom RNG = new SecureRandom();

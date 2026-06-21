@@ -27,12 +27,28 @@ public class UserAdminService {
     public UserView update(Long id, UpdateUserRequest req) {
         AppUser u = users.findById(id)
                 .orElseThrow(() -> new AuthException(404, "USER_NOT_FOUND", "No such user."));
+
+        // The seeded admin is immutable through the API. "Exactly one admin" is an
+        // invariant, so an existing admin can't be demoted or have its grant flipped
+        // (which would also let a hijacked admin session lock out the real one).
+        if (u.getRole() == Role.ADMIN) {
+            throw new AuthException(403, "ADMIN_IMMUTABLE", "The admin account cannot be edited.");
+        }
+
         if (req.role != null && !req.role.isBlank()) {
+            Role role;
             try {
-                u.setRole(Role.valueOf(req.role.trim().toUpperCase()));
+                role = Role.valueOf(req.role.trim().toUpperCase());
             } catch (IllegalArgumentException e) {
                 throw new AuthException(400, "BAD_ROLE", "Unknown role: " + req.role);
             }
+            // No account may be promoted to ADMIN via the API — there is exactly one,
+            // seeded from configuration. This is enforced here, not merely hidden in
+            // the UI, so a forged/scripted request can't escalate to admin.
+            if (role == Role.ADMIN) {
+                throw new AuthException(403, "ADMIN_FORBIDDEN", "Accounts cannot be promoted to admin.");
+            }
+            u.setRole(role);
         }
         if (req.accessGranted != null) {
             u.setAccessGranted(req.accessGranted);

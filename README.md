@@ -24,8 +24,11 @@ on it through three role-gated lenses plus an AI recommender:
 **Accounts, roles & paid tiers.** A login gate fronts the app; each account sees only the
 lens its role allows — `FREE_USER` (limited relocation planner) plus the paid tiers
 `PAID_USER` (t1, + AI explanation & area suggestions), `REPORTER` (t2, Radar) and
-`MUNICIPALITY` (t3, municipal planner). Paid access is **admin-assigned**. The seeded admin
-(`admin@gmail.com` / `P4$$w0rd!`) sees every lens plus a user-management panel.
+`MUNICIPALITY` (t3, municipal planner). The seeded admin sees every lens plus a
+user-management panel. Admin credentials and the JWT signing key are **configuration, not
+source** — set via `APP_ADMIN_EMAIL` / `APP_ADMIN_PASSWORD` / `APP_AUTH_JWT_SECRET` (the
+local `.env` ships dev values; production sets its own). See **[SECURITY.md](SECURITY.md)**
+for the threat model and the production hardening checklist.
 
 Everything runs **locally**: a Java/Spring API (`:8080`), a Python/FastAPI ML sidecar
 (`:8000`), a Tailwind + Leaflet frontend (`:5500`), a Python ETL, and local PostgreSQL.
@@ -48,6 +51,7 @@ The README is the entry point; the depth lives in [`docs/`](docs/).
 | [ML Service](docs/ml-service.md) | The two model families, features, training, inference |
 | [Frontend](docs/frontend.md) | Leaflet UI, mode routing, layers, caching, motion |
 | [API Reference](docs/api-reference.md) | Every endpoint with request/response shapes + curl |
+| [Security](SECURITY.md) | Threat model, the OWASP review + fixes, secret config, production hardening checklist |
 
 Component-level notes also live next to the code: [`ml-service/README.md`](ml-service/README.md)
 and [`ml-service/INTEGRATION.md`](ml-service/INTEGRATION.md).

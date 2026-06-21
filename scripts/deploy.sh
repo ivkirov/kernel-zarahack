@@ -60,6 +60,10 @@ main() {
   build_frontend
   build_backend
   check_ml
+  # Ensure the DB schema (idempotent) before restarting — the backend boots with
+  # ddl-auto=validate, so every mapped table must already exist. Runs after the
+  # builds so we still "build everything first, only touch runtime if all is well".
+  migrate_schema
   log "restarting services…"
   restart_all
   health_all

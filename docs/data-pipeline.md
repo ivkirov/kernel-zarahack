@@ -1,8 +1,15 @@
 # Data Pipeline & Database Schema
 
-The `data-engine/` is a one-time Python ETL that turns the raw `datasets/` files into two
+The `data-engine/` is a one-time Python ETL that turns the raw `datasets/` files into the
 PostgreSQL tables the backend reads. It is orchestrated by `run_pipeline.py`, which runs the
-steps in order (`00 → 00b → 01 → 02 → 03`, ~1.5 min, the OSM scan dominates).
+steps in order (`00 → 00b → 00c → 01 → 02 → 03`, ~1.5 min, the OSM scan dominates).
+
+> **Schema vs. data.** Steps `00`, `00b`, `00c` are pure idempotent DDL
+> (`CREATE … IF NOT EXISTS`); steps `01`–`03` extract + seed data (and need the raw
+> datasets). The **auto-deploy** (`scripts/deploy.sh`) runs only the schema half, via
+> **`migrate.py`** (`00 → 00b → 00c`), right before restarting the backend — so a commit
+> that adds a table can't leave the live DB failing `ddl-auto: validate`. It never drops or
+> seeds data, so it's a safe no-op on an already-migrated database.
 
 ## Pipeline steps
 
@@ -13,6 +20,11 @@ indexes and constraints. Idempotent (`CREATE TABLE IF NOT EXISTS`).
 ### `00b_create_auth_schema.py` — auth DDL
 Creates the `app_users` table (accounts/roles/quota) the backend's auth layer needs.
 Idempotent; kept separate from the geospatial schema since it's an app concern, not ETL.
+
+### `00c_create_ai_cache_schema.py` — AI-cache DDL
+Creates the `ai_explanation_cache` table (one cached AI write-up per spot + filters). Also an
+app concern, also idempotent. The backend validates it at boot, so the deploy migration
+ensures it exists.
 
 ### `01_extract_osm.py` — supply
 Scans the `.pbf` nationwide with `pyosmium` for the amenities in `AMENITY_MAP`, keeping
@@ -50,7 +62,9 @@ cd data-engine
 python3 -m venv venv && source venv/bin/activate
 pip install -r requirements.txt
 set -a; source ../.env; set +a            # PG* connection vars
-python run_pipeline.py                     # 00 → 01 → 02 → 03 (all 28 provinces)
+python run_pipeline.py                     # 00 → 00b → 00c → 01 → 02 → 03 (all 28 provinces)
+# schema only (no datasets needed) — what the auto-deploy runs:
+python migrate.py                          # 00 → 00b → 00c, idempotent
 ```
 
 Seed one province instead of all 28:

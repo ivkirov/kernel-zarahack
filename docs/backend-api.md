@@ -11,19 +11,22 @@ Java 25 · Spring Boot 4.1.0 · Spring Data JPA. Package root
 backend-api/src/main/java/com/zarahack/timepoverty/
 ├── TimePovertyApplication.java        # Spring Boot entry point
 ├── config/
-│   ├── CorsConfig.java                # locks CORS to the :5500 demo origin
-│   └── AdminSeeder.java               # seeds the one hardcoded admin on startup
+│   ├── CorsConfig.java                # locks CORS to known origins (explicit headers, no credentials)
+│   └── AdminSeeder.java               # seeds the one admin from APP_ADMIN_* (random pw if unset)
 ├── controller/{TimePoverty,Auth,Admin}Controller.java
 ├── security/                          # dependency-free auth (no Spring Security)
-│   ├── PasswordHasher.java            # PBKDF2-HMAC-SHA256
-│   ├── JwtUtil.java                   # hand-rolled HS256 JWT
+│   ├── PasswordHasher.java            # PBKDF2-HMAC-SHA256, 600k iterations
+│   ├── JwtUtil.java                   # hand-rolled HS256 JWT (secret from env; random fallback, no shipped default)
 │   ├── AuthFilter.java               # reads Bearer → CurrentUser (per-request)
+│   ├── SecurityHeadersFilter.java     # nosniff / DENY frame / no-store / referrer+permissions policy
+│   ├── RateLimiter.java               # in-process throttle for login/register (brute-force defense)
 │   ├── CurrentUser.java · AuthException.java
 │   └── Features.java                  # the single role/tier/quota policy
 ├── service/
 │   ├── TimePovertyService.java        # matrix/simulate/personal math + suggestAreas
-│   ├── AuthService.java · UserAdminService.java
-│   ├── ExplanationService.java        # tier-1 AI explanation (templated; LLM-swap seam)
+│   ├── Districts.java                 # province whitelist → bounds the matrix cache key space
+│   ├── AuthService.java · UserAdminService.java   # validation + "no promotion to ADMIN" guard
+│   ├── ExplanationService.java        # tier-1 AI explanation (Gemini; JSON-escaped prompt; deterministic fallback)
 │   └── GeoUtil.java                   # haversine + travel-time
 ├── entity/{InfrastructureNode,DemographicWeight,AppUser}.java · Role.java
 ├── repository/{InfrastructureNode,DemographicWeight,AppUser}Repository.java
@@ -45,11 +48,16 @@ backend-api/src/main/java/com/zarahack/timepoverty/
 | `app.geo.assumed-speed-kmh` | 4.5 | walking-speed proxy |
 | `app.visits-per-year.children_0_6` | 180 | annual round trips |
 | `app.visits-per-year.seniors_65p` | 24 | annual round trips |
-| `app.auth.jwt-secret` | dev default | HMAC key for signing JWTs (override in prod) |
+| `app.auth.jwt-secret` | `APP_AUTH_JWT_SECRET` | HMAC key for signing JWTs. **No shipped default** — blank ⇒ a random per-boot key (tokens reset on restart); a key shorter than 32 chars fails startup. Set it in production. |
 | `app.auth.jwt-ttl-seconds` | 604800 | token lifetime (7 days) |
+| `app.admin.email` / `app.admin.password` | `APP_ADMIN_*` | seeded-admin credentials. Blank password ⇒ a random one is generated and logged once at first seed. |
+| `server.error.include-*` | `never` | never leak stack traces / internal messages to clients |
 
-The bootstrap admin is **hardcoded** in `AdminSeeder` (not configurable): `admin@gmail.com`
-/ `P4$$w0rd!`, seeded on first start of a fresh DB.
+The bootstrap admin is **configuration, not source**: `AdminSeeder` reads `APP_ADMIN_EMAIL` /
+`APP_ADMIN_PASSWORD` on first start of a fresh DB. The local `.env` ships `admin@gmail.com` /
+`P4$$w0rd!` for dev; production sets its own (or relies on the logged random password). No
+account can ever be promoted to `ADMIN` through the API — `UserAdminService` rejects it. See
+[SECURITY.md](../SECURITY.md).
 
 These `@Value`-injected fields (`speedKmh`, `visitsChildren`, `visitsSeniors`) feed the
 service math directly.

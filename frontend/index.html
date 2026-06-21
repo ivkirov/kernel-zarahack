@@ -2,6 +2,26 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
+  <!--
+    Content Security Policy — defense-in-depth behind output escaping (esc()).
+    script-src deliberately omits 'unsafe-inline': every script here is an external
+    file, so injected inline scripts / on*-handlers (what an XSS payload needs) are
+    blocked outright. style-src allows 'unsafe-inline' because Leaflet + the UI set
+    inline style attributes; style injection is far lower risk than script.
+    Note: this also blocks live-server's injected auto-reload script in local dev —
+    an intentional trade (security over hot-reload); comment this tag out if you
+    need reload while developing.
+  -->
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src 'self' https://unpkg.com https://cdnjs.cloudflare.com;
+    style-src 'self' 'unsafe-inline' https://unpkg.com;
+    img-src 'self' data: https://*.basemaps.cartocdn.com https://*.tile.openstreetmap.org https://unpkg.com;
+    connect-src 'self' http://localhost:8080 http://localhost:8000 http://127.0.0.1:8080 http://127.0.0.1:8000 https://*.vs2.openkbs.com;
+    font-src 'self' data:;
+    object-src 'none';
+    base-uri 'self';
+    form-action 'self'" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#0a0f1e" />
   <title>Reclaim — Bulgaria</title>
@@ -14,12 +34,18 @@
   <!-- Branded favicon: a clock-pin glyph -->
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230a0f1e'/%3E%3Ccircle cx='16' cy='14' r='8' fill='none' stroke='%2338bdf8' stroke-width='2'/%3E%3Cpath d='M16 10v4l3 2' fill='none' stroke='%2338bdf8' stroke-width='2' stroke-linecap='round'/%3E%3Cpath d='M16 22v6' stroke='%2334d399' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E" />
 
-  <!-- Leaflet -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet (pinned + Subresource Integrity: a tampered/MITM'd CDN file won't run) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha384-sHL9NAb7lN7rfvG5lfHpm643Xkcjzp4jFvuavGOndn6pjVqS6ny56CAt3nsEVT4H"
+    crossorigin="anonymous" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha384-cxOPjt7s7Iz04uaHJceBmS+qpjv2JkIHNVcuOrM+YHwZOmJGBXI00mdUXEq65HTH"
+    crossorigin="anonymous"></script>
 
   <!-- GSAP (entrance + micro-animations) -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha384-g4NTh/Iv5PPU4xPyhEWqPcwtNXOvdaDI8LLnyYfyNZOjKJeYQyjzQ9X5275eBjpt"
+    crossorigin="anonymous"></script>
 
   <!-- Tailwind compiled output -->
   <link rel="stylesheet" href="./dist/output.css" />

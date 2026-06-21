@@ -1,5 +1,11 @@
 server:
   port: 8080
+  error:
+    # Never leak internals to clients. The frontend only consumes {code,message}
+    # from our handlers; everything else returns a generic error.
+    include-stacktrace: never
+    include-message: never
+    include-binding-errors: never
 
 spring:
   datasource:
@@ -19,6 +25,18 @@ spring:
     show-sql: false
 
 app:
+  # --- Auth secrets (security-critical) -------------------------------------
+  # Both are read from the environment. There is no shipped default: if the JWT
+  # secret is unset the backend mints a random per-process key (tokens reset on
+  # restart — set APP_AUTH_JWT_SECRET in production); if the admin password is
+  # unset a random one is generated and logged once at first seed. See
+  # JwtUtil / AdminSeeder and SECURITY.md.
+  auth:
+    jwt-secret: ${APP_AUTH_JWT_SECRET:}        # >= 32 chars; blank ⇒ random per boot
+    jwt-ttl-seconds: ${APP_AUTH_JWT_TTL_SECONDS:604800}
+  admin:
+    email: ${APP_ADMIN_EMAIL:admin@gmail.com}
+    password: ${APP_ADMIN_PASSWORD:}           # blank ⇒ random, logged once at seed
   geo:
     assumed-speed-kmh: 4.5          # municipal access lens: walking ("15-minute city" deprivation view)
     # Personal relocation planner uses a realistic mode-aware model: people walk

@@ -7,6 +7,7 @@ import com.zarahack.timepoverty.security.AuthException;
 import com.zarahack.timepoverty.security.CurrentUser;
 import com.zarahack.timepoverty.security.Features;
 import com.zarahack.timepoverty.service.AreaExplanationService;
+import com.zarahack.timepoverty.service.Districts;
 import com.zarahack.timepoverty.service.ExplanationService;
 import com.zarahack.timepoverty.service.RadarService;
 import com.zarahack.timepoverty.service.TimePovertyService;
@@ -43,7 +44,10 @@ public class TimePovertyController {
     @GetMapping("/matrix")
     public MatrixResponse matrix(@RequestParam(defaultValue = "Stara Zagora") String district) {
         CurrentUser.require();
-        return service.buildMatrix(district);
+        // Canonicalize to a known province (or the nationwide alias) BEFORE the
+        // @Cacheable lookup, so an arbitrary district string can't pollute/grow the
+        // cache. Unknown values become a 400 via the IllegalArgumentException handler.
+        return service.buildMatrix(Districts.canonical(district));
     }
 
     /** Simulate placing a new node — municipal planner (tier 3) only. */

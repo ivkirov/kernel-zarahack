@@ -1,11 +1,14 @@
 package com.zarahack.timepoverty.security;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,9 +16,28 @@ import java.util.regex.Pattern;
 /**
  * Minimal HS256 JWT — JDK-only (HMAC + Base64URL), no external JWT/JSON library.
  * The payload is a tiny fixed shape, so claims are built and read by hand.
+ *
+ * <p><b>Secret handling (security-critical).</b> The signing key is read from
+ * {@code app.auth.jwt-secret} (env {@code APP_AUTH_JWT_SECRET}). There is no
+ * hardcoded fallback on purpose — a shipped default key means anyone with the
+ * source can forge tokens for any account. Policy:
+ * <ul>
+ *   <li>blank / unset → a fresh random key is generated for this process and a
+ *       loud warning is logged. The app still boots (dev convenience) but every
+ *       restart invalidates existing tokens, which is a safe failure, never a
+ *       forgeable one. Production MUST set the env var so sessions survive.</li>
+ *   <li>set but shorter than {@value #MIN_SECRET_BYTES} bytes → boot fails
+ *       fast: a short key is brute-forceable, so we refuse to start rather than
+ *       run with a weak one.</li>
+ * </ul>
  */
 @Component
 public class JwtUtil {
+
+    private static final Logger log = LoggerFactory.getLogger(JwtUtil.class);
+
+    /** Minimum acceptable key length for HS256 (256-bit). Shorter ⇒ refuse to boot. */
+    static final int MIN_SECRET_BYTES = 32;
 
     private final byte[] secret;
     private final long ttlSeconds;
@@ -25,10 +47,29 @@ public class JwtUtil {
     private static final Pattern EXP = Pattern.compile("\"exp\"\\s*:\\s*(\\d+)");
 
     public JwtUtil(
-            @Value("${app.auth.jwt-secret:tpm-dev-secret-change-me-please-0123456789}") String secret,
+            @Value("${app.auth.jwt-secret:}") String secret,
             @Value("${app.auth.jwt-ttl-seconds:604800}") long ttlSeconds) {   // default 7 days
-        this.secret = secret.getBytes(StandardCharsets.UTF_8);
+        this.secret = resolveSecret(secret);
         this.ttlSeconds = ttlSeconds;
+    }
+
+    /** Validate the configured secret, or mint a strong random one for dev (never a fixed default). */
+    private static byte[] resolveSecret(String configured) {
+        if (configured == null || configured.isBlank()) {
+            byte[] random = new byte[MIN_SECRET_BYTES];
+            new SecureRandom().nextBytes(random);
+            log.warn("app.auth.jwt-secret is not set — generated a random per-process JWT key. "
+                    + "Tokens will NOT survive a restart. Set APP_AUTH_JWT_SECRET (>= {} chars) in production.",
+                    MIN_SECRET_BYTES);
+            return random;
+        }
+        byte[] bytes = configured.getBytes(StandardCharsets.UTF_8);
+        if (bytes.length < MIN_SECRET_BYTES) {
+            throw new IllegalStateException("app.auth.jwt-secret is too short ("
+                    + bytes.length + " bytes); use at least " + MIN_SECRET_BYTES
+                    + " characters of high-entropy secret.");
+        }
+        return bytes;
     }
 
     public String issue(Long userId, String email, String role) {

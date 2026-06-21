@@ -34,6 +34,23 @@ def _resolve_district(district):
     return district
 
 
+def _clamp_int(v, lo, hi):
+    try:
+        return max(lo, min(hi, int(v)))
+    except (TypeError, ValueError):
+        return lo
+
+
+def _clamp_float(v, lo, hi):
+    try:
+        f = float(v)
+    except (TypeError, ValueError):
+        return lo
+    if f != f:                       # NaN
+        return lo
+    return max(lo, min(hi, f))
+
+
 app = FastAPI(title="Reclaim — ML Service")
 app.add_middleware(
     CORSMiddleware,
@@ -111,6 +128,16 @@ def recommend(amenity: str = "kindergarten", district: str = None,
     if group is None or group not in PLACEMENT:
         return {"error": f"no model for amenity '{amenity}'",
                 "available": sorted({p["amenity"] for p in PLACEMENT.values()})}
+
+    # Clamp caller-supplied sizing params. This endpoint is reachable without auth,
+    # and cost scales ~grid² (a grid×grid candidate mesh, each scored against ~14k
+    # cells). An unbounded `grid` would allocate an enormous linspace and exhaust
+    # CPU/memory. The UI only ever uses the default (40), so cap just above it: the
+    # worst case stays ~= the normal case instead of a 100x+ amplification.
+    grid = _clamp_int(grid, 4, 44)
+    top = _clamp_int(top, 1, 25)
+    radius_km = _clamp_float(radius_km, 1.0, 500.0)
+    min_separation_km = _clamp_float(min_separation_km, 0.0, 200.0)
 
     payload = PLACEMENT[group]
     cells = PREP[group]                            # full national cells (for features)

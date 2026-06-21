@@ -64,7 +64,9 @@ curl http://localhost:8080/api/v1/auth/me -H "Authorization: Bearer $TOKEN"
 ## Admin — `GET /admin/users`, `PATCH /admin/users/{id}` *(ADMIN only)*
 
 List accounts, or change an account's role / grant paid access. `ADMIN` cannot be assigned
-(there is exactly one, hardcoded, immutable admin).
+and the seeded admin row cannot be edited — both are **enforced server-side** in
+`UserAdminService` (`403 ADMIN_FORBIDDEN` / `ADMIN_IMMUTABLE`), not merely hidden in the UI.
+There is exactly one admin, seeded from `APP_ADMIN_*`.
 
 ```bash
 curl http://localhost:8080/api/v1/admin/users -H "Authorization: Bearer $ADMIN_TOKEN"

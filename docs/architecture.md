@@ -63,9 +63,11 @@ distributing the models between machines (see [ml-service.md](ml-service.md)).
 Every `/api/v1/time-poverty/*` and `/api/v1/admin/*` call requires a JWT
 (`Authorization: Bearer`). Auth is dependency-free (PBKDF2 + hand-rolled HS256 JWT + a
 servlet filter — no Spring Security). Five roles map to the paid tiers — `PAID_USER` (t1),
-`REPORTER` (t2), `MUNICIPALITY` (t3) — with `FREE_USER` (limited) and one hardcoded `ADMIN`.
-Reporter/municipality sign-ups are locked until an admin grants access (payments are
-admin-assigned). Details: [backend-api.md](backend-api.md) · [api-reference.md](api-reference.md).
+`REPORTER` (t2), `MUNICIPALITY` (t3) — with `FREE_USER` (limited) and one `ADMIN` seeded from
+config (credentials + JWT key come from the environment, never source — see
+[SECURITY.md](../SECURITY.md)). Reporter/municipality sign-ups are locked until access is
+activated (admin grant or the self-serve paywall); no signup or API call can yield `ADMIN`.
+Details: [backend-api.md](backend-api.md) · [api-reference.md](api-reference.md).
 
 ## Cross-cutting config
 

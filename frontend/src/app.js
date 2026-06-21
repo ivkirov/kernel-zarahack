@@ -192,6 +192,16 @@ window.addEventListener("resize", () => map.invalidateSize());
 const $ = (id) => document.getElementById(id);
 function show(el, visible) { el && el.classList.toggle("hidden", !visible); }
 
+// HTML-escape any value that gets interpolated into innerHTML or a Leaflet popup
+// string. Names from OSM, the AOP scraper, GeoNames and user input are all
+// untrusted; without this they are a stored/reflected XSS vector. i18n template
+// text is trusted, but values passed AS i18n params (e.g. {town}) are not, so
+// escape those too before handing them to t().
+function esc(s) {
+  return String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
 // ---------- Localized status lines ----------
 // We remember the last status as a (key, params) pair so a live locale switch
 // can re-render the message in the new language without re-running the action.
@@ -315,7 +325,7 @@ async function fetchMatrix(d) {
 // ---------- Drawing ----------
 function nodePopup(n) {
   const label = svcLabel(n.serviceType);
-  return `<b>${n.name || label}</b><br>${label}`;
+  return `<b>${n.name ? esc(n.name) : label}</b><br>${label}`;   // n.name is OSM data — escape
 }
 function drawNodes(nodes) {
   Object.values(serviceLayers).forEach((l) => l.clearLayers());
@@ -590,8 +600,8 @@ async function recommendSites() {
       L.marker([r.lat, r.lon], { icon: recoIcon(rank), zIndexOffset: 1000 })
         .addTo(recoLayer)
         .bindPopup(`<b>${t("reco.popupTitle", { rank })}</b><br>` +
-                   `${t("reco.popupBuild", { amenity: amenityLabel })}<br>` +
-                   `${t("reco.popupNear", { town: r.nearestTown })}<br>` +
+                   `${t("reco.popupBuild", { amenity: esc(amenityLabel) })}<br>` +
+                   `${t("reco.popupNear", { town: esc(r.nearestTown) })}<br>` +
                    `${t("reco.popupPred", { hours: `<b>${r.predictedHoursSaved.toLocaleString()}</b>` })}`);
 
       const li = document.createElement("li");
@@ -600,7 +610,7 @@ async function recommendSites() {
         `<button type="button" class="reco-head w-full flex items-center gap-2 px-2.5 py-2 text-left hover:bg-panel2 transition">
            <span class="inline-flex items-center justify-center w-5 h-5 rounded-full shrink-0
              bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>
-           <span class="flex-1 min-w-0"><b>${r.nearestTown}</b> — ${r.predictedHoursSaved.toLocaleString()} ${t("unit.h").trim()}<span class="text-muted"> ${t("reco.saved")}</span></span>
+           <span class="flex-1 min-w-0"><b>${esc(r.nearestTown)}</b> — ${r.predictedHoursSaved.toLocaleString()} ${t("unit.h").trim()}<span class="text-muted"> ${t("reco.saved")}</span></span>
            <svg class="reco-caret w-4 h-4 text-faint shrink-0 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
          </button>
          <div class="reco-body hidden px-3 pb-3 pt-0.5 text-[13px] text-slate-300 leading-relaxed"></div>`;
@@ -782,7 +792,7 @@ function renderBreakdown(cur, pro) {
     li.className = "flex items-center justify-between gap-2";
     li.innerHTML =
       `<span class="flex items-center gap-2">
-        <span class="w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>${display}</span>
+        <span class="w-2 h-2 rounded-full shrink-0" style="background:${color}"></span>${esc(display)}</span>
       <span class="tabular-nums text-xs text-muted">${b.weeklyHours.toFixed(1)}→${p.weeklyHours.toFixed(1)}h
         <span class="${cls} font-semibold ml-1">${sign}${Math.abs(delta).toFixed(1)}</span></span>`;
     ul.appendChild(li);
@@ -973,12 +983,12 @@ function placeRadarMarkers(projects) {
     const m = L.marker([p.lat, p.lon], { icon: radarPinIcon(color, a.verdict), zIndexOffset: 800 })
       .addTo(radarLayer)
       .bindPopup(
-        `<b>${p.projectName}</b><br>${p.buyerName}<br>` +
+        `<b>${esc(p.projectName)}</b><br>${esc(p.buyerName)}<br>` +
         `<span style="color:${v.color};font-weight:700">${v.glyph} ${auditLabel(a.verdict)}</span> · ` +
         `${t("radar.popup.fromOptimal", { km })}<br>` +
         (a.optimal
           ? t("radar.popup.modelBest", {
-              town: `<b>${a.optimal.nearestTown}</b>`,
+              town: `<b>${esc(a.optimal.nearestTown)}</b>`,
               hours: (a.optimal.predictedHoursSaved || 0).toLocaleString(),
             })
           : t("radar.popup.notAudited")));
@@ -991,7 +1001,7 @@ function placeRadarMarkers(projects) {
       }).addTo(radarLayer);
       L.circleMarker([a.optimal.lat, a.optimal.lon], {
         radius: 5, color: "#10b981", fillColor: "#10b981", fillOpacity: 0.9, weight: 1,
-      }).bindPopup(`<b>★ ${t("radar.popup.optimal")}</b><br>${t("radar.popup.optimalNear", { town: a.optimal.nearestTown })}`).addTo(radarLayer);
+      }).bindPopup(`<b>★ ${t("radar.popup.optimal")}</b><br>${t("radar.popup.optimalNear", { town: esc(a.optimal.nearestTown) })}`).addTo(radarLayer);
     }
   });
 }
@@ -1013,8 +1023,8 @@ function radarFeedItem(p) {
   li.innerHTML =
     `<div class="flex items-start justify-between gap-3">
       <div class="min-w-0">
-        <div class="text-sm font-medium text-slate-100 leading-snug">${p.projectName}</div>
-        <div class="text-xs text-muted mt-1">${p.buyerName}</div>
+        <div class="text-sm font-medium text-slate-100 leading-snug">${esc(p.projectName)}</div>
+        <div class="text-xs text-muted mt-1">${esc(p.buyerName)}</div>
       </div>
       <span class="shrink-0 inline-flex items-center gap-1.5 text-[11px] font-medium px-2 py-1 rounded-md"
             style="background:${color}1a;color:${color}">
@@ -1022,7 +1032,7 @@ function radarFeedItem(p) {
     </div>
     <div class="flex items-center justify-between mt-3">
       ${auditHtml}
-      <span class="text-[11px] text-faint tabular-nums">${t("radar.feed.ref", { num: p.procurementNumber, date })}</span>
+      <span class="text-[11px] text-faint tabular-nums">${t("radar.feed.ref", { num: esc(p.procurementNumber), date: esc(date) })}</span>
     </div>`;
   li.addEventListener("click", () => flyToProject(p));
   return li;
@@ -1399,7 +1409,7 @@ async function suggestAreas() {
       pts.push([s.lat, s.lon]);
       L.marker([s.lat, s.lon], { icon: recoIcon(rank), zIndexOffset: 1000 })
         .addTo(recoLayer)
-        .bindPopup(`<b>${t("suggest.popup")} #${rank}</b><br>${s.settlement}` +
+        .bindPopup(`<b>${t("suggest.popup")} #${rank}</b><br>${esc(s.settlement)}` +
                    `<br>${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk`);
       const saved = s.hoursSavedVsCurrent > 0.05
         ? `<span class="text-emerald-400"> (−${s.hoursSavedVsCurrent.toFixed(1)} ${t("suggest.saved")})</span>` : "";
@@ -1410,7 +1420,7 @@ async function suggestAreas() {
       li.innerHTML =
         `<button type="button" class="reco-head w-full flex items-start gap-2 px-2.5 py-2 text-left hover:bg-panel2 transition">
            <span class="mt-0.5 inline-flex items-center justify-center w-5 h-5 rounded-full shrink-0 bg-emerald-500 text-emerald-950 text-xs font-bold">${rank}</span>
-           <span class="flex-1 min-w-0"><b>${s.settlement}</b> — ${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk${saved}</span>
+           <span class="flex-1 min-w-0"><b>${esc(s.settlement)}</b> — ${s.weeklyHours.toFixed(1)} ${t("unit.h").trim()}/wk${saved}</span>
            <svg class="reco-caret w-4 h-4 text-faint shrink-0 mt-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
          </button>
          <div class="reco-body hidden px-3 pb-3 pt-0.5 text-[13px] text-slate-300 leading-relaxed"></div>`;
@@ -1466,7 +1476,7 @@ function makeCombo({ input, list, minChars, allOnFocus, getItems, onPick }) {
     list.innerHTML = matches.map((m, i) =>
       `<li><button type="button" data-i="${i}"
          class="w-full text-left px-3 py-1.5 text-sm text-slate-100 hover:bg-panel2 transition flex items-baseline gap-2">
-         <span>${m.label}</span>${m.right ? `<span class="text-[11px] text-faint">${m.right}</span>` : ""}
+         <span>${esc(m.label)}</span>${m.right ? `<span class="text-[11px] text-faint">${esc(m.right)}</span>` : ""}
        </button></li>`).join("");
     active = -1;
     list.classList.remove("hidden");
@@ -1542,7 +1552,7 @@ makeCombo({
     $("recoResults").innerHTML = "";
     hideSiteAi();
     map.flyTo([tw.lat, tw.lon], 12, { duration: 0.8 });
-    L.popup().setLatLng([tw.lat, tw.lon]).setContent(`<b>${tw.settlement}</b>`).openOn(map);
+    L.popup().setLatLng([tw.lat, tw.lon]).setContent(`<b>${esc(tw.settlement)}</b>`).openOn(map);
   },
 });
 
@@ -1642,8 +1652,8 @@ function wireCitySearch(which) {
     list.innerHTML = matches.map((tw, i) =>
       `<li><button type="button" data-i="${i}"
          class="w-full text-left px-3 py-1.5 text-sm text-slate-100 hover:bg-panel2 transition flex items-baseline gap-2">
-         <span>${tw.settlement}</span>${(tw.district && tw.district !== tw.settlement)
-           ? `<span class="text-[11px] text-faint">${tw.district}</span>` : ""}
+         <span>${esc(tw.settlement)}</span>${(tw.district && tw.district !== tw.settlement)
+           ? `<span class="text-[11px] text-faint">${esc(tw.district)}</span>` : ""}
        </button></li>`).join("");
     active = -1;
     list.classList.remove("hidden");

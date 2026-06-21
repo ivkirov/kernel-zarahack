@@ -59,6 +59,18 @@ largest set) start hidden (`on: false`) to keep the first view readable.
   meter that counts down to a `PAYWALL_QUOTA` (simulated client-side for the admin demo,
   authoritative server count for real free users).
 
+## Output escaping & CSP (XSS defense)
+
+The UI renders names from untrusted sources — user-chosen display names/emails, OSM facility
+names, AOP-scraped project/buyer names, GeoNames towns — into `innerHTML` and Leaflet popups.
+**Every such value passes through `esc()`** (a 5-character HTML escaper defined in both
+`app.js` and `auth.js`); values handed to i18n `t()` as `{params}` are escaped before
+substitution, because `t()` injects them raw into trusted template strings. The admin panel's
+account fields were a stored-XSS → admin-takeover path and are now escaped. A strict
+**Content-Security-Policy** in `index.html` (`script-src` without `'unsafe-inline'`, plus SRI
+on the CDN scripts) is the backstop. The client gating above is **UX only** — every limit is
+re-enforced by the backend. Full write-up: [SECURITY.md](../SECURITY.md).
+
 ## Modes & routing (`src/app.js`)
 
 A `mode` state (`null` until entry) gates everything:

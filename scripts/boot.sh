@@ -14,6 +14,9 @@ setup_toolchain
 load_env
 export DEPLOY_STAMP_PATH="$STAMP"
 
+# Ensure the DB schema exists before starting the backend (ddl-auto=validate).
+migrate_schema
+
 stop_service frontend; free_port 7001
 start_service frontend "$DEPLOY_DIR/frontend" \
   "$DEPLOY_DIR/frontend/node_modules/.bin/live-server" --host=0.0.0.0 --port=7001 --no-browser

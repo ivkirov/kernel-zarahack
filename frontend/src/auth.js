@@ -26,6 +26,12 @@
   const $ = (id) => document.getElementById(id);
   const show = (el, v) => el && el.classList.toggle("hidden", !v);
   const T = (k, p) => (window.t ? window.t(k, p) : k);
+  // HTML-escape untrusted values (account email / display name) before they go
+  // into innerHTML. Without this, a user-chosen display name like
+  // "<img src=x onerror=…>" would run as script in the ADMIN's session when they
+  // open the user panel — i.e. anonymous-signup → admin takeover.
+  const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) =>
+    ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
   function authHeader() { return token ? { Authorization: "Bearer " + token } : {}; }
   function mkErr(code, msg, paywall) { const e = new Error(msg || code); e.code = code; e.paywall = !!paywall; return e; }
@@ -262,8 +268,8 @@
       if (u.role === "ADMIN") {
         tr.innerHTML =
           `<td class="py-2 pr-3">
-             <div class="text-sm text-slate-100">${u.displayName || ""}</div>
-             <div class="text-xs text-muted">${u.email}</div>
+             <div class="text-sm text-slate-100">${esc(u.displayName)}</div>
+             <div class="text-xs text-muted">${esc(u.email)}</div>
            </td>
            <td class="py-2 pr-3 text-xs text-accent font-semibold">${T("role.ADMIN")}</td>
            <td class="py-2 pr-3 text-center text-emerald-400">✓</td>
@@ -275,8 +281,8 @@
         `<option value="${r}" ${u.role === r ? "selected" : ""}>${T("role." + r)}</option>`).join("");
       tr.innerHTML =
         `<td class="py-2 pr-3">
-           <div class="text-sm text-slate-100">${u.displayName || ""}</div>
-           <div class="text-xs text-muted">${u.email}</div>
+           <div class="text-sm text-slate-100">${esc(u.displayName)}</div>
+           <div class="text-xs text-muted">${esc(u.email)}</div>
          </td>
          <td class="py-2 pr-3">
            <select data-role class="bg-panel2 border border-edge rounded-md px-2 py-1 text-xs text-slate-100">${opts}</select>

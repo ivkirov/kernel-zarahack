@@ -40,6 +40,20 @@ load_env() {
   source "$DEPLOY_DIR/.env"; set +a
 }
 
+# Ensure the app-managed DB schema exists BEFORE the backend (ddl-auto=validate)
+# starts. data-engine/migrate.py runs only the dataset-free, idempotent
+# `CREATE ... IF NOT EXISTS` migrations, so a schema change in a new commit can't
+# leave the live DB missing a table (which would crash backend startup). It never
+# drops or seeds data, so it's a safe no-op on an already-migrated database.
+# Requires the data-engine venv (the standard setup creates it); call after load_env.
+migrate_schema() {
+  local py="$DEPLOY_DIR/data-engine/venv/bin/python"
+  [[ -x "$py" ]] || die "data-engine venv missing ($py) — needed to migrate the DB schema"
+  log "migrating DB schema (idempotent)…"
+  ( cd "$DEPLOY_DIR/data-engine" && "$py" migrate.py ) || die "DB schema migration failed"
+  log "DB schema OK"
+}
+
 # Stop a service by its PID file (TERM, then KILL after grace). Never pattern-kills.
 stop_service() {
   local name="$1" pidfile="$RUN_DIR/$1.pid" pid

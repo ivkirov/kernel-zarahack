@@ -43,7 +43,9 @@ python run_pipeline.py        # 00 schema → 00b auth schema → 01 OSM → 02 
 ```
 
 This also creates the `app_users` table (auth). The backend seeds the one admin account on
-first start — **`admin@gmail.com` / `P4$$w0rd!`**.
+first start from `APP_ADMIN_EMAIL` / `APP_ADMIN_PASSWORD` (the sample `.env` ships
+**`admin@gmail.com` / `P4$$w0rd!`** for local dev). Leave the password unset and the backend
+generates a random one and logs it once at startup. See [SECURITY.md](../SECURITY.md).
 
 Seed a single province instead of all 28:
 
@@ -114,7 +116,8 @@ set -a; source .env; set +a
 
 **Sign in / accounts.** First open shows a login/register gate. Sign up as an *individual*
 (free, usable now), *reporter*, or *municipality* (paid roles — land locked until an admin
-activates them). The seeded **admin** (`admin@gmail.com` / `P4$$w0rd!`) sees every lens, a
+activates them, or they self-serve "pay" via the paywall). The seeded **admin** (dev:
+`admin@gmail.com` / `P4$$w0rd!`, configurable via `APP_ADMIN_*`) sees every lens, a
 **Manage users** panel (grant paid access / change roles), and an above-the-legend
 **paid/free demo toggle** to preview the free experience. Each role sees only its own card;
 free accounts get 3 relocation checks and a limited filter set.
@@ -143,7 +146,7 @@ the ML-optimal sites (needs step 6 + the ML service running).
 | :--- | :--- |
 | Backend `UnknownHostException` / auth failed | `set -a; source .env; set +a` in that terminal, restart |
 | `Schema-validation: missing table` | run `data-engine/run_pipeline.py` before the backend (incl. `app_users`) |
-| Can't log in / forgot which admin | seeded admin is `admin@gmail.com` / `P4$$w0rd!` (hardcoded in `AdminSeeder`) |
+| Can't log in / forgot which admin | seeded admin = `APP_ADMIN_EMAIL` / `APP_ADMIN_PASSWORD` (dev `.env`: `admin@gmail.com` / `P4$$w0rd!`); if the password was unset, read the one-time generated value from the backend startup log |
 | `401`/empty landing after login | token expired or backend restarted with a new JWT secret — log in again |
 | Radar says "Scraper table empty" | run step 6 (`aop_scraper_service.py`) to populate `planned_municipal_projects` |
 | "AI: Recommend" button errors | is `ml-service` up on `:8000`? `curl localhost:8000/health` |
