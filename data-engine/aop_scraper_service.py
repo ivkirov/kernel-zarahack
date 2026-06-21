@@ -168,10 +168,29 @@ def geocode(*candidates):
             log.warning("gazetteer unavailable (%s) — caching records without coords", exc)
             _GAZETTEER = {}          # cache the failure: don't retry per record
     for cand in candidates:
-        hit = _GAZETTEER.get(_norm_town(cand))
+        if not cand:
+            continue
+        hit = _GAZETTEER.get(_norm_town(cand))      # whole string is exactly a town
         if hit:
             return hit[0], hit[1], hit[2]
+        # The execution-place field is usually a full address, not a bare town —
+        # "гр. София, Район „Възраждане“, ул. „Брегалница“ 26". Pull out the
+        # settlement-prefixed token (гр./с./общ. X) so we resolve the real town.
+        # Anchoring on the prefix is what keeps this precise: scanning every word
+        # instead would collide common words (Възраждане, Ректорат…) with tiny
+        # like-named villages and geocode projects to the wrong province.
+        for m in _PLACE_PREFIX_RE.finditer(cand):
+            hit = _GAZETTEER.get(_norm_town(m.group(1)))
+            if hit:
+                return hit[0], hit[1], hit[2]
     return None, None, None
+
+
+# Settlement-prefixed town token inside a free-text address/description:
+# "гр. София", "с.Бояджик", "гр.Казанлък", "общ. Тунджа". The captured group is the
+# town name (the prefix itself is stripped again by _norm_town before lookup).
+_PLACE_PREFIX_RE = re.compile(
+    r"\b(?:гр|с|град|село|общ|община)\.?\s*([А-ЯЀ-ӿ][А-Яа-яЀ-ӿ\-]{2,})", re.IGNORECASE)
 
 
 # --------------------------------------------------------------------------- #
@@ -276,7 +295,14 @@ def classify(description):
 # Persist
 # --------------------------------------------------------------------------- #
 def upsert_records(records):
-    """INSERT ... ON CONFLICT DO NOTHING (dedup by AOP id). Returns rows written."""
+    """INSERT ... ON CONFLICT DO UPDATE (dedup by AOP id, backfilling coords).
+
+    A plain DO NOTHING would permanently freeze the first values we ever cached —
+    so any record first stored without coordinates (e.g. before the gazetteer was
+    deployed, or when its detail page errored) could never be geocoded by a later
+    re-scrape. We refresh on conflict instead, but COALESCE the enrichment fields
+    so a re-scrape that *loses* a location never overwrites a previously-good one.
+    """
     if not records:
         log.info("no records to persist")
         return 0
@@ -296,13 +322,19 @@ def upsert_records(records):
                     INSERT INTO planned_municipal_projects
                       (procurement_number, buyer_name, project_name, amenity_type, lat, lon, district)
                     VALUES %s
-                    ON CONFLICT (procurement_number) DO NOTHING
+                    ON CONFLICT (procurement_number) DO UPDATE SET
+                      project_name = EXCLUDED.project_name,
+                      amenity_type = EXCLUDED.amenity_type,
+                      buyer_name = COALESCE(EXCLUDED.buyer_name, planned_municipal_projects.buyer_name),
+                      lat        = COALESCE(EXCLUDED.lat,        planned_municipal_projects.lat),
+                      lon        = COALESCE(EXCLUDED.lon,        planned_municipal_projects.lon),
+                      district   = COALESCE(EXCLUDED.district,   planned_municipal_projects.district)
                 """, values, page_size=500)
             conn.commit()
     except psycopg2.Error as exc:
         log.error("DB write failed: %s", exc)
         return 0
-    log.info("%d civic build(s) upserted (dedup on conflict)", len(values))
+    log.info("%d civic build(s) upserted (coords backfilled on conflict)", len(values))
     return len(values)
 
 
@@ -328,7 +360,9 @@ def scrape_term(term):
         amenity = classify(h.get("project_name", "")) or classify(buyer or "")
         if amenity is None:
             continue
-        lat, lon, district = geocode(town, buyer)
+        # Try the authoritative execution-place first, then the subject description
+        # (it often names the town when the detail page errors), then the buyer.
+        lat, lon, district = geocode(town, h.get("project_name", ""), buyer)
         out.append({
             "procurement_number": pid,
             "buyer_name": buyer,
