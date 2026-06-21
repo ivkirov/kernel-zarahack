@@ -1483,6 +1483,11 @@ let selectedCity = null;   // town-scope: the picked city, so Recommend centres 
 function makeCombo({ input, list, minChars, allOnFocus, getItems, onPick }) {
   if (!input || !list) return;
   let matches = [], active = -1;
+  // The label of the current selection (prefilled, e.g. "All Bulgaria"). Tracked
+  // so an allOnFocus combo can blank the field on focus — letting the list open
+  // and the first keystroke filter cleanly — then restore it on blur if nothing
+  // new was picked.
+  let committed = input.value;
   const close = () => { list.classList.add("hidden"); list.innerHTML = ""; active = -1; };
   const paint = () => [...list.children].forEach((li, i) =>
     li.firstElementChild.classList.toggle("bg-panel2", i === active));
@@ -1512,10 +1517,14 @@ function makeCombo({ input, list, minChars, allOnFocus, getItems, onPick }) {
     matches = pre.concat(sub).slice(0, 8);
     render();
   };
-  const choose = (i) => { const it = matches[i]; if (!it) return; close(); onPick(it); };
+  const choose = (i) => { const it = matches[i]; if (!it) return; close(); onPick(it); committed = input.value; };
   input.addEventListener("input", () => run(false));
   input.addEventListener("focus", () => {
-    if (allOnFocus && !input.value.trim()) run(true);
+    // An allOnFocus combo is prefilled with the current selection, not a
+    // half-typed query. Blank it and open the full list so the dropdown shows
+    // on click and the next keystroke filters cleanly (instead of appending to
+    // the label, which matched nothing and forced a manual delete).
+    if (allOnFocus) { committed = input.value; input.value = ""; run(true); }
     else if (input.value.trim().length >= minChars) run(false);
   });
   input.addEventListener("keydown", (e) => {
@@ -1530,7 +1539,12 @@ function makeCombo({ input, list, minChars, allOnFocus, getItems, onPick }) {
     const btn = e.target.closest("button[data-i]");
     if (btn) { e.preventDefault(); choose(+btn.dataset.i); }
   });
-  input.addEventListener("blur", () => setTimeout(close, 120));
+  input.addEventListener("blur", () => setTimeout(() => {
+    close();
+    // Restore the committed label so leaving the field blank (or with an
+    // unpicked partial query) doesn't strand the input empty or stale.
+    if (allOnFocus) input.value = committed;
+  }, 120));
 }
 
 function setDistrict(d) {
