@@ -24,6 +24,7 @@ import csv
 import io
 import logging
 import re
+import sys
 import time
 import zipfile
 from urllib.parse import quote, urljoin
@@ -347,6 +348,12 @@ def run_scrape_job():
 
 
 def main():
+    # --once: run a single pass and exit (used by the admin "force scrape" button,
+    # which shells out to this script on demand instead of waiting for the schedule).
+    if "--once" in sys.argv:
+        log.info("single-shot mode (--once): one pass then exit")
+        run_scrape_job()
+        return
     run_scrape_job()                             # immediate run so it's testable now
     scheduler = BlockingScheduler()
     scheduler.add_job(run_scrape_job, "interval", weeks=2, id="aop_biweekly")

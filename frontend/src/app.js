@@ -1079,6 +1079,7 @@ function enterMunicipal() {
     show($("amenityControl"), true);
     show($("layerControl"), true);
     show($("cellsRow"), true);
+    $("toggleCells").checked = cellsOn;   // keep the heatmap checkbox in sync with state
     setScope("province");
     setModeLayerDefaults("municipal");
     buildLayerToggles("municipal");

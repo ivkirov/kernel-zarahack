@@ -260,9 +260,12 @@
       "paywall.body.ACCESS_PENDING": "This is where a paywall would go. Pay to unlock your tier and start using it right away.",
 
       // Admin
-      "admin.manage": "Manage users",
-      "admin.title": "User management",
-      "admin.subtitle": "Grant paid access and assign roles.",
+      "admin.manage": "Admin settings",
+      "admin.title": "Admin settings",
+      "admin.subtitle": "Manage accounts and the Civic Radar feed.",
+      "admin.tab.users": "Users",
+      "admin.tab.radar": "Radar",
+      "admin.users.subtitle": "Grant paid access and assign roles.",
       "admin.col.account": "Account",
       "admin.col.role": "Role",
       "admin.col.access": "Access",
@@ -273,6 +276,15 @@
       "admin.failed": "Failed to load users.",
       "admin.empty": "No users yet.",
       "admin.locked": "locked",
+      "admin.radar.subtitle": "The Civic Radar feed is scraped automatically every two weeks. Force a fresh scrape now if you need up-to-date procurement data.",
+      "admin.radar.heading": "Procurement scrape",
+      "admin.radar.force": "Force scrape",
+      "admin.radar.scraping": "Scraping…",
+      "admin.radar.idle": "Idle — runs on the bi-weekly schedule.",
+      "admin.radar.running": "Scrape in progress — this can take a few minutes…",
+      "admin.radar.success": "Last scrape finished {when}.",
+      "admin.radar.failed": "Scrape failed: {msg}",
+      "admin.radar.triggerFailed": "Could not start the scrape.",
 
       // Demo paid toggle (admin)
       "paidToggle.label": "Paid user",
@@ -588,9 +600,12 @@
       "paywall.body.ACCESS_PENDING": "Тук би стоял платежен модул. Плати, за да отключиш нивото си и да започнеш да го ползваш веднага.",
 
       // Администрация
-      "admin.manage": "Управление на потребители",
-      "admin.title": "Управление на потребители",
-      "admin.subtitle": "Дай платен достъп и задай роли.",
+      "admin.manage": "Админ настройки",
+      "admin.title": "Админ настройки",
+      "admin.subtitle": "Управлявай акаунтите и подаването на Civic Radar.",
+      "admin.tab.users": "Потребители",
+      "admin.tab.radar": "Радар",
+      "admin.users.subtitle": "Дай платен достъп и задай роли.",
       "admin.col.account": "Акаунт",
       "admin.col.role": "Роля",
       "admin.col.access": "Достъп",
@@ -601,6 +616,15 @@
       "admin.failed": "Неуспешно зареждане на потребители.",
       "admin.empty": "Все още няма потребители.",
       "admin.locked": "заключен",
+      "admin.radar.subtitle": "Данните за Civic Radar се събират автоматично на всеки две седмици. Принуди ново събиране сега, ако ти трябват актуални данни за обществените поръчки.",
+      "admin.radar.heading": "Събиране на поръчки",
+      "admin.radar.force": "Принудително събиране",
+      "admin.radar.scraping": "Събиране…",
+      "admin.radar.idle": "Неактивно — изпълнява се на всеки две седмици.",
+      "admin.radar.running": "Събирането тече — това може да отнеме няколко минути…",
+      "admin.radar.success": "Последното събиране приключи {when}.",
+      "admin.radar.failed": "Събирането се провали: {msg}",
+      "admin.radar.triggerFailed": "Неуспешно стартиране на събирането.",
 
       // Демо превключвател за платен достъп (админ)
       "paidToggle.label": "Платен потребител",

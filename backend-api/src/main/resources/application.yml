@@ -37,3 +37,12 @@ app:
   # Path to the deploy stamp written by scripts/deploy.sh; surfaced at GET /api/v1/version.
   # Empty when running locally without a deploy — the endpoint then reports "unknown".
   deploy-stamp-path: ${DEPLOY_STAMP_PATH:}
+  # Civic Radar scraper. Normally runs bi-weekly as a standalone service; the admin
+  # "force scrape" button shells out to it once on demand via these paths.
+  radar:
+    scraper:
+      # Working directory of the Python data-engine (where the script + venv live).
+      dir: ${RADAR_SCRAPER_DIR:../data-engine}
+      # Python interpreter to use — the data-engine venv by default.
+      python: ${RADAR_SCRAPER_PYTHON:../data-engine/venv/bin/python}
+      script: ${RADAR_SCRAPER_SCRIPT:aop_scraper_service.py}

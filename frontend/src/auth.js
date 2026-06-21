@@ -216,9 +216,24 @@
     }
   }
 
-  // ---- admin user management ----
+  // ---- admin settings ----
+  // Switch between the "Users" and "Radar" categories of the admin panel.
+  function selectAdminTab(name) {
+    document.querySelectorAll("[data-admin-tab]").forEach((btn) => {
+      const active = btn.dataset.adminTab === name;
+      btn.classList.toggle("text-slate-100", active);
+      btn.classList.toggle("border-accent", active);
+      btn.classList.toggle("text-faint", !active);
+      btn.classList.toggle("border-transparent", !active);
+    });
+    show($("adminTab-users"), name === "users");
+    show($("adminTab-radar"), name === "radar");
+  }
+
   async function openAdmin() {
     show($("adminModal"), true);
+    selectAdminTab("users");
+    refreshScrapeStatus();
     const body = $("adminTableBody");
     body.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-muted">${T("admin.loading")}</td></tr>`;
     try {
@@ -229,7 +244,10 @@
       if (!err.paywall) body.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-rose-400">${T("admin.failed")}</td></tr>`;
     }
   }
-  function closeAdmin() { show($("adminModal"), false); }
+  function closeAdmin() {
+    show($("adminModal"), false);
+    if (scrapePollTimer) { clearInterval(scrapePollTimer); scrapePollTimer = null; }
+  }
 
   // ADMIN is intentionally omitted — there is exactly one (seeded) admin account.
   const ROLES = ["FREE_USER", "PAID_USER", "REPORTER", "MUNICIPALITY"];
@@ -294,6 +312,58 @@
     if (!list.length) body.innerHTML = `<tr><td colspan="4" class="py-4 text-center text-muted">${T("admin.empty")}</td></tr>`;
   }
 
+  // ---- radar scraper control ----
+  let scrapePollTimer = null;
+
+  // Reflect a scrape Status DTO ({state, startedAt, finishedAt, message}) in the panel.
+  function renderScrapeStatus(s) {
+    const el = $("radarScrapeStatus");
+    const btn = $("forceScrapeBtn");
+    if (!el || !btn) return;
+    const state = (s && s.state) || "IDLE";
+    const running = state === "RUNNING";
+    btn.disabled = running;
+    btn.textContent = running ? T("admin.radar.scraping") : T("admin.radar.force");
+    if (state === "RUNNING") {
+      el.className = "text-xs text-amber-400 mt-1";
+      el.textContent = T("admin.radar.running");
+    } else if (state === "SUCCESS") {
+      el.className = "text-xs text-emerald-400 mt-1";
+      const when = s.finishedAt ? new Date(s.finishedAt).toLocaleString() : "";
+      el.textContent = T("admin.radar.success", { when });
+    } else if (state === "FAILED") {
+      el.className = "text-xs text-rose-400 mt-1";
+      el.textContent = T("admin.radar.failed", { msg: s.message || "" });
+    } else {
+      el.className = "text-xs text-muted mt-1";
+      el.textContent = T("admin.radar.idle");
+    }
+    // Keep polling while a run is in flight; stop once it settles.
+    if (running && !scrapePollTimer) {
+      scrapePollTimer = setInterval(refreshScrapeStatus, 3000);
+    } else if (!running && scrapePollTimer) {
+      clearInterval(scrapePollTimer); scrapePollTimer = null;
+    }
+  }
+
+  async function refreshScrapeStatus() {
+    try {
+      const res = await apiFetch(ADMIN_BASE_URL + "/radar/scrape");
+      renderScrapeStatus(await res.json());
+    } catch { /* leave the current text on transient errors */ }
+  }
+
+  async function forceScrape() {
+    const btn = $("forceScrapeBtn");
+    if (btn) { btn.disabled = true; btn.textContent = T("admin.radar.scraping"); }
+    try {
+      const res = await apiFetch(ADMIN_BASE_URL + "/radar/scrape", { method: "POST" });
+      renderScrapeStatus(await res.json());
+    } catch (err) {
+      if (!err.paywall) renderScrapeStatus({ state: "FAILED", message: T("admin.radar.triggerFailed") });
+    }
+  }
+
   // ---- public API ----
   window.Auth = {
     get user() { return user; },
@@ -325,6 +395,10 @@
     const up = $("acctUpgradeBtn");
     if (up) up.addEventListener("click", () => showPaywall("UPGRADE"));
     $("adminClose").addEventListener("click", closeAdmin);
+    document.querySelectorAll("[data-admin-tab]").forEach((btn) =>
+      btn.addEventListener("click", () => selectAdminTab(btn.dataset.adminTab)));
+    const scrapeBtn = $("forceScrapeBtn");
+    if (scrapeBtn) scrapeBtn.addEventListener("click", forceScrape);
     // Re-localize auth/admin labels on a live locale switch.
     if (window.I18n) window.I18n.onChange(() => { switchAuthMode(authMode); renderAccountBar(); });
     bootstrap();
