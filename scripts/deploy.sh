@@ -10,8 +10,14 @@
 set -Eeuo pipefail
 
 DEPLOY_DIR="${DEPLOY_DIR:-/home/user/project}"
+# Source lib.sh next to THIS script (the runner's checkout, already at the target
+# SHA), NOT from $DEPLOY_DIR — whose tree still holds the previously-deployed
+# commit until sync_tree runs below. Sourcing the canonical copy first loads a
+# stale lib.sh and blows up the instant deploy.sh calls a newly-added helper
+# (e.g. migrate_schema added in the same commit that starts calling it).
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=lib.sh
-source "$DEPLOY_DIR/scripts/lib.sh"
+source "$SCRIPT_DIR/lib.sh"
 
 SHA="${1:-}"
 
