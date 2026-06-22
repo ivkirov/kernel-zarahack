@@ -1,5 +1,11 @@
 """Central config for the Reclaim data engine.
 
+Everything region-specific is loaded from the shared region YAML (repo-root
+``config/region.yaml``, falling back to ``config/region.example.yaml``) — the same
+file the ML service reads. Override the path with ``REGION_CONFIG``. This module
+keeps its long-standing public names (``PBF_PATH``, ``PROVINCES``, ``AMENITY_MAP``,
+…) so every ETL step keeps working; only their *source* moved into config.
+
 Real data sources (read straight from the gitignored ../datasets/ folder):
   - OSM .pbf  -> supply nodes (kindergartens, schools, hospitals, clinics, pharmacies)
   - NSI xlsx  -> demand weights (population by province x age x urban/rural)
@@ -10,96 +16,83 @@ See docs/datasets.md and docs/data-pipeline.md for the full method.
 import os
 from pathlib import Path
 
+import yaml
+
 BASE_DIR = Path(__file__).resolve().parent
-DATASETS_DIR = BASE_DIR.parent / "datasets"
+REPO_DIR = BASE_DIR.parent
 OUT_DIR = BASE_DIR / "out"
 OUT_DIR.mkdir(exist_ok=True)
 
+
+# --- Load the region config (single source of truth) ----------------------- #
+def _region_config_path() -> Path:
+    for c in (os.getenv("REGION_CONFIG"),
+              REPO_DIR / "config" / "region.yaml",
+              REPO_DIR / "config" / "region.example.yaml"):
+        if c and Path(c).exists():
+            return Path(c)
+    raise FileNotFoundError(
+        "No region config found. Create config/region.yaml from "
+        "config/region.example.yaml, or set REGION_CONFIG=/path/to/region.yaml."
+    )
+
+
+with open(_region_config_path(), encoding="utf-8") as _f:
+    _CFG = yaml.safe_load(_f)
+
+_ds = Path(_CFG["datasets_dir"])
+DATASETS_DIR = _ds if _ds.is_absolute() else REPO_DIR / _ds
+
+
+def _dataset(key: str) -> Path:
+    return DATASETS_DIR / _CFG["datasets"][key]
+
+
 # --- Raw inputs (the files the user downloaded into ../datasets) ---
-PBF_PATH          = DATASETS_DIR / "bulgaria-260618.osm.pbf"
-NSI_XLSX_PATH     = DATASETS_DIR / "Население по области, възраст, местоживеене и пол.xlsx"
-GEONAMES_ZIP      = DATASETS_DIR / "BG.zip"
-GEONAMES_MEMBER   = "BG.txt"
-BOUNDARIES_GEOJSON = DATASETS_DIR / "geoBoundaries-BGR-ADM2_simplified.geojson"  # optional map overlay
+PBF_PATH           = _dataset("osm_pbf")
+NSI_XLSX_PATH      = _dataset("nsi_xlsx")
+GEONAMES_ZIP       = _dataset("geonames_zip")
+GEONAMES_MEMBER    = _CFG["datasets"]["geonames_member"]
+BOUNDARIES_GEOJSON = _dataset("boundaries_geojson")   # optional map overlay
 
-# --- Seed scope ---
-# True  -> extract & seed all 28 provinces (the `district` column carries each name).
+# --- Seed scope (env still wins, for ad-hoc runs) ---
+# True  -> extract & seed all provinces (the `district` column carries each name).
 # The frontend still boots into ACTIVE_DISTRICT; the others are query-switchable.
-SEED_NATIONWIDE = os.getenv("TPM_NATIONWIDE", "1") != "0"
-ACTIVE_DISTRICT = os.getenv("TPM_DISTRICT", "Stara Zagora")
+SEED_NATIONWIDE = os.getenv("TPM_NATIONWIDE", "1" if _CFG["seed_nationwide"] else "0") != "0"
+ACTIVE_DISTRICT = os.getenv("TPM_DISTRICT", _CFG["active_district"])
 
-# --- Province crosswalk: NSI Cyrillic name -> (GeoNames admin1 code, app/Latin name) ---
-# Bulgaria's 28 oblasti. GeoNames tags every settlement with the admin1 code; NSI labels
-# rows in Cyrillic; the frontend speaks the Latin name. This dict ties the three together.
-PROVINCES = {
-    "Благоевград":     ("38", "Blagoevgrad"),
-    "Бургас":          ("39", "Burgas"),
-    "Добрич":          ("40", "Dobrich"),
-    "Габрово":         ("41", "Gabrovo"),
-    "София (столица)": ("42", "Sofia (Capital)"),
-    "Хасково":         ("43", "Haskovo"),
-    "Кърджали":        ("44", "Kardzhali"),
-    "Кюстендил":       ("45", "Kyustendil"),
-    "Ловеч":           ("46", "Lovech"),
-    "Монтана":         ("47", "Montana"),
-    "Пазарджик":       ("48", "Pazardzhik"),
-    "Перник":          ("49", "Pernik"),
-    "Плевен":          ("50", "Pleven"),
-    "Пловдив":         ("51", "Plovdiv"),
-    "Разград":         ("52", "Razgrad"),
-    "Русе":            ("53", "Ruse"),
-    "Шумен":           ("54", "Shumen"),
-    "Силистра":        ("55", "Silistra"),
-    "Сливен":          ("56", "Sliven"),
-    "Смолян":          ("57", "Smolyan"),
-    "София":           ("58", "Sofia Province"),
-    "Стара Загора":    ("59", "Stara Zagora"),
-    "Търговище":       ("60", "Targovishte"),
-    "Варна":           ("61", "Varna"),
-    "Велико Търново":  ("62", "Veliko Tarnovo"),
-    "Видин":           ("63", "Vidin"),
-    "Враца":           ("64", "Vratsa"),
-    "Ямбол":           ("65", "Yambol"),
-}
+# --- Province crosswalk: census name -> (GeoNames admin1 code, app/Latin name) ---
+# GeoNames tags every settlement with the admin1 code; the census labels rows in
+# its own language; the frontend speaks the Latin name. This dict ties the three.
+PROVINCES = {cyr: (code, latin) for cyr, (code, latin) in
+             ((k, tuple(v)) for k, v in _CFG["provinces"].items())}
 ADMIN1_TO_DISTRICT = {a1: latin for (a1, latin) in PROVINCES.values()}
 
 # --- OSM amenity -> our normalized service_type + the demand group it serves ---
-AMENITY_MAP = {
-    "kindergarten": ("kindergarten", "children_0_6"),
-    "school":       ("school",       "children_0_6"),
-    "hospital":     ("hospital",     "seniors_65p"),
-    "clinic":       ("clinic",       "seniors_65p"),
-    "doctors":      ("clinic",       "seniors_65p"),
-    "pharmacy":     ("pharmacy",     "seniors_65p"),
-}
+AMENITY_MAP = {k: tuple(v) for k, v in _CFG["amenity_map"].items()}
 
-# --- NSI age bands -> our two cohorts ---
-# Bands are 5-year ('5 - 9') except age 0. To approximate the 0-6 cohort we take all of
-# ages 0-4 plus 2/5 of the 5-9 band (ages 5 & 6, assuming a uniform spread of single years).
-CHILD_BANDS  = {"0": 1.0, "1 - 4": 1.0, "5 - 9": 2.0 / 5.0}
-SENIOR_BANDS = {b: 1.0 for b in
-                ["65 - 69", "70 - 74", "75 - 79", "80 - 84",
-                 "85 - 89", "90 - 94", "95 - 99", "100 +"]}
+# --- Census age bands -> our two cohorts ---
+# Bands are 5-year ('5 - 9') except age 0. To approximate the 0-6 cohort we take all
+# of ages 0-4 plus 2/5 of the 5-9 band (ages 5 & 6, assuming a uniform spread).
+CHILD_BANDS  = dict(_CFG["child_bands"])
+SENIOR_BANDS = {b: 1.0 for b in _CFG["senior_bands"]}
 
 # --- Urban/rural classification of a GeoNames place ---
-# NSI splits each province into "в градовете" (urban) and "в селата" (rural); we apply the
-# matching age-share to each settlement. A place counts as urban if it is an administrative
-# seat or clears a town-size population threshold; everything else is treated as a village.
-URBAN_FCODES = {"PPLC", "PPLA", "PPLA2", "PPLA3"}
-URBAN_POP_THRESHOLD = 2000
-# Relative weight used to spread a province's rural population across villages GeoNames lists
-# without a population figure (~6.9k of them). Only the *ratio* matters: totals are normalized
-# back to NSI, so this just shares the rural residual roughly evenly across small villages.
-VILLAGE_DEFAULT_WEIGHT = 250
+# A place counts as urban if it is an administrative seat or clears a town-size
+# population threshold; everything else is treated as a village.
+URBAN_FCODES = set(_CFG["urban_fcodes"])
+URBAN_POP_THRESHOLD = int(_CFG["urban_pop_threshold"])
+# Relative weight used to spread a province's rural population across villages
+# GeoNames lists without a population figure. Only the *ratio* matters: totals are
+# normalized back to the census, so this just shares the rural residual evenly.
+VILLAGE_DEFAULT_WEIGHT = int(_CFG["village_default_weight"])
 
 # --- Travel-time proxy (one-way minutes = haversine_km / speed * 60) ---
-ASSUMED_SPEED_KMH = float(os.getenv("TPM_SPEED_KMH", "4.5"))
+ASSUMED_SPEED_KMH = float(os.getenv("TPM_SPEED_KMH", str(_CFG["assumed_speed_kmh"])))
 
 # --- Annual round-trips per group (drives the wasted-hours math in the backend) ---
-VISITS_PER_YEAR = {
-    "children_0_6": 180,
-    "seniors_65p":  24,
-}
+VISITS_PER_YEAR = dict(_CFG["visits_per_year"])
+
 
 # --- DB connection (env-driven; loaded via python-dotenv) ---
 def pg_dsn() -> dict:

@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 
 import dataload
+import region
 import sim
 from sim import _haversine_vec
 
@@ -30,9 +31,9 @@ except Exception:                                 # graceful fallback
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_absolute_error, r2_score
 
-BG_BBOX = (22.30, 41.20, 28.65, 44.22)            # min_lon, min_lat, max_lon, max_lat
+BBOX = region.bbox()                              # min_lon, min_lat, max_lon, max_lat
 GRID = int(os.getenv("PLACE_GRID", "44"))         # 44x44 = 1936 candidate sites
-AMENITY = os.getenv("PLACE_AMENITY", "kindergarten")
+AMENITY = region.placement_amenity()
 MODELS = Path(__file__).parent / "models"
 MODELS.mkdir(exist_ok=True)
 
@@ -56,7 +57,7 @@ def main():
     base_min = cells["base_min"].values
 
     print("Sweeping candidate grid -> hours-saved labels...")
-    min_lon, min_lat, max_lon, max_lat = BG_BBOX
+    min_lon, min_lat, max_lon, max_lat = BBOX
     rows = []
     for la in np.linspace(min_lat, max_lat, GRID):
         for lo in np.linspace(min_lon, max_lon, GRID):

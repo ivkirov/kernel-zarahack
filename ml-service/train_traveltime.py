@@ -32,9 +32,10 @@ from sklearn.metrics import mean_absolute_error, r2_score
 
 from geo import haversine_km
 import dataload
+import region
 
-# Bulgaria-wide sampling box (min_lon, min_lat, max_lon, max_lat)
-BG_BBOX = (22.30, 41.20, 28.65, 44.22)
+# Region-wide sampling box (min_lon, min_lat, max_lon, max_lat), from config.
+BBOX = region.bbox()
 N_SAMPLES = int(os.getenv("TT_SAMPLES", "800"))      # target REAL labels to collect
 ORS_KEY = os.getenv("ORS_API_KEY")
 # ORS free tier: 40 directions/min, 2000/day. Space calls to stay under the rate.
@@ -168,7 +169,7 @@ def main():
             raise SystemExit("Too few real ORS labels collected — aborting (check key/quota).")
     else:
         print(f"Building {N_SAMPLES} synthetic OD samples...")
-        min_lon, min_lat, max_lon, max_lat = BG_BBOX
+        min_lon, min_lat, max_lon, max_lat = BBOX
         for _ in range(N_SAMPLES):
             o = (random.uniform(min_lat, max_lat), random.uniform(min_lon, max_lon))
             d = (o[0] + random.uniform(-0.45, 0.45), o[1] + random.uniform(-0.45, 0.45))

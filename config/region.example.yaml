@@ -1,0 +1,112 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Reclaim — Region configuration
+#
+# This is the single source of truth that points the whole pipeline (ETL, both ML
+# models, and the seeded province crosswalk) at ONE region. Nothing about the
+# region should be hard-coded in source anymore — it all lives here.
+#
+#   1. Copy this file:        cp config/region.example.yaml config/region.yaml
+#   2. Edit it for your area  (bbox, dataset filenames, province crosswalk, ...)
+#   3. Drop the raw files into the datasets/ dir named below
+#   4. Run:                   python scripts/retrain.py --config config/region.yaml
+#
+# Override the path anywhere with the REGION_CONFIG env var. If config/region.yaml
+# does not exist, the loaders fall back to THIS example, so a fresh clone of the
+# Bulgaria pilot trains out-of-the-box.
+#
+# The shipped example reproduces the ZaraHack 2026 Bulgaria pilot.
+# ─────────────────────────────────────────────────────────────────────────────
+
+name: Bulgaria
+country_code: BG          # GeoNames country code (the BG.txt / BG.zip dump)
+
+# Geographic sampling box used to draw training samples and the placement grid.
+# Order: [min_lon, min_lat, max_lon, max_lat]
+bbox: [22.30, 41.20, 28.65, 44.22]
+
+# ── Raw inputs ───────────────────────────────────────────────────────────────
+# Paths are resolved relative to datasets_dir (itself relative to the repo root,
+# unless absolute). Download these into that folder; see docs/datasets.md.
+datasets_dir: datasets
+datasets:
+  osm_pbf:            bulgaria-260618.osm.pbf
+  nsi_xlsx:           "Население по области, възраст, местоживеене и пол.xlsx"
+  geonames_zip:       BG.zip
+  geonames_member:    BG.txt
+  geonames_txt:       BG/BG.txt          # the extracted tab-separated dump
+  boundaries_geojson: geoBoundaries-BGR-ADM2_simplified.geojson   # optional map overlay
+
+# ── Scope ────────────────────────────────────────────────────────────────────
+seed_nationwide: true          # seed every province; false = only active_district
+active_district: Stara Zagora  # province the frontend boots into
+
+# ── Service supply: OSM amenity -> [normalized service_type, demand group] ─────
+amenity_map:
+  kindergarten: [kindergarten, children_0_6]
+  school:       [school,       children_0_6]
+  hospital:     [hospital,     seniors_65p]
+  clinic:       [clinic,       seniors_65p]
+  doctors:      [clinic,       seniors_65p]
+  pharmacy:     [pharmacy,     seniors_65p]
+
+# ── Demand groups: annual round-trips (drives the wasted-hours math) ──────────
+visits_per_year:
+  children_0_6: 180
+  seniors_65p:  24
+
+# Amenity the placement model optimizes for by default (override per-run with
+# PLACE_AMENITY or scripts/retrain.py --amenities).
+placement_amenity: kindergarten
+
+# Fallback travel-time proxy (one-way minutes = haversine_km / speed * 60),
+# used only where the learned traveltime.pkl is unavailable.
+assumed_speed_kmh: 4.5
+
+# ── Census age-band -> cohort weighting ──────────────────────────────────────
+# Labels must match the census sheet exactly. Weights let you approximate a
+# cohort from coarser bands (e.g. ages 5-6 ≈ 2/5 of a "5 - 9" band).
+child_bands:
+  "0": 1.0
+  "1 - 4": 1.0
+  "5 - 9": 0.4
+senior_bands:
+  ["65 - 69", "70 - 74", "75 - 79", "80 - 84", "85 - 89", "90 - 94", "95 - 99", "100 +"]
+
+# ── Urban/rural classification of a GeoNames place ───────────────────────────
+urban_fcodes: [PPLC, PPLA, PPLA2, PPLA3]   # admin seats count as urban
+urban_pop_threshold: 2000                  # otherwise urban if pop >= this
+village_default_weight: 250                # relative weight for pop-less villages
+
+# ── Province crosswalk ───────────────────────────────────────────────────────
+# census_name -> [geonames_admin1_code, app/Latin display name]
+# GeoNames tags every settlement with the admin1 code; the census labels rows in
+# its own language; the app speaks the Latin name. This dict ties the three.
+provinces:
+  "Благоевград":     ["38", "Blagoevgrad"]
+  "Бургас":          ["39", "Burgas"]
+  "Добрич":          ["40", "Dobrich"]
+  "Габрово":         ["41", "Gabrovo"]
+  "София (столица)": ["42", "Sofia (Capital)"]
+  "Хасково":         ["43", "Haskovo"]
+  "Кърджали":        ["44", "Kardzhali"]
+  "Кюстендил":       ["45", "Kyustendil"]
+  "Ловеч":           ["46", "Lovech"]
+  "Монтана":         ["47", "Montana"]
+  "Пазарджик":       ["48", "Pazardzhik"]
+  "Перник":          ["49", "Pernik"]
+  "Плевен":          ["50", "Pleven"]
+  "Пловдив":         ["51", "Plovdiv"]
+  "Разград":         ["52", "Razgrad"]
+  "Русе":            ["53", "Ruse"]
+  "Шумен":           ["54", "Shumen"]
+  "Силистра":        ["55", "Silistra"]
+  "Сливен":          ["56", "Sliven"]
+  "Смолян":          ["57", "Smolyan"]
+  "София":           ["58", "Sofia Province"]
+  "Стара Загора":    ["59", "Stara Zagora"]
+  "Търговище":       ["60", "Targovishte"]
+  "Варна":           ["61", "Varna"]
+  "Велико Търново":  ["62", "Veliko Tarnovo"]
+  "Видин":           ["63", "Vidin"]
+  "Враца":           ["64", "Vratsa"]
+  "Ямбол":           ["65", "Yambol"]

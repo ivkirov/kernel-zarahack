@@ -15,22 +15,18 @@ from pathlib import Path
 
 import pandas as pd
 
-DATASETS = Path(__file__).resolve().parent.parent / "datasets"
-NSI_XLSX = DATASETS / "Население по области, възраст, местоживеене и пол.xlsx"
-GEONAMES = DATASETS / "BG" / "BG.txt"
-PBF = DATASETS / "bulgaria-260618.osm.pbf"
+import region
+
+# Region-specific inputs + crosswalks come from config/region.yaml (see region.py).
+DATASETS = region.datasets_dir()
+NSI_XLSX = region.dataset_path("nsi_xlsx")
+GEONAMES = region.dataset_path("geonames_txt")
+PBF = region.dataset_path("osm_pbf")
 
 # OSM amenity -> (service_type, target group)
-AMENITY_MAP = {
-    "kindergarten": ("kindergarten", "children_0_6"),
-    "school":       ("school",       "children_0_6"),
-    "hospital":     ("hospital",     "seniors_65p"),
-    "clinic":       ("clinic",       "seniors_65p"),
-    "doctors":      ("clinic",       "seniors_65p"),
-    "pharmacy":     ("pharmacy",     "seniors_65p"),
-}
+AMENITY_MAP = region.amenity_map()
 
-# NSI districts that are NOT real province blocks
+# Census district labels that are NOT real province blocks (national totals etc.)
 _SKIP_LABELS = {"Общо за страната"}
 
 
@@ -149,26 +145,13 @@ def load_weights():
     return df[df["population"] > 0].reset_index(drop=True)
 
 
-# Authoritative crosswalk (mirrors data-engine/config.py PROVINCES):
-#   NSI Cyrillic name -> (GeoNames admin1 code, app/Latin name)
-# Using the explicit admin1 code correctly separates София (столица)=42 from
-# София=58 and yields the Latin names the rest of this project speaks.
-PROVINCES = {
-    "Благоевград": ("38", "Blagoevgrad"), "Бургас": ("39", "Burgas"),
-    "Добрич": ("40", "Dobrich"), "Габрово": ("41", "Gabrovo"),
-    "София (столица)": ("42", "Sofia (Capital)"), "Хасково": ("43", "Haskovo"),
-    "Кърджали": ("44", "Kardzhali"), "Кюстендил": ("45", "Kyustendil"),
-    "Ловеч": ("46", "Lovech"), "Монтана": ("47", "Montana"),
-    "Пазарджик": ("48", "Pazardzhik"), "Перник": ("49", "Pernik"),
-    "Плевен": ("50", "Pleven"), "Пловдив": ("51", "Plovdiv"),
-    "Разград": ("52", "Razgrad"), "Русе": ("53", "Ruse"), "Шумен": ("54", "Shumen"),
-    "Силистра": ("55", "Silistra"), "Сливен": ("56", "Sliven"),
-    "Смолян": ("57", "Smolyan"), "София": ("58", "Sofia Province"),
-    "Стара Загора": ("59", "Stara Zagora"), "Търговище": ("60", "Targovishte"),
-    "Варна": ("61", "Varna"), "Велико Търново": ("62", "Veliko Tarnovo"),
-    "Видин": ("63", "Vidin"), "Враца": ("64", "Vratsa"), "Ямбол": ("65", "Yambol"),
-}
-# admin1 code -> (NSI Cyrillic key for the totals lookup, Latin display name)
+# Authoritative crosswalk, loaded from config/region.yaml (single source of truth,
+# shared with data-engine/config.py):
+#   census name -> (GeoNames admin1 code, app/Latin name)
+# Using the explicit admin1 code correctly separates the capital from its province
+# (e.g. София (столица)=42 vs София=58) and yields the Latin names this project speaks.
+PROVINCES = region.provinces()
+# admin1 code -> (census key for the totals lookup, Latin display name)
 _CODE_TO_PROVINCE = {code: (cyr, latin) for cyr, (code, latin) in PROVINCES.items()}
 
 

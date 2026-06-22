@@ -98,9 +98,15 @@
   body, .glass, .leaflet-popup-content-wrapper { transition: background-color .35s ease, color .35s ease; }
 
   /* ---- Maps (light) theme overrides for hand-tuned dark literals ---- */
-  /* Markup hardcodes a couple of slate text colors for light-on-dark; flip them. */
+  /* Markup hardcodes slate text colors for light-on-dark; flip them so they stay
+     readable on the light surfaces. Covers the AI-explanation bodies (reco cards
+     use text-slate-300) which were rendering near-invisible on white. NB: we do
+     NOT touch .text-white — it only sits on solid accent/emerald buttons, where
+     white is correct in both themes. */
   html.theme-maps .text-slate-100 { color: rgb(var(--c-ink)); }
   html.theme-maps .text-slate-200 { color: #3c4043; }
+  html.theme-maps .text-slate-300 { color: #4b5563; }
+  html.theme-maps .text-slate-400 { color: #5a5f67; }
 
   /* Calmer, neutral ambient wash instead of the cyan/emerald glow */
   html.theme-maps body::before {

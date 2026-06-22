@@ -893,8 +893,8 @@ function haversineKm(aLat, aLon, bLat, bLon) {
   return 2 * R * Math.asin(Math.sqrt(s));
 }
 
-// Audit verdict colours/glyphs. `far` = the model's optimal sits beyond the
-// province's own scale, so the deviation is not a meaningful misalignment.
+// Audit verdict colours/glyphs. `far` = the local optimum sits beyond the audited
+// neighbourhood, so the deviation is not a meaningful misalignment.
 const AUDIT = {
   good:    { color: "#22c55e", glyph: "✓" },
   review:  { color: "#f59e0b", glyph: "!" },
@@ -903,11 +903,10 @@ const AUDIT = {
   unknown: { color: "#64748b", glyph: "?" },
 };
 const auditLabel = (verdict) => t(`radar.audit.${verdict}`);
-const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
 
-// Misalignment is judged relative to the PROVINCE's own size, not a fixed km value:
-// `scale` is the size-dependent maximum distance that can still count as misalignment.
-// Beyond it, the optimal is simply in a different part of the region → "far" (neutral).
+// Misalignment is judged relative to the audited LOCAL radius, not a fixed km value:
+// `scale` is the maximum distance that can still count as misalignment. Beyond it,
+// the optimal is outside the build's own neighbourhood → "far" (neutral).
 function verdictFor(km, scale) {
   if (km == null) return "unknown";
   if (km <= 0.30 * scale) return "good";
@@ -916,15 +915,25 @@ function verdictFor(km, scale) {
   return "far";
 }
 
-// Cache ML optimal-site lookups per district+amenity (avoids N duplicate calls).
+// Radius (km) of the LOCAL neighbourhood the Radar audits a planned build within.
+// The question the Radar answers is "for THIS building, is there a better spot
+// nearby?" — so the model searches around the build's own location, not across the
+// whole province.
+const RADAR_LOCAL_RADIUS_KM = 12;
+
+// Cache local optimal-site lookups per rounded location + amenity (avoids N
+// duplicate calls when several projects share a town).
 const recoCache = {};
-async function mlOptimalSites(district, amenity) {
-  const key = `${district}|${amenity}`;
+async function mlLocalOptimalSites(lat, lon, amenity) {
+  const key = `${lat.toFixed(2)},${lon.toFixed(2)}|${amenity}`;
   if (recoCache[key]) return recoCache[key];
   const p = (async () => {
     try {
+      // Point + radius => the placement model sweeps a candidate mesh centred on
+      // the build and returns the highest-impact sites *inside that local area*.
       const url = `${ML_BASE_URL}/recommend?amenity=${encodeURIComponent(amenity)}` +
-                  `&district=${encodeURIComponent(district)}&top=3`;
+                  `&lat=${lat}&lon=${lon}&radius_km=${RADAR_LOCAL_RADIUS_KM}` +
+                  `&top=3&min_separation_km=2&grid=24`;
       const res = await fetch(url);
       if (!res.ok) return [];
       const data = await res.json();
@@ -935,40 +944,25 @@ async function mlOptimalSites(district, amenity) {
   return p;
 }
 
-// Characteristic radius (km) of a province = 90th-percentile settlement distance from
-// its centroid. Drives the size-dependent misalignment scale. Cached per district.
-const provinceScaleCache = {};
-async function provinceScaleKm(district) {
-  if (district in provinceScaleCache) return provinceScaleCache[district];
-  let scale = 22;   // safe default if the matrix can't be fetched
-  try {
-    const cells = (await fetchMatrix(district)).cells || [];
-    if (cells.length >= 3) {
-      const lat = cells.reduce((s, c) => s + c.lat, 0) / cells.length;
-      const lon = cells.reduce((s, c) => s + c.lon, 0) / cells.length;
-      const d = cells.map((c) => haversineKm(lat, lon, c.lat, c.lon)).sort((a, b) => a - b);
-      const r = d[Math.floor(d.length * 0.9)];     // province "radius"
-      scale = clamp(r, 10, 35);                     // size-dependent, hard-capped at 35 km
-    }
-  } catch { /* keep default */ }
-  provinceScaleCache[district] = scale;
-  return scale;
-}
-
-// Cross-reference one project against the model's optimal sites for its district.
+// Cross-reference one planned build against the model's best site *within its own
+// local area*. The misalignment scale is the local search radius: a build sitting
+// on the locally-optimal spot is "good"; one on the far edge of its own
+// neighbourhood is "flag".
 async function auditProject(p) {
-  if (p.lat == null || p.lon == null || !p.district) {
+  if (p.lat == null || p.lon == null) {
     return { verdict: "unknown", km: null, optimal: null, scale: null };
   }
-  const sites = await mlOptimalSites(p.district, p.amenityType);
+  const sites = await mlLocalOptimalSites(p.lat, p.lon, p.amenityType);
   if (!sites.length) return { verdict: "unknown", km: null, optimal: null, scale: null };
   let best = null, bestKm = Infinity;
   for (const s of sites) {
     const km = haversineKm(p.lat, p.lon, s.lat, s.lon);
     if (km < bestKm) { bestKm = km; best = s; }
   }
-  const scale = await provinceScaleKm(p.district);
-  return { verdict: verdictFor(bestKm, scale), km: bestKm, optimal: best, scale };
+  return {
+    verdict: verdictFor(bestKm, RADAR_LOCAL_RADIUS_KM),
+    km: bestKm, optimal: best, scale: RADAR_LOCAL_RADIUS_KM,
+  };
 }
 
 function radarPinIcon(amenityColor, verdict) {
